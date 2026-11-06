@@ -1,0 +1,33 @@
+[project]
+name = "smart-parking"
+version = "0.1.0"
+description = "Local prototype for two-bay smart parking monitoring and visitor permits."
+readme = "README.md"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "loguru>=0.7.3",
+    "numpy>=2.3",
+    "pydantic>=2.12",
+    "pyyaml>=6.0.3",
+    "torch>=2.9",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4",
+    "ruff>=0.14",
+]
+
+[build-system]
+requires = ["uv_build>=0.9,<0.14"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "T20"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

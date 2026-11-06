@@ -1,0 +1,9 @@
+# Default project configuration.
+seed: 42
+timezone: Asia/Dubai
+
+logging:
+  level: INFO
+  file: logs/smart_parking.log
+  rotation: 10 MB
+  retention: 5
