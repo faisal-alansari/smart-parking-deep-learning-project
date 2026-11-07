@@ -42,3 +42,10 @@ occupancy:
   baseline_size: 64
   hog_c_grid: [0.001, 0.003, 0.01, 0.1, 1.0]
   bootstrap_samples: 1000
+
+plate_data:
+  raw_root: data/raw/adding_uae
+  processed_dir: data/processed/plates
+  report_dir: outputs/plates/data
+  workers: 8
+  near_duplicate_max_distance: 4

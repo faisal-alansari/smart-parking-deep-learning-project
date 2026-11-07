@@ -1,0 +1,152 @@
+{
+  "images": 9985,
+  "boxes": 86294,
+  "per_split": {
+    "train": {
+      "images": 6990,
+      "plate_boxes": 8705,
+      "plates_with_characters": 7742
+    },
+    "valid": {
+      "images": 1997,
+      "plate_boxes": 2518,
+      "plates_with_characters": 2263
+    },
+    "test": {
+      "images": 998,
+      "plate_boxes": 1245,
+      "plates_with_characters": 1101
+    }
+  },
+  "class_counts": {
+    "plate": 12468,
+    "1": 5888,
+    "2": 5671,
+    "9": 5543,
+    "7": 5449,
+    "5": 5436,
+    "3": 5375,
+    "8": 5365,
+    "4": 5281,
+    "6": 5228,
+    "old_DUBAI": 5066,
+    "0": 4699,
+    "new_DUBAI": 2878,
+    "old_abudabi": 932,
+    "old_sharka": 713,
+    "L": 496,
+    "S": 473,
+    "M": 472,
+    "old_fujira": 468,
+    "R": 446,
+    "T": 440,
+    "P": 439,
+    "O": 414,
+    "K": 400,
+    "Q": 393,
+    "U": 390,
+    "J": 382,
+    "A": 374,
+    "N": 374,
+    "B": 373,
+    "F": 369,
+    "G": 366,
+    "D": 364,
+    "E": 361,
+    "C": 335,
+    "I": 321,
+    "W": 300,
+    "H": 291,
+    "V": 287,
+    "new_abudabi": 272,
+    "old_RAK": 183,
+    "old_ajman": 156,
+    "old_am": 101,
+    "new_RAK": 74,
+    "X": 67,
+    "new_ajman": 50,
+    "new_am": 29,
+    "new_fujairah": 17,
+    "Y": 15,
+    "Z": 7,
+    "exp": 3
+  },
+  "plate_types": {
+    "old_DUBAI": 5036,
+    "new_DUBAI": 2840,
+    "old_abudabi": 888,
+    "old_sharka": 642,
+    "old_fujira": 424,
+    "new_abudabi": 258,
+    "old_ajman": 130,
+    "old_RAK": 111,
+    "old_am": 68,
+    "new_RAK": 66,
+    "new_ajman": 45,
+    "new_am": 27,
+    "new_fujairah": 11,
+    "exp": 1
+  },
+  "plates_without_type_box": 1921,
+  "plates_without_characters": 1362,
+  "boxes_outside_any_plate": 2404,
+  "plates_per_image": {
+    "1": 7290,
+    "2": 1903,
+    "3": 374,
+    "4": 47,
+    "5": 11,
+    "7": 1
+  },
+  "plate_style_filenames": 9135,
+  "filename_vs_labels_plate_named": {
+    "exact": 8619,
+    "no_chars": 331,
+    "partial": 185
+  },
+  "filename_vs_labels_other_names": {
+    "partial": 591,
+    "exact": 212,
+    "no_chars": 47
+  },
+  "image_kinds": {
+    "car_photo": 9442,
+    "plate_only_no_plate_box": 359,
+    "plate_closeup": 184
+  },
+  "image_kinds_per_split": {
+    "test": {
+      "car_photo": 949,
+      "plate_closeup": 17,
+      "plate_only_no_plate_box": 32
+    },
+    "train": {
+      "car_photo": 6594,
+      "plate_closeup": 128,
+      "plate_only_no_plate_box": 268
+    },
+    "valid": {
+      "car_photo": 1899,
+      "plate_closeup": 39,
+      "plate_only_no_plate_box": 59
+    }
+  },
+  "filename_identities": 8917,
+  "filename_identities_with_several_images": 218,
+  "filename_identities_in_several_splits": 92,
+  "plate_identities": 9688,
+  "plate_identities_with_several_images": 272,
+  "plate_identities_in_several_splits": 118,
+  "images_with_identity_in_several_splits": 254,
+  "exact_duplicate_images": 0,
+  "near_duplicate_pairs": 2047,
+  "near_duplicate_pairs_across_splits": 859,
+  "near_duplicate_car_photo_pairs_across_splits": 42,
+  "char_height_px_quantiles": {
+    "0.05": 16.0,
+    "0.25": 27.0,
+    "0.5": 34.0,
+    "0.75": 41.5,
+    "0.95": 55.5
+  }
+}

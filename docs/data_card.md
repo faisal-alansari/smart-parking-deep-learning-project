@@ -26,7 +26,8 @@ The `data/` folder is not stored in Git. This card explains where each dataset c
 - **Source:** https://universe.roboflow.com/addinguae/uae-zcfqj (Roboflow export "UAE v1", YOLOv11 format). Unzip into `data/raw/adding_uae/`.
 - **License:** CC BY 4.0 (from the Roboflow page).
 - **Contents (from the dataset page):** about 10,000 images; 51 classes: `plate`, digits 0–9, letters A–Z, `exp`, and new/old plate types for the seven emirates. The downloaded export is split 70/20/10 at random: 6,990 train, 1,997 validation, 998 test images.
-- **Status:** audit pending. The random split may put the same plate in train and test; it will be checked and re-split by full plate identity if needed.
+- **Audit (`just audit-plates`, report in `outputs/plates/data/audit_report.md`):** 86,294 boxes, no exact duplicate images, no augmentation. File names usually carry the main plate's text (e.g. `K-67810`); among plate-style names, 8,619 labels match the name exactly, 185 partly (about half label mistakes, a quarter name mistakes, the rest hidden or cut-off plates). 359 plate-only images have character boxes but no `plate` box. 184 images are plate close-ups. Some car photos are mock-ups (the same car with different plates edited in). Plate types are mostly Dubai (old 5,036, new 2,840); new-style Sharjah plates are missing. Rare classes: Y (15), Z (7), `exp` (3).
+- **Leakage in the export split:** 118 plate identities (254 images) appear in more than one split, and 42 near-identical car photos cross splits. A re-split by plate identity and image similarity is needed.
 - **Fine-tuning cap:** every image used for fine-tuning counts. Ledger to be added in the audit step.
 
 ## 3. Owner's local videos (planned)

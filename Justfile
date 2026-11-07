@@ -27,6 +27,10 @@ train-occupancy:
 evaluate-occupancy:
     uv run python -m smart_parking.occupancy.final --evaluate
 
+# Audit the AddingUAE plate data: counts, label checks, duplicates, leakage
+audit-plates:
+    uv run python -m smart_parking.plates.data.audit
+
 # Run tests
 test:
     uv run pytest

@@ -69,6 +69,18 @@ class OccupancyTrainConfig(BaseModel):
     bootstrap_samples: int = 1000
 
 
+class PlateDataConfig(BaseModel):
+    """Paths and rules for auditing and preparing the AddingUAE plate data."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    raw_root: Path = Path("data/raw/adding_uae")
+    processed_dir: Path = Path("data/processed/plates")
+    report_dir: Path = Path("outputs/plates/data")
+    workers: int = 8
+    near_duplicate_max_distance: int = 4
+
+
 class ProjectConfig(BaseModel):
     """Top-level project configuration."""
 
@@ -79,6 +91,7 @@ class ProjectConfig(BaseModel):
     logging: LoggingConfig = LoggingConfig()
     occupancy_data: OccupancyDataConfig = OccupancyDataConfig()
     occupancy: OccupancyTrainConfig = OccupancyTrainConfig()
+    plate_data: PlateDataConfig = PlateDataConfig()
 
 
 def load_config(path: Path = DEFAULT_CONFIG_PATH) -> ProjectConfig:

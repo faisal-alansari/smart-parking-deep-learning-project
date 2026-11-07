@@ -53,6 +53,12 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 - **Outcome:** Worked. After the move, all data and result files were rebuilt and are identical to before; tests and lint pass.
 - **Next:** Keep this layout for every new component. Next: audit the AddingUAE plate data.
 
+### 2026-11-07 | AddingUAE plate data audit
+
+- **Decision / reason:** Audit the plate data before fine-tuning YOLO11n, because its quality, leakage and coverage decide what results we can trust.
+- **Outcome:** Mostly good data with fixable problems. File names carry the main plate's text, which gave a free label check: about 98% of named car photos match their labels exactly. Problems: the export's random split leaks 118 plate identities across splits; 359 plate-only images lack a `plate` box (training on them would teach the model to ignore visible plates); some photos are mock-ups with edited plates; Dubai dominates and new-style Sharjah plates are missing. YOLO11n (about 2.6M parameters) installs and runs on Python 3.14 (ultralytics, AGPL-3.0 license).
+- **Next:** Owner to approve the subset and split plan (verified car photos only, split by plate identity and image similarity, about 4,500 items against the 10,000 cap). Then fine-tune.
+
 ## Decision log
 
 For each **meaningful** new decision, add one short entry:
