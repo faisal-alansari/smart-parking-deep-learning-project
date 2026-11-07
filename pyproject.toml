@@ -11,6 +11,9 @@ dependencies = [
     "pillow>=12.0",
     "pydantic>=2.12",
     "pyyaml>=6.0.3",
+    "scikit-image>=0.25",
+    "scikit-learn>=1.7",
+    "tensorboard>=2.20",
     "torch>=2.9",
 ]
 

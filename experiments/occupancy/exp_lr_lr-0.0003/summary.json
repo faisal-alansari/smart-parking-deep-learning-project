@@ -1,0 +1,52 @@
+{
+  "run": "exp_lr_lr-0.0003",
+  "seed": 42,
+  "params": 294129,
+  "best_epoch": 15,
+  "threshold": 0.43895295771956466,
+  "val": {
+    "f1": 0.9908436088389695,
+    "recall": 0.9889119044717923,
+    "precision": 0.992782874617737,
+    "fpr": 0.01309074772575993,
+    "accuracy": 0.9882019820670127
+  },
+  "val_f1_at_0.5": 0.990648493368376,
+  "train_seconds": 69.7,
+  "config": {
+    "dataset_csv": "data/processed/occupancy_dataset.csv",
+    "raw_root": "data/CNN-training",
+    "cache_dir": "data/processed/cache",
+    "run_dir": "experiments/occupancy",
+    "checkpoint_dir": "checkpoints/occupancy",
+    "results_dir": "outputs/occupancy",
+    "input_size": 64,
+    "channels": [
+      16,
+      32,
+      64,
+      128
+    ],
+    "dropout": 0.3,
+    "augment": "photo",
+    "batch_size": 256,
+    "epochs": 15,
+    "lr": 0.0003,
+    "weight_decay": 0.0001,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "min_val_gain": 0.002,
+    "baseline_size": 64,
+    "hog_c_grid": [
+      0.001,
+      0.003,
+      0.01,
+      0.1,
+      1.0
+    ],
+    "bootstrap_samples": 1000
+  }
+}

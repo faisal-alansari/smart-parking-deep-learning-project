@@ -1,6 +1,7 @@
 """Typed project configuration loaded from YAML."""
 
 from pathlib import Path
+from typing import Literal
 
 import yaml
 from pydantic import BaseModel, ConfigDict
@@ -38,6 +39,36 @@ class OccupancyDataConfig(BaseModel):
     train_target_per_class: int = 20000
 
 
+class OccupancyTrainConfig(BaseModel):
+    """Baselines, OccupancyCNN training and evaluation settings."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    dataset_csv: Path = Path("data/processed/occupancy_dataset.csv")
+    raw_root: Path = Path("data/CNN-training")
+    cache_dir: Path = Path("data/processed/cache")
+    run_dir: Path = Path("experiments/occupancy")
+    checkpoint_dir: Path = Path("checkpoints/occupancy")
+    results_dir: Path = Path("outputs/occupancy")
+    # OccupancyCNN
+    input_size: int = 64
+    channels: list[int] = [16, 32, 64, 128]
+    dropout: float = 0.3
+    augment: Literal["none", "photo", "photo_hflip"] = "photo"
+    batch_size: int = 256
+    epochs: int = 15
+    lr: float = 1e-3
+    weight_decay: float = 1e-4
+    seeds: list[int] = [42, 43, 44]
+    # An option replaces the current choice only if validation F1 rises by more than this
+    min_val_gain: float = 0.002
+    # Baselines
+    baseline_size: int = 64
+    hog_c_grid: list[float] = [0.001, 0.003, 0.01, 0.1, 1.0]
+    # Evaluation
+    bootstrap_samples: int = 1000
+
+
 class ProjectConfig(BaseModel):
     """Top-level project configuration."""
 
@@ -47,6 +78,7 @@ class ProjectConfig(BaseModel):
     timezone: str = "Asia/Dubai"
     logging: LoggingConfig = LoggingConfig()
     occupancy_data: OccupancyDataConfig = OccupancyDataConfig()
+    occupancy: OccupancyTrainConfig = OccupancyTrainConfig()
 
 
 def load_config(path: Path = DEFAULT_CONFIG_PATH) -> ProjectConfig:

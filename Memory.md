@@ -38,8 +38,14 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 ### 2026-11-07 | Occupancy baselines and training rules
 
 - **Decision / reason:** Two baselines only: a texture threshold (inspection showed empty bays look flat, so this tests whether the CNN learns more than "flat = free") and HOG + logistic regression (the classical method named in the plan). mAlexNet was proposed as a third baseline and rejected by the owner. Image difference waits for the owner's videos, since it needs a fixed camera and an empty reference frame. Metrics: F1, recall, precision, false positive rate and accuracy for "occupied", with confidence intervals and 3 seeds for the CNN. Validation data alone is used for model choice, settings and thresholds; all test sets stay untouched until the final comparison. Vertical flips are never used; horizontal flips only if a validation experiment supports them.
-- **Outcome:** Pending. Agreed plan, no results yet.
-- **Next:** Build both baselines, train the OccupancyCNN, run the training-choice experiments, then stop after the final comparison for owner review.
+- **Outcome:** Done; results are in the next entry.
+- **Next:** See next entry.
+
+### 2026-11-07 | OccupancyCNN on public data: training choices and final comparison
+
+- **Decision / reason:** Small CNN (about 294k parameters, far under the 50M limit) trained from scratch on the 40k balanced crops. Tested learning rate, augmentation (none / brightness-contrast-blur-shift / plus horizontal flips), regularization and input size (64 vs 96 px) on validation, one setting at a time. A new option had to beat the current one by more than 0.002 val F1.
+- **Outcome:** The starting settings were kept (lr 0.001, brightness/contrast/blur/shift augmentation, light regularization, 64 px). All options were within about 0.003 val F1 of each other, so the CNN is not sensitive to these choices here; the differences are inconclusive. Horizontal flips did not help, so they are not used. 96 px took 2.3× longer with no gain, so 64 px stays. On the test sets (3 seeds), the CNN beats both baselines: F1 0.993 on same cameras, 0.988 on the unseen camera, 0.929 on the unseen site (HOG baseline: 0.946, 0.965, 0.854). Two lessons. (1) The baselines lost much more than the CNN between validation and test, mainly through false alarms; a threshold tuned on one class mix transfers poorly. (2) The unseen site is the clear weak point (about 8% false alarms), which supports the need for local video data.
+- **Next:** Owner review. Later: calibration, cost-based thresholds and robustness, then adapt and test on the owner's videos.
 
 ## Decision log
 

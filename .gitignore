@@ -5,3 +5,4 @@ __pycache__/
 logs/
 .DS_Store
 /data/
+checkpoints/occupancy/exp_*.pt

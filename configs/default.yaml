@@ -19,3 +19,26 @@ occupancy_data:
   dark_threshold: 15.0
   near_copy_max_distance: 4
   train_target_per_class: 20000
+
+occupancy:
+  dataset_csv: data/processed/occupancy_dataset.csv
+  raw_root: data/CNN-training
+  cache_dir: data/processed/cache
+  run_dir: experiments/occupancy
+  checkpoint_dir: checkpoints/occupancy
+  results_dir: outputs/occupancy
+  # OccupancyCNN settings. Confirmed by the validation experiments
+  # (`just occupancy-experiments`, outputs/occupancy/experiments_val.md).
+  input_size: 64
+  channels: [16, 32, 64, 128]
+  dropout: 0.3
+  augment: photo
+  batch_size: 256
+  epochs: 15
+  lr: 0.001
+  weight_decay: 0.0001
+  seeds: [42, 43, 44]
+  min_val_gain: 0.002
+  baseline_size: 64
+  hog_c_grid: [0.001, 0.003, 0.01, 0.1, 1.0]
+  bootstrap_samples: 1000
