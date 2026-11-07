@@ -24,7 +24,7 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 
 ### 2026-11-06 | Own-site video data: budget, timing and recording plan
 
-- **Decision / reason:** The owner records phone videos of the two real bays, because public data looks very different from the real site and has almost no night images. Data for the from-scratch occupancy model is outside the 10,000 fine-tuning cap; plate images from these videos used to fine-tune YOLO do count. Use frames sampled every few seconds, not every frame, since nearby frames are near-copies.
+- **Decision / reason:** The owner records phone videos of the two real bays, because public data looks very different from the real site and has almost no night images. Data for the from-scratch occupancy model is outside the 10,000 fine-tuning cap; plate images from these videos used to fine-tune YOLO would count (superseded on 2026-11-07: videos will not be used for plate fine-tuning). Use frames sampled every few seconds, not every frame, since nearby frames are near-copies.
 - **Plan:** 9 sessions of about 15 minutes with the same script (both empty → bay 1 parked → both parked → bay 1 leaves → bay 2 leaves), each with one extra event (plate test, passing car, partial entry, reverse-in, person walking, bad parking, headlight glare). Sessions 1–7 cover morning, noon, afternoon, dusk and night for training; sessions 8 (day) and 9 (night), on different days, are never trained on. The owner writes down when each bay changes, so frames can be labelled from the times.
 - **Outcome:** Pending. Recording runs in parallel with training on public data. Local data is added after the public-only model works, so the two can be compared.
 - **Next:** Record. Confirm with the professor that further training our own scratch model on local data is not counted as fine-tuning.
@@ -57,7 +57,14 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 
 - **Decision / reason:** Audit the plate data before fine-tuning YOLO11n, because its quality, leakage and coverage decide what results we can trust.
 - **Outcome:** Mostly good data with fixable problems. File names carry the main plate's text, which gave a free label check: about 98% of named car photos match their labels exactly. Problems: the export's random split leaks 118 plate identities across splits; 359 plate-only images lack a `plate` box (training on them would teach the model to ignore visible plates); some photos are mock-ups with edited plates; Dubai dominates and new-style Sharjah plates are missing. YOLO11n (about 2.6M parameters) installs and runs on Python 3.14 (ultralytics, AGPL-3.0 license).
-- **Next:** Owner to approve the subset and split plan (verified car photos only, split by plate identity and image similarity, about 4,500 items against the 10,000 cap). Then fine-tune.
+- **Next:** Superseded: the 4,500-image plan was replaced by the 7,000-image plan in the next entry.
+
+### 2026-11-07 | Plate subset, split and fine-tuning budget (agreed)
+
+- **Decision / reason:** The owner's videos will focus on cars entering and leaving the two bays and will show only 2–3 different plates. That is far too few to teach plate reading, so YOLO11n will **not** be fine-tuned on video frames; those frames are only a real-site check (is the plate readable from the camera spot, and are the owner's plates read correctly). This supersedes the earlier note that video plate images would be used for fine-tuning. The large reserve kept for video plates is no longer needed, so the plate set grows from 4,500 to **7,000 images: 5,000 train, 1,000 validation, 1,000 test**, leaving about 3,000 of the 10,000 cap in reserve (local occupancy crops if the professor counts them, test frames, safety margin).
+- **Rules:** Car photos only (no plate-only or close-up images). Images whose labels exactly match the file name (verified), except that unverified RAK and UAQ car photos may be added to train only after a visual check, because so few are verified. Split by plate identity and image similarity, so the same plate or near-identical photos (including mock-ups) never cross splits. Include all plates from the smaller emirates and every image with X, Y or Z. Count every image (train, validation and test) in the ledger. A 2,500 vs 5,000 training-size comparison will serve as the quality-vs-cost study.
+- **Outcome:** Agreed by the owner on 2026-11-07. Known gaps: new-style Sharjah plates are absent and UAQ is too small to test reliably; both go to `NEEDS_REVIEW` and are reported as limits.
+- **Next:** Build the subset, split and ledger, then stop for owner review before fine-tuning.
 
 ## Decision log
 
