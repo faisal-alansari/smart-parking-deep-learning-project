@@ -6,3 +6,8 @@ logs/
 .DS_Store
 /data/
 checkpoints/occupancy/exp_*.pt
+checkpoints/plates/pretrained/
+checkpoints/plates/exp_*.pt
+experiments/plates/*/weights/
+experiments/plates/*/*_batch*.jpg
+experiments/plates/*/labels.jpg

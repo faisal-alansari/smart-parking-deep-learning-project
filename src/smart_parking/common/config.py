@@ -89,6 +89,32 @@ class PlateDataConfig(BaseModel):
     review_only_emirates: list[str] = ["Umm Al Quwain", "unknown"]
 
 
+class PlateTrainConfig(BaseModel):
+    """YOLO11n fine-tuning, plate reading thresholds and evaluation settings."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    yolo_dir: Path = Path("data/processed/plates/yolo")
+    ledger_csv: Path = Path("outputs/plates/data/finetune_ledger.csv")
+    pretrained_weights: Path = Path("checkpoints/plates/pretrained/yolo11n.pt")
+    run_dir: Path = Path("experiments/plates")
+    checkpoint_dir: Path = Path("checkpoints/plates")
+    results_dir: Path = Path("outputs/plates")
+    device: str = "mps"
+    workers: int = 4
+    batch: int = 16
+    epochs: int = 30
+    patience: int = 10
+    imgsz: int = 640
+    # None = full fine-tuning; 23 = freeze layers 0-22 (train the detection head only)
+    freeze: int | None = None
+    train_size: int = 5000
+    seeds: list[int] = [42, 43, 44]
+    conf_grid: list[float] = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
+    min_val_gain: float = 0.005
+    bootstrap_samples: int = 1000
+
+
 class ProjectConfig(BaseModel):
     """Top-level project configuration."""
 
@@ -100,6 +126,7 @@ class ProjectConfig(BaseModel):
     occupancy_data: OccupancyDataConfig = OccupancyDataConfig()
     occupancy: OccupancyTrainConfig = OccupancyTrainConfig()
     plate_data: PlateDataConfig = PlateDataConfig()
+    plates: PlateTrainConfig = PlateTrainConfig()
 
 
 def load_config(path: Path = DEFAULT_CONFIG_PATH) -> ProjectConfig:

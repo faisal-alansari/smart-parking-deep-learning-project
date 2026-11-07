@@ -57,3 +57,24 @@ plate_data:
   manual_review_file: configs/plates_manual_review.yaml
   # Too few examples to train or test (agreed 2026-11-07); sent straight to human review.
   review_only_emirates: ["Umm Al Quwain", "unknown"]
+
+plates:
+  yolo_dir: data/processed/plates/yolo
+  ledger_csv: outputs/plates/data/finetune_ledger.csv
+  pretrained_weights: checkpoints/plates/pretrained/yolo11n.pt
+  run_dir: experiments/plates
+  checkpoint_dir: checkpoints/plates
+  results_dir: outputs/plates
+  device: mps
+  workers: 4
+  batch: 16
+  epochs: 30
+  patience: 10
+  # Starting point; final values come from `just plate-experiments` (validation only).
+  imgsz: 640
+  freeze: null          # null = full fine-tuning; 23 = train the detection head only
+  train_size: 5000
+  seeds: [42, 43, 44]
+  conf_grid: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
+  min_val_gain: 0.005
+  bootstrap_samples: 1000

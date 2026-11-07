@@ -35,6 +35,22 @@ audit-plates:
 prepare-plates:
     uv run python -m smart_parking.plates.data.split
 
+# Download the pretrained YOLO11n weights (Ultralytics release asset)
+download-weights:
+    YOLO_OFFLINE=1 uv run python -c "from ultralytics import YOLO; YOLO('checkpoints/plates/pretrained/yolo11n.pt')"
+
+# YOLO11n training-choice experiments and from-scratch baseline (validation only)
+plate-experiments:
+    uv run python -m smart_parking.plates.experiments
+
+# Train the selected YOLO11n settings once per seed
+train-plates:
+    uv run python -m smart_parking.plates.final --train
+
+# Final comparison of fine-tuned YOLO11n and the from-scratch baseline on the test split
+evaluate-plates:
+    uv run python -m smart_parking.plates.final --evaluate
+
 # Run tests
 test:
     uv run pytest

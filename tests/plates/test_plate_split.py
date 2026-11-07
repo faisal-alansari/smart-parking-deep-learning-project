@@ -54,3 +54,13 @@ def test_leakage_check_catches_shared_identity():
     )
     with pytest.raises(ValueError):
         check_no_leakage(out)
+
+
+def test_remap_drops_removed_classes():
+    from smart_parking.plates.classes import remap_table
+    from smart_parking.plates.data.split import remap_label_text
+
+    names = ["0", "exp", "plate", "old_am", "old_DUBAI"]
+    table = remap_table(names)
+    text = "0 .5 .5 .1 .1\n1 .5 .5 .1 .1\n2 .5 .5 .2 .2\n3 .1 .1 .1 .1\n4 .3 .3 .1 .1\n"
+    assert remap_label_text(text, table) == "0 .5 .5 .1 .1\n1 .5 .5 .2 .2\n2 .3 .3 .1 .1\n"

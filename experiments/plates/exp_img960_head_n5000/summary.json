@@ -1,0 +1,28 @@
+{
+  "run": "exp_img960_head_n5000",
+  "seed": 42,
+  "pretrained": true,
+  "imgsz": 960,
+  "freeze": 23,
+  "train_size": 5000,
+  "params": 2616304,
+  "threshold": 0.1,
+  "val": {
+    "exact_match": 0.038,
+    "coverage": 0.794,
+    "answered_accuracy": 0.04785894206549118,
+    "misread_rate": 0.756,
+    "plate_found": 0.991,
+    "emirate_accuracy": 0.773,
+    "cer": 0.543647619047619
+  },
+  "train_seconds": 3741.8,
+  "epochs_run": 30,
+  "val_detection": {
+    "map50": 0.3225858355807454,
+    "map50_95": 0.20890225781468463,
+    "mean_precision": 0.4600018195737662,
+    "mean_recall": 0.3296322830286167,
+    "n_val": 48
+  }
+}

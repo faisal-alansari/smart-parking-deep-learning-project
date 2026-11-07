@@ -21,6 +21,7 @@ import yaml
 from loguru import logger
 
 from smart_parking.common.config import PlateDataConfig
+from smart_parking.plates.classes import remap_table, target_names
 
 RARE_CHARS = ("X", "Y", "Z")
 # Dataset type-class spellings -> emirate names.
@@ -138,8 +139,19 @@ def check_no_leakage(selected: pd.DataFrame) -> None:
     logger.bind(stage="plate_split").info("Leakage checks passed")
 
 
+def remap_label_text(text: str, table: dict[int, int]) -> str:
+    """Rewrite a YOLO label file to training class ids, dropping removed classes."""
+    out = []
+    for line in text.split("\n"):
+        parts = line.split()
+        if parts and int(parts[0]) in table:
+            out.append(" ".join([str(table[int(parts[0])]), *parts[1:]]))
+    return "\n".join(out) + ("\n" if out else "")
+
+
 def write_yolo_dataset(selected: pd.DataFrame, cfg: PlateDataConfig, names: list[str]) -> Path:
-    """YOLO folder layout with symlinked images and copied labels, plus data.yaml."""
+    """YOLO folder layout with symlinked images and remapped labels, plus data.yaml."""
+    table = remap_table(names)
     root = cfg.processed_dir / "yolo"
     for split in SPLITS:
         for sub in ("images", "labels"):
@@ -151,14 +163,16 @@ def write_yolo_dataset(selected: pd.DataFrame, cfg: PlateDataConfig, names: list
         src_img = (cfg.raw_root / r.source_split / "images" / r.image).resolve()
         src_lbl = cfg.raw_root / r.source_split / "labels" / f"{Path(r.image).stem}.txt"
         os.symlink(src_img, root / r.split / "images" / r.image)
-        (root / r.split / "labels" / src_lbl.name).write_text(src_lbl.read_text())
+        (root / r.split / "labels" / src_lbl.name).write_text(
+            remap_label_text(src_lbl.read_text(), table)
+        )
     data = {
         "path": str(root.resolve()),
         "train": "train/images",
         "val": "val/images",
         "test": "test/images",
-        "nc": len(names),
-        "names": names,
+        "nc": len(target_names(names)),
+        "names": target_names(names),
     }
     (root / "data.yaml").write_text(yaml.safe_dump(data, sort_keys=False))
     return root

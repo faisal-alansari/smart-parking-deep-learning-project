@@ -1,0 +1,228 @@
+{
+  "rows": [
+    {
+      "stage": "image_size",
+      "option": "{'imgsz': 640}",
+      "chosen": false,
+      "run": "exp_img640_full_n5000",
+      "seed": 42,
+      "pretrained": true,
+      "imgsz": 640,
+      "freeze": null,
+      "train_size": 5000,
+      "params": 2616304,
+      "threshold": 0.1,
+      "val": {
+        "exact_match": 0.348,
+        "coverage": 0.965,
+        "answered_accuracy": 0.3606217616580311,
+        "misread_rate": 0.617,
+        "plate_found": 0.998,
+        "emirate_accuracy": 0.948,
+        "cer": 0.2586095238095238
+      },
+      "train_seconds": 3415.2,
+      "epochs_run": 30,
+      "val_detection": {
+        "map50": 0.6131939958610096,
+        "map50_95": 0.4304814914309613,
+        "mean_precision": 0.7575361159422905,
+        "mean_recall": 0.5322016123124748,
+        "n_val": 48
+      }
+    },
+    {
+      "stage": "image_size",
+      "option": "{'imgsz': 960}",
+      "chosen": true,
+      "run": "exp_img960_full_n5000",
+      "seed": 42,
+      "pretrained": true,
+      "imgsz": 960,
+      "freeze": null,
+      "train_size": 5000,
+      "params": 2616304,
+      "threshold": 0.2,
+      "val": {
+        "exact_match": 0.697,
+        "coverage": 0.981,
+        "answered_accuracy": 0.7104994903160041,
+        "misread_rate": 0.284,
+        "plate_found": 0.999,
+        "emirate_accuracy": 0.967,
+        "cer": 0.09053809523809524
+      },
+      "train_seconds": 6580.4,
+      "epochs_run": 30,
+      "val_detection": {
+        "map50": 0.8379386829592484,
+        "map50_95": 0.6453626831323594,
+        "mean_precision": 0.9101760314449385,
+        "mean_recall": 0.7338552375634936,
+        "n_val": 48
+      }
+    },
+    {
+      "stage": "adaptation",
+      "option": "{'freeze': None}",
+      "chosen": true,
+      "run": "exp_img960_full_n5000",
+      "seed": 42,
+      "pretrained": true,
+      "imgsz": 960,
+      "freeze": null,
+      "train_size": 5000,
+      "params": 2616304,
+      "threshold": 0.2,
+      "val": {
+        "exact_match": 0.697,
+        "coverage": 0.981,
+        "answered_accuracy": 0.7104994903160041,
+        "misread_rate": 0.284,
+        "plate_found": 0.999,
+        "emirate_accuracy": 0.967,
+        "cer": 0.09053809523809524
+      },
+      "train_seconds": 6580.4,
+      "epochs_run": 30,
+      "val_detection": {
+        "map50": 0.8379386829592484,
+        "map50_95": 0.6453626831323594,
+        "mean_precision": 0.9101760314449385,
+        "mean_recall": 0.7338552375634936,
+        "n_val": 48
+      }
+    },
+    {
+      "stage": "adaptation",
+      "option": "{'freeze': 23}",
+      "chosen": false,
+      "run": "exp_img960_head_n5000",
+      "seed": 42,
+      "pretrained": true,
+      "imgsz": 960,
+      "freeze": 23,
+      "train_size": 5000,
+      "params": 2616304,
+      "threshold": 0.1,
+      "val": {
+        "exact_match": 0.038,
+        "coverage": 0.794,
+        "answered_accuracy": 0.04785894206549118,
+        "misread_rate": 0.756,
+        "plate_found": 0.991,
+        "emirate_accuracy": 0.773,
+        "cer": 0.543647619047619
+      },
+      "train_seconds": 3741.8,
+      "epochs_run": 30,
+      "val_detection": {
+        "map50": 0.3225858355807454,
+        "map50_95": 0.20890225781468463,
+        "mean_precision": 0.4600018195737662,
+        "mean_recall": 0.3296322830286167,
+        "n_val": 48
+      }
+    },
+    {
+      "stage": "train_size",
+      "option": "{'train_size': 5000}",
+      "chosen": true,
+      "run": "exp_img960_full_n5000",
+      "seed": 42,
+      "pretrained": true,
+      "imgsz": 960,
+      "freeze": null,
+      "train_size": 5000,
+      "params": 2616304,
+      "threshold": 0.2,
+      "val": {
+        "exact_match": 0.697,
+        "coverage": 0.981,
+        "answered_accuracy": 0.7104994903160041,
+        "misread_rate": 0.284,
+        "plate_found": 0.999,
+        "emirate_accuracy": 0.967,
+        "cer": 0.09053809523809524
+      },
+      "train_seconds": 6580.4,
+      "epochs_run": 30,
+      "val_detection": {
+        "map50": 0.8379386829592484,
+        "map50_95": 0.6453626831323594,
+        "mean_precision": 0.9101760314449385,
+        "mean_recall": 0.7338552375634936,
+        "n_val": 48
+      }
+    },
+    {
+      "stage": "train_size",
+      "option": "{'train_size': 2500}",
+      "chosen": false,
+      "run": "exp_img960_full_n2500",
+      "seed": 42,
+      "pretrained": true,
+      "imgsz": 960,
+      "freeze": null,
+      "train_size": 2500,
+      "params": 2616304,
+      "threshold": 0.1,
+      "val": {
+        "exact_match": 0.576,
+        "coverage": 0.978,
+        "answered_accuracy": 0.588957055214724,
+        "misread_rate": 0.402,
+        "plate_found": 0.999,
+        "emirate_accuracy": 0.959,
+        "cer": 0.12957380952380954
+      },
+      "train_seconds": 3436.4,
+      "epochs_run": 30,
+      "val_detection": {
+        "map50": 0.7233214394313229,
+        "map50_95": 0.5411792294049419,
+        "mean_precision": 0.8491337340108732,
+        "mean_recall": 0.6214945355735267,
+        "n_val": 48
+      }
+    },
+    {
+      "stage": "baseline_from_scratch",
+      "option": "random init",
+      "chosen": false,
+      "run": "exp_img960_full_n5000_scratch",
+      "seed": 42,
+      "pretrained": false,
+      "imgsz": 960,
+      "freeze": null,
+      "train_size": 5000,
+      "params": 2599200,
+      "threshold": 0.1,
+      "val": {
+        "exact_match": 0.001,
+        "coverage": 0.917,
+        "answered_accuracy": 0.0010905125408942203,
+        "misread_rate": 0.916,
+        "plate_found": 0.997,
+        "emirate_accuracy": 0.739,
+        "cer": 0.6761809523809524
+      },
+      "train_seconds": 6462.4,
+      "epochs_run": 30,
+      "val_detection": {
+        "map50": 0.1724819829878231,
+        "map50_95": 0.10896512233300519,
+        "mean_precision": 0.2181841801966993,
+        "mean_recall": 0.23449371651218825,
+        "n_val": 48
+      }
+    }
+  ],
+  "selected": {
+    "imgsz": 960,
+    "freeze": null,
+    "train_size": 5000,
+    "seed42_run": "exp_img960_full_n5000",
+    "baseline_run": "exp_img960_full_n5000_scratch"
+  }
+}

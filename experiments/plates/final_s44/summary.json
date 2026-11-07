@@ -1,0 +1,21 @@
+{
+  "run": "final_s44",
+  "seed": 44,
+  "pretrained": true,
+  "imgsz": 960,
+  "freeze": null,
+  "train_size": 5000,
+  "params": 2616304,
+  "threshold": 0.2,
+  "val": {
+    "exact_match": 0.695,
+    "coverage": 0.975,
+    "answered_accuracy": 0.7128205128205128,
+    "misread_rate": 0.28,
+    "plate_found": 0.997,
+    "emirate_accuracy": 0.962,
+    "cer": 0.0929857142857143
+  },
+  "train_seconds": 6518.9,
+  "epochs_run": 30
+}

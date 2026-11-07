@@ -78,11 +78,35 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 - **Outcome:** Agreed by the owner on 2026-11-07. Ajman train grows from 85 to about 117. Most new Fujairah photos are taxi plates from one fleet: a useful plate style, but little car variety.
 - **Next:** Done the same day. A random sample of 16 Sharjah photos was checked (11 approved, first 9 used; 5 rejected). The split was rebuilt: still 7,000 (5,000 / 1,000 / 1,000), no leakage; train now has Ajman 117, Fujairah 273, Sharjah 278 and Dubai 3,563. Next: owner approval of the fine-tuning plan.
 
-### 2026-11-07 | Proposed YOLO11n fine-tuning plan (pending approval)
+### 2026-11-07 | YOLO11n fine-tuning plan
 
-- **Plan:** Fine-tune pretrained YOLO11n (Ultralytics, about 2.6M parameters, pretrained on COCO, AGPL-3.0) to find the plate, each character and the emirate type in one pass. 49 classes (`plate`, 36 characters, 12 emirate types; `exp` and UAQ types removed). A fixed-rule assembler reads the characters in order and checks the format; UAQ, a missing emirate or an invalid format go to `NEEDS_REVIEW`. Primary metric: full-plate exact match; also character error rate, plate detection recall and precision, mAP, per-emirate accuracy and review rate. Baseline: YOLO11n trained from random weights on the same data. Validation-only experiments: image size 640 vs 960, head-only vs full fine-tuning, 2,500 vs 5,000 training images. Horizontal and vertical flips off (mirrored plates never occur). Final model: 3 seeds, test opened once at the end. Expected run time: half a day to a day in the background.
-- **Outcome:** Pending owner approval.
-- **Next:** Approve or change, then fine-tune.
+- **Plan:** Fine-tune pretrained YOLO11n (Ultralytics, about 2.6M parameters, pretrained on COCO, AGPL-3.0) to find the plate, each character and the emirate type in one pass. 48 classes (`plate`, 36 characters, 11 emirate types; the plan first said 49, a counting slip; `exp` and UAQ types removed). A fixed-rule assembler reads the characters in order and checks the format; UAQ, a missing emirate or an invalid format go to `NEEDS_REVIEW`. Primary metric: full-plate exact match; also character error rate, plate detection recall and precision, mAP, per-emirate accuracy and review rate. Baseline: YOLO11n trained from random weights on the same data. Validation-only experiments: image size 640 vs 960, head-only vs full fine-tuning, 2,500 vs 5,000 training images. Horizontal and vertical flips off (mirrored plates never occur). Final model: 3 seeds, test opened once at the end. Expected run time: half a day to a day in the background.
+- **Outcome:** Approved by the owner on 2026-11-07. Each run trains up to 30 epochs and stops early after 10 epochs without improvement on validation.
+- **Next:** Running; results in the entries below.
+
+### 2026-11-07 | Plate model: 960 px images instead of 640 px
+
+- **Decision / reason:** First training-choice test, on validation only: image size 640 vs 960. The car photos are large (1440×1280), and the plate characters become very small when shrunk to 640.
+- **Outcome:** 960 px won clearly and is now used for all later runs. Full-plate exact match rose from 35% to 70%, and the character error rate fell from 26% to 9%. Both sizes found the plate almost every time; the gap is in reading the small characters. The cost: training takes about twice as long (about 1.8 hours per run). Even at 960, about 28% of answered plates are still misread, which is too many for a gate.
+- **Next:** Continue the planned tests (head-only vs full, 2,500 vs 5,000 images, the from-scratch baseline). Idea, untested and pending owner decision: a second step that crops the found plate, enlarges it and reads the characters from the crop.
+
+### 2026-11-07 | Plate model: full fine-tuning, not head-only
+
+- **Decision / reason:** Second training-choice test on validation: train the whole network vs only the final detection layer (the rest frozen), which is cheaper and less likely to overfit.
+- **Outcome:** Head-only failed badly: 4% full-plate exact match vs 70% with full fine-tuning. It still found the plate 99% of the time but could not tell the characters apart. Features learned from everyday COCO photos do not cover plate characters, so the whole network must adapt. Full fine-tuning is kept. Head-only saved only about 40% of the training time.
+- **Next:** Keep full fine-tuning. Next test: 2,500 vs 5,000 training images.
+
+### 2026-11-07 | Plate model: training size and from-scratch baseline (validation)
+
+- **Decision / reason:** Last two validation tests. (1) Train on about half the images (2,500 vs 5,000) to see how much the extra data buys. (2) Train the same YOLO11n from random weights, with the same settings and 30 epochs, as the baseline for "does pretraining help?".
+- **Outcome:** Halving the data cut full-plate exact match from 70% to 58% and saved about half the training time, so more data clearly helps and the full 5,000 are kept. More data might help further, but that would use the reserve. The from-scratch model learned to find plates (99.7%) but read almost none correctly (0.1% exact match). Starting from pretrained weights is essential with this much data and time. This is a fair same-budget comparison; a scratch model given far longer training would do better.
+- **Next:** Final settings: 960 px, full fine-tuning, 5,000 images. Train seeds 43 and 44, then open the test set once.
+
+### 2026-11-07 | Plate model: final test result
+
+- **Decision / reason:** Trained the chosen setup (960 px, full fine-tuning, 5,000 images) with 3 seeds, then opened the test set once.
+- **Outcome:** Fine-tuned YOLO11n reads the full plate exactly right on 71% of test images (3 seeds agree within 0.4 points), finds the plate 99.9% of the time and the emirate 97%. The from-scratch baseline reads 0%. Test matches validation (70%), so the choices did not overfit validation. Weak point: 28% of answered plates are misread, which is too many to act on alone. Most misreads are one character off: a dropped character (often the first one, the code letter or digit), an extra repeated character, or a swapped look-alike digit (8/6, 9/8). Abu Dhabi, Ajman and Ras Al Khaimah are weaker, but their test groups are small. About 12 ms per image.
+- **Next:** Owner review. Ideas, untested and pending: read characters from an enlarged plate crop; send low-confidence or wrong-length reads to `NEEDS_REVIEW` (tuned on validation only); check the reads on the owner's own videos.
 
 ## Decision log
 
