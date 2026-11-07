@@ -10,6 +10,7 @@ The `data/` folder is not stored in Git. This card explains where each dataset c
 | `data/raw/adding_uae/` | AddingUAE plate dataset (YOLO format) |
 | `data/raw/local_videos/` | Owner's own recordings of the two bays (planned) |
 | `data/processed/occupancy/` | Built by `just prepare-data`: manifest, dataset with splits, image cache |
+| `data/processed/plates/` | Built by `just audit-plates` and `just prepare-plates`: box tables, YOLO folders for the subset |
 
 ## 1. CNRPark+EXT (occupancy model, trained from scratch)
 
@@ -28,7 +29,9 @@ The `data/` folder is not stored in Git. This card explains where each dataset c
 - **Contents (from the dataset page):** about 10,000 images; 51 classes: `plate`, digits 0–9, letters A–Z, `exp`, and new/old plate types for the seven emirates. The downloaded export is split 70/20/10 at random: 6,990 train, 1,997 validation, 998 test images.
 - **Audit (`just audit-plates`, report in `outputs/plates/data/audit_report.md`):** 86,294 boxes, no exact duplicate images, no augmentation. File names usually carry the main plate's text (e.g. `K-67810`); among plate-style names, 8,619 labels match the name exactly, 185 partly (about half label mistakes, a quarter name mistakes, the rest hidden or cut-off plates). 359 plate-only images have character boxes but no `plate` box. 184 images are plate close-ups. Some car photos are mock-ups (the same car with different plates edited in). Plate types are mostly Dubai (old 5,036, new 2,840); new-style Sharjah plates are missing. Rare classes: Y (15), Z (7), `exp` (3).
 - **Leakage in the export split:** 118 plate identities (254 images) appear in more than one split, and 42 near-identical car photos cross splits. A re-split by plate identity and image similarity is needed.
-- **Fine-tuning cap:** every image used for fine-tuning counts. Ledger to be added in the audit step.
+- **Fine-tuning subset (`just prepare-plates`):** 7,000 car photos, 5,000 train / 1,000 val / 1,000 test, re-split from scratch (the export's split is not used). 6,905 are verified (labels exactly match the file name). 95 RAK / UAQ car photos without a plate-style name were checked by eye and added to train only; 19 were rejected (`configs/plates_manual_review.yaml`). The same plate identity or near-identical photos never cross splits. All plates from the smaller emirates and all images with X, Y or Z are included; Dubai fills the rest. Val and test keep each emirate's share. Per-emirate counts: `outputs/plates/data/finetune_ledger.md`; full list: `finetune_ledger.csv`.
+- **Coverage limits:** RAK has only 10 val and 10 test images, UAQ only 1 each, and new-style Sharjah plates are absent, so results for these are not reliable.
+- **Fine-tuning cap:** all 7,000 selected images count (train, val and test).
 
 ## 3. Owner's local videos (planned)
 
@@ -39,6 +42,6 @@ Nine 15-minute sessions of the two real bays, with session notes giving when eac
 | Dataset | Items used for fine-tuning |
 |---|---|
 | CNRPark+EXT | 0 (from-scratch model) |
-| AddingUAE | pending |
-| Local videos | pending |
-| **Total** | **0** |
+| AddingUAE | 7,000 (5,000 train, 1,000 val, 1,000 test) |
+| Local videos | 0 planned for plate fine-tuning (2–3 plates; real-site check only) |
+| **Total** | **7,000 of 10,000** (3,000 left) |

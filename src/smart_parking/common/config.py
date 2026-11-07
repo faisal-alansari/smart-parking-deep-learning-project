@@ -79,6 +79,12 @@ class PlateDataConfig(BaseModel):
     report_dir: Path = Path("outputs/plates/data")
     workers: int = 8
     near_duplicate_max_distance: int = 4
+    # Fine-tuning subset (agreed 2026-11-07)
+    subset_total: int = 7000
+    val_size: int = 1000
+    test_size: int = 1000
+    finetune_cap: int = 10000
+    manual_review_file: Path = Path("configs/plates_manual_review.yaml")
 
 
 class ProjectConfig(BaseModel):

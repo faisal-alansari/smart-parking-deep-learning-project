@@ -31,6 +31,10 @@ evaluate-occupancy:
 audit-plates:
     uv run python -m smart_parking.plates.data.audit
 
+# Build the plate fine-tuning subset, leakage-safe splits, YOLO folders and item ledger
+prepare-plates:
+    uv run python -m smart_parking.plates.data.split
+
 # Run tests
 test:
     uv run pytest
