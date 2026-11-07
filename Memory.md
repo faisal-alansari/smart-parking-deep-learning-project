@@ -70,7 +70,19 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 
 - **Decision / reason:** The owner decided that Umm Al Quwain plates (37 images) and plates with no emirate box (44 images) are too few to train or test on. They are removed from the plate subset, and the product will send them straight to `NEEDS_REVIEW`.
 - **Outcome:** Done. The 81 freed places were refilled to keep 7,000 images (5,000 / 1,000 / 1,000). Every verified image from the other smaller emirates was already included, so the refill came from verified Dubai photos. No leakage; tests pass.
-- **Next:** Owner to approve the fine-tuning plan, then fine-tune YOLO11n.
+- **Next:** Superseded: the Dubai refill was replaced by checked non-Dubai photos (next entry).
+
+### 2026-11-07 | Refill the 81 places with checked non-Dubai photos
+
+- **Decision / reason:** Dubai already dominates, so the owner wants the 81 freed places used for the smaller emirates, especially Ajman and Ras Al Khaimah. A check of all non-Dubai images left out found no more RAK car photos (only 29 plate close-ups, which break the car-photos-only rule). 86 unverified Ajman and Fujairah car photos were checked by eye: 72 approved (32 Ajman, 40 Fujairah), 14 rejected for wrong or extra digits, a missing code letter, a sideways photo, or unreadable plates. The last 9 places come from checked Sharjah photos. All of these go to train only, as agreed for unverified photos, so val and test keep only verified labels.
+- **Outcome:** Agreed by the owner on 2026-11-07. Ajman train grows from 85 to about 117. Most new Fujairah photos are taxi plates from one fleet: a useful plate style, but little car variety.
+- **Next:** Check Sharjah photos, rebuild the split, then owner approval of the fine-tuning plan.
+
+### 2026-11-07 | Proposed YOLO11n fine-tuning plan (pending approval)
+
+- **Plan:** Fine-tune pretrained YOLO11n (Ultralytics, about 2.6M parameters, pretrained on COCO, AGPL-3.0) to find the plate, each character and the emirate type in one pass. 49 classes (`plate`, 36 characters, 12 emirate types; `exp` and UAQ types removed). A fixed-rule assembler reads the characters in order and checks the format; UAQ, a missing emirate or an invalid format go to `NEEDS_REVIEW`. Primary metric: full-plate exact match; also character error rate, plate detection recall and precision, mAP, per-emirate accuracy and review rate. Baseline: YOLO11n trained from random weights on the same data. Validation-only experiments: image size 640 vs 960, head-only vs full fine-tuning, 2,500 vs 5,000 training images. Horizontal and vertical flips off (mirrored plates never occur). Final model: 3 seeds, test opened once at the end. Expected run time: half a day to a day in the background.
+- **Outcome:** Pending owner approval.
+- **Next:** Approve or change, then fine-tune.
 
 ## Decision log
 
