@@ -1,18 +1,93 @@
-note: Visual check (2026-11-07) of unverified RAK / UAQ car photos with character labels. Approved images may be used for
-  training only.
+note: 'Visual checks (2026-11-07) of unverified car photos with character labels: RAK / UAQ, then Ajman / Fujairah, then a
+  random sample of 16 Sharjah photos (first 9 approved used). Approved images may be used for training only. UAQ images are
+  listed but excluded later by review_only_emirates.'
 approved_train_only:
+- 1030_jpg.rf.15f709427b0a3ca4ebd04a356ac7027a.jpg
+- 1046_jpg.rf.b8ba3cacec900cf694439728b738dcaf.jpg
+- 1081_jpg.rf.7d0f2f3029fcfd933e0b84501daacb11.jpg
+- 1090_jpg.rf.8433781fb523b520e14079b524076942.jpg
+- 1106_jpg.rf.eaf6ed20d1af3b33972e086a2b022aa1.jpg
+- 1120_jpg.rf.2b3efd1adf23cc925119cc962b540ae1.jpg
+- 1149_jpg.rf.0fc5be83a2ddcf7e7c90f9bc92f5f0f5.jpg
+- 1172_jpg.rf.c6354f56154610188d152e0f7acc9b91.jpg
+- 1196_jpg.rf.6f578c0b9dc7f8c12fce336c28f484c7.jpg
+- 1211_jpg.rf.0dbe6e6dacb786c9cee0c7d5c11eeda2.jpg
+- 1213_jpg.rf.5a8794763e27365e22fc30a0f724936a.jpg
+- 1216_jpg.rf.ee0d07bec68bfe159ac11b8a874ca36a.jpg
+- 1232_jpg.rf.09149a23c092c892a70caf1e680544cd.jpg
+- 1271_jpg.rf.5d2f6c300d5d2c16efb504364c118440.jpg
+- 1274_jpg.rf.2f4d42ec587f272ab7f0b17ec5d25dec.jpg
+- 1286_jpg.rf.765f546c266a041043368cbccdc17b55.jpg
+- 1294_jpg.rf.d7d7a66dd33d3adabcd3b9eab3e3bcdf.jpg
+- 1299_jpg.rf.45a3d500f5863e544da76d0b9ca27cba.jpg
+- 13029_jpg.rf.b329044ec3258ef09dc9a14e60fc16f7.jpg
+- 1303_jpg.rf.e88d8979c036d630259ae2e347ddcdbd.jpg
+- 1310_jpg.rf.8af38a8e2e9568244ec642077ed241bb.jpg
+- 1314_jpg.rf.dc0366fd2bd4ba748d19aa5ee12a79a1.jpg
+- 1317_jpg.rf.b89f94faa30c4a356978278751507ccf.jpg
+- 1318_jpg.rf.1b452a5e5b272b7d8cf36661ca611d22.jpg
+- 1321_jpg.rf.0430912e7b32d0f5bf7c0e6fff9d6ea6.jpg
+- 13579_jpg.rf.226a6b605aa1f698b953aead00dd87ad.jpg
+- 1385_jpg.rf.9061fe6d9f75c9ddb1bea6123b3eaca2.jpg
+- 1399_jpg.rf.7f6ad9a3b278296f7587c3a3beb793a8.jpg
+- 1418_jpg.rf.7ab9ee89fbc10ece179b76cf678de4ce.jpg
+- 14720_jpg.rf.c0006894a7f282f81403faffbea5bee7.jpg
+- 1563_jpg.rf.daf7ea725fb91c50ebee093e893e0789.jpg
+- 18422484_jpg.rf.496995ff0dcc59905c4d09bdd0c33605.jpg
 - 18439971_jpg.rf.8e3beadeb0884fac2c2a352e4085c57a.jpg
+- 18549418_jpg.rf.9c1239adf09f57a9727bd4ebc68a1574.jpg
+- 2004_jpg.rf.6af87df20468835a5a4bd8b299a909fb.jpg
+- 2018_jpg.rf.adf1c6f6775e18add7f097d54950431b.jpg
+- 3006_jpg.rf.49145dca36a6488492e44d0e0c4a8fb2.jpg
+- 3006_jpg.rf.a6bc72f69713e2d9aad50045dcc5eb15.jpg
+- 35849_jpg.rf.ee6f98c63351c3d1a309c6779e906f5f.jpg
+- 4322_jpg.rf.d279491addf6a33e80b51b74ac62a487.jpg
+- 4625_jpg.rf.18bd73d9de03c13f6a16c808c924ac91.jpg
+- 60389_jpg.rf.7a5d94e6756a9db170ec9cd23ca04014.jpg
+- 66996_jpg.rf.49853b3264c3e7731823a006756c2c00.jpg
+- 7451_jpg.rf.18154f88207035d3df9b272f7201b456.jpg
+- 78980_jpg.rf.f681f1101aed58aeac15ff127b334666.jpg
+- 90508_jpg.rf.8b12192c61024dfc06cb783a77b84c24.jpg
+- 98383_jpg.rf.7e6e12d791555d44841f490df8025bab.jpg
+- A-46262_jpg.rf.ef668e474ddb7b70a72674c9f28191cc.jpg
+- C-21936_jpg.rf.eae9a0482294908db8f0febb02ca5635.jpg
+- C-39531_jpg.rf.36f1e44cf384a9d1aeaa2aab1134eb17.jpg
 - WhatsApp-Image-2022-01-22-at-2-48-12-AM_jpeg_jpg.rf.19e7dd4ffcefcbd0b8f26bd35e90a8a4.jpg
+- WhatsApp-Image-2022-01-22-at-2-50-39-AM_jpeg_jpg.rf.ee305340f9563c578e9894c531616298.jpg
+- WhatsApp-Image-2022-01-22-at-4-02-46-AM_jpeg_jpg.rf.810fbf6c29bcd8b190079c5b384ce8d0.jpg
+- WhatsApp-Image-2022-01-22-at-6-52-57-AM_jpeg_jpg.rf.d90a76b29616987569d7f28ce10ae08d.jpg
+- WhatsApp-Image-2022-01-22-at-6-56-07-AM_jpeg_jpg.rf.13a2c947157cda8166eda8a9ae55fdf4.jpg
 - WhatsApp-Image-2022-01-22-at-7-16-01-AM_jpeg_jpg.rf.c7ba3627096601d4118c45f0c9663125.jpg
 - WhatsApp-Image-2022-01-22-at-7-16-49-AM_jpeg_jpg.rf.52ebee2de704eaec5d8f8240dbf8d686.jpg
 - WhatsApp-Image-2022-01-22-at-7-26-05-AM_jpeg_jpg.rf.fbc7e9593fd4f52f70f799294c10fcbf.jpg
+- WhatsApp-Image-2022-01-23-at-1-38-30-AM_jpeg_jpg.rf.a64ca0c53157849e49dc8b24991c82b3.jpg
+- WhatsApp-Image-2022-01-23-at-1-38-50-AM_jpeg_jpg.rf.299ce77a6ec4a52fc1fd7ef2294b422b.jpg
+- WhatsApp-Image-2022-01-23-at-1-39-01-AM_jpeg_jpg.rf.da8a4e7e106b53d9306dbaf6478555ad.jpg
+- WhatsApp-Image-2022-01-23-at-10-05-04-PM_jpeg_jpg.rf.1797e1cd74f1d2553582dca2ccf1fa98.jpg
+- WhatsApp-Image-2022-01-23-at-2-04-54-AM_jpeg_jpg.rf.38fafdb7a62b7439fa1582205590fea7.jpg
+- WhatsApp-Image-2022-01-23-at-3-29-06-AM_jpeg_jpg.rf.2cf40ea35cf1031b276a55c007f9ef9a.jpg
 - WhatsApp-Image-2022-01-23-at-4-18-01-AM_jpeg_jpg.rf.d138575fdfc60993244d089e81a0cdf4.jpg
 - WhatsApp-Image-2022-01-23-at-4-18-13-AM_jpeg_jpg.rf.11f331a0b279b82ee9aa3795d7f2a014.jpg
+- WhatsApp-Image-2022-01-23-at-4-19-36-AM_jpeg_jpg.rf.3c303f9e3a3a6367ce163f4586bfeb7d.jpg
+- WhatsApp-Image-2022-01-23-at-4-22-21-AM_jpeg_jpg.rf.d94853ce21627df40435779a2aac0686.jpg
 - WhatsApp-Image-2022-01-23-at-8-59-32-AM_jpeg_jpg.rf.a6b8230f80b94bbd1d86fa1dc7c3d22a.jpg
+- WhatsApp-Image-2022-01-24-at-9-55-05-PM_jpeg_jpg.rf.913d93b66ca8019f385815f659606517.jpg
+- WhatsApp-Image-2022-01-25-at-10-03-45-PM_jpeg_jpg.rf.130c3f6c3728aa0ddc8fc7d6f7e5d7d2.jpg
+- WhatsApp-Image-2022-01-25-at-10-03-54-PM_jpeg_jpg.rf.5d22eb5d398d655b5be6ac36f34e8965.jpg
 - WhatsApp-Image-2022-01-25-at-10-44-40-PM_jpeg_jpg.rf.45a54719a80309d778e43c92b1c0f919.jpg
 - WhatsApp-Image-2022-01-25-at-9-49-51-PM_jpeg_jpg.rf.a07b6e403dd0c0238f96b6ea02165ca7.jpg
+- WhatsApp-Image-2022-01-28-at-11-10-57-AM-1-_jpeg_jpg.rf.aa7e4febf180c63a6c6fadac2087bf3c.jpg
 - WhatsApp-Image-2022-01-28-at-12-53-21-PM_jpeg_jpg.rf.cf07c75f207b4732ac736943cfacbca9.jpg
+- WhatsApp-Image-2022-01-28-at-3-37-00-AM_jpeg_jpg.rf.acfcbe8dc208bdf7765c028b3a28355f.jpg
+- WhatsApp-Image-2022-01-28-at-9-18-57-AM_jpeg_jpg.rf.ed85da454f55377c5061e184336bacf2.jpg
+- WhatsApp-Image-2022-01-28-at-9-18-58-AM-1-_jpeg_jpg.rf.106e412ca4a6864652e576cf3145686f.jpg
+- WhatsApp-Image-2022-01-28-at-9-18-59-AM-1-_jpeg_jpg.rf.40c7f02c861cb32f62582f67e2712785.jpg
+- WhatsApp-Image-2022-01-28-at-9-18-59-AM_jpeg_jpg.rf.0798588a2d7b1601027134f192d7bbca.jpg
 - WhatsApp-Image-2022-01-28-at-9-19-13-AM_jpeg_jpg.rf.7c027f2c32c43a44f54cfd65241dc0cf.jpg
+- WhatsApp-Image-2022-01-29-at-7-12-16-AM_jpeg_jpg.rf.3f2cfacc62d083020d4a7e6360aca5d3.jpg
+- WhatsApp-Image-2022-01-29-at-7-48-46-AM_jpeg_jpg.rf.0ba53df4a8e30e9d72a43fb932bbc17d.jpg
+- WhatsApp-Image-2022-01-30-at-1-53-07-AM_jpeg_jpg.rf.4340601f7dda43e389cfceb39a7e0f73.jpg
+- WhatsApp-Image-2022-01-30-at-1-53-23-AM_jpeg_jpg.rf.2277f5c070e939fec26bcd326641cce1.jpg
 - WhatsApp-Image-2022-01-30-at-4-42-34-AM_jpeg_jpg.rf.cd159691071e3fe25724f45f5de91360.jpg
 - WhatsApp-Image-2022-01-30-at-4-43-04-AM_jpeg_jpg.rf.c1e8b0a624c5d9343fd1e6c7bda9c7a6.jpg
 - WhatsApp-Image-2022-01-30-at-4-43-12-AM_jpeg_jpg.rf.b716e367e238e66c9e469224e702c07f.jpg
@@ -69,6 +144,13 @@ approved_train_only:
 - WhatsApp-Image-2022-01-30-at-5-07-49-AM_jpeg_jpg.rf.dbc000f3703cf5b31a51af22ba5294d9.jpg
 - WhatsApp-Image-2022-01-30-at-5-07-52-AM_jpeg_jpg.rf.8efc71fbbfa132db0d0fcf7cc642a7ca.jpg
 - WhatsApp-Image-2022-01-30-at-5-07-53-AM-1-_jpeg_jpg.rf.edb89df086a4f01eb4cbca3ccdc29c08.jpg
+- WhatsApp-Image-2022-01-30-at-7-11-10-AM_jpeg_jpg.rf.588bbe9e8baa5f08456e7d680cfa71f5.jpg
+- WhatsApp-Image-2022-01-30-at-7-11-11-AM_jpeg_jpg.rf.d49d53d6287b8c432d469973723a6777.jpg
+- WhatsApp-Image-2022-01-30-at-7-11-12-AM-1-_jpeg_jpg.rf.43a42d5f8028af33a57dea7da05a18a0.jpg
+- WhatsApp-Image-2022-01-30-at-7-11-12-AM-2-_jpeg_jpg.rf.082bade4f76053a910218cf7feb9d1c5.jpg
+- WhatsApp-Image-2022-01-30-at-7-11-15-AM-2-_jpeg_jpg.rf.e8e4db78eac7da8802c758081f031b10.jpg
+- WhatsApp-Image-2022-01-30-at-7-11-17-AM-1-_jpeg_jpg.rf.dfafb92241bd54190cdafa27e61b0cc8.jpg
+- WhatsApp-Image-2022-01-30-at-7-11-19-AM-1-_jpeg_jpg.rf.2238c7b6bb8544478e36eb8de4c18f16.jpg
 - car1_102_jpeg_jpg.rf.4a3abe158c3a73a41b03c98ee955599a.jpg
 - car1_104_jpeg_jpg.rf.f8030e0e455d07a59024aa1e7e43470b.jpg
 - car1_114_jpeg_jpg.rf.9a7a9767196822e6f8f299f803727dd2.jpg
@@ -135,3 +217,41 @@ rejected:
   reason: emblem plate; emirate not confirmed
 - image: car1_95_jpeg_jpg.rf.590261412af9f3c4472ada9187ba3dc7.jpg
   reason: emblem plate; emirate not confirmed
+- image: A-2882_jpg.rf.493da55b6d9d69a3725eb4f286751bdf.jpg
+  reason: label reads 42882; plate is A 2882
+- image: B-2654_jpg.rf.1fe753df2912765ae0c934ca0218a151.jpg
+  reason: plate unclear
+- image: B-3431_jpg.rf.770179f4a027fc4f55393550409e6e3f.jpg
+  reason: label has an extra 8 (8B3431)
+- image: B-72339_jpg.rf.73bd6da13e8bd5bbde599f121d750939.jpg
+  reason: label has an extra 3 (723339)
+- image: B-80855_jpg.rf.5c93bbcd08a4bd81227dbcbee28292b5.jpg
+  reason: label B808; plate is B 80855
+- image: WhatsApp-Image-2022-01-28-at-11-10-57-AM_jpeg_jpg.rf.5ecea06db60bb32941a4fb4bed479d4d.jpg
+  reason: label 30716; plate is 30719
+- image: WhatsApp-Image-2022-01-30-at-7-11-18-AM-1-_jpeg_jpg.rf.d93ca524e3d06b965bf5fd5fd365a243.jpg
+  reason: sideways photo
+- image: 1075_jpg.rf.a46f576ba6d2d0d8960b0dd807475dc0.jpg
+  reason: last digit unclear (1075 or 1076)
+- image: 1091_jpg.rf.6d7f79457afbf2f997b1a4ca0d4b2221.jpg
+  reason: label has an extra 1 (10911)
+- image: 1151_jpg.rf.558db51185be251a6d02235378fa0178.jpg
+  reason: label 1151; plate looks like 1131
+- image: C-32916_jpg.rf.12ae062905673a60562d77e33d3660f0.jpg
+  reason: plate too dark to read
+- image: C-33268_jpg.rf.a267bd5aea47b5280b9d9cb699d45998.jpg
+  reason: plate too small to read
+- image: D-7712_jpg.rf.bd1d9bfc38d544b9ad1bb14dd83e2ba0.jpg
+  reason: code letter D missing from label
+- image: WhatsApp-Image-2022-02-05-at-6-51-02-AM_jpeg_jpg.rf.524f51edf1680887f897f97df25014f4.jpg
+  reason: leading character and emirate unclear
+- image: 2-77972_jpg.rf.1b05b3d0354e2197b83c4acd0e17fe6e.jpg
+  reason: plate small and rotated; label does not match
+- image: 2-33884_jpg.rf.02b61c4ef53c6fdd01e32b53d504f0c1.jpg
+  reason: plate washed out and cut off
+- image: 61487_jpg.rf.219c9f05fdf996fea2366d4391095baa.jpg
+  reason: label 68; export plate reads 61487
+- image: WhatsApp-Image-2022-02-04-at-11-06-10-AM-1-_jpeg_jpg.rf.bf1fd07451ad4bed65ae37cdc17563cb.jpg
+  reason: code 3 missing from label
+- image: 526_jpg.rf.13ac95854c42b615b3f03b2751c080ad.jpg
+  reason: plate blurred

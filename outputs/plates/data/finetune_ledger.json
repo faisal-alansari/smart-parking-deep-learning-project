@@ -9,37 +9,37 @@
   },
   "per_split_family": {
     "Abu Dhabi": {
-      "train": 660,
-      "val": 132,
-      "test": 134
+      "train": 656,
+      "val": 135,
+      "test": 135
     },
     "Ajman": {
-      "train": 85,
+      "train": 117,
       "val": 17,
       "test": 17
     },
     "Dubai": {
-      "train": 3638,
-      "val": 739,
-      "test": 737
+      "train": 3563,
+      "val": 735,
+      "test": 735
     },
     "Fujairah": {
-      "train": 235,
-      "val": 47,
-      "test": 47
+      "train": 273,
+      "val": 48,
+      "test": 48
     },
     "Ras Al Khaimah": {
-      "train": 114,
+      "train": 113,
       "val": 10,
-      "test": 9
+      "test": 10
     },
     "Sharjah": {
-      "train": 268,
+      "train": 278,
       "val": 55,
-      "test": 56
+      "test": 55
     }
   },
-  "verified": 6933,
-  "unverified_checked_train_only": 67,
+  "verified": 6852,
+  "unverified_checked_train_only": 148,
   "images_with_rare_chars": 34
 }

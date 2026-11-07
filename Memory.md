@@ -76,7 +76,7 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 
 - **Decision / reason:** Dubai already dominates, so the owner wants the 81 freed places used for the smaller emirates, especially Ajman and Ras Al Khaimah. A check of all non-Dubai images left out found no more RAK car photos (only 29 plate close-ups, which break the car-photos-only rule). 86 unverified Ajman and Fujairah car photos were checked by eye: 72 approved (32 Ajman, 40 Fujairah), 14 rejected for wrong or extra digits, a missing code letter, a sideways photo, or unreadable plates. The last 9 places come from checked Sharjah photos. All of these go to train only, as agreed for unverified photos, so val and test keep only verified labels.
 - **Outcome:** Agreed by the owner on 2026-11-07. Ajman train grows from 85 to about 117. Most new Fujairah photos are taxi plates from one fleet: a useful plate style, but little car variety.
-- **Next:** Check Sharjah photos, rebuild the split, then owner approval of the fine-tuning plan.
+- **Next:** Done the same day. A random sample of 16 Sharjah photos was checked (11 approved, first 9 used; 5 rejected). The split was rebuilt: still 7,000 (5,000 / 1,000 / 1,000), no leakage; train now has Ajman 117, Fujairah 273, Sharjah 278 and Dubai 3,563. Next: owner approval of the fine-tuning plan.
 
 ### 2026-11-07 | Proposed YOLO11n fine-tuning plan (pending approval)
 
