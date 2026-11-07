@@ -1,0 +1,116 @@
+{
+  "total_crops": 157549,
+  "drop_reasons": {
+    "kept": 86294,
+    "near_copy": 37062,
+    "not_sampled": 33424,
+    "too_dark_to_verify": 704,
+    "blank_image": 39,
+    "label_conflict": 26
+  },
+  "used_per_split": {
+    "train": {
+      "crops": 40000,
+      "free": 20000,
+      "busy": 20000,
+      "cameras": [
+        "C01",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C09"
+      ],
+      "days": 15
+    },
+    "val": {
+      "crops": 12714,
+      "free": 4507,
+      "busy": 8207,
+      "cameras": [
+        "C01",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C09"
+      ],
+      "days": 3
+    },
+    "test": {
+      "crops": 23589,
+      "free": 11938,
+      "busy": 11651,
+      "cameras": [
+        "C01",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C09"
+      ],
+      "days": 5
+    },
+    "test_unseen_camera": {
+      "crops": 2902,
+      "free": 1183,
+      "busy": 1719,
+      "cameras": [
+        "C02"
+      ],
+      "days": 23
+    },
+    "test_unseen_site": {
+      "crops": 7089,
+      "free": 3129,
+      "busy": 3960,
+      "cameras": [
+        "A",
+        "B"
+      ],
+      "days": 2
+    }
+  },
+  "train_crops_per_camera": {
+    "C01": {
+      "0": 2513,
+      "1": 2542
+    },
+    "C03": {
+      "0": 2412,
+      "1": 2209
+    },
+    "C04": {
+      "0": 2513,
+      "1": 2542
+    },
+    "C05": {
+      "0": 2513,
+      "1": 2542
+    },
+    "C06": {
+      "0": 2513,
+      "1": 2542
+    },
+    "C07": {
+      "0": 2512,
+      "1": 2541
+    },
+    "C08": {
+      "0": 2512,
+      "1": 2541
+    },
+    "C09": {
+      "0": 2512,
+      "1": 2541
+    }
+  },
+  "fine_tuning_items_used": 0,
+  "fine_tuning_note": "Occupancy model is trained from scratch; its data is outside the cap."
+}

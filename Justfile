@@ -7,6 +7,10 @@ default:
 install:
     uv sync --frozen
 
+# Build the occupancy manifest, inspection sheets, splits and sampled dataset
+prepare-data:
+    uv run python -m smart_parking.data.prepare
+
 # Run tests
 test:
     uv run pytest
