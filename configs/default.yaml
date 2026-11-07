@@ -55,3 +55,5 @@ plate_data:
   test_size: 1000
   finetune_cap: 10000
   manual_review_file: configs/plates_manual_review.yaml
+  # Too few examples to train or test (agreed 2026-11-07); sent straight to human review.
+  review_only_emirates: ["Umm Al Quwain", "unknown"]

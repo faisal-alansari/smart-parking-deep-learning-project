@@ -6,7 +6,9 @@ Rules (agreed 2026-11-07, see Memory.md):
 - the same plate identity or near-identical car photos never cross splits;
 - all smaller-emirate plates and every image with X, Y or Z are included first,
   then Dubai fills the rest;
-- every selected image is counted in the fine-tuning ledger.
+- every selected image is counted in the fine-tuning ledger;
+- Umm Al Quwain and plates without an emirate box are left out (too few examples);
+  the product sends them straight to human review.
 """
 
 import json
@@ -224,8 +226,11 @@ def main() -> None:
         (images["kind"] == "car_photo") & images["plate_named"] & (images["match"] == "exact")
     )
     review = yaml.safe_load(pcfg.manual_review_file.read_text())
-    extra = list(review.get("approved_train_only", []))
-    candidates = images[images["verified"] | images["image"].isin(extra)]
+    # Emirates routed straight to human review are not trained or tested on.
+    allowed = ~images["family"].isin(pcfg.review_only_emirates)
+    extra_ok = images["image"].isin(review.get("approved_train_only", [])) & allowed
+    extra = list(images.loc[extra_ok, "image"])
+    candidates = images[(images["verified"] & allowed) | extra_ok]
 
     selected = select_and_split(
         candidates, extra, pcfg.subset_total, pcfg.val_size, pcfg.test_size, cfg.seed

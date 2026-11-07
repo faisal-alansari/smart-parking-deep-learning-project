@@ -85,6 +85,8 @@ class PlateDataConfig(BaseModel):
     test_size: int = 1000
     finetune_cap: int = 10000
     manual_review_file: Path = Path("configs/plates_manual_review.yaml")
+    # Too few examples to train or test; the product sends these to human review.
+    review_only_emirates: list[str] = ["Umm Al Quwain", "unknown"]
 
 
 class ProjectConfig(BaseModel):

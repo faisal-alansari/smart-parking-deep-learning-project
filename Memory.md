@@ -66,6 +66,12 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 - **Outcome:** Agreed by the owner on 2026-11-07. Known gaps: new-style Sharjah plates are absent and UAQ is too small to test reliably; both go to `NEEDS_REVIEW` and are reported as limits.
 - **Next:** Built the same day (`just prepare-plates`): exactly 5,000 / 1,000 / 1,000, no leakage, same result on every run. 95 of 114 unverified RAK / UAQ photos passed the visual check (19 rejected for wrong or incomplete characters, unclear plates, or a wrong emirate type). Because val and test keep each emirate's share, RAK has only 10 val and 10 test images and UAQ only 1 each, so their results will be indicative only. Pending owner review before fine-tuning.
 
+### 2026-11-07 | Umm Al Quwain and unknown-emirate plates go straight to human review
+
+- **Decision / reason:** The owner decided that Umm Al Quwain plates (37 images) and plates with no emirate box (44 images) are too few to train or test on. They are removed from the plate subset, and the product will send them straight to `NEEDS_REVIEW`.
+- **Outcome:** Done. The 81 freed places were refilled to keep 7,000 images (5,000 / 1,000 / 1,000). Every verified image from the other smaller emirates was already included, so the refill came from verified Dubai photos. No leakage; tests pass.
+- **Next:** Owner to approve the fine-tuning plan, then fine-tune YOLO11n.
+
 ## Decision log
 
 For each **meaningful** new decision, add one short entry:
