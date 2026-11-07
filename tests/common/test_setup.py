@@ -3,8 +3,8 @@ import random
 import numpy as np
 import torch
 
-from smart_parking.config import load_config
-from smart_parking.seed import set_seed
+from smart_parking.common.config import load_config
+from smart_parking.common.seed import set_seed
 
 
 def test_default_config_loads():

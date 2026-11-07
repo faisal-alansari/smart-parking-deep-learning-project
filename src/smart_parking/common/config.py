@@ -25,9 +25,9 @@ class OccupancyDataConfig(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    raw_root: Path = Path("data/CNN-training")
-    processed_dir: Path = Path("data/processed")
-    report_dir: Path = Path("outputs/data")
+    raw_root: Path = Path("data/raw/cnrpark")
+    processed_dir: Path = Path("data/processed/occupancy")
+    report_dir: Path = Path("outputs/occupancy/data")
     workers: int = 8
     # Splitting
     unseen_cameras: list[str] = []
@@ -44,9 +44,9 @@ class OccupancyTrainConfig(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    dataset_csv: Path = Path("data/processed/occupancy_dataset.csv")
-    raw_root: Path = Path("data/CNN-training")
-    cache_dir: Path = Path("data/processed/cache")
+    dataset_csv: Path = Path("data/processed/occupancy/occupancy_dataset.csv")
+    raw_root: Path = Path("data/raw/cnrpark")
+    cache_dir: Path = Path("data/processed/occupancy/cache")
     run_dir: Path = Path("experiments/occupancy")
     checkpoint_dir: Path = Path("checkpoints/occupancy")
     results_dir: Path = Path("outputs/occupancy")

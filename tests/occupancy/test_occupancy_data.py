@@ -1,8 +1,8 @@
 import pandas as pd
 import pytest
 
-from smart_parking.data.sample import balance_train, mark_near_copies
-from smart_parking.data.split import assign_splits, check_no_leakage, quality_flags
+from smart_parking.occupancy.data.sample import balance_train, mark_near_copies
+from smart_parking.occupancy.data.split import assign_splits, check_no_leakage, quality_flags
 
 
 def _manifest() -> pd.DataFrame:

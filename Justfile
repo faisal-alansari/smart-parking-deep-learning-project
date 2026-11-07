@@ -9,7 +9,7 @@ install:
 
 # Build the occupancy manifest, inspection sheets, splits and sampled dataset
 prepare-data:
-    uv run python -m smart_parking.data.prepare
+    uv run python -m smart_parking.occupancy.data.prepare
 
 # Fit the two occupancy baselines (train + validation only)
 occupancy-baselines:

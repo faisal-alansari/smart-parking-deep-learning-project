@@ -11,11 +11,11 @@ from loguru import logger
 from torch.nn import functional as F
 from torch.utils.tensorboard import SummaryWriter
 
-from smart_parking.config import OccupancyTrainConfig
+from smart_parking.common.config import OccupancyTrainConfig
+from smart_parking.common.seed import set_seed
 from smart_parking.occupancy.images import SplitData, load_split
 from smart_parking.occupancy.metrics import best_threshold, binary_metrics
 from smart_parking.occupancy.model import OccupancyCNN, count_parameters
-from smart_parking.seed import set_seed
 
 MAX_SCRATCH_PARAMS = 50_000_000
 

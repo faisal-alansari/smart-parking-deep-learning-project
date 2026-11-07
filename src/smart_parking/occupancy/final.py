@@ -13,8 +13,8 @@ import numpy as np
 import pandas as pd
 from loguru import logger
 
-from smart_parking.config import OccupancyTrainConfig, load_config
-from smart_parking.log import setup_logging
+from smart_parking.common.config import OccupancyTrainConfig, load_config
+from smart_parking.common.log import setup_logging
 from smart_parking.occupancy.baselines import hog_features, texture_scores
 from smart_parking.occupancy.images import TEST_SPLITS, load_split
 from smart_parking.occupancy.metrics import METRICS, binary_metrics, cluster_bootstrap_ci

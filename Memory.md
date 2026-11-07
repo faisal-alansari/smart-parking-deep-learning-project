@@ -47,6 +47,12 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 - **Outcome:** The starting settings were kept (lr 0.001, brightness/contrast/blur/shift augmentation, light regularization, 64 px). All options were within about 0.003 val F1 of each other, so the CNN is not sensitive to these choices here; the differences are inconclusive. Horizontal flips did not help, so they are not used. 96 px took 2.3× longer with no gain, so 64 px stays. On the test sets (3 seeds), the CNN beats both baselines: F1 0.993 on same cameras, 0.988 on the unseen camera, 0.929 on the unseen site (HOG baseline: 0.946, 0.965, 0.854). Two lessons. (1) The baselines lost much more than the CNN between validation and test, mainly through false alarms; a threshold tuned on one class mix transfers poorly. (2) The unseen site is the clear weak point (about 8% false alarms), which supports the need for local video data.
 - **Next:** Accepted by the owner on 2026-11-07. Later: calibration, cost-based thresholds and robustness, then adapt and test on the owner's videos.
 
+### 2026-11-07 | Videos later; folder layout for submission
+
+- **Decision / reason:** The owner will record videos (not photos) soon. Videos are needed for arrival timing, false-alert and missed-arrival metrics, and realistic night tests; photos would only help CNN training. Until then we work on parts that do not need them, starting with plate reading. The project was reorganized for submission: one folder per component (occupancy now, plates next) used the same way in `src/`, `tests/`, `outputs/`, `experiments/` and `checkpoints/`; planning documents in `docs/planning/`; datasets in `data/raw/` (untouched downloads) and `data/processed/` (built by our code); a data card in `docs/data_card.md`.
+- **Outcome:** Worked. After the move, all data and result files were rebuilt and are identical to before; tests and lint pass.
+- **Next:** Keep this layout for every new component. Next: audit the AddingUAE plate data.
+
 ## Decision log
 
 For each **meaningful** new decision, add one short entry:

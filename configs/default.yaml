@@ -9,9 +9,9 @@ logging:
   retention: 5
 
 occupancy_data:
-  raw_root: data/CNN-training
-  processed_dir: data/processed
-  report_dir: outputs/data
+  raw_root: data/raw/cnrpark
+  processed_dir: data/processed/occupancy
+  report_dir: outputs/occupancy/data
   workers: 8
   # Held out completely: one CNR-EXT camera (closest view, 9 bays) and the CNRPark A/B site.
   unseen_cameras: [C02]
@@ -21,9 +21,9 @@ occupancy_data:
   train_target_per_class: 20000
 
 occupancy:
-  dataset_csv: data/processed/occupancy_dataset.csv
-  raw_root: data/CNN-training
-  cache_dir: data/processed/cache
+  dataset_csv: data/processed/occupancy/occupancy_dataset.csv
+  raw_root: data/raw/cnrpark
+  cache_dir: data/processed/occupancy/cache
   run_dir: experiments/occupancy
   checkpoint_dir: checkpoints/occupancy
   results_dir: outputs/occupancy

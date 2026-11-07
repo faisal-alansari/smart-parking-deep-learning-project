@@ -14,19 +14,19 @@ from pathlib import Path
 import pandas as pd
 from loguru import logger
 
-from smart_parking.config import OccupancyDataConfig, load_config
-from smart_parking.data.inspect import inspection_sheets
-from smart_parking.data.manifest import build_manifest
-from smart_parking.data.sample import balance_train, mark_near_copies
-from smart_parking.data.split import (
+from smart_parking.common.config import OccupancyDataConfig, load_config
+from smart_parking.common.log import setup_logging
+from smart_parking.common.seed import set_seed
+from smart_parking.occupancy.data.inspect import inspection_sheets
+from smart_parking.occupancy.data.manifest import build_manifest
+from smart_parking.occupancy.data.sample import balance_train, mark_near_copies
+from smart_parking.occupancy.data.split import (
     SPLITS,
     assign_splits,
     check_no_leakage,
     quality_flags,
     read_days,
 )
-from smart_parking.log import setup_logging
-from smart_parking.seed import set_seed
 
 
 def build_dataset(m: pd.DataFrame, cfg: OccupancyDataConfig, seed: int) -> pd.DataFrame:

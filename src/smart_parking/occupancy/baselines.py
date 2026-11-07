@@ -15,7 +15,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
-from smart_parking.config import OccupancyTrainConfig
+from smart_parking.common.config import OccupancyTrainConfig
 from smart_parking.occupancy.images import SplitData, load_split
 from smart_parking.occupancy.metrics import best_threshold, binary_metrics
 
@@ -108,9 +108,9 @@ def run_baselines(cfg: OccupancyTrainConfig, seed: int) -> dict:
 
 
 def main() -> None:
-    from smart_parking.config import load_config
-    from smart_parking.log import setup_logging
-    from smart_parking.seed import set_seed
+    from smart_parking.common.config import load_config
+    from smart_parking.common.log import setup_logging
+    from smart_parking.common.seed import set_seed
 
     cfg = load_config()
     setup_logging(cfg.logging)

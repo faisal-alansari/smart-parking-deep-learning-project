@@ -4,7 +4,7 @@ import sys
 
 from loguru import logger
 
-from smart_parking.config import LoggingConfig
+from smart_parking.common.config import LoggingConfig
 
 
 def setup_logging(cfg: LoggingConfig) -> None:

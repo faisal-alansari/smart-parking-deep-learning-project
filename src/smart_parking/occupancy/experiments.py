@@ -9,8 +9,8 @@ import json
 
 from loguru import logger
 
-from smart_parking.config import OccupancyTrainConfig, load_config
-from smart_parking.log import setup_logging
+from smart_parking.common.config import OccupancyTrainConfig, load_config
+from smart_parking.common.log import setup_logging
 from smart_parking.occupancy.train import train_run
 
 STAGES: list[tuple[str, str, list[dict]]] = [

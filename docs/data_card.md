@@ -1,0 +1,43 @@
+# Data Card
+
+The `data/` folder is not stored in Git. This card explains where each dataset comes from, where it goes, and how it is used.
+
+## Layout
+
+| Path | Contents |
+|---|---|
+| `data/raw/cnrpark/` | CNRPark+EXT download (patch zips, CSV, official splits) |
+| `data/raw/adding_uae/` | AddingUAE plate dataset (YOLO format) |
+| `data/raw/local_videos/` | Owner's own recordings of the two bays (planned) |
+| `data/processed/occupancy/` | Built by `just prepare-data`: manifest, dataset with splits, image cache |
+
+## 1. CNRPark+EXT (occupancy model, trained from scratch)
+
+- **Source:** http://cnrpark.it/ (files: `CNR-EXT-Patches-150x150.zip`, `CNRPark-Patches-150x150.zip`, `CNRPark+EXT.csv`, `splits.zip`). Unzip into `data/raw/cnrpark/`.
+- **Citation:** G. Amato, F. Carrara, F. Falchi, C. Gennaro, C. Meghini, C. Vairo, "Deep learning for decentralized parking lot occupancy detection", *Expert Systems with Applications*, 2017. G. Amato et al., "Car parking occupancy detection using smart camera networks and deep learning", *IEEE ISCC*, 2016.
+- **License:** A third-party mirror lists ODbL v1.0. Not yet confirmed on the official site.
+- **Contents:** 157,549 labelled crops of single parking spaces (free / busy) from 11 cameras: CNR-EXT (9 cameras, Nov 2015 – Feb 2016) and CNRPark A/B (July 2015). Captured 07:00–18:00; almost no night images.
+- **Cleaning:** 39 blank images, 26 crops whose CSV label disagrees with the official label file, and 704 crops too dark to check by eye are excluded. 37,062 near-copies (same bay looking the same as its last kept snapshot) are removed.
+- **Splits:** camera C02 and the CNRPark A/B site are held out completely (unseen camera and unseen site tests). The other 8 cameras are split by the official day lists, so no day is shared. Train is balanced to 20,000 free + 20,000 busy, spread over cameras; validation and test keep their natural class mix. Full counts: `outputs/occupancy/data/data_report.md`.
+- **Fine-tuning cap:** not counted. This data trains a model from random initialization.
+
+## 2. AddingUAE (plate reading, fine-tuning YOLO11n)
+
+- **Source:** https://universe.roboflow.com/addinguae/uae-zcfqj (Roboflow export "UAE v1", YOLOv11 format). Unzip into `data/raw/adding_uae/`.
+- **License:** CC BY 4.0 (from the Roboflow page).
+- **Contents (from the dataset page):** about 10,000 images; 51 classes: `plate`, digits 0–9, letters A–Z, `exp`, and new/old plate types for the seven emirates. The downloaded export is split 70/20/10 at random: 6,990 train, 1,997 validation, 998 test images.
+- **Status:** audit pending. The random split may put the same plate in train and test; it will be checked and re-split by full plate identity if needed.
+- **Fine-tuning cap:** every image used for fine-tuning counts. Ledger to be added in the audit step.
+
+## 3. Owner's local videos (planned)
+
+Nine 15-minute sessions of the two real bays, with session notes giving when each bay changes state. Sessions 8 (day) and 9 (night) are never trained on. Videos stay local because they show real plates.
+
+## Fine-tuning item ledger (10,000 cap)
+
+| Dataset | Items used for fine-tuning |
+|---|---|
+| CNRPark+EXT | 0 (from-scratch model) |
+| AddingUAE | pending |
+| Local videos | pending |
+| **Total** | **0** |
