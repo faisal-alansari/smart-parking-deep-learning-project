@@ -27,6 +27,15 @@ train-occupancy:
 evaluate-occupancy:
     uv run python -m smart_parking.occupancy.final --evaluate
 
+# Check the public-data CNN on the owner's own bay photos (data/raw/local_pilot)
+occupancy-local-pilot:
+    uv run python -m smart_parking.occupancy.local_pilot --config configs/local_pilot.yaml
+
+# Full loop on the night photo set (43 photos, shared bay boxes), then the error probes
+local-night-1:
+    uv run python -m smart_parking.occupancy.local_pilot --config configs/local_night_1.yaml
+    uv run python -m smart_parking.occupancy.local_probes --config configs/local_night_1.yaml
+
 # Audit the AddingUAE plate data: counts, label checks, duplicates, leakage
 audit-plates:
     uv run python -m smart_parking.plates.data.audit

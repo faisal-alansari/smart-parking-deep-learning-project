@@ -1,4 +1,4 @@
-"""Class list used for plate fine-tuning (49 classes).
+"""Class list used for plate fine-tuning (48 classes).
 
 The AddingUAE export has 51 classes. `exp` (3 boxes) and the two Umm Al Quwain
 types are dropped: UAQ plates go straight to human review (decision 2026-11-07).

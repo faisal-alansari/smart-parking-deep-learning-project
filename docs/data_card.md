@@ -38,6 +38,14 @@ The `data/` folder is not stored in Git. This card explains where each dataset c
 
 Nine 15-minute sessions of the two real bays, with session notes giving when each bay changes state. Sessions 8 (day) and 9 (night) are never trained on. Videos stay local because they show real plates.
 
+## 4. Owner's local pilot photos
+
+8 phone photos (4 late afternoon, 4 night), taken on 19–20 November 2026, covering all four bay states (both empty, either one occupied, both occupied). The night photos come from one fixed spot at the owner's site; the day photos come from four different spots, one at another car park. Truth was read from the photos by eye. Bay boxes are drawn by hand in `configs/local_pilot.yaml`. Used only to check the full loop (occupancy CNN, then plate reading in occupied bays; `just occupancy-local-pilot`); never used for training, model choice or thresholds. The true plates of the 8 parked cars were read by eye from the full-size photos. Photos and crops show real plates, so they stay in `data/` (not in Git); only the results table is committed.
+
+## 5. Owner's night photo set 1
+
+43 phone photos taken on 20 November 2026 at night in several public car parks, each showing one pair of bays from a standing position: 86 bays (46 empty, 40 occupied), 40 readable plates (36 distinct cars). One shared pair of bay boxes is used for every photo (`configs/local_night_1.yaml`), like a fixed camera. Bay states come from the owner; plates were read by eye from the full-size photos. Used only to check the full loop and to probe its errors (`just local-night-1`); never used for training or thresholds. Photos show strangers' plates, so they stay in `data/` (not in Git).
+
 ## Fine-tuning item ledger (10,000 cap)
 
 | Dataset | Items used for fine-tuning |
@@ -45,4 +53,6 @@ Nine 15-minute sessions of the two real bays, with session notes giving when eac
 | CNRPark+EXT | 0 (from-scratch model) |
 | AddingUAE | 7,000 (5,000 train, 1,000 val, 1,000 test) |
 | Local videos | 0 planned for plate fine-tuning (2–3 plates; real-site check only) |
+| Local pilot photos | 0 (check only; no training or tuning) |
+| Night photo set 1 | 0 (check only; no training or tuning) |
 | **Total** | **7,000 of 10,000** (3,000 left) |

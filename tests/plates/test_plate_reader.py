@@ -1,5 +1,5 @@
 from smart_parking.plates.metrics import edit_distance, score_image, summarise
-from smart_parking.plates.reader import Box, check_text, read_plates
+from smart_parking.plates.reader import Box, check_text, fits_bay, read_plates
 
 
 def _plate(chars, emirate_type="old_DUBAI", conf=0.9):
@@ -32,10 +32,38 @@ def test_duplicate_character_boxes_keep_the_most_confident():
     assert r.text == "K1"
 
 
+def test_thin_duplicate_boxes_on_one_character_are_merged():
+    boxes = _plate("K12")
+    # two extra, narrower "1" boxes on the same spot as the real "1" (IoU below 0.5)
+    boxes += [Box("1", 0.6, 24, 12, 27, 28), Box("1", 0.4, 23, 8, 26, 31)]
+    (r,) = read_plates(boxes, min_conf=0.25)
+    assert r.text == "K12"
+
+
+def test_real_neighbouring_ones_are_kept():
+    (r,) = read_plates(_plate("K112"), min_conf=0.25)
+    assert r.text == "K112"
+
+
+def test_dubai_read_without_code_letter_goes_to_review():
+    (r,) = read_plates(_plate("61907"), min_conf=0.25)
+    assert r.decision == "NEEDS_REVIEW" and r.reason == "missing_code"
+    (r,) = read_plates(_plate("1028684", emirate_type="old_abudabi"), min_conf=0.25)
+    assert r.decision == "READ"  # Abu Dhabi codes are digits
+
+
+def test_plate_too_small_for_the_bay():
+    (r,) = read_plates(_plate("K12345"), min_conf=0.25)  # plate 100 px wide
+    assert fits_bay(r, bay_width=400)
+    assert not fits_bay(r, bay_width=1500)
+
+
 def test_check_text_rules():
     assert check_text("K12345") is None
     assert check_text("ABC12") == "too_many_letters"
     assert check_text("K") == "invalid_length"
+    assert check_text("61907", "Dubai") == "missing_code"
+    assert check_text("61907") is None
 
 
 def test_metrics_count_misreads_and_reviews():
