@@ -36,6 +36,10 @@ local-night-1:
     uv run python -m smart_parking.occupancy.local_pilot --config configs/local_night_1.yaml
     uv run python -m smart_parking.occupancy.local_probes --config configs/local_night_1.yaml
 
+# Evidence for the plate reader rules: label counts and validation scores (no test data)
+plate-rule-evidence:
+    uv run python -m smart_parking.plates.rule_evidence
+
 # Audit the AddingUAE plate data: counts, label checks, duplicates, leakage
 audit-plates:
     uv run python -m smart_parking.plates.data.audit

@@ -134,9 +134,15 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 
 ### 2026-11-20 | Plate reader: three safety fixes after the night test
 
-- **Decision / reason:** The owner asked to fix the plate step first. Three rules, each tied to a failure seen on the night photos and checked on the public validation set: merge duplicate boxes for one thin character (overlapping sideways by more than half), send a Dubai read without a code letter to review (no Dubai training or validation label lacks one), and send a plate narrower than 10% of the bay width to review (it belongs to a car further back).
+- **Decision / reason:** The owner asked to fix the plate step first. Three rules, each tied to a failure seen on the night photos and checked on the public validation set: merge duplicate boxes for one thin character (overlapping sideways by more than half), send a Dubai read without a code letter to review (no main Dubai plate in the training or validation labels lacks one), and send a plate narrower than 10% of the bay width to review (it belongs to a car further back).
 - **Outcome:** Worked. Validation: exact match 69.7% → 71.9%, misreads 28.4% → 20.2%, at the cost of about 6% more plates going to review. Night set: dangerous wrong reads 16 → 6 (no more plates read in empty bays), correct reads 19 → 20. Pilot: dangerous outputs 2 → 0. A first merge cut-off of 70% missed a triple "1"; 50% was chosen on validation, not on the night photos. The 6 remaining misreads are doubled or swapped code letters, which these rules cannot catch.
 - **Next:** Rerun the public plate test set once when the plate system is final. Later: better reading of small code letters (enlarged plate crop or more examples of the newest Dubai plates). Then start Model C (typed commands) and the permit table.
+
+### 2026-11-21 | Evidence saved for every night-set finding
+
+- **Decision / reason:** The owner asked whether each finding is justified. Some numbers came from one-off checks that were never saved, and some reasons were guesses. Each one now has a saved script or table, wheel stops are marked bay by bay in the set's config, and each finding is labelled "measured" or "hypothesis".
+- **Outcome:** Validation before/after and the merge cut-off choice reproduced exactly. Four numbers changed when redone properly, with the same conclusions: wheel stops (15 of 26 bays with a stop gave false alarms vs 5 of 20 without; 10 of 11 remaining false alarms have one), brightness (92 vs 91, no difference), lost code letters (on 4 of 6 plates reviewed for a missing letter, the letter was found below the cut-off; on 2 it was not found), and the Dubai count (4,302 main plates, none without a letter; 98 of 500 smaller background plates lack one, often because they are only partly labelled). Untested reasons (training data lacking wheel stops, close-up cars, the white Sharjah plate) stay marked as hypotheses.
+- **Next:** No change to the plan. The configs and per-bay results with real plates stay out of Git until the owner decides how to hide them.
 
 ## Decision log
 

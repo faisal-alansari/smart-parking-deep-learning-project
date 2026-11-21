@@ -3,13 +3,14 @@
 The detector finds the plate, each character and the emirate type. These rules
 group boxes into plates, read the characters in order, and check the result.
 
-Rules added after the local night test (2026-11-20), each tied to an observed failure:
+Rules added after the local night test (2026-11-20), each tied to an observed failure
+(numbers reproduced by `just plate-rule-evidence`):
 - duplicate boxes for one thin character ("1" read as "111") are merged when they
   overlap sideways by more than 50% of the narrower box. Only 36 of 81,622 real
   neighbouring pairs in the train/val labels do; on validation, 50% gave the best exact
   match of 70%, 60%, 50% and 40%;
-- a Dubai read without a code letter is incomplete (0 of 4,298 Dubai train/val labels
-  lack one), so it goes to review;
+- a Dubai read without a code letter is incomplete (0 of 4,302 main Dubai plates in the
+  train/val labels lack one), so it goes to review;
 - a plate narrower than 10% of the bay width belongs to a car further back, not the
   parked car (parked-car plates: 13-29%; background plates: 4-9%).
 """

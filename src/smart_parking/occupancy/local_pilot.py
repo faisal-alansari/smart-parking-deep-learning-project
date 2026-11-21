@@ -122,6 +122,17 @@ def _detect(model: YOLO, image: Image.Image, imgsz: int) -> list[Box]:
     ]
 
 
+def search_area(bay_px: tuple[float, ...], w: int, h: int) -> tuple[int, int, int, int]:
+    """Plate search area: the bay box in pixels, grown by BAY_MARGIN on each side."""
+    mx, my = BAY_MARGIN * (bay_px[2] - bay_px[0]), BAY_MARGIN * (bay_px[3] - bay_px[1])
+    return (
+        max(0, round(bay_px[0] - mx)),
+        max(0, round(bay_px[1] - my)),
+        min(w, round(bay_px[2] + mx)),
+        min(h, round(bay_px[3] + my)),
+    )
+
+
 def _pick(reads: list[PlateRead], box: tuple[float, float, float, float]) -> PlateRead | None:
     """The largest plate whose centre lies in the bay box.
 
@@ -183,13 +194,7 @@ def read_bay_plates(pilot: dict, cfg: PlateTrainConfig, res: pd.DataFrame) -> pd
         w, h = im.size
         x0, y0, x1, y1 = boxes[(row.photo, row.bay)]
         bay_px = (x0 * w, y0 * h, x1 * w, y1 * h)
-        mx, my = BAY_MARGIN * (bay_px[2] - bay_px[0]), BAY_MARGIN * (bay_px[3] - bay_px[1])
-        area = (
-            max(0, round(bay_px[0] - mx)),
-            max(0, round(bay_px[1] - my)),
-            min(w, round(bay_px[2] + mx)),
-            min(h, round(bay_px[3] + my)),
-        )
+        area = search_area(bay_px, w, h)
         reads = read_plates(_detect(model, im.crop(area), imgsz), threshold)
         local = (
             bay_px[0] - area[0],
