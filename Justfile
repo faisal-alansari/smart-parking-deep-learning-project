@@ -64,6 +64,14 @@ train-plates:
 evaluate-plates:
     uv run python -m smart_parking.plates.final --evaluate
 
+# Generate the owner-command sets for Model C (dev + frozen test; no training)
+command-data:
+    uv run python -m smart_parking.commands.dataset
+
+# Score a Model C parser (oracle, rules, ...) on dev; the test set also needs --final
+command-score parser split="dev" *flags:
+    uv run python -m smart_parking.commands.score {{parser}} {{split}} {{flags}}
+
 # Run tests
 test:
     uv run pytest

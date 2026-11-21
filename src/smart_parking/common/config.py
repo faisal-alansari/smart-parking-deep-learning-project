@@ -115,6 +115,17 @@ class PlateTrainConfig(BaseModel):
     bootstrap_samples: int = 1000
 
 
+class CommandsConfig(BaseModel):
+    """Model C (owner commands): evaluation command sets and results."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    data_dir: Path = Path("outputs/commands/data")
+    results_dir: Path = Path("outputs/commands")
+    dev_seed: int = 1
+    test_seed: int = 2
+
+
 class ProjectConfig(BaseModel):
     """Top-level project configuration."""
 
@@ -127,6 +138,7 @@ class ProjectConfig(BaseModel):
     occupancy: OccupancyTrainConfig = OccupancyTrainConfig()
     plate_data: PlateDataConfig = PlateDataConfig()
     plates: PlateTrainConfig = PlateTrainConfig()
+    commands: CommandsConfig = CommandsConfig()
 
 
 def load_config(path: Path = DEFAULT_CONFIG_PATH) -> ProjectConfig:

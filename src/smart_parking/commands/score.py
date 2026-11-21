@@ -1,0 +1,146 @@
+"""Score a Model C candidate on a command set.
+
+Every candidate only extracts pieces; the shared rules (`commands.rules.finish`) do the
+rest, so all candidates are compared on the same footing.
+
+- exact: the result matches exactly (status PROPOSED / NEEDS_REVIEW / UNSUPPORTED, the
+  reason, and the proposed action, number and end time). Primary metric.
+- dangerous: a permit change is put to the owner (proposed, or kept with a one-digit
+  review) and the result is not the expected one; owner confirmation is the last guard.
+- needless_question: NEEDS_REVIEW or UNSUPPORTED where a clear change was expected.
+- field accuracy (action, number, until) where a change was expected and one was made.
+
+Usage: `just command-score <parser> <split>`; the test split needs `--final` (except
+for the oracle, which only checks the answer key and the shared rules).
+"""
+
+import argparse
+import json
+from collections.abc import Callable
+from datetime import datetime
+from pathlib import Path
+
+import pandas as pd
+from loguru import logger
+
+from smart_parking.commands import baseline
+from smart_parking.commands.dataset import describe
+from smart_parking.commands.rules import finish
+from smart_parking.commands.schema import (
+    Extraction,
+    NeedsReview,
+    ParsedCommand,
+    Result,
+    Unsupported,
+)
+from smart_parking.common.config import load_config
+
+Parser = Callable[[dict], Extraction]
+PARSERS: dict[str, Parser] = {
+    "oracle": lambda row: Extraction(**row["oracle"]),  # perfect extraction: the ceiling
+    "rules": lambda row: baseline.extract(row["text"]),
+}
+FIELDS = ("action", "number", "until")
+
+
+def load_set(path: Path) -> list[dict]:
+    return [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
+
+
+def _proposal(cmd: ParsedCommand | None) -> dict | None:
+    if cmd is None:
+        return None
+    until = cmd.until.isoformat() if cmd.until else None
+    return {"action": cmd.action.value, "number": cmd.number, "until": until}
+
+
+def outcome(result: Result) -> dict:
+    """A result in the answer-key format (see `dataset.outcome`)."""
+    if isinstance(result, Unsupported):
+        return {"status": "UNSUPPORTED", "reason": None, "proposal": None}
+    if isinstance(result, NeedsReview):
+        return {"status": "NEEDS_REVIEW", "reason": result.reason,
+                "proposal": _proposal(result.proposal)}  # fmt: skip
+    return {"status": "PROPOSED", "reason": None, "proposal": _proposal(result)}
+
+
+def run(parser: Parser, rows: list[dict]) -> pd.DataFrame:
+    out = []
+    for row in rows:
+        got = outcome(finish(parser(row), datetime.fromisoformat(row["now"])))
+        want = row["expected"]
+        wanted_change = want["status"] == "PROPOSED"
+        made, wanted = got["proposal"], want["proposal"]
+        out.append(
+            {
+                "id": row["id"],
+                "text": row["text"],
+                "expected": describe(want),
+                "got": describe(got),
+                "exact": got == want,
+                "dangerous": made is not None and got != want,
+                "needless_question": wanted_change and got["status"] != "PROPOSED",
+                **{f"{f}_ok": bool(made and wanted and made[f] == wanted[f]) for f in FIELDS},
+                "wanted_change": wanted_change,
+                **{f"tag_{k}": v for k, v in row["tags"].items()},
+            }
+        )
+    return pd.DataFrame(out)
+
+
+def summarise(d: pd.DataFrame) -> dict:
+    cmd = d[d.wanted_change]
+    return {
+        "n": len(d),
+        "exact": d.exact.mean(),
+        "dangerous": d.dangerous.mean(),
+        "needless_question": cmd.needless_question.mean() if len(cmd) else None,
+        **{f"{f}_acc": cmd[f"{f}_ok"].mean() if len(cmd) else None for f in FIELDS},
+    }
+
+
+def report(d: pd.DataFrame) -> str:
+    groups = {"all": d}
+    tags = (("tag_kind", "kind"), ("tag_reason", "reason"), ("tag_wording", "wording"),
+            ("tag_has_bay", "bay said"), ("tag_noisy", "slip"))  # fmt: skip
+    for tag, label in tags:
+        if tag in d:
+            for value, g in d.groupby(tag, dropna=True):
+                groups[f"{label}={value}"] = g
+    rows = []
+    for name, g in groups.items():
+        s = summarise(g)
+        cells = [s["exact"], s["dangerous"], s["needless_question"]]
+        cells += [s[f"{f}_acc"] for f in FIELDS]
+        shown = " | ".join("-" if c is None else f"{c:.3f}" for c in cells)
+        rows.append(f"| {name} | {s['n']} | {shown} |")
+    head = (
+        "| slice | n | exact | dangerous | needless question | action | number | until |\n"
+        "|---|---|---|---|---|---|---|---|\n"
+    )
+    wrong = d[~d.exact][["id", "text", "expected", "got"]]
+    errors = "\n".join(f"- {r.id}: \"{r.text}\" expected {r.expected}; got {r.got}"
+                       for r in wrong.itertuples())  # fmt: skip
+    return head + "\n".join(rows) + "\n\n## Errors\n\n" + (errors or "None.") + "\n"
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("parser", choices=sorted(PARSERS))
+    ap.add_argument("split", choices=["dev", "test"])
+    ap.add_argument("--final", action="store_true", help="allow the frozen test set")
+    args = ap.parse_args()
+    # The oracle only checks the answer key and shared rules, so it may read the test set.
+    if args.split == "test" and not args.final and args.parser != "oracle":
+        raise SystemExit("The test set is frozen: pass --final only for the final comparison.")
+    cfg = load_config().commands
+    d = run(PARSERS[args.parser], load_set(cfg.data_dir / f"{args.split}.jsonl"))
+    out = cfg.results_dir / f"{args.parser}_{args.split}.md"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(f"# Model C: {args.parser} on {args.split}\n\n" + report(d))
+    logger.info("{} on {}: exact {:.3f}, dangerous {:.3f} -> {}", args.parser, args.split,
+                d.exact.mean(), d.dangerous.mean(), out)  # fmt: skip
+
+
+if __name__ == "__main__":
+    main()

@@ -78,3 +78,10 @@ plates:
   conf_grid: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
   min_val_gain: 0.005
   bootstrap_samples: 1000
+
+commands:
+  # Generated owner-command sets (no training): dev for design, test frozen.
+  data_dir: outputs/commands/data
+  results_dir: outputs/commands
+  dev_seed: 1
+  test_seed: 2
