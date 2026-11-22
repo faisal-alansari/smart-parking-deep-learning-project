@@ -47,3 +47,14 @@ right change.
   wrong change to the owner 9.4% of the time.
 - Dev and the confirm sets overstated Model C (dev 82%, confirm sets 70-78% exact), because
   they use dev wording only.
+
+## Change after the final test (2026-11-22)
+
+The numbers above are for Model C as it was when the test ran. On 2026-11-22 the full-loop run
+found one wrong change: in "allow ... until tomorrow nine thirty p.m.", both models read only
+"nine thirty p.m." (today). With the owner's approval, one safety check was added: a change is
+asked about when the command says a day word (today, tonight, tomorrow, a weekday) that the time
+read leaves out. It was checked on dev sets only, and the test was **not** run again. On dev,
+check and confirm-confirm4, Model C's scores did not change (0 dangerous on all six). The plain
+`checked` combination lost its one wrong change on confirm. In robustness, the typo failure
+"let numebr 8754 in until tomorrow 7:15 pm." is now asked about instead.

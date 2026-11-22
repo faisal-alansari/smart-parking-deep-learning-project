@@ -75,6 +75,7 @@ def build() -> list[dict]:
     used = {
         n
         for f in cfg.data_dir.glob("*.jsonl")
+        if f.name != "robustness.jsonl"  # its own last output: rebuilding must not change it
         for r in load_set(f)
         for n in [(r["expected"]["proposal"] or {}).get("number")]
         if n

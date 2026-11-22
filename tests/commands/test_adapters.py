@@ -128,6 +128,16 @@ def test_checked_asks_without_an_action_word_or_with_an_unexplained_number():
     assert _checked(loose, _Fake(ALLOW)).decide(ROW, NOW) == NeedsReview(reason="unsure")
 
 
+def test_checked_asks_when_the_time_leaves_out_a_day_that_was_said():
+    assert not A.lost_day_words("allow car 626 until tomorrow 6 pm", "until tomorrow 6 pm")
+    assert not A.lost_day_words("Allow car 626 for 2 hours.", "for 2 hours")
+    assert A.lost_day_words("allow 626 until tomorrow nine thirty p.m.", "nine thirty p.m")
+    assert A.lost_day_words("allow 626 till Friday", None)
+    said = {"text": "allow 626 until tomorrow nine thirty p.m."}
+    cut = _Fake(Extraction(action=Action.ALLOW, numbers=["626"], time="nine thirty p.m"))
+    assert _checked(cut, cut).decide(said, NOW) == NeedsReview(reason="unsure")
+
+
 def test_checked_keeps_questions_and_asks_about_a_half_seen_end_time():
     question = _checked(_Fake(Extraction(numbers=["626"])), _Fake(ALLOW)).decide(ROW, NOW)
     assert question == NeedsReview(reason="unclear_action")

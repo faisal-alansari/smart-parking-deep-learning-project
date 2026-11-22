@@ -101,3 +101,11 @@ lint:
 clean:
     rm -rf .pytest_cache .ruff_cache logs
     find . -type d -name __pycache__ -prune -exec rm -rf {} +
+
+# Full loop story on the owner's photos: all three models and the permit table (local only)
+full-loop-scenario:
+    HF_HUB_OFFLINE=1 uv run python -m smart_parking.loop --scenario
+
+# Full loop on every local bay against the truth, with blame per stage (counts-only summary)
+full-loop:
+    HF_HUB_OFFLINE=1 uv run python -m smart_parking.loop --evaluate

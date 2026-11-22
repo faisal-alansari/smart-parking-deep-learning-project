@@ -1,6 +1,6 @@
 # Model C: checked on confirm4
 
-Time per command: 153 ms mean, 380 ms p95.
+Time per command: 157 ms mean, 387 ms p95.
 
 | slice | n | exact | dangerous | needless question | action | number | until |
 |---|---|---|---|---|---|---|---|

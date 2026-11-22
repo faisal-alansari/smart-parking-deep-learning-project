@@ -1,19 +1,19 @@
 # Model C: tiered on confirm3
 
-Time per command: 123 ms mean, 401 ms p95.
+Time per command: 120 ms mean, 400 ms p95.
 
 | slice | n | exact | dangerous | needless question | action | number | until |
 |---|---|---|---|---|---|---|---|
-| all | 120 | 0.733 | 0.008 | 0.324 | 0.676 | 0.676 | 0.676 |
+| all | 120 | 0.733 | 0.000 | 0.324 | 0.676 | 0.676 | 0.676 |
 | kind=allow | 52 | 0.615 | 0.000 | 0.385 | 0.615 | 0.615 | 0.615 |
 | kind=remove | 16 | 0.875 | 0.000 | 0.125 | 0.875 | 0.875 | 0.875 |
-| kind=review | 40 | 0.800 | 0.025 | - | - | - | - |
+| kind=review | 40 | 0.800 | 0.000 | - | - | - | - |
 | kind=single_digit | 4 | 0.750 | 0.000 | - | - | - | - |
 | kind=unsupported | 8 | 0.875 | 0.000 | - | - | - | - |
 | reason=ambiguous_time | 6 | 0.500 | 0.000 | - | - | - | - |
 | reason=invalid_number | 4 | 1.000 | 0.000 | - | - | - | - |
 | reason=missing_number | 6 | 0.500 | 0.000 | - | - | - | - |
-| reason=multiple_numbers | 4 | 0.750 | 0.250 | - | - | - | - |
+| reason=multiple_numbers | 4 | 0.750 | 0.000 | - | - | - | - |
 | reason=time_in_past | 6 | 1.000 | 0.000 | - | - | - | - |
 | reason=unclear_action | 8 | 1.000 | 0.000 | - | - | - | - |
 | reason=unclear_time | 6 | 0.833 | 0.000 | - | - | - | - |
@@ -21,7 +21,7 @@ Time per command: 123 ms mean, 401 ms p95.
 | wording=seen | 74 | 0.689 | 0.000 | 0.324 | 0.676 | 0.676 | 0.676 |
 | bay said=False | 58 | 0.810 | 0.000 | 0.192 | 0.808 | 0.808 | 0.808 |
 | bay said=True | 16 | 0.250 | 0.000 | 0.750 | 0.250 | 0.250 | 0.250 |
-| slip=False | 118 | 0.729 | 0.008 | 0.324 | 0.676 | 0.676 | 0.676 |
+| slip=False | 118 | 0.729 | 0.000 | 0.324 | 0.676 | 0.676 | 0.676 |
 | slip=True | 2 | 1.000 | 0.000 | - | - | - | - |
 
 ## Errors
@@ -30,7 +30,7 @@ Time per command: 123 ms mean, 401 ms p95.
 - confirm3-005: "approve number 3993 till 1" expected NEEDS_REVIEW (ambiguous_time); got NEEDS_REVIEW (unsure)
 - confirm3-012: "Okay allow plate 912 until today bay two." expected PROPOSE ALLOW 912, until Sun 29 Nov 23:59; got NEEDS_REVIEW (unclear_action)
 - confirm3-021: "Let car five three zero eight in till 2:30." expected NEEDS_REVIEW (ambiguous_time); got NEEDS_REVIEW (missing_number)
-- confirm3-023: "Add car 3875 and car 5 6 2 1 until tomorrow." expected NEEDS_REVIEW (multiple_numbers); got PROPOSE ALLOW 3875, until Mon 30 Nov 23:59
+- confirm3-023: "Add car 3875 and car 5 6 2 1 until tomorrow." expected NEEDS_REVIEW (multiple_numbers); got NEEDS_REVIEW (unsure)
 - confirm3-032: "okay allow plate number four seven oh eight four in bay 2 please" expected PROPOSE ALLOW 47084, permanent; got NEEDS_REVIEW (unsure)
 - confirm3-039: "allow car forty thousand five hundred until later" expected NEEDS_REVIEW (unclear_time); got UNSUPPORTED
 - confirm3-047: "okay approve number 112 till tomorrow 8am" expected PROPOSE ALLOW 112, until Thu 26 Nov 08:00; got NEEDS_REVIEW (unsure)

@@ -188,6 +188,24 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 - **Outcome (final test, run once):** Model C (`tiered`) put 1 wrong change to the owner out of 160 (0.6%, a negation: "don't allow car 28 anymore"), against 3 for the rule parser and 15 for GLiNER + MiniLM alone. The price is coverage: 50% exact, and only 38% of clear commands get the change without a question; commands in new wording are almost always asked about. GLiNER + MiniLM alone is the most accurate (73%) but unsafe (9.4% dangerous). Robustness (5 levels): typos make Model C ask much more (42% exact); missing pieces, ambiguity, off-topic and tricks are handled safely, with 2 rare failures. Details: `outputs/commands/final_test.md`, `robustness.md`, `dev_tuning.md`.
 - **Next:** Connect Model C to the permit table with the owner's confirmation (Step 8). For the report: safety bought with coverage, and the action-word check is the main cost on new wording.
 
+### 2026-11-22 | Owner decisions before the full-loop tests
+
+- **Decision / reason:** The owner chose to **keep real plates local only**. Local configs and plate-level results are now ignored by Git (`configs/local_*.yaml`, `outputs/loop/local/`, local occupancy results); shared reports show counts only. The owner gave the cars on the permanent list (stored only in `configs/local_loop.yaml`) and confirmed the uncertain code letter on IMG_1838. The professor accepts visual + text + tabular as three modalities. The 10,000-item cap has about 3,000 items to spare, so local photos fit even if counted. Model C work was merged into `main` (not pushed). Owner commands for testing are generated in the owner's own (dev) wording, which the owner says matches how they speak.
+- **Outcome:** Unblocked the full-loop tests (steps 1–3).
+- **Next:** Steps 4–5 (remove one model at a time; time per stage and a folder command) and the night video.
+
+### 2026-11-22 | Full loop: the three models together on the owner's photos
+
+- **Decision / reason:** Joined the models into one flow (`smart_parking.loop`): Model A says if a bay is occupied, Model B reads the plate in that bay, and the permit table (filled by Model C from generated owner commands, each confirmed by a simulated owner) is checked at the photo's time. Tested three ways: joining rules with stand-ins (unit tests), a step-by-step story on real photos, and every bay of the local photo sets (51 photos, 102 bays) against the truth. The photos stay check-only: nothing was tuned on them.
+- **Outcome:** The story worked: the same visitor's car went from "potentially unauthorized" to "authorized" after a command, then back after the permit ended or was removed. In the measured run, 64% of bays got the right final answer, with **0 false alerts** and **0 unauthorized cars let through as authorized**. The cost is in occupancy: 21 empty bays were called occupied (sent to a person, mostly at night) and 6 parked cars were missed (5 of them unauthorized). The plate step sent 10 cars to a person, 7 because a Dubai code letter was missing. Of 33 commands, Model C got 24 right, asked about 8, and proposed 1 wrong end time ("until tomorrow nine thirty p.m." became today: both of its models cut "tomorrow" out of the time). The owner's check caught it; without the check, 2 bays would have had false alerts.
+- **Next:** Occupancy at night is the weakest stage; the night video and local adaptation are the main fixes. (The Model C time failure is handled in the next entry.)
+
+### 2026-11-22 | Model C: a day said must be in the time read (change after the final test)
+
+- **Decision / reason:** With the owner's OK, Model C now asks again when the command says a day word (today, tonight, tomorrow, a weekday) that the time it read leaves out. This fixes the full-loop failure in which "tomorrow" was dropped. Because the final test was already used, the change was checked on dev sets only, the test was not run again, and the change is disclosed in `outputs/commands/final_test.md`.
+- **Outcome:** Worked at no cost. Model C's scores on dev, check and confirm–confirm4 are unchanged (0 dangerous on all six). It also fixes one of the two known robustness failures (a typo command that lost "tomorrow"). In the full loop, that command is now asked about instead of being proposed wrong: 0 wrong proposals out of 33. While rerunning robustness, a reproducibility bug was found and fixed: the robustness set changed on every rebuild, because it avoided plate numbers from its own previous output. It now rebuilds identical to the saved set. The confirm reports saved in Git were from older designs; they have been refreshed.
+- **Next:** Keep. The reported final-test numbers describe the version that was tested.
+
 ## Decision log
 
 For each **meaningful** new decision, add one short entry:

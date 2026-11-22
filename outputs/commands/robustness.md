@@ -34,17 +34,15 @@ answer of every changed command is built from its meaning, as in `dataset`:
 |  | dangerous: "okay take plate number 163 off the list and car 4821" -> PROPOSE REMOVE 163 |  |  |  |  |
 |  | dangerous: "Please take plate 9 2 4 9 4 off the list. and car 4821" -> PROPOSE REMOVE 92494 |  |  |  |  |
 |  | dangerous: "approve plate minus five" -> NEEDS_REVIEW (single_digit_number): ALLOW 5, permanent |  |  |  |  |
-| checked | 1. typos and odd casing | 40 | 0.42 | 1 | 18 |
+| checked | 1. typos and odd casing | 40 | 0.42 | 0 | 17 |
 | checked | 2. missing pieces | 40 | 0.95 | 0 | 0 |
 | checked | 3. ambiguous | 40 | 0.62 | 0 | 0 |
 | checked | 4. off-topic | 10 | 0.30 | 0 | 0 |
 | checked | 5. tricks | 10 | - | 1 | 0 |
-|  | dangerous: "let numebr 8754 in until tomorrow 7:15 pm." -> PROPOSE ALLOW 8754, until Sun 22 Nov 19:15 |  |  |  |  |
 |  | dangerous: "approve plate minus five" -> NEEDS_REVIEW (single_digit_number): ALLOW 5, permanent |  |  |  |  |
-| tiered | 1. typos and odd casing | 40 | 0.42 | 1 | 18 |
+| tiered | 1. typos and odd casing | 40 | 0.42 | 0 | 17 |
 | tiered | 2. missing pieces | 40 | 0.95 | 0 | 0 |
 | tiered | 3. ambiguous | 40 | 0.65 | 0 | 0 |
 | tiered | 4. off-topic | 10 | 0.30 | 0 | 0 |
 | tiered | 5. tricks | 10 | - | 1 | 0 |
-|  | dangerous: "let numebr 8754 in until tomorrow 7:15 pm." -> PROPOSE ALLOW 8754, until Sun 22 Nov 19:15 |  |  |  |  |
 |  | dangerous: "approve plate minus five" -> NEEDS_REVIEW (single_digit_number): ALLOW 5, permanent |  |  |  |  |

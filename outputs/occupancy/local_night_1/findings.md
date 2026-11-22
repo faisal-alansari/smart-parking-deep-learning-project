@@ -84,7 +84,7 @@ The public test set has not been rerun with the new rules. It should be opened o
 ## Notes on the data
 
 - **Repeat cars:** a few cars appear in two photos (the same car in a different bay pair), so there are 36 distinct plates.
-- **Answer key:** bay states came from the owner; plates were read by eye from the full-size photos. One code letter (IMG_1838) is uncertain.
+- **Answer key:** bay states came from the owner; plates were read by eye from the full-size photos. The one uncertain code letter (IMG_1838) was confirmed by the owner on 2026-11-22.
 - **Light and framing:** all photos were taken at night under street lights. They are portrait, not landscape as planned, and the standing distance varied.
 
 ## Where each number comes from

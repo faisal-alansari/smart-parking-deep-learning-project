@@ -1,6 +1,6 @@
 # Model C: tiered on confirm4
 
-Time per command: 97 ms mean, 347 ms p95.
+Time per command: 97 ms mean, 346 ms p95.
 
 | slice | n | exact | dangerous | needless question | action | number | until |
 |---|---|---|---|---|---|---|---|

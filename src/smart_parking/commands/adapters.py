@@ -402,6 +402,17 @@ def loose_numbers(spans: list[dict], text: str) -> int:
     return sum(not any(a < s["end"] and s["start"] < b for s in spans) for a, b in _runs(text))
 
 
+DAY_WORDS = {"today", "tonight", "tomorrow", "monday", "tuesday", "wednesday", "thursday",
+             "friday", "saturday", "sunday"}  # fmt: skip
+
+
+def lost_day_words(text: str, time: str | None) -> bool:
+    """Whether the command says a day the extracted end time leaves out: in "until tomorrow
+    nine thirty p.m." both models once read only "nine thirty p.m." (today, not tomorrow)."""
+    said = set(regex.findall(r"[a-z]+", text.lower())) & DAY_WORDS
+    return bool(said - set(regex.findall(r"[a-z]+", (time or "").lower())))
+
+
 class GlinerMiniLM:
     name = "gliner-minilm"
 
@@ -486,6 +497,9 @@ class Checked:
     action word (`action_word_min`): both models tend to read "and car 897 till tomorrow" or
     "930 until tomorrow" as allow, so checking one against the other cannot catch it.
 
+    Also "unsure": a day word ("tomorrow", a weekday) the extracted end time leaves out. Added
+    on 2026-11-22, after the final test, from a full-loop failure; checked on dev sets only.
+
     Also "unsure": an allow with no end time while GLiNER half-saw an end time (a score
     between `time_near_miss` and its cut-off), because a dropped end time turns into a
     permanent permit. Questions and reviews from GLiNER + MiniLM are kept as they are.
@@ -512,6 +526,8 @@ class Checked:
             return NeedsReview(reason="unclear_action")  # no word means allow or remove
         if sure["loose_numbers"]:
             return NeedsReview(reason="unsure")  # a number was not explained: maybe a 2nd car
+        if lost_day_words(row["text"], ex.time):
+            return NeedsReview(reason="unsure")  # a day was said but not read (added after test)
         no_time = change.action is Action.ALLOW and change.until is None
         if no_time and sure["time_near_miss"] >= self.cfg.time_near_miss:
             return NeedsReview(reason="unsure")
