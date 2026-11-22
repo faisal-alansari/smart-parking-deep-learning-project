@@ -206,6 +206,18 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 - **Outcome:** Worked at no cost. Model C's scores on dev, check and confirm–confirm4 are unchanged (0 dangerous on all six). It also fixes one of the two known robustness failures (a typo command that lost "tomorrow"). In the full loop, that command is now asked about instead of being proposed wrong: 0 wrong proposals out of 33. While rerunning robustness, a reproducibility bug was found and fixed: the robustness set changed on every rebuild, because it avoided plate numbers from its own previous output. It now rebuilds identical to the saved set. The confirm reports saved in Git were from older designs; they have been refreshed.
 - **Next:** Keep. The reported final-test numbers describe the version that was tested.
 
+### 2026-11-22 | Full loop: what each part adds (remove one at a time)
+
+- **Decision / reason:** To show each modality earns its place, the full loop was rerun on the same 102 local bays with one part removed at a time (`just full-loop-ablation` → `outputs/loop/ablation.md`).
+- **Outcome:** Without Model A, every empty bay goes to a person (right answers 64% → 35%). Without Model B, no car can be identified (33%). Without the time check, 6 unauthorized cars are let through as authorized. Without any commands, 8 false alerts. With the owner's check, Model C never causes a wrong answer; without it, 2 false alerts. **Surprise:** on these generated commands the plain rule parser did better than Model C (33 of 33 right, no questions, against Model C's 24 right and 9 questions). The commands use the same dev wording the rule parser was written from, so this favours it; on the test's new wording, the rule parser made 3 wrong proposals against Model C's 1. Reported as found.
+- **Next:** In the report, present this as a trade: the rule parser is best on the owner's own wording, and Model C is safer on new wording.
+
+### 2026-11-22 | Night video and the folder command (step 5)
+
+- **Decision / reason:** The owner recorded 10 minutes at night from a fixed spot; both of the owner's cars arrive and leave several times. Claude marked the truth from frames; moving periods are not scored. Twice the BMW stands across both bays, so it counts as parked in both. The owner checked the truth list by hand and found it accurate, with no changes. The same per-frame code now serves a folder command for new inputs (photos, videos, typed commands) and times each stage.
+- **Outcome (truth checked by the owner):** 0 false alerts on the owner's cars in scored frames, and no parked car was missed. Plates were read right in 83% of normal frames. The weak point is again empty bays at night called occupied (78 of 243 checks), which go to a person, never to an alert. Single-frame false alerts appear while a car is moving (4 short episodes). Time: about 0.1 s per frame and about 0.1 s per command on the Mac GPU; about 10 s to load; about 2.2 GB of memory.
+- **Next:** Idea, not yet tested: alert only when the same answer holds for a few seconds (the length to be fixed before looking at results, never tuned on this video).
+
 ## Decision log
 
 For each **meaningful** new decision, add one short entry:

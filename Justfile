@@ -109,3 +109,15 @@ full-loop-scenario:
 # Full loop on every local bay against the truth, with blame per stage (counts-only summary)
 full-loop:
     HF_HUB_OFFLINE=1 uv run python -m smart_parking.loop --evaluate
+
+# Remove one part of the full loop at a time (no Model A, B, C, time check, owner check)
+full-loop-ablation:
+    HF_HUB_OFFLINE=1 uv run python -m smart_parking.ablation
+
+# Run the full system on a folder of new photos, videos and commands.txt (see pipeline.py)
+run-folder dir *flags:
+    HF_HUB_OFFLINE=1 uv run python -m smart_parking.pipeline --folder {{dir}} {{flags}}
+
+# Full loop on the owner's night video against its truth (local only; counts-only summary)
+video-night-1:
+    HF_HUB_OFFLINE=1 uv run python -m smart_parking.pipeline --video-eval configs/local_video_night_1.yaml

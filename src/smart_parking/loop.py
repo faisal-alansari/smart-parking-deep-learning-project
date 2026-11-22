@@ -170,15 +170,19 @@ def photo_time(path: Path, fallback: str) -> datetime:
     return (when or datetime.fromisoformat(fallback)).replace(tzinfo=TZ)
 
 
-def run_models(photo_set: dict) -> pd.DataFrame:
-    """Models A and B on every bay of one photo set (the local-pilot pipeline)."""
+def run_models(photo_set: dict, all_occupied: bool = False) -> pd.DataFrame:
+    """Models A and B on every bay of one photo set (the local-pilot pipeline).
+    `all_occupied` skips Model A's answer: every bay is treated as occupied (ablation)."""
     from smart_parking.occupancy import local_pilot as lp  # loads YOLO; import when needed
 
     project = load_config()
     pilot = yaml.safe_load(Path(photo_set["config"]).read_text())
     lp.prepare_photos(Path(pilot["raw_dir"]), Path(pilot["photo_dir"]))
     images, rows, _ = lp.crop_bays(pilot, project.occupancy.input_size)
-    res = lp.read_bay_plates(pilot, project.plates, lp.score(project.occupancy, images, rows))
+    occupancy = lp.score(project.occupancy, images, rows)
+    if all_occupied:
+        occupancy["pred"] = 1
+    res = lp.read_bay_plates(pilot, project.plates, occupancy)
     res["set"] = Path(photo_set["config"]).stem
     times = [photo_time(Path(pilot["photo_dir"]) / f"{p}.jpg", photo_set["fallback_time"])
              for p in res["photo"]]  # fmt: skip
@@ -306,12 +310,18 @@ def details(j: pd.DataFrame, tables: Tables) -> str:
     )
 
 
-def evaluate(loop: dict, decide: Decide) -> None:
-    res = pd.concat([run_models(s) for s in loop["sets"]], ignore_index=True)
+def first_arrivals(res: pd.DataFrame) -> dict[str, datetime]:
+    """The first time each true plate number is seen."""
     arrivals: dict[str, datetime] = {}
     for r in res[res["true_plate"] != ""].itertuples():
         n = spoken_number(plate_text(r.true_plate))
         arrivals[n] = min(arrivals.get(n, r.at), r.at)
+    return arrivals
+
+
+def evaluate(loop: dict, decide: Decide) -> None:
+    res = pd.concat([run_models(s) for s in loop["sets"]], ignore_index=True)
+    arrivals = first_arrivals(res)
     (OUT / "local").mkdir(parents=True, exist_ok=True)
     feedback = OUT / "local" / "feedback.jsonl"
     feedback.unlink(missing_ok=True)
