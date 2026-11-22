@@ -10,7 +10,8 @@
 - `commands.txt`: one owner command per line, `2026-11-22 09:05 | allow car 12345 until 6 pm`.
 Each proposed permit change is shown to the owner, who answers y/n in the terminal
 (`--yes` accepts all, for unattended runs). Results go to outputs/loop/local/runs/<dir>/
-(local only: they show plates): every decision, a status timeline per video, time per stage.
+(local only: they show plates): every decision, a timeline per video with one decision per
+car's stay (`smart_parking.stays`), and the time per stage.
 
 `just video-night-1`: the owner's night video against its truth (configs/local_video_night_1.yaml).
 """
@@ -37,6 +38,7 @@ from smart_parking.common.config import load_config
 from smart_parking.common.log import setup_logging
 from smart_parking.loop import TZ, _md, bay_status, true_status
 from smart_parking.plates.reader import PlateRead, read_plates
+from smart_parking.stays import BayTracker, stay_status
 
 PHOTOS = {".jpg", ".jpeg", ".png", ".heic"}
 VIDEOS = {".mov", ".mp4", ".m4v"}
@@ -233,13 +235,18 @@ def run_folder(folder: Path, every: float, yes: bool) -> Path:
         elif kind == "photo":
             for r in pipe.frame(open_photo(item), boxes, at, table):
                 r.pop("read")
+                r["stay_status"] = r["status"]  # a single photo is its own stay
                 rows.append({"source": item.name, "time": f"{at:%Y-%m-%d %H:%M:%S}",
                              "clock": "", **r})  # fmt: skip
         else:
+            trackers = {bay: BayTracker() for bay in boxes}  # one decision per stay
             for t, im in video_frames(item, every):
                 when = at + timedelta(seconds=t)
                 for r in pipe.frame(im, boxes, when, table):
-                    r.pop("read")
+                    read = r.pop("read")
+                    clear = read.text if read and read.decision == "READ" else None
+                    occupied, plate = trackers[r["bay"]].update(bool(r["occupied"]), clear)
+                    r["stay_status"] = stay_status(occupied, plate, when, table)
                     rows.append({"source": item.name, "time": f"{when:%Y-%m-%d %H:%M:%S}",
                                  "clock": clock(t), **r})  # fmt: skip
     decisions = pd.DataFrame(rows)
@@ -253,7 +260,8 @@ def run_folder(folder: Path, every: float, yes: bool) -> Path:
         counts = decisions.groupby(["source", "bay"])["status"].value_counts().unstack(fill_value=0)
         parts += ["## Status counts\n", _md(counts.reset_index()) + "\n"]
         for src, g in decisions[decisions["clock"] != ""].groupby("source"):
-            parts += [f"## Timeline: {src}\n", _md(timeline(g)) + "\n"]
+            per_stay = timeline(g.assign(status=g["stay_status"]))
+            parts += [f"## Timeline: {src} (one decision per stay)\n", _md(per_stay) + "\n"]
     parts += ["## Time per stage\n", _md(pipe.timing()) + "\n"]
     (out / "summary.md").write_text("\n".join(parts))
     return out

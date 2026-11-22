@@ -121,3 +121,7 @@ run-folder dir *flags:
 # Full loop on the owner's night video against its truth (local only; counts-only summary)
 video-night-1:
     HF_HUB_OFFLINE=1 uv run python -m smart_parking.pipeline --video-eval configs/local_video_night_1.yaml
+
+# One decision per car's stay on the night video (uses the saved per-frame results)
+video-night-1-stays:
+    uv run python -m smart_parking.stays

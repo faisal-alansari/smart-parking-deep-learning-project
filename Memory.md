@@ -216,7 +216,17 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 
 - **Decision / reason:** The owner recorded 10 minutes at night from a fixed spot; both of the owner's cars arrive and leave several times. Claude marked the truth from frames; moving periods are not scored. Twice the BMW stands across both bays, so it counts as parked in both. The owner checked the truth list by hand and found it accurate, with no changes. The same per-frame code now serves a folder command for new inputs (photos, videos, typed commands) and times each stage.
 - **Outcome (truth checked by the owner):** 0 false alerts on the owner's cars in scored frames, and no parked car was missed. Plates were read right in 83% of normal frames. The weak point is again empty bays at night called occupied (78 of 243 checks), which go to a person, never to an alert. Single-frame false alerts appear while a car is moving (4 short episodes). Time: about 0.1 s per frame and about 0.1 s per command on the Mac GPU; about 10 s to load; about 2.2 GB of memory.
-- **Next:** Idea, not yet tested: alert only when the same answer holds for a few seconds (the length to be fixed before looking at results, never tuned on this video).
+- **Next:** Per-stay logic (next entry). Idea, not yet tested: alert only when the same answer holds for a few seconds (the length to be fixed before looking at results, never tuned on this video).
+
+### 2026-11-22 | Per-stay logic for video: rule fixed before running it
+
+- **Decision / reason:** With video input, judging each frame alone gives a flickering answer (46 changes in 10 minutes in one bay) and one-frame false alerts while a car moves. The owner wants one decision per car's stay. The rule below was **fixed and written here before it was run**, because the night video has already been seen. Its numbers come from reasoning, not from the video:
+  - a bay changes between empty and occupied only after **5 frames in a row (10 s at one frame every 2 s)** agree, because a car needs several seconds to park or leave;
+  - the stay's plate is the read that appears most often among the stay's clear reads (READ, not NEEDS_REVIEW), counting from the first frame of the arrival. It must appear **at least twice and in more than half of the clear reads**; otherwise the stay goes to a person. Two reads guard against a single misread;
+  - the permit check is redone at every frame's time, so a permit that ends during a stay turns into an alert;
+  - each change of a bay's answer counts as one notification to the owner.
+- **Outcome (seen check, rule unchanged after running):** It worked on the main points. False alerts on the owner's cars fell from 4 frames to 0, notifications fell from 78 to 29 over 10 minutes, and every real stay was found with the right answer at its end. The exception is the bay without the plate when the BMW stood across both bays, which goes to a person. Still weak: 5 "phantom" stays (a person standing in a bay, a car pulling up close and turning away), and empty bays at night called occupied (67 of 243 checks), so most remaining notifications are "please look" requests. With only a few reads early in a stay, the plate rule can flip once or twice before settling. The folder command now uses per-stay answers for videos (`outputs/loop/video_night_1_stays.md`).
+- **Next:** A fresh video recorded later, not looked at first, is the clean test. The biggest remaining gain is night occupancy (adapting Model A on local photos, open item).
 
 ## Decision log
 
