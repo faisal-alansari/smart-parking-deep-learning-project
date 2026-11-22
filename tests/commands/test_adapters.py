@@ -8,6 +8,7 @@ import pytest
 
 from smart_parking.commands import adapters as A
 from smart_parking.commands.schema import Action, Extraction, NeedsReview, ParsedCommand
+from smart_parking.commands.tiers import fixed_form
 from smart_parking.common.config import load_config
 
 TEXT = "allow car 626 until 6 pm"
@@ -88,11 +89,12 @@ def test_each_adapter_returns_an_extraction(name, folders):
 
 
 class _Fake:
-    def __init__(self, ex: Extraction, time_near_miss: float = 0.0) -> None:
-        self.ex, self.near = ex, time_near_miss
+    def __init__(self, ex: Extraction, **sure: float) -> None:
+        self.ex = ex
+        self.sure = {"time_near_miss": 0.0, "action_word": 1.0, "loose_numbers": 0} | sure
 
     def extract(self, row):
-        return self.ex, {"time_near_miss": self.near}
+        return self.ex, self.sure
 
     def __call__(self, row):
         return self.ex
@@ -109,16 +111,59 @@ NOW = datetime(2026, 11, 21, 9, 30, tzinfo=ZoneInfo("Asia/Dubai"))
 ALLOW = Extraction(action=Action.ALLOW, numbers=["626"], time="until 6 pm")
 
 
-def test_checked_proposes_only_when_both_models_agree():
+def test_checked_proposes_only_when_both_models_agree_on_action_and_number():
     assert isinstance(_checked(_Fake(ALLOW), _Fake(ALLOW)).decide(ROW, NOW), ParsedCommand)
-    other = Extraction(action=Action.ALLOW, numbers=["626"])  # SmolLM2 missed the time
+    no_time = Extraction(action=Action.ALLOW, numbers=["626"])  # SmolLM2 missed the time only
+    assert isinstance(_checked(_Fake(ALLOW), _Fake(no_time)).decide(ROW, NOW), ParsedCommand)
+    remove = Extraction(action=Action.REMOVE, numbers=["626"])
+    assert _checked(_Fake(ALLOW), _Fake(remove)).decide(ROW, NOW) == NeedsReview(reason="unsure")
+    other = Extraction(action=Action.ALLOW, numbers=["62"])
     assert _checked(_Fake(ALLOW), _Fake(other)).decide(ROW, NOW) == NeedsReview(reason="unsure")
+
+
+def test_checked_asks_without_an_action_word_or_with_an_unexplained_number():
+    weak = _Fake(ALLOW, action_word=CFG.action_word_min - 0.01)  # e.g. "and car 626"
+    assert _checked(weak, _Fake(ALLOW)).decide(ROW, NOW) == NeedsReview(reason="unclear_action")
+    loose = _Fake(ALLOW, loose_numbers=1)  # e.g. a second car that was not found
+    assert _checked(loose, _Fake(ALLOW)).decide(ROW, NOW) == NeedsReview(reason="unsure")
 
 
 def test_checked_keeps_questions_and_asks_about_a_half_seen_end_time():
     question = _checked(_Fake(Extraction(numbers=["626"])), _Fake(ALLOW)).decide(ROW, NOW)
     assert question == NeedsReview(reason="unclear_action")
     no_time = Extraction(action=Action.ALLOW, numbers=["626"])
-    seen = _Fake(no_time, time_near_miss=CFG.time_near_miss)
+    seen = _Fake(no_time, time_near_miss=CFG.time_near_miss)  # GLiNER half-saw a time
     assert _checked(seen, _Fake(no_time)).decide(ROW, NOW) == NeedsReview(reason="unsure")
     assert "not sure" in NeedsReview(reason="unsure").question
+
+
+def test_unexplained_numbers_are_counted():
+    text = "add car 3875 and car 5 6 2 1 until tomorrow"
+    plate = [{"start": 8, "end": 12, "label": "plate number"}]
+    assert A.loose_numbers(plate, text) == 1  # "5 6 2 1" is explained by nothing
+    both = plate + [{"start": 21, "end": 28, "label": "plate number"}]
+    assert A.loose_numbers(both, text) == 0
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        ("add 5055", Extraction(action=Action.ALLOW, numbers=["5055"])),
+        ("Remove car 5055.", Extraction(action=Action.REMOVE, numbers=["5055"])),
+        ("add 5055 for 2 days",
+         Extraction(action=Action.ALLOW, numbers=["5055"], time="for 2 days")),
+        ("please allow plate number five zero five five until 6 pm thanks",
+         Extraction(action=Action.ALLOW, numbers=["five zero five five"], time="until 6 pm")),
+    ],
+)  # fmt: skip
+def test_fixed_form_reads_the_owners_short_commands(text, expected):
+    assert fixed_form(text) == expected
+
+
+@pytest.mark.parametrize(
+    "text",
+    ["and car 5055", "let 5055 in", "add 5055 in bay 2", "add 12 and 87", "5055 until tomorrow",
+     "is car 5055 allowed"],
+)  # fmt: skip
+def test_anything_else_goes_to_the_models(text):
+    assert fixed_form(text) is None

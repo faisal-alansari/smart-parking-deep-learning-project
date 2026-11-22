@@ -80,6 +80,14 @@ command-candidates:
 command-score parser split="dev" *flags:
     HF_HUB_OFFLINE=1 uv run python -m smart_parking.commands.score {{parser}} {{split}} {{flags}}
 
+# Model C robustness: 5 increasing levels of damaged or hostile commands (no tuning)
+command-robustness:
+    HF_HUB_OFFLINE=1 uv run python -m smart_parking.commands.robustness
+
+# Model C demo: the same arrival before, during and after a permit, with owner confirmation
+command-demo:
+    HF_HUB_OFFLINE=1 uv run python -m smart_parking.commands.owner --demo
+
 # Run tests
 test:
     uv run pytest

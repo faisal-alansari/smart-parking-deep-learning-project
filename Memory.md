@@ -182,6 +182,12 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 - **Outcome:** The frozen test answers are final. The test set is still unopened by any parser.
 - **Next:** Improve the safe combination on dev, build the robustness sets, then run the final test once.
 
+### 2026-11-22 | Model C: improved for safety, then the one final test
+
+- **Decision / reason:** The owner asked for the best model with 0 dangerous answers, within 2 hours. On dev only, plus extra command sets in dev wording: better MiniLM examples ("bay two" appeared only in a remove example and made both models read "add ... bay two" as remove), a lower GLiNER cut-off, SmolLM2 checks only the action and number, the owner's fixed form read first by fixed rules, and two new checks: a change needs a word close in meaning to an action word, and every number in the command must be explained. Each fresh "confirm" set found a new rare failure (no action word, a question read as allow, a missed second car), so four were used in turn; the fourth, sealed until the design was final, gave 0 dangerous. Cut-offs: the gap midpoint for the action word, after "one grid step stricter" proved too small a margin.
+- **Outcome (final test, run once):** Model C (`tiered`) put 1 wrong change to the owner out of 160 (0.6%, a negation: "don't allow car 28 anymore"), against 3 for the rule parser and 15 for GLiNER + MiniLM alone. The price is coverage: 50% exact, and only 38% of clear commands get the change without a question; commands in new wording are almost always asked about. GLiNER + MiniLM alone is the most accurate (73%) but unsafe (9.4% dangerous). Robustness (5 levels): typos make Model C ask much more (42% exact); missing pieces, ambiguity, off-topic and tricks are handled safely, with 2 rare failures. Details: `outputs/commands/final_test.md`, `robustness.md`, `dev_tuning.md`.
+- **Next:** Connect Model C to the permit table with the owner's confirmation (Step 8). For the report: safety bought with coverage, and the action-word check is the main cost on new wording.
+
 ## Decision log
 
 For each **meaningful** new decision, add one short entry:

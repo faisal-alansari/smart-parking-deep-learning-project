@@ -124,15 +124,22 @@ class CommandsConfig(BaseModel):
     results_dir: Path = Path("outputs/commands")
     dev_seed: int = 1
     test_seed: int = 2
+    check_seed: int = 3  # extra set in dev wording (became a second dev set)
+    confirm_seed: int = 4  # opened once to confirm; it then showed 2 dangerous (became dev)
+    confirm2_seed: int = 5  # opened once; it showed 2 dangerous answers (became dev)
+    confirm3_seed: int = 6  # opened once; it showed 1 dangerous answer (became dev)
+    confirm4_seed: int = 7  # opened once, only to confirm the final design before the test
     # Pretrained candidates (local weights only, no fine-tuning)
     weights_dir: Path = Path("checkpoints/commands/pretrained")
     device: str = "cpu"
     threads: int = 4
     # GLiNER + MiniLM candidate (set on dev only)
-    gliner_threshold: float = 0.3
+    gliner_threshold: float = 0.2
     # Safe combination (`checked`): an allow without an end time is asked about when GLiNER
     # half-saw an end time scoring at least this (set on dev)
     time_near_miss: float = 0.05
+    # A change needs a word this close in meaning to an action word (MiniLM; set on dev)
+    action_word_min: float = 0.6
 
 
 class ProjectConfig(BaseModel):

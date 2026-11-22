@@ -49,13 +49,16 @@ EXAMPLES: list[tuple[str, dict]] = [
 
 
 # More examples per action for the MiniLM helper, which compares a command with the average
-# of each action's examples (same dev wording only; written by hand).
+# of each action's examples (same dev wording only; written by hand). "bay two" appears under
+# allow and no-action too: when it appeared only under remove, MiniLM read "add plate ... in
+# bay two" as remove.
 ACTION_EXAMPLES: dict[str, list[str]] = {
     "ALLOW": [
         "allow car 4821 until 9 pm", "add 5 0 9 1 2 in bay 1 till tomorrow",
         "let car seven two five in for three hours", "approve car number 3305 thanks",
         "please allow plate 618", "okay add number 2290", "let plate 77 in",
-        "hey approve 3 1 4 until friday",
+        "hey approve 3 1 4 until friday", "add plate 77 in bay two",
+        "allow car 5501 bay two please",
     ],
     "REMOVE": [
         "please remove plate number 77310", "delete car 60218 from bay two",
@@ -64,9 +67,13 @@ ACTION_EXAMPLES: dict[str, list[str]] = {
     ],
     "OTHER": [
         "what cars are allowed today", "is plate 3310 parked", "good evening",
-        "how long is car 52 allowed", "show the list",
+        "how long is car 52 allowed", "show the list", "extend the permit for car 52",
+        "is car 4410 allowed",
     ],
-    "NONE": ["car 4410 until friday", "plate number 918", "number 23 in bay 1", "car 66 tomorrow"],
+    "NONE": [
+        "car 4410 until friday", "plate number 918", "number 23 in bay 1", "car 66 tomorrow",
+        "plate 918 in bay two", "4410 until tomorrow",
+    ],
 }  # fmt: skip
 
 
@@ -334,6 +341,10 @@ class FlanT5:
 # ---- GLiNER Small v2.1 (spans) + all-MiniLM-L6-v2 (action) ----------------------------------
 
 GLINER_LABELS = ["plate number", "end time", "parking bay"]
+# The meaning of an action word (dev wording). MiniLM compares each word of a command with
+# these; a command with no word close in meaning ("and car 897", "930 until tomorrow") has no
+# clear action. Comparing meanings, not spellings, lets new verbs through.
+ACTION_WORDS = ["allow", "add", "approve", "let in", "remove", "delete", "take off"]
 GLINER_LOOK = 0.02  # spans down to this score are looked at, to see near misses
 
 
@@ -362,24 +373,33 @@ def number_runs(spans: list[dict], text: str, label: str = "plate number") -> li
     number words around it, because GLiNER often finds only part of a number said digit by
     digit ("four zero six zero nine"). Spans pointing at the same run count once.
     """
+    hit: list[tuple[int, int]] = []
+    for s in sorted((s for s in spans if s["label"] == label), key=lambda s: s["start"]):
+        for a, b in _runs(text):
+            if a < s["end"] and s["start"] < b and (a, b) not in hit:
+                hit.append((a, b))
+    return [text[a:b] for a, b in sorted(hit)]
+
+
+def _runs(text: str) -> list[tuple[int, int]]:
+    """Character ranges of each run of consecutive number words ("5 6 2 1", "twelve")."""
     words = [(m.start(), m.end()) for m in regex.finditer(r"[A-Za-z']+|\d+", text)]
-    runs: list[tuple[int, int]] = []  # word index ranges of consecutive number words
-    i = 0
+    runs, i = [], 0
     while i < len(words):
         if _is_number_word(text[slice(*words[i])]):
             j = i
             while j + 1 < len(words) and _is_number_word(text[slice(*words[j + 1])]):
                 j += 1
-            runs.append((i, j))
+            runs.append((words[i][0], words[j][1]))
             i = j + 1
         else:
             i += 1
-    hit: list[tuple[int, int]] = []
-    for s in sorted((s for s in spans if s["label"] == label), key=lambda s: s["start"]):
-        for a, b in runs:
-            if words[a][0] < s["end"] and s["start"] < words[b][1] and (a, b) not in hit:
-                hit.append((a, b))
-    return [text[words[a][0] : words[b][1]] for a, b in sorted(hit)]
+    return runs
+
+
+def loose_numbers(spans: list[dict], text: str) -> int:
+    """Runs of number words that no found span (plate, time or bay) explains."""
+    return sum(not any(a < s["end"] and s["start"] < b for s in spans) for a, b in _runs(text))
 
 
 class GlinerMiniLM:
@@ -403,7 +423,18 @@ class GlinerMiniLM:
             for v in ACTION_EXAMPLES.values()
         ]
         self.protos = torch.nn.functional.normalize(torch.stack(protos), dim=1)
+        self.verbs = self.encoder.encode(
+            ACTION_WORDS, normalize_embeddings=True, convert_to_tensor=True
+        )
         self.models = [self.gliner, self.encoder]
+
+    def action_word(self, text: str) -> float:
+        """How close in meaning the command's closest word is to an action word (0 to 1)."""
+        words = [w for w in regex.findall(r"[a-z']+", text.lower()) if not _is_number_word(w)]
+        if not words:
+            return 0.0
+        vecs = self.encoder.encode(words, normalize_embeddings=True, convert_to_tensor=True)
+        return float((vecs @ self.verbs.T).max())
 
     def action(self, text: str) -> tuple[str, float]:
         """The action whose average example is closest to the command, and its lead over the
@@ -430,6 +461,8 @@ class GlinerMiniLM:
             "time_near_miss": max(
                 (s["score"] for s in missed if s["label"] == "end time"), default=0.0
             ),  # an end time GLiNER half-saw but did not use
+            "action_word": self.action_word(text),
+            "loose_numbers": loose_numbers(spans, text),  # numbers nothing explains
         }
         return to_extraction(action, numbers, " ".join(times) or None), sure
 
@@ -442,8 +475,16 @@ class GlinerMiniLM:
 
 class Checked:
     """GLiNER + MiniLM gives the answer; a permit change goes to the owner only if SmolLM2,
-    reading the same command on its own, reaches exactly the same change. Otherwise the
-    answer is NEEDS_REVIEW ("unsure").
+    reading the same command on its own, proposes the same action for the same number.
+    Otherwise the answer is NEEDS_REVIEW ("unsure"). (Checking the end time too gave more
+    needless questions with no safety gain on dev and check: SmolLM2 often misses times.)
+
+    A change is also "unsure" when a number in the command is explained by no found span
+    (plate, time or bay): both models once found only the first of two cars.
+
+    A change is also asked about when no word of the command is close in meaning to an
+    action word (`action_word_min`): both models tend to read "and car 897 till tomorrow" or
+    "930 until tomorrow" as allow, so checking one against the other cannot catch it.
 
     Also "unsure": an allow with no end time while GLiNER half-saw an end time (a score
     between `time_near_miss` and its cut-off), because a dropped end time turns into a
@@ -467,10 +508,16 @@ class Checked:
         change = result if isinstance(result, ParsedCommand) else getattr(result, "proposal", None)
         if change is None:
             return result  # a question or "unsupported": nothing to guard
+        if sure["action_word"] < self.cfg.action_word_min:
+            return NeedsReview(reason="unclear_action")  # no word means allow or remove
+        if sure["loose_numbers"]:
+            return NeedsReview(reason="unsure")  # a number was not explained: maybe a 2nd car
         no_time = change.action is Action.ALLOW and change.until is None
         if no_time and sure["time_near_miss"] >= self.cfg.time_near_miss:
             return NeedsReview(reason="unsure")
-        if finish(self.check(row), now) != result:
+        other = finish(self.check(row), now)
+        theirs = other if isinstance(other, ParsedCommand) else getattr(other, "proposal", None)
+        if theirs is None or (theirs.action, theirs.number) != (change.action, change.number):
             return NeedsReview(reason="unsure")
         return result
 

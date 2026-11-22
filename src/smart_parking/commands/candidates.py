@@ -71,6 +71,7 @@ CANDIDATES: dict[str, list[str]] = {
     "flan-t5": ["flan-t5-small"],
     "gliner-minilm": ["gliner-small-v2.1", "deberta-v3-small", "minilm-l6-v2"],
     "checked": ["gliner-small-v2.1", "deberta-v3-small", "minilm-l6-v2", "smollm2-135m"],
+    "tiered": ["gliner-small-v2.1", "deberta-v3-small", "minilm-l6-v2", "smollm2-135m"],
 }
 
 

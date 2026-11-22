@@ -24,7 +24,7 @@ from pathlib import Path
 import pandas as pd
 from loguru import logger
 
-from smart_parking.commands import adapters, baseline
+from smart_parking.commands import adapters, baseline, tiers
 from smart_parking.commands.dataset import describe
 from smart_parking.commands.rules import finish
 from smart_parking.commands.schema import (
@@ -44,6 +44,7 @@ PARSERS: dict[str, Parser] = {
     "flan-t5": adapters.Lazy(adapters.FlanT5),
     "gliner-minilm": adapters.Lazy(adapters.GlinerMiniLM),
     "checked": adapters.Lazy(adapters.Checked),  # GLiNER + MiniLM, every change checked
+    "tiered": adapters.Lazy(tiers.Tiered),  # Model C as used: fixed form first, then checked
 }
 FIELDS = ("action", "number", "until")
 
@@ -139,7 +140,9 @@ def report(d: pd.DataFrame) -> str:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("parser", choices=sorted(PARSERS))
-    ap.add_argument("split", choices=["dev", "test"])
+    ap.add_argument(
+        "split", choices=["dev", "check", "confirm", "confirm2", "confirm3", "confirm4", "test"]
+    )
     ap.add_argument("--final", action="store_true", help="allow the frozen test set")
     args = ap.parse_args()
     # The oracle only checks the answer key and shared rules, so it may read the test set.

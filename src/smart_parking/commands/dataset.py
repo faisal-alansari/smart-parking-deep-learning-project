@@ -12,6 +12,13 @@ anything unclear is NEEDS_REVIEW with a reason (never a guess); other requests a
 UNSUPPORTED.
 
 - dev: for designing prompts, rules and settings;
+- check: 120 more commands in dev wording with new numbers and times. Meant only to confirm
+  dev choices, it exposed two dangerous answers and was then used for development too;
+- confirm: another 120 in dev wording; opened once, it showed two dangerous answers and was
+  then used for development too;
+- confirm2: the same again; opened once, it showed two dangerous answers (then development);
+- confirm3: the same again; opened once, it showed one dangerous answer (then development);
+- confirm4: another 120 in dev wording, opened once to confirm the final design before the test;
 - test: frozen; opened once for the final comparison. About a third of its allow and
   remove commands use wording that never appears in dev ("unseen" tag).
 
@@ -30,6 +37,11 @@ TZ = ZoneInfo("Asia/Dubai")
 NOWS = {
     "dev": ["2026-11-21T09:30", "2026-11-24T19:45"],
     "test": ["2026-11-26T08:15", "2026-11-29T21:10", "2026-12-02T14:40"],
+    "check": ["2026-11-22T07:50", "2026-11-25T16:20", "2026-11-27T22:05"],
+    "confirm": ["2026-11-23T12:35", "2026-11-28T06:45", "2026-12-01T19:30"],
+    "confirm2": ["2026-11-24T10:10", "2026-11-30T23:15", "2026-12-03T17:55"],
+    "confirm3": ["2026-11-25T09:05", "2026-11-29T15:40", "2026-12-04T20:25"],
+    "confirm4": ["2026-11-26T11:20", "2026-12-01T07:35", "2026-12-05T21:50"],
 }
 # Examples per set. allow/remove: clear commands (a permit change is proposed);
 # single_digit: clear but a one-digit number (NEEDS_REVIEW with the proposal kept);
@@ -40,6 +52,31 @@ COUNTS = {
         "missing_number": 3, "multiple_numbers": 2, "invalid_number": 2, "unclear_time": 3,
         "ambiguous_time": 3, "time_in_past": 3,
     },
+    "check": {
+        "allow": 52, "remove": 16, "single_digit": 4, "unclear_action": 8, "unsupported": 8,
+        "missing_number": 6, "multiple_numbers": 4, "invalid_number": 4, "unclear_time": 6,
+        "ambiguous_time": 6, "time_in_past": 6,
+    },
+    "confirm4": {
+        "allow": 52, "remove": 16, "single_digit": 4, "unclear_action": 8, "unsupported": 8,
+        "missing_number": 6, "multiple_numbers": 4, "invalid_number": 4, "unclear_time": 6,
+        "ambiguous_time": 6, "time_in_past": 6,
+    },
+    "confirm3": {
+        "allow": 52, "remove": 16, "single_digit": 4, "unclear_action": 8, "unsupported": 8,
+        "missing_number": 6, "multiple_numbers": 4, "invalid_number": 4, "unclear_time": 6,
+        "ambiguous_time": 6, "time_in_past": 6,
+    },
+    "confirm2": {
+        "allow": 52, "remove": 16, "single_digit": 4, "unclear_action": 8, "unsupported": 8,
+        "missing_number": 6, "multiple_numbers": 4, "invalid_number": 4, "unclear_time": 6,
+        "ambiguous_time": 6, "time_in_past": 6,
+    },
+    "confirm": {
+        "allow": 52, "remove": 16, "single_digit": 4, "unclear_action": 8, "unsupported": 8,
+        "missing_number": 6, "multiple_numbers": 4, "invalid_number": 4, "unclear_time": 6,
+        "ambiguous_time": 6, "time_in_past": 6,
+    },
     "test": {
         "allow": 70, "remove": 25, "single_digit": 6, "unclear_action": 12, "unsupported": 10,
         "missing_number": 8, "multiple_numbers": 6, "invalid_number": 5, "unclear_time": 8,
@@ -47,7 +84,15 @@ COUNTS = {
     },
 }  # fmt: skip
 UNSEEN_SHARE = 0.33  # test only
-SLIPS = {"dev": 1, "test": 6}  # unclear_action examples that are speech-to-text slips
+SLIPS = {
+    "dev": 1,
+    "test": 6,
+    "check": 2,
+    "confirm": 2,
+    "confirm2": 2,
+    "confirm3": 2,
+    "confirm4": 2,
+}  # unclear_action examples that are speech-to-text slips
 
 SEEN = {
     "allow": ["allow {obj}", "add {obj}", "let {obj} in", "approve {obj}"],
@@ -386,7 +431,9 @@ def _clarify(rng, split, now, used, reason: str, i: int = 0) -> dict:
     )  # fmt: skip
 
 
-def build(split: str, seed: int, used: set[str]) -> list[dict]:
+def build(split: str, seed: int, used: set[str], style: str | None = None) -> list[dict]:
+    """`style`: whose wording to use (the check set uses dev wording with new numbers/times)."""
+    style = style or split
     rng = random.Random(seed)
     nows = [datetime.fromisoformat(t).replace(tzinfo=TZ) for t in NOWS[split]]
     rows: list[dict] = []
@@ -400,11 +447,11 @@ def build(split: str, seed: int, used: set[str]) -> list[dict]:
             now = rng.choice(nows)
             if kind in ("allow", "remove", "single_digit"):
                 unseen = split == "test" and i < round(COUNTS[split][kind] * UNSEEN_SHARE)
-                row = _command(rng, split, now, used, kind, "unseen" if unseen else "seen")
+                row = _command(rng, style, now, used, kind, "unseen" if unseen else "seen")
             elif kind == "unclear_action" and i < SLIPS[split]:
-                row = _command(rng, split, now, used, "allow", slip=True)
+                row = _command(rng, style, now, used, "allow", slip=True)
             else:
-                row = _clarify(rng, split, now, used, kind, i + attempt)
+                row = _clarify(rng, style, now, used, kind, i + attempt)
             key = re.sub(r"[^a-z0-9 ]", "", row["text"].lower())
             if key not in texts:
                 texts.add(key)
@@ -446,9 +493,14 @@ def _review(rows: list[dict]) -> str:
 def main(cfg: CommandsConfig | None = None) -> None:
     cfg = cfg or load_config().commands
     cfg.data_dir.mkdir(parents=True, exist_ok=True)
-    used: set[str] = set()  # plate numbers never repeat across the two sets
-    for split, seed in (("dev", cfg.dev_seed), ("test", cfg.test_seed)):
-        rows = build(split, seed, used)
+    used: set[str] = set()  # plate numbers never repeat across the sets
+    # The check and confirm sets (dev wording, new numbers and times) are built last so dev
+    # and test stay exactly as before.
+    sets = [("dev", cfg.dev_seed, "dev"), ("test", cfg.test_seed, "test")]
+    sets += [(name, getattr(cfg, f"{name}_seed"), "dev")
+             for name in ("check", "confirm", "confirm2", "confirm3", "confirm4")]  # fmt: skip
+    for split, seed, style in sets:
+        rows = build(split, seed, used, style)
         with (cfg.data_dir / f"{split}.jsonl").open("w") as f:
             for row in rows:
                 f.write(json.dumps(row) + "\n")
