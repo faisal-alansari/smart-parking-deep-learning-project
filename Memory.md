@@ -157,6 +157,31 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 - **Outcome:** Contract, shared rules, rule parser, generator and tests updated; both sets regenerated (dev 60, test 160: 95 clear commands, 55 to review, 10 unsupported). A perfect extraction still reaches all 220 answers, and the rule parser gets all 60 dev commands right (written from dev, so expected). The test set is still unopened by any parser.
 - **Next:** The owner gives the regenerated test answers a quick final look. Then Step 4 (download candidates, note size and licence) and test them on dev only.
 
+### 2026-11-21 | Model C: candidates downloaded and set up on dev (Steps 4–5)
+
+- **Decision / reason:** Downloaded the three planned candidates at fixed versions as local files: SmolLM2-135M, FLAN-T5-Small, and GLiNER Small v2.1 paired with MiniLM-L6 for the action. All are Apache-2.0 (GLiNER's DeBERTa tokenizer files are MIT) and under 200M parameters each (counts and speed in `outputs/commands/candidates.md`). Each got a small adapter that fills the same extraction, tuned on dev only; the test set stays closed. Worked examples were written by hand in dev wording only, so the test's new wording stays a fair check.
+- **Two safety choices in the adapters:** (1) the two text generators may only copy whole words from the command, so they cannot invent a plate number or a time, and an answer they cannot finish counts as no answer (the shared rules then ask). Without this, both invented numbers, and FLAN copied part of a number ("62" from "626"). (2) GLiNER's spans are trimmed and grown to the whole spoken number, because it often finds only part of a number said digit by digit.
+- **Outcome (dev, inconclusive for the final choice):** GLiNER + MiniLM is best so far (73% exact, 10% dangerous), then SmolLM2 (58%, 28%), then FLAN-T5 (17%, 15%). All are far below the rule parser (100% on dev, but it was written from dev). The common dangerous errors: a dropped end time (becomes a permanent permit), allow and remove mixed up, and a command with no action word read as allow. SmolLM2 runs about 7× faster on the Mac GPU than on CPU (0.27 s vs 2.0 s per command), so the GPU is the default. What was tried is in `outputs/commands/dev_tuning.md`.
+- **Next:** The owner fixes the selection rule and the dangerous-rate limit before the final test (Step 6). Then the one final test run for all parsers.
+
+### 2026-11-21 | Model C: selection rule fixed before the final test
+
+- **Decision / reason:** Agreed by the owner before any test result is seen. A candidate qualifies only with **0 dangerous answers on dev**. Among those, the highest exact score on dev wins. A slower model may win if it is more accurate; size and speed only break ties. The rule applies to every candidate set up on dev, including any safety gate or combination added before the final test. A wrong change put to the owner is the worst error, so asking a needless question is the accepted price.
+- **Outcome:** Pending. No candidate meets the rule yet (best: 10% dangerous on dev). 0 of 60 on dev still allows a true rate of up to about 5%, so the final test is the real check.
+- **Next:** Add safety gates tuned on dev (see the plan given to the owner), then run the final test once.
+
+### 2026-11-21 | Model C: a safe combination meets the rule on dev
+
+- **Decision / reason:** To reach 0 dangerous answers on dev, three safety ideas were tried on dev only. (1) Each model's own confidence: rejected, because wrong answers were often as confident as right ones (the same lesson as the plate reader). (2) A second opinion: GLiNER + MiniLM gives the answer, and a change goes to the owner only if SmolLM2, reading the command on its own, reaches exactly the same change; otherwise the system says it is unsure and asks. Checking only the action and number was not enough (one dangerous answer). (3) A dropped end time turns into a permanent permit, so an allow with no end time is also asked about when GLiNER half-saw an end time. Its cut-off was set one step stricter than the minimum needed, to leave a margin.
+- **Outcome:** The combination (`checked`) is the only option with 0 dangerous on dev, so it wins under the agreed rule: 60% exact, but 18 of 34 clear commands get a needless question. That is the price of safety, and the owner still confirms every change. Weak points: both models read a command with no action word as "allow", and one such case was stopped only because they disagreed on the time. 0 of 60 still allows a true rate of up to about 5%. About 0.15 s per command on the Mac GPU; the two models together have about 310M parameters, each under 200M.
+- **Next:** One final test run (`--final`) for the rule baseline, the three candidates and `checked`; report the slices. Later (Step 8): a "reject, then fix the fields" confirmation screen that saves each accept or reject as a feedback record.
+
+### 2026-11-22 | Model C: test answers checked by the owner
+
+- **Decision / reason:** The rubric needs human-checked test labels. The owner reviewed the regenerated `test_review.md` (160 commands) and approved it with no changes.
+- **Outcome:** The frozen test answers are final. The test set is still unopened by any parser.
+- **Next:** Improve the safe combination on dev, build the robustness sets, then run the final test once.
+
 ## Decision log
 
 For each **meaningful** new decision, add one short entry:

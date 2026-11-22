@@ -1,5 +1,7 @@
 # Model C: rules on dev
 
+Time per command: 0 ms mean, 0 ms p95.
+
 | slice | n | exact | dangerous | needless question | action | number | until |
 |---|---|---|---|---|---|---|---|
 | all | 60 | 1.000 | 0.000 | 0.000 | 1.000 | 1.000 | 1.000 |

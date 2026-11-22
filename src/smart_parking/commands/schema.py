@@ -73,6 +73,7 @@ Reason = Literal[
     "unclear_time",
     "ambiguous_time",
     "time_in_past",
+    "unsure",  # a safety check found the model unsure (Model C's own checks, not the rules)
 ]
 
 QUESTIONS: dict[str, str] = {
@@ -84,6 +85,8 @@ QUESTIONS: dict[str, str] = {
     "unclear_time": "Until when? For example: until 6 PM, until tomorrow, for 2 hours.",
     "ambiguous_time": "Is that AM or PM?",
     "time_in_past": "That time has already passed today. Until when?",
+    "unsure": "I am not sure I understood. Please say it again, for example: allow car 12345 "
+    "until 6 PM.",
 }
 
 

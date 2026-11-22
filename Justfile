@@ -68,9 +68,17 @@ evaluate-plates:
 command-data:
     uv run python -m smart_parking.commands.dataset
 
-# Score a Model C parser (oracle, rules, ...) on dev; the test set also needs --final
+# Download the pretrained Model C candidates (pinned revisions, local weights only)
+download-command-models:
+    uv run python -m smart_parking.commands.candidates --download
+
+# Measure the Model C candidates: parameters, licence, disk, memory, time per command (dev)
+command-candidates:
+    HF_HUB_OFFLINE=1 uv run python -m smart_parking.commands.candidates --measure
+
+# Score a Model C parser (oracle, rules, smollm2, flan-t5, gliner-minilm) on dev; test needs --final
 command-score parser split="dev" *flags:
-    uv run python -m smart_parking.commands.score {{parser}} {{split}} {{flags}}
+    HF_HUB_OFFLINE=1 uv run python -m smart_parking.commands.score {{parser}} {{split}} {{flags}}
 
 # Run tests
 test:

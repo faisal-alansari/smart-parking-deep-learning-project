@@ -16,6 +16,7 @@ for the oracle, which only checks the answer key and the shared rules).
 
 import argparse
 import json
+import time
 from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
@@ -23,7 +24,7 @@ from pathlib import Path
 import pandas as pd
 from loguru import logger
 
-from smart_parking.commands import baseline
+from smart_parking.commands import adapters, baseline
 from smart_parking.commands.dataset import describe
 from smart_parking.commands.rules import finish
 from smart_parking.commands.schema import (
@@ -39,6 +40,10 @@ Parser = Callable[[dict], Extraction]
 PARSERS: dict[str, Parser] = {
     "oracle": lambda row: Extraction(**row["oracle"]),  # perfect extraction: the ceiling
     "rules": lambda row: baseline.extract(row["text"]),
+    "smollm2": adapters.Lazy(adapters.SmolLM),
+    "flan-t5": adapters.Lazy(adapters.FlanT5),
+    "gliner-minilm": adapters.Lazy(adapters.GlinerMiniLM),
+    "checked": adapters.Lazy(adapters.Checked),  # GLiNER + MiniLM, every change checked
 }
 FIELDS = ("action", "number", "until")
 
@@ -66,8 +71,14 @@ def outcome(result: Result) -> dict:
 
 def run(parser: Parser, rows: list[dict]) -> pd.DataFrame:
     out = []
+    target = parser.load() if isinstance(parser, adapters.Lazy) else parser  # load not timed
+    decide = getattr(target, "decide", None)  # parsers with their own safety checks
     for row in rows:
-        got = outcome(finish(parser(row), datetime.fromisoformat(row["now"])))
+        now = datetime.fromisoformat(row["now"])
+        start = time.perf_counter()
+        result = decide(row, now) if decide else finish(parser(row), now)
+        ms = (time.perf_counter() - start) * 1000
+        got = outcome(result)
         want = row["expected"]
         wanted_change = want["status"] == "PROPOSED"
         made, wanted = got["proposal"], want["proposal"]
@@ -82,6 +93,7 @@ def run(parser: Parser, rows: list[dict]) -> pd.DataFrame:
                 "needless_question": wanted_change and got["status"] != "PROPOSED",
                 **{f"{f}_ok": bool(made and wanted and made[f] == wanted[f]) for f in FIELDS},
                 "wanted_change": wanted_change,
+                "ms": ms,
                 **{f"tag_{k}": v for k, v in row["tags"].items()},
             }
         )
@@ -137,9 +149,10 @@ def main() -> None:
     d = run(PARSERS[args.parser], load_set(cfg.data_dir / f"{args.split}.jsonl"))
     out = cfg.results_dir / f"{args.parser}_{args.split}.md"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(f"# Model C: {args.parser} on {args.split}\n\n" + report(d))
-    logger.info("{} on {}: exact {:.3f}, dangerous {:.3f} -> {}", args.parser, args.split,
-                d.exact.mean(), d.dangerous.mean(), out)  # fmt: skip
+    speed = f"Time per command: {d.ms.mean():.0f} ms mean, {d.ms.quantile(0.95):.0f} ms p95.\n\n"
+    out.write_text(f"# Model C: {args.parser} on {args.split}\n\n" + speed + report(d))
+    logger.info("{} on {}: exact {:.3f}, dangerous {:.3f}, {:.0f} ms -> {}", args.parser,
+                args.split, d.exact.mean(), d.dangerous.mean(), d.ms.mean(), out)  # fmt: skip
 
 
 if __name__ == "__main__":

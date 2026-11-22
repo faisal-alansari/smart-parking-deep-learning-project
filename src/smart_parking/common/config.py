@@ -124,6 +124,15 @@ class CommandsConfig(BaseModel):
     results_dir: Path = Path("outputs/commands")
     dev_seed: int = 1
     test_seed: int = 2
+    # Pretrained candidates (local weights only, no fine-tuning)
+    weights_dir: Path = Path("checkpoints/commands/pretrained")
+    device: str = "cpu"
+    threads: int = 4
+    # GLiNER + MiniLM candidate (set on dev only)
+    gliner_threshold: float = 0.3
+    # Safe combination (`checked`): an allow without an end time is asked about when GLiNER
+    # half-saw an end time scoring at least this (set on dev)
+    time_near_miss: float = 0.05
 
 
 class ProjectConfig(BaseModel):

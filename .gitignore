@@ -11,3 +11,4 @@ checkpoints/plates/exp_*.pt
 experiments/plates/*/weights/
 experiments/plates/*/*_batch*.jpg
 experiments/plates/*/labels.jpg
+checkpoints/commands/pretrained/

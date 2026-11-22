@@ -85,3 +85,11 @@ commands:
   results_dir: outputs/commands
   dev_seed: 1
   test_seed: 2
+  # Pretrained candidates: local weights only (just download-command-models), no fine-tuning
+  weights_dir: checkpoints/commands/pretrained
+  device: mps
+  threads: 4
+  # GLiNER + MiniLM candidate (set on dev only)
+  gliner_threshold: 0.3
+  # Safe combination (checked): ask when GLiNER half-saw an end time scoring at least this (set on dev)
+  time_near_miss: 0.05
