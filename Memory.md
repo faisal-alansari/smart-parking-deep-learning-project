@@ -234,6 +234,14 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 - **Split (fixed before any training):** blocks 1–3 train Model A; block 4 chooses its settings; the first night video (a different night) is the final test, run once. Local photos and the public test set are extra checks that adapting did not break other car parks or daytime.
 - **Next:** Write the adaptation plan here before training, then adapt Model A.
 
+### 2026-11-25 | Model A adaptation plan (fixed before training)
+
+- **Data:** bay crops (64 px, the same cut as the product) from night video 2, one frame every 2 s, moving periods left out, labels from the owner-checked truth. Blocks 1–3 train; block 4 chooses. Hard cases are kept (a person in an empty bay = empty; the waiting car, the car across both bays and the crooked car = occupied). The first video is the final test, used once at the end.
+- **Options:** (a) no training, only a new threshold chosen on block 4; (b) fine-tune the last conv block and the head; (c) fine-tune the whole model at a low learning rate (1e-4 and 3e-4 tried); (d) a wider CNN (channels 32-64-128-256, about 1.2M parameters, under the 50M limit) trained from scratch on public + local crops. Options b-d mix equal numbers of public and local crops in every epoch, so the model does not forget the public data. Each option is trained with seeds 42, 43, 44; the deployed model is the majority vote of the 3 seeds, as before.
+- **Choosing (block 4 only):** for each run, the best epoch and the threshold are those with the best balanced accuracy (the average of the right rate on empty and on occupied bays) on block 4. The winning option has the best majority-vote balanced accuracy on block 4, provided that (1) it misses no more parked cars than the current model on block 4, and (2) its public validation F1 is at most 1 point below the current model's. Ties go to the smaller, simpler option (a, then b, c, d).
+- **Final tests (once, results accepted):** the first video (frame by frame, then the full system per stay), the public test sets, and the local photos, each before and after.
+- **Outcome:** Pending.
+
 ## Decision log
 
 For each **meaningful** new decision, add one short entry:
