@@ -133,3 +133,7 @@ adapt-occupancy:
 # The one final test of the adapted Model A (first night video, public tests, local photos)
 adapt-occupancy-final:
     uv run python -m smart_parking.occupancy.adapt --final
+
+# Calibration: reliability diagrams, ECE and Platt scaling for Models A and B (outputs/trust/)
+calibration:
+    uv run python -m smart_parking.trust.calibration
