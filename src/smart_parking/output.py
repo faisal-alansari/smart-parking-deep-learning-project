@@ -81,6 +81,20 @@ class InputProblem(BaseModel):
     guidance: str
 
 
+class DecisionFeedback(BaseModel):
+    """The owner marks a bay decision as wrong and says what it should have been."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    at: datetime
+    source: str
+    clock: str | None = None
+    bay: str
+    system_said: Status
+    owner_says: Status
+    note: str = ""
+
+
 class RunResult(BaseModel):
     """Everything one folder run produced."""
 

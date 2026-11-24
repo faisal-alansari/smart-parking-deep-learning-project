@@ -367,9 +367,17 @@ def _decision(
     )
 
 
-def run_folder(folder: Path, every: float, yes: bool, out_root: Path = RUNS) -> RunResult:
+def run_folder(
+    folder: Path,
+    every: float,
+    yes: bool,
+    out_root: Path = RUNS,
+    table: PermitTable | None = None,
+    pipelines: dict[str, Pipeline] | None = None,
+) -> RunResult:
     """Every input in a folder, in time order. Never crashes on bad input: each problem is
-    returned as a structured record with guidance."""
+    returned as a structured record with guidance. `table` starts from an existing permit table
+    (the demo app's); `pipelines` reuses loaded models, keyed by occupancy model."""
     problems: list[InputProblem] = []
     if not folder.is_dir():
         problems.append(
@@ -443,7 +451,13 @@ def run_folder(folder: Path, every: float, yes: bool, out_root: Path = RUNS) -> 
     result = RunResult(folder=str(folder), camera=camera, occupancy_model=model, problems=problems)
     if not events:
         return result
-    pipe = Pipeline(commands=any(kind == "command" for _, kind, _ in events), deploy=model)
+    needs_c = any(kind == "command" for _, kind, _ in events)
+    if pipelines is not None and model in pipelines:
+        pipe = pipelines[model]
+    else:
+        pipe = Pipeline(commands=needs_c or pipelines is not None, deploy=model)
+        if pipelines is not None:
+            pipelines[model] = pipe
     if not boxes:  # the owner's camera
         guard = ViewGuard.owner_camera()
         boxes = guard.boxes
@@ -461,7 +475,7 @@ def run_folder(folder: Path, every: float, yes: bool, out_root: Path = RUNS) -> 
             )
         )
         guard = ViewGuard.from_snapshot(first, boxes) if first is not None else None
-    table, out = PermitTable(), out_root / folder.name
+    table, out = table if table is not None else PermitTable(), out_root / folder.name
     out.mkdir(parents=True, exist_ok=True)
     feedback = out / "feedback.jsonl"
     review = (lambda q, c: c) if yes else ask_owner

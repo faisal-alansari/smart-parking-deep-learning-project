@@ -165,3 +165,12 @@ failures:
 # Efficiency study: frame rate and plate caching, quality against model time
 efficiency:
     uv run python -m smart_parking.trust.efficiency
+
+# Demo web app (Streamlit): owner commands with accept/reject/fix, camera runs on samples/
+demo:
+    HF_HUB_OFFLINE=1 uv run streamlit run src/smart_parking/app.py --server.headless true
+
+# Demo on the command line: both sample folders through the full system (outputs/runs/)
+demo-cli:
+    HF_HUB_OFFLINE=1 uv run python -m smart_parking.pipeline --folder samples/owner_camera --yes
+    HF_HUB_OFFLINE=1 uv run python -m smart_parking.pipeline --folder samples/new_camera --yes
