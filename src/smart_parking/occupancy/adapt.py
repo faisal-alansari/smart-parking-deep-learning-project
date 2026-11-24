@@ -327,16 +327,21 @@ def choose(cfg: OccupancyTrainConfig) -> None:
 # --- The one final test --------------------------------------------------------------------
 
 
-def final_test(cfg: OccupancyTrainConfig) -> None:
+def final_test(cfg: OccupancyTrainConfig, reproduce: bool = False) -> None:
     """Test once: the first night video, the public test sets and the local photos."""
     winner = json.loads((cfg.results_dir / "adaptation_choice.json").read_text())["option"]
     if winner == "none":
         raise SystemExit("No option met the rules; the current model stays.")
-    if (cfg.results_dir / "adaptation_test.md").exists():
-        raise SystemExit("The final test has already been run once; it is never rerun.")
+    if (cfg.results_dir / "adaptation_test.md").exists() and not reproduce:
+        raise SystemExit(
+            "The final test has already been run once; use --reproduce to "
+            "regenerate its tables (nothing is chosen again)."
+        )
     device = pick_device()
     before = [cfg.checkpoint_dir / f"final_s{s}.pt" for s in cfg.seeds]
     after = [RUNS / f"{winner}_s{s}.pt" for s in cfg.seeds]
+    if reproduce:  # the deployed copies (the run folder's checkpoints are not in Git)
+        after = [cfg.checkpoint_dir / f"adapted_s{s}.pt" for s in cfg.seeds]
     sections = []
     # 1. The first night video (a different night)
     images, meta = build_crops(VIDEO_TEST, cfg.input_size)
@@ -395,8 +400,9 @@ def final_test(cfg: OccupancyTrainConfig) -> None:
     sections.append(
         "## 3. Local photos (other car parks; check only)\n\n" + _md(pd.DataFrame(rows))
     )
-    for seed, path in zip(cfg.seeds, after, strict=True):  # the deployed Model A
-        shutil.copy(path, cfg.checkpoint_dir / f"adapted_s{seed}.pt")
+    if not reproduce:
+        for seed, path in zip(cfg.seeds, after, strict=True):  # the deployed Model A
+            shutil.copy(path, cfg.checkpoint_dir / f"adapted_s{seed}.pt")
     out = cfg.results_dir / "adaptation_test.md"
     out.write_text(
         f"# Model A adaptation: the one final test (chosen option: {winner})\n\n"
@@ -411,10 +417,14 @@ def final_test(cfg: OccupancyTrainConfig) -> None:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--final", action="store_true", help="the one final test")
+    ap.add_argument("--reproduce", action="store_true", help="regenerate the final test tables")
     args = ap.parse_args()
     project = load_config()
     setup_logging(project.logging)
-    (final_test if args.final else choose)(project.occupancy)
+    if args.final or args.reproduce:
+        final_test(project.occupancy, reproduce=args.reproduce)
+    else:
+        choose(project.occupancy)
 
 
 if __name__ == "__main__":

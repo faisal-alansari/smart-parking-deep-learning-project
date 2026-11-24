@@ -526,7 +526,7 @@ class Checked:
             return NeedsReview(reason="unclear_action")  # no word means allow or remove
         if sure["loose_numbers"]:
             return NeedsReview(reason="unsure")  # a number was not explained: maybe a 2nd car
-        if lost_day_words(row["text"], ex.time):
+        if self.cfg.day_word_check and lost_day_words(row["text"], ex.time):
             return NeedsReview(reason="unsure")  # a day was said but not read (added after test)
         no_time = change.action is Action.ALLOW and change.until is None
         if no_time and sure["time_near_miss"] >= self.cfg.time_near_miss:

@@ -15,12 +15,12 @@
 | local_night_1 | IMG_1838 | night | left | 2026-11-20 22:06:27+04:00 | 1 | 0 | Dubai Q18978 |  |  | POTENTIALLY_UNAUTHORIZED | EMPTY | EMPTY | A occupancy |
 | local_night_1 | IMG_1840 | night | left | 2026-11-20 22:07:05+04:00 | 1 | 0 | Dubai V88167 |  |  | POTENTIALLY_UNAUTHORIZED | EMPTY | EMPTY | A occupancy |
 | local_night_1 | IMG_1841 | night | right | 2026-11-20 22:07:21+04:00 | 1 | 0 | Dubai DD53816 |  |  | POTENTIALLY_UNAUTHORIZED | EMPTY | EMPTY | A occupancy |
-| local_night_1 | IMG_1843 | night | left | 2026-11-20 22:12:31+04:00 | 1 | 1 | Dubai Z91051 | Dubai 291051 | NEEDS_REVIEW (missing_code) | POTENTIALLY_UNAUTHORIZED | NEEDS_REVIEW | NEEDS_REVIEW | B plate |
+| local_night_1 | IMG_1843 | night | left | 2026-11-20 22:12:31+04:00 | 1 | 0 | Dubai Z91051 |  |  | POTENTIALLY_UNAUTHORIZED | EMPTY | EMPTY | A occupancy |
 | local_night_1 | IMG_1845 | night | right | 2026-11-20 22:14:33+04:00 | 1 | 1 | Abu Dhabi 1032803 | Abu Dhabi 10032803 | NEEDS_REVIEW (invalid_length) | POTENTIALLY_UNAUTHORIZED | NEEDS_REVIEW | NEEDS_REVIEW | B plate |
 | local_night_1 | IMG_1846 | night | left | 2026-11-20 22:15:10+04:00 | 1 | 1 | Dubai A58852 | Dubai 58852 | NEEDS_REVIEW (missing_code) | POTENTIALLY_UNAUTHORIZED | NEEDS_REVIEW | NEEDS_REVIEW | B plate |
 | local_night_1 | IMG_1847 | night | right | 2026-11-20 22:15:30+04:00 | 1 | 0 | Dubai W48252 |  |  | POTENTIALLY_UNAUTHORIZED | EMPTY | EMPTY | A occupancy |
 | local_night_1 | IMG_1853 | night | left | 2026-11-20 22:18:05+04:00 | 1 | 1 | Sharjah 593105 | None 3593105 | NEEDS_REVIEW (no_emirate) | POTENTIALLY_UNAUTHORIZED | NEEDS_REVIEW | NEEDS_REVIEW | B plate |
-| local_night_1 | IMG_1853 | night | right | 2026-11-20 22:18:05+04:00 | 1 | 0 | Dubai I26590 |  |  | AUTHORIZED | EMPTY | EMPTY | A occupancy |
+| local_night_1 | IMG_1853 | night | right | 2026-11-20 22:18:05+04:00 | 1 | 1 | Dubai I26590 | Dubai 26590 | NEEDS_REVIEW (missing_code) | AUTHORIZED | NEEDS_REVIEW | NEEDS_REVIEW | B plate |
 | local_night_1 | IMG_1855 | night | left | 2026-11-20 22:19:01+04:00 | 1 | 0 | Dubai E79928 |  |  | POTENTIALLY_UNAUTHORIZED | EMPTY | EMPTY | A occupancy |
 | local_night_1 | IMG_1855 | night | right | 2026-11-20 22:19:01+04:00 | 1 | 0 | Dubai Q82055 |  |  | POTENTIALLY_UNAUTHORIZED | EMPTY | EMPTY | A occupancy |
 | local_night_1 | IMG_1857 | night | left | 2026-11-20 22:19:28+04:00 | 1 | 0 | Dubai M55439 |  |  | POTENTIALLY_UNAUTHORIZED | EMPTY | EMPTY | A occupancy |
@@ -31,7 +31,6 @@
 | local_night_1 | IMG_1861 | night | left | 2026-11-20 22:20:49+04:00 | 1 | 0 | Dubai DD53816 |  |  | POTENTIALLY_UNAUTHORIZED | EMPTY | EMPTY | A occupancy |
 | local_night_1 | IMG_1861 | night | right | 2026-11-20 22:20:49+04:00 | 1 | 0 | Dubai Y84160 |  |  | POTENTIALLY_UNAUTHORIZED | EMPTY | EMPTY | A occupancy |
 | local_night_1 | IMG_1862 | night | left | 2026-11-20 22:21:05+04:00 | 1 | 0 | Abu Dhabi 817136 |  |  | POTENTIALLY_UNAUTHORIZED | EMPTY | EMPTY | A occupancy |
-| local_night_1 | IMG_1863 | night | left | 2026-11-20 22:22:12+04:00 | 1 | 0 | Dubai B35710 |  |  | POTENTIALLY_UNAUTHORIZED | EMPTY | EMPTY | A occupancy |
 
 ## Owner commands
 

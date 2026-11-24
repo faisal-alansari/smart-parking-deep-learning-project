@@ -5,33 +5,34 @@ One 10-minute night video of the owner's two bays, one frame every 2 s (301 fram
 | measure | all | car across both bays | normal |
 |---|---|---|---|
 | bay checks (frames x bays) | 486 | 124 | 362 |
-| occupancy right | 91% | 65% | 99% |
+| occupancy right | 88% | 65% | 96% |
 | empty bay called occupied | 3 of 243 | 0 of 0 | 3 of 243 |
 | parked car called empty | 43 of 243 | 43 of 124 | 0 of 119 |
-| plate read right (bays with a car) | 140 of 243 | 41 of 124 | 99 of 119 |
-| owner's cars: final answer right | 84% | 45% | 98% |
+| plate read right (bays with a car) | 130 of 243 | 41 of 124 | 89 of 119 |
+| owner's cars: final answer right | 82% | 45% | 95% |
 | owner's cars: false alerts | 0 | 0 | 0 |
-| as visitors: final answer right | 84% | 45% | 98% |
-| as visitors: alerted / to a person / missed | 169 / 31 / 43 | 56 / 25 / 43 | 113 / 6 / 0 |
+| as visitors: final answer right | 82% | 45% | 95% |
+| as visitors: alerted / to a person / missed | 159 / 41 / 43 | 56 / 25 / 43 | 103 / 16 / 0 |
 
 ## Owner's cars: truth against the system (scored frames)
 
 | truth \ system | AUTHORIZED | EMPTY | NEEDS_REVIEW |
 |---|---|---|---|
-| AUTHORIZED | 169 | 43 | 31 |
+| AUTHORIZED | 159 | 43 | 41 |
 | EMPTY | 0 | 240 | 3 |
 
 ## Over time (all frames, moving ones included)
 
 | bay | status changes | false-alert episodes (owner's cars) |
 |---|---|---|
-| left | 24 | 0 |
-| right | 29 | 1 |
+| left | 29 | 0 |
+| right | 35 | 1 |
 
 ## Time per stage (Mac, Apple GPU)
 
 | stage | calls | mean ms | p95 ms |
 |---|---|---|---|
-| A occupancy (one frame, both bays) | 301 | 6.6 | 6.9 |
-| B plate read (one occupied bay) | 246 | 54.2 | 52.7 |
-| permit table check (one bay) | 602 | 0.0 | 0.0 |
+| camera check (one frame) | 301 | 4.9 | 5.3 |
+| A occupancy (one frame, both bays) | 292 | 6.4 | 6.7 |
+| B plate read (one occupied bay) | 235 | 53.9 | 53.0 |
+| permit table check (one bay) | 584 | 0.0 | 0.0 |

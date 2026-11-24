@@ -34,17 +34,24 @@ The `data/` folder is not stored in Git. This card explains where each dataset c
 - **Coverage limits:** RAK and Ajman have only 10 and 17 val/test images each, and new-style Sharjah plates are absent, so results for these are not reliable.
 - **Fine-tuning cap:** all 7,000 selected images count (train, val and test).
 
-## 3. Owner's local videos (planned)
+## 3. Owner's videos (fixed camera, night)
 
-Nine 15-minute sessions of the two real bays, with session notes giving when each bay changes state. Sessions 8 (day) and 9 (night) are never trained on. Videos stay local because they show real plates.
+Two night recordings of the owner's two bays from a phone fixed on a stick (portrait, 1080x1920, 30 fps), with the owner's two cars arriving, leaving, parking across both bays, standing in front of a bay and parking crookedly; people stand in and walk through the bays, and other cars pass behind. Daytime recording was not possible (the site is too crowded by day).
+
+- **Night 1** (16 Nov 2026, `IMG_1503.MOV`, 10 min): the **final test** of the adapted Model A and of the full system. Never used for training or for choosing anything. Truth: `configs/local_video_night_1.yaml`.
+- **Night 2** (24 Nov 2026, five files, about 43 min, recorded to a checklist): blocks 1-3 (about 31 min) **train** Model A's adaptation; block 4 (12 min) **chooses** its settings, thresholds and gates. Truth: `configs/local_video_night_2.yaml`.
+
+Truth for both was marked by Claude from frames every 10 s and every 2 s and **checked by the owner** (night 2 with three corrections). Moving periods (a car driving in or out) are not scored. A car standing across both bays counts as parked in both; a car waiting in a bay counts as occupied. The camera did not move within a night, but the two nights' views differ, so each has its own bay boxes, drawn once from one frame (like setting up a camera). Bay crops: one frame every 2 s, 64 px: night 2 gives 1,604 training crops (913 empty, 691 occupied) and 600 validation crops; night 1 gives 486 test crops.
 
 ## 4. Owner's local pilot photos
 
-8 phone photos (4 late afternoon, 4 night), taken on 19–20 November 2026, covering all four bay states (both empty, either one occupied, both occupied). The night photos come from one fixed spot at the owner's site; the day photos come from four different spots, one at another car park. Truth was read from the photos by eye. Bay boxes are drawn by hand in `configs/local_pilot.yaml`. Used only to check the full loop (occupancy CNN, then plate reading in occupied bays; `just occupancy-local-pilot`); never used for training, model choice or thresholds. The true plates of the 8 parked cars were read by eye from the full-size photos. Photos, crops and the per-bay results show real plates, so they stay on the owner's computer (not in Git).
+8 phone photos (4 late afternoon, 4 night), taken on 19–20 November 2026, covering all four bay states (both empty, either one occupied, both occupied). The night photos come from one fixed spot at the owner's site; the day photos come from four different spots, one at another car park. Truth was read from the photos by eye. Bay boxes are drawn by hand in `configs/local_pilot.yaml`. Used only to check the full loop (occupancy CNN, then plate reading in occupied bays; `just occupancy-local-pilot`); never used for training, model choice or thresholds. The true plates of the 8 parked cars were read by eye from the full-size photos.
 
 ## 5. Owner's night photo set 1
 
-43 phone photos taken on 20 November 2026 at night in several public car parks, each showing one pair of bays from a standing position: 86 bays (46 empty, 40 occupied), 40 readable plates (36 distinct cars). One shared pair of bay boxes is used for every photo (`configs/local_night_1.yaml`), like a fixed camera. Bay states come from the owner; plates were read by eye from the full-size photos. Used only to check the full loop and to probe its errors (`just local-night-1`); never used for training or thresholds. Photos show strangers' plates, so they stay in `data/` (not in Git).
+43 phone photos taken on 20 November 2026 at night in several public car parks, each showing one pair of bays from a standing position: 86 bays (46 empty, 40 occupied), 40 readable plates (36 distinct cars). One shared pair of bay boxes is used for every photo (`configs/local_night_1.yaml`), like a fixed camera. Bay states come from the owner; plates were read by eye from the full-size photos. Used only to check the full loop and to probe its errors (`just local-night-1`); never used for training or thresholds. The code letter on IMG_1838 was confirmed by the owner.
+
+**Privacy (2026-11-25):** the owner considers all captured photos and videos public, plates and faces included, so truth labels and plate-level results are in Git and short samples are in `samples/`. The raw videos are too large for Git (about 6 GB); see the README for how to obtain them.
 
 ## 6. Owner command sets (Model C)
 
@@ -58,8 +65,8 @@ Extra sets in dev wording (new numbers and times, `just command-data`, seeds in 
 |---|---|
 | CNRPark+EXT | 0 (from-scratch model) |
 | AddingUAE | 7,000 (5,000 train, 1,000 val, 1,000 test) |
-| Local videos | 0 planned for plate fine-tuning (2–3 plates; real-site check only) |
+| Local videos (bay crops, Model A) | 2,690 if counted (1,604 train, 600 validation, 486 test). Model A is a from-scratch model, whose data is outside the cap; counted here to be safe |
 | Local pilot photos | 0 (check only; no training or tuning) |
 | Night photo set 1 | 0 (check only; no training or tuning) |
 | Owner command sets | 0 (evaluation only; Model C is not fine-tuned) |
-| **Total** | **7,000 of 10,000** (3,000 left) |
+| **Total** | **7,000 of 10,000** (9,690 if the local crops are counted) |

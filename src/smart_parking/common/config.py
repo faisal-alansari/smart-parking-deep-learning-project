@@ -142,6 +142,8 @@ class CommandsConfig(BaseModel):
     time_near_miss: float = 0.05
     # A change needs a word this close in meaning to an action word (MiniLM; set on dev)
     action_word_min: float = 0.6
+    # A day said must be in the time read (added after the final test; False = the tested version)
+    day_word_check: bool = True
 
 
 class DecisionConfig(BaseModel):

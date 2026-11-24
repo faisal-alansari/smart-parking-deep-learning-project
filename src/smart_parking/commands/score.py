@@ -144,11 +144,17 @@ def main() -> None:
         "split", choices=["dev", "check", "confirm", "confirm2", "confirm3", "confirm4", "test"]
     )
     ap.add_argument("--final", action="store_true", help="allow the frozen test set")
+    ap.add_argument("--as-tested", action="store_true",
+                    help="the version run in the one final test (no day-word check), to "
+                    "reproduce the reported test numbers")  # fmt: skip
     args = ap.parse_args()
     # The oracle only checks the answer key and shared rules, so it may read the test set.
     if args.split == "test" and not args.final and args.parser != "oracle":
         raise SystemExit("The test set is frozen: pass --final only for the final comparison.")
     cfg = load_config().commands
+    if args.as_tested and isinstance(PARSERS[args.parser], adapters.Lazy):
+        cfg = load_config().commands.model_copy(update={"day_word_check": False})
+        PARSERS[args.parser].load(cfg)  # loaded once with the tested settings
     d = run(PARSERS[args.parser], load_set(cfg.data_dir / f"{args.split}.jsonl"))
     out = cfg.results_dir / f"{args.parser}_{args.split}.md"
     out.parent.mkdir(parents=True, exist_ok=True)

@@ -134,6 +134,10 @@ adapt-occupancy:
 adapt-occupancy-final:
     uv run python -m smart_parking.occupancy.adapt --final
 
+# Regenerate the adapted Model A's final test tables (nothing is chosen again)
+adapt-occupancy-report:
+    uv run python -m smart_parking.occupancy.adapt --reproduce
+
 # Calibration: reliability diagrams, ECE and Platt scaling for Models A and B (outputs/trust/)
 calibration:
     uv run python -m smart_parking.trust.calibration
@@ -174,3 +178,38 @@ demo:
 demo-cli:
     HF_HUB_OFFLINE=1 uv run python -m smart_parking.pipeline --folder samples/owner_camera --yes
     HF_HUB_OFFLINE=1 uv run python -m smart_parking.pipeline --folder samples/new_camera --yes
+
+# Parameter budget counted from the loaded models, and fine-tuning items against the cap
+budget:
+    HF_HUB_OFFLINE=1 uv run python -m smart_parking.budget
+
+# Train every learned part in order (public occupancy CNN, plate reader, Model A adaptation)
+train: train-occupancy train-plates adapt-occupancy
+
+# Model C on its frozen test exactly as tested (reproduces the reported test numbers)
+command-test:
+    for p in oracle rules smollm2 flan-t5 gliner-minilm checked tiered; do HF_HUB_OFFLINE=1 uv run python -m smart_parking.commands.score $p test --final --as-tested; done
+
+# Regenerate every table and figure in the report from the saved models (no training)
+evaluate:
+    just evaluate-occupancy
+    just evaluate-plates
+    just adapt-occupancy-report
+    just command-test
+    just command-robustness
+    just command-demo
+    just full-loop
+    just full-loop-ablation
+    just full-loop-scenario
+    just video-night-1
+    just video-night-1-stays
+    just calibration
+    just costs
+    just ood
+    just robustness-images
+    just monitor-demo
+    just efficiency
+    just probes
+    just failures
+    just budget
+    just demo-cli

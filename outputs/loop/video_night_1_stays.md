@@ -4,12 +4,12 @@ The rule was fixed before it was run (`Memory.md`, 2026-11-22): a bay changes st
 
 | measure | frame by frame | per stay |
 |---|---|---|
-| occupancy right (scored) | 91% | 88% |
-| empty bay called occupied (scored) | 3 of 243 | 5 of 243 |
-| owner's cars: answer right (scored) | 84% | 82% |
-| as visitors: answer right (scored) | 84% | 82% |
+| occupancy right (scored) | 88% | 88% |
+| empty bay called occupied (scored) | 3 of 243 | 8 of 243 |
+| owner's cars: answer right (scored) | 82% | 85% |
+| as visitors: answer right (scored) | 82% | 85% |
 | owner's cars: frames with a false alert (all) | 1 | 0 |
-| notifications to the owner, left + right (all) | 24 + 29 | 5 + 12 |
+| notifications to the owner, left + right (all) | 29 + 35 | 5 + 8 |
 
 ## Each true stay
 
@@ -19,7 +19,7 @@ The rule was fixed before it was run (`Memory.md`, 2026-11-22): a bay changes st
 | right | 0:00-0:28 | yes | never | no | EMPTY | EMPTY |
 | right | 1:54-3:54 |  | 1:54 | yes | AUTHORIZED | POTENTIALLY_UNAUTHORIZED |
 | left | 2:56-5:12 |  | 2:56 | yes | AUTHORIZED | POTENTIALLY_UNAUTHORIZED |
-| left | 8:26-10:01 | yes | 8:32 | yes | AUTHORIZED | POTENTIALLY_UNAUTHORIZED |
-| right | 8:26-10:01 | yes | 8:32 | no | EMPTY | EMPTY |
+| left | 8:26-10:01 | yes | 8:28 | yes | AUTHORIZED | POTENTIALLY_UNAUTHORIZED |
+| right | 8:26-10:01 | yes | 8:28 | no | EMPTY | EMPTY |
 
 Stays seen with no car there: 1 (right 7:10-7:20).
