@@ -10,7 +10,7 @@ from smart_parking.common.config import load_config
 @pytest.mark.skipif(not weights_present(load_config().commands, ["gliner-small-v2.1"]),
                     reason="Model C weights not downloaded")  # fmt: skip
 def test_command_accept_updates_the_permit_table():
-    at = AppTest.from_file("src/smart_parking/app.py", default_timeout=300)
+    at = AppTest.from_file("../src/smart_parking/app.py", default_timeout=300)
     at.run()
     assert not at.exception
     at.text_input[0].set_value("allow car 33044")
