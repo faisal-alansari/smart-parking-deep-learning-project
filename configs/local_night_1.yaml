@@ -1,0 +1,308 @@
+# Night photo set 1: 43 owner photos of pairs of bays in several public car parks.
+# One shared pair of bay boxes for every photo (x0, y0, x1, y1 as fractions of width/height),
+# like a fixed camera set up once. Truth: bay states from the owner, plates read by eye
+# from the full-size photos. Check only: never used for training or thresholds.
+# wheel_stop (empty bays only): a yellow concrete wheel stop at least partly inside the
+# bay box, marked by eye from the crops (2026-11-21).
+title: night car parks, 43 photos (2026-11-20)
+raw_dir: data/raw/local_night_1
+photo_dir: data/processed/local_night_1/photos
+default_boxes:
+  left: [0.02, 0.36, 0.49, 0.69]
+  right: [0.51, 0.36, 0.98, 0.69]
+photos:
+- name: IMG_1821
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: false}
+    right: {occupied: false, wheel_stop: false}
+- name: IMG_1822
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: false}
+    right: {occupied: false, wheel_stop: false}
+- name: IMG_1823
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: true}
+    right: {occupied: false, wheel_stop: true}
+- name: IMG_1824
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: true}
+    right: {occupied: false, wheel_stop: true}
+- name: IMG_1825
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: true}
+    right: {occupied: false, wheel_stop: true}
+- name: IMG_1826
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: true}
+    right: {occupied: false, wheel_stop: true}
+- name: IMG_1827
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: true}
+    right: {occupied: false, wheel_stop: true}
+- name: IMG_1828
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: false}
+    right: {occupied: false, wheel_stop: false}
+- name: IMG_1829
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: true}
+    right: {occupied: false, wheel_stop: true}
+- name: IMG_1830
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: true}
+    right: {occupied: false, wheel_stop: true}
+- name: IMG_1831
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: true}
+    right: {occupied: false, wheel_stop: true}
+- name: IMG_1832
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: true}
+    right: {occupied: false, wheel_stop: true}
+- name: IMG_1833
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: true}
+    right: {occupied: false, wheel_stop: true}
+- name: IMG_1834
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: true}
+    right: {occupied: false, wheel_stop: true}
+- name: IMG_1835
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: true}
+    right: {occupied: false, wheel_stop: true}
+- name: IMG_1836
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Dubai, text: S74426}
+    right: {occupied: false, wheel_stop: true}
+- name: IMG_1837
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: true}
+    right:
+      occupied: true
+      plate: {emirate: Dubai, text: Z24837}
+- name: IMG_1838
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Dubai, text: Q18978}
+    right: {occupied: false, wheel_stop: false}
+- name: IMG_1839
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: false}
+    right:
+      occupied: true
+      plate: {emirate: Dubai, text: F47710}
+- name: IMG_1840
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Dubai, text: V88167}
+    right: {occupied: false, wheel_stop: false}
+- name: IMG_1841
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: false}
+    right:
+      occupied: true
+      plate: {emirate: Dubai, text: DD53816}
+- name: IMG_1842
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Dubai, text: W48556}
+    right: {occupied: false, wheel_stop: false}
+- name: IMG_1843
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Dubai, text: Z91051}
+    right: {occupied: false, wheel_stop: false}
+- name: IMG_1844
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: false}
+    right:
+      occupied: true
+      plate: {emirate: Dubai, text: L17949}
+- name: IMG_1845
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: false}
+    right:
+      occupied: true
+      plate: {emirate: Abu Dhabi, text: '1032803'}
+- name: IMG_1846
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Dubai, text: A58852}
+    right: {occupied: false, wheel_stop: false}
+- name: IMG_1847
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: false}
+    right:
+      occupied: true
+      plate: {emirate: Dubai, text: W48252}
+- name: IMG_1848
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: false}
+    right:
+      occupied: true
+      plate: {emirate: Sharjah, text: '74207'}
+- name: IMG_1849
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Dubai, text: M17267}
+    right: {occupied: false, wheel_stop: false}
+- name: IMG_1850
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Dubai, text: D81929}
+    right: {occupied: false, wheel_stop: false}
+- name: IMG_1851
+  light: night
+  bays:
+    left: {occupied: false, wheel_stop: false}
+    right:
+      occupied: true
+      plate: {emirate: Dubai, text: GG28075}
+- name: IMG_1853
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Sharjah, text: '593105'}
+    right:
+      occupied: true
+      plate: {emirate: Dubai, text: I26590}
+- name: IMG_1854
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Dubai, text: GG28075}
+    right:
+      occupied: true
+      plate: {emirate: Dubai, text: R66918}
+- name: IMG_1855
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Dubai, text: E79928}
+    right:
+      occupied: true
+      plate: {emirate: Dubai, text: Q82055}
+- name: IMG_1856
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Dubai, text: N81803}
+    right:
+      occupied: true
+      plate: {emirate: Dubai, text: P26405}
+- name: IMG_1857
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Dubai, text: M55439}
+    right:
+      occupied: true
+      plate: {emirate: Dubai, text: S99566}
+- name: IMG_1858
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Dubai, text: CC34228}
+    right:
+      occupied: true
+      plate: {emirate: Dubai, text: B77998}
+- name: IMG_1859
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Dubai, text: S1884}
+    right:
+      occupied: true
+      plate: {emirate: Dubai, text: Y20947}
+- name: IMG_1860
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Dubai, text: U94847}
+    right:
+      occupied: true
+      plate: {emirate: Dubai, text: I76889}
+- name: IMG_1861
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Dubai, text: DD53816}
+    right:
+      occupied: true
+      plate: {emirate: Dubai, text: Y84160}
+- name: IMG_1862
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Abu Dhabi, text: '817136'}
+    right:
+      occupied: true
+      plate: {emirate: Dubai, text: V88167}
+- name: IMG_1863
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Dubai, text: B35710}
+    right:
+      occupied: true
+      plate: {emirate: Dubai, text: GG13096}
+- name: IMG_1864
+  light: night
+  bays:
+    left:
+      occupied: true
+      plate: {emirate: Dubai, text: FF27017}
+    right:
+      occupied: true
+      plate: {emirate: Dubai, text: H12524}

@@ -109,7 +109,7 @@ commands:
 decision:
   occupancy_threshold: 0.86
   occupancy_review_band: 0.0
-  plate_min_confidence: 0.7
+  plate_min_confidence: 0.15
   plate_platt_a: 1.55574674600719
   plate_platt_b: 0.6611495211918684
   cost_false_alert: 5.0

@@ -1,0 +1,25 @@
+# Full loop on the owner's photos. LOCAL ONLY (real plates): ignored by Git, never commit.
+# permanent: the cars always allowed (the owner's own), added by spoken commands first.
+# sets: photo sets; fallback_time is used for photos without a time in their EXIF data.
+permanent: ['33044', '66705']
+sets:
+  - config: configs/local_pilot.yaml
+    fallback_time: '2026-11-19T21:00'
+  - config: configs/local_night_1.yaml
+    fallback_time: '2026-11-20T22:00'
+# Step 2 story on real photos and all three real models. Times are scenario times.
+scenario:
+  - {at: '2026-11-22T08:00', say: 'allow car 33044'}
+  - {at: '2026-11-22T08:01', say: 'please add 66705'}
+  - {at: '2026-11-22T09:00', photo: IMG_1766}   # a visitor arrives, no permit yet
+  - {at: '2026-11-22T09:05', say: 'let car 48556 in until 6 pm'}
+  - {at: '2026-11-22T09:10', photo: IMG_1766}   # same arrival, now with a permit
+  - {at: '2026-11-22T18:30', photo: IMG_1766}   # the permit has ended
+  - {at: '2026-11-22T19:00', say: 'allow plate number 48837 for 2 hours'}
+  - {at: '2026-11-22T19:30', photo: IMG_1771}
+  - {at: '2026-11-22T19:45', say: 'remove car 48837'}
+  - {at: '2026-11-22T19:50', photo: IMG_1771}   # removed: alert again
+  - {at: '2026-11-22T21:00', photo: IMG_1820}   # both of the owner's cars
+  - {at: '2026-11-22T21:30', photo: IMG_1818}
+  - {at: '2026-11-22T22:00', photo: IMG_1601}   # right car has no plate fitted
+  - {at: '2026-11-22T22:30', photo: IMG_1731}   # both bays empty

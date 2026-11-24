@@ -12,10 +12,4 @@ experiments/plates/*/weights/
 experiments/plates/*/*_batch*.jpg
 experiments/plates/*/labels.jpg
 checkpoints/commands/pretrained/
-# Real plates stay on this Mac (owner's decision, 2026-11-22)
-configs/local_*.yaml
-outputs/occupancy/local_pilot/
-outputs/occupancy/local_night_1/predictions.csv
-outputs/occupancy/local_night_1/results.md
-outputs/loop/local/
 experiments/occupancy_adapt/*.pt

@@ -107,15 +107,17 @@ class Pipeline:
                 for bay, o, u, q in zip(boxes, occupied, unsure, p, strict=True)}  # fmt: skip
 
     def plate(self, im: Image.Image, box: list[float]) -> PlateRead | None:
-        """Model B in the bay area, as in the local photo checks."""
+        """Model B in the bay area, then the calibrated confidence gate."""
+        return gate_plate(self.plate_raw(im, box), self.decision_cfg)
+
+    def plate_raw(self, im: Image.Image, box: list[float]) -> PlateRead | None:
+        """Model B in the bay area, as in the local photo checks (raw confidence, no gate)."""
         lp, (w, h) = self.lp, im.size
         bay = tuple(float(v) for v in self._px(im, box))
         area = lp.search_area(bay, w, h)
         reads = read_plates(lp._detect(self.yolo, im.crop(area), self.imgsz), self.plate_threshold)
         local = (bay[0] - area[0], bay[1] - area[1], bay[2] - area[0], bay[3] - area[1])
-        return gate_plate(
-            lp._check_size(lp._pick(reads, local), bay[2] - bay[0]), self.decision_cfg
-        )
+        return lp._check_size(lp._pick(reads, local), bay[2] - bay[0])
 
     def frame(self, im: Image.Image, boxes: dict, at: datetime, table: PermitTable,
               guard: ViewGuard | None = None) -> list[dict]:  # fmt: skip

@@ -79,6 +79,42 @@ def plate_rows(split: str) -> pd.DataFrame:
     return df
 
 
+def camera_plate_rows(config: Path, split: str) -> pd.DataFrame:
+    """The owner's camera: Model B's raw read in every bay holding a car (one frame every 2 s,
+    moving periods left out) and whether it is exactly right. Cached; real plates stay local."""
+    cache = CACHE / f"plate_reads_{config.stem}_{split}.csv"
+    if cache.exists():
+        return pd.read_csv(cache, keep_default_na=False)
+    import yaml
+
+    from smart_parking.occupancy.adapt import video_files
+    from smart_parking.pipeline import Pipeline, in_any, video_frames
+
+    cfg = yaml.safe_load(config.read_text())
+    pipe = Pipeline(commands=False)
+    rows = []
+    for f in video_files(cfg):
+        if f["split"] != split:
+            continue
+        for t, im in video_frames(Path(f["video"]), cfg["every_s"]):
+            if in_any(t, f["moving"]):
+                continue
+            for bay, box in cfg["boxes"].items():
+                here = [c for c in f["cars"] if c["from"] <= t < c["to"]]
+                plate = next((c["plate"] for c in here if c["bay"] in (bay, "both")), None)
+                if plate is None:
+                    continue
+                read = pipe.plate_raw(im, box)
+                answered = read is not None and read.decision == "READ"
+                rows.append({"t": t, "bay": bay, "found": read is not None, "answered": answered,
+                             "correct": answered and read.text == plate,
+                             "confidence": read.confidence if read else 0.0})  # fmt: skip
+    CACHE.mkdir(parents=True, exist_ok=True)
+    df = pd.DataFrame(rows)
+    df.to_csv(cache, index=False)
+    return df
+
+
 def md(df: pd.DataFrame) -> str:
     lines = ["| " + " | ".join(map(str, df.columns)) + " |", "|" + "---|" * len(df.columns)]
     lines += ["| " + " | ".join(str(v) for v in r) + " |" for r in df.itertuples(index=False)]

@@ -153,3 +153,11 @@ robustness-images:
 # Monitoring demo: the other night replayed with a dimming light and a knocked camera
 monitor-demo:
     uv run python -m smart_parking.trust.monitor
+
+# Explainability probes for Models A, B, C and the joined decision
+probes:
+    HF_HUB_OFFLINE=1 uv run python -m smart_parking.trust.probes
+
+# Failure analysis: every error sorted into causes, fixes and what remains
+failures:
+    uv run python -m smart_parking.trust.failures

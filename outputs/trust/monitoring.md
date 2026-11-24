@@ -22,7 +22,7 @@ Alerts are logged (Loguru, `alert` field) once when they start and once when the
 
 | brightness_mean | brightness_sd | unsure | review |
 |---|---|---|---|
-| 84.338 | 5.396 | 0.011 | 0.298 |
+| 84.338 | 5.396 | 0.011 | 0.074 |
 
 ## The replayed stream: what the monitor saw
 
@@ -31,11 +31,7 @@ Problems injected: the street light dims from 4:00 (to 15% by 6:00); the camera 
 | time | event |
 |---|---|
 | 0:58 | alert: model_unsure |
-| 2:16 | alert: many_reviews |
-| 2:48 | cleared: many_reviews |
 | 3:04 | cleared: model_unsure |
-| 3:20 | alert: many_reviews |
-| 4:22 | cleared: many_reviews |
 | 5:00 | alert: lighting_change |
 | 5:46 | alert: model_unsure |
 | 8:36 | alert: camera_problem |

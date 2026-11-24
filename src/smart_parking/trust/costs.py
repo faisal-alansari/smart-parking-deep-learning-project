@@ -37,9 +37,11 @@ from loguru import logger  # noqa: E402
 
 from smart_parking.common.config import load_config  # noqa: E402
 from smart_parking.common.log import setup_logging  # noqa: E402
+from smart_parking.occupancy.adapt import VIDEO_TEST, VIDEO_TRAIN  # noqa: E402
 from smart_parking.trust.calibration import apply_platt  # noqa: E402
 from smart_parking.trust.common import (  # noqa: E402
     OUT,
+    camera_plate_rows,
     md,
     occupancy_models,
     occupancy_scores,
@@ -182,15 +184,27 @@ def run() -> None:
             r["confidence"].astype(float).to_numpy(), (calib["a"], calib["b"])
         )
         plates[split] = r
-    gate, val_cost_b = choose_gate(plates["val"], c)
-    always_review = c.review
-    rows_b = [
-        {"Model B policy": "no confidence gate (before)",
-         "test cost per plate": plate_cost(plates["test"], 0.0, c)},
-        {"Model B policy": f"calibrated confidence gate {gate} (chosen on validation)",
-         "test cost per plate": plate_cost(plates["test"], gate, c)},
-        {"Model B policy": "always ask a person", "test cost per plate": always_review},
-    ]  # fmt: skip
+    gate_public, val_cost_public = choose_gate(plates["val"], c)
+    # The owner's camera: plate reads in bays with a car (block 4 = validation, night 1 = test)
+    for name, (config, split) in {"camera val": (VIDEO_TRAIN, "validation"),
+                                  "camera test": (VIDEO_TEST, "test")}.items():  # fmt: skip
+        r = camera_plate_rows(config, split)
+        r["calibrated"] = apply_platt(
+            r["confidence"].astype(float).to_numpy(), (calib["a"], calib["b"])
+        )
+        plates[name] = r
+    gate, val_cost_b = choose_gate(plates["camera val"], c)  # the deployed gate
+    rows_b = []
+    for data in ("test", "camera test"):
+        where = "public test" if data == "test" else "owner's camera, night 1"
+        policies = (("no confidence gate", 0.0),
+                    (f"gate {gate_public} (chosen on public validation)", gate_public),
+                    (f"gate {gate} (chosen on block 4, the owner's camera)", gate))  # fmt: skip
+        for policy, g in policies:
+            cost = plate_cost(plates[data], g, c)
+            rows_b.append({"plates": where, "Model B policy": policy, "cost per plate": cost})
+        rows_b.append({"plates": rows_b[-1]["plates"], "Model B policy": "always ask a person",
+                       "cost per plate": c.review})  # fmt: skip
     sens = []
     for name, cc in [
         ("base", c),
@@ -205,25 +219,30 @@ def run() -> None:
     ]:
         ta, ba, _ = choose_occupancy(yv, pv, cc)
         g, _ = choose_gate(plates["val"], cc)
+        gc, _ = choose_gate(plates["camera val"], cc)
         sens.append({"cost assumption": name, "A threshold": ta, "A band": ba,
                      "A test cost": round(occupancy_cost(yt, pt, ta, ba, cc), 4),
-                     "B gate": g,
-                     "B test cost": round(plate_cost(plates["test"], g, cc), 4)})  # fmt: skip
+                     "B gate (public)": g,
+                     "B public test cost": round(plate_cost(plates["test"], g, cc), 4),
+                     "B gate (camera)": gc,
+                     "B camera test cost":
+                         round(plate_cost(plates["camera test"], gc, cc), 4)})  # fmt: skip
     fig, axes = plt.subplots(1, 2, figsize=(9, 3.4))
     _risk_coverage(axes[0], yv, pv, t_a, "validation (block 4)")
     _risk_coverage(axes[0], yt, pt, t_a, "test (first video)")
     axes[0].set(title="Model A: abstain on the least certain bays", xlabel="coverage (answered)",
                 ylabel="error rate among answered")  # fmt: skip
     for split, r in plates.items():
+        g_dot = gate if split.startswith("camera") else gate_public
         cov, risk = [], []
         for g in np.linspace(0, 0.99, 100):
             ans = r["answered"].astype(bool) & (r["calibrated"] >= g)
             cov.append(ans.mean())
             risk.append((ans & ~r["correct"].astype(bool)).sum() / max(ans.sum(), 1))
         axes[1].plot(cov, risk, label=split)
-        a = r["answered"].astype(bool) & (r["calibrated"] >= gate)
+        a = r["answered"].astype(bool) & (r["calibrated"] >= g_dot)
         axes[1].plot(a.mean(), (a & ~r["correct"].astype(bool)).sum() / max(a.sum(), 1), "ko")
-    axes[1].set(title=f"Model B: confidence gate (dot = chosen {gate})",
+    axes[1].set(title="Model B: confidence gate (dots = chosen gates)",
                 xlabel="coverage (answered)",
                 ylabel="wrong reads among answered")  # fmt: skip
     for ax in axes:
@@ -238,7 +257,15 @@ def run() -> None:
         + __doc__.split("\n\n", 1)[1].split("`just")[0].strip()
         + f"\n\n## Chosen on validation\n\nModel A: threshold **{t_a}**, review band **±{band}** "
         f"(validation cost {val_cost_a:.4f} per bay check). Model B: minimum calibrated "
-        f"confidence **{gate}** (validation cost {val_cost_b:.4f} per plate).\n\n"
+        f"confidence **{gate}**, chosen on block 4 (validation cost {val_cost_b:.4f} per plate)."
+        f"\n\nThe first gate ({gate_public}) was chosen on the public plate validation split "
+        f"(cost {val_cost_public:.4f}). On the owner's camera it sent about 30% of bays to a "
+        "person in normal operation (block 4, seen in the monitoring baseline), because correct "
+        "reads there carry lower confidence than on the public photos: every clear read on block 4 "
+        "was right. The gate was therefore re-chosen on block 4, the deployment camera's "
+        "validation data, with the same costs. On the night-1 test plates the two gates cost "
+        "about the same: block 4 had no wrong reads, so it cannot show the gate's value, and the "
+        "per-stay majority vote already protects against single misreads.\n\n"
         "## Test cost against the alternatives\n\n"
         + md(pd.DataFrame(rows_a).round(4))
         + "\n\nBay by bay, the adapted model costs more than the public model on the test "
@@ -247,6 +274,7 @@ def run() -> None:
         "'occupied' calls cost 1 each. That car is seen in the other bay, though, so it is not "
         "really missed: the car-level rows (a view added after seeing the test) and the "
         "normal-frame rows show the adapted model is far cheaper once that case is set aside.\n\n"
+        + "### Model B\n\n"
         + md(pd.DataFrame(rows_b).round(4))
         + "\n\n## Sensitivity to the cost assumptions\n\n"
         "Each row re-chooses the thresholds on validation under other costs, then reports test "

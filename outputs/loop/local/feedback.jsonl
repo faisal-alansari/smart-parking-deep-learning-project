@@ -1,0 +1,24 @@
+{"at":"2026-11-17T16:29:36+04:00","command":"Add number 3 3 0 4 4.","proposed":{"action":"ALLOW","number":"33044","until":null},"accepted":true,"corrected":null}
+{"at":"2026-11-17T16:29:36+04:00","command":"approve plate 66705","proposed":{"action":"ALLOW","number":"66705","until":null},"accepted":true,"corrected":null}
+{"at":"2026-11-19T12:09:00+04:00","command":"remove number 6 9 0 3 0 please","proposed":{"action":"REMOVE","number":"69030","until":null},"accepted":true,"corrected":null}
+{"at":"2026-11-19T17:24:00+04:00","command":"please allow car number 94847","proposed":{"action":"ALLOW","number":"94847","until":null},"accepted":true,"corrected":null}
+{"at":"2026-11-19T19:49:00+04:00","command":"allow number 28075 until end of day please","proposed":{"action":"ALLOW","number":"28075","until":"2026-11-19T23:59:00+04:00"},"accepted":true,"corrected":null}
+{"at":"2026-11-19T20:44:00+04:00","command":"okay allow 17267 for four hours","proposed":{"action":"ALLOW","number":"17267","until":"2026-11-20T00:44:00+04:00"},"accepted":true,"corrected":null}
+{"at":"2026-11-20T00:08:00+04:00","command":"add car number 81929 until tomorrow at one PM please","proposed":{"action":"ALLOW","number":"81929","until":"2026-11-21T13:00:00+04:00"},"accepted":true,"corrected":null}
+{"at":"2026-11-20T00:36:00+04:00","command":"Allow car 18978 until 10 pm.","proposed":{"action":"ALLOW","number":"18978","until":"2026-11-20T22:00:00+04:00"},"accepted":true,"corrected":null}
+{"at":"2026-11-20T01:08:00+04:00","command":"approve plate number eight eight one six seven in bay 2 until eleven fifteen a.m.","proposed":{"action":"ALLOW","number":"88167","until":"2026-11-20T11:15:00+04:00"},"accepted":true,"corrected":null}
+{"at":"2026-11-20T02:19:00+04:00","command":"Hey allow plate 53816.","proposed":{"action":"ALLOW","number":"53816","until":null},"accepted":true,"corrected":null}
+{"at":"2026-11-20T02:30:00+04:00","command":"Add plate number 47710 for bay one till tomorrow.","proposed":{"action":"ALLOW","number":"47710","until":"2026-11-21T23:59:00+04:00"},"accepted":true,"corrected":null}
+{"at":"2026-11-20T07:27:00+04:00","command":"Let car 20947 in till midnight.","proposed":{"action":"ALLOW","number":"20947","until":"2026-11-21T00:00:00+04:00"},"accepted":true,"corrected":null}
+{"at":"2026-11-20T07:52:00+04:00","command":"hey take number 94847 off the list","proposed":{"action":"REMOVE","number":"94847","until":null},"accepted":true,"corrected":null}
+{"at":"2026-11-20T08:15:00+04:00","command":"Remove 32803.","proposed":{"action":"REMOVE","number":"32803","until":null},"accepted":true,"corrected":null}
+{"at":"2026-11-20T09:01:00+04:00","command":"Add car 24837 please.","proposed":{"action":"ALLOW","number":"24837","until":null},"accepted":true,"corrected":null}
+{"at":"2026-11-20T11:40:00+04:00","command":"okay remove 8 2 0 5 5","proposed":{"action":"REMOVE","number":"82055","until":null},"accepted":true,"corrected":null}
+{"at":"2026-11-20T12:13:00+04:00","command":"okay delete car number five three eight one six","proposed":{"action":"REMOVE","number":"53816","until":null},"accepted":true,"corrected":null}
+{"at":"2026-11-20T13:35:00+04:00","command":"hey add number 26405 till Thursday please","proposed":{"action":"ALLOW","number":"26405","until":"2026-11-26T23:59:00+04:00"},"accepted":true,"corrected":null}
+{"at":"2026-11-20T14:35:00+04:00","command":"Add car 34228.","proposed":{"action":"ALLOW","number":"34228","until":null},"accepted":true,"corrected":null}
+{"at":"2026-11-20T15:33:00+04:00","command":"Delete 24837.","proposed":{"action":"REMOVE","number":"24837","until":null},"accepted":true,"corrected":null}
+{"at":"2026-11-20T15:37:00+04:00","command":"Hey remove plate eighteen eighty four.","proposed":{"action":"REMOVE","number":"1884","until":null},"accepted":true,"corrected":null}
+{"at":"2026-11-20T17:11:00+04:00","command":"Hey add car 13096 please.","proposed":{"action":"ALLOW","number":"13096","until":null},"accepted":true,"corrected":null}
+{"at":"2026-11-20T18:27:00+04:00","command":"okay take plate number 34228 off the list","proposed":{"action":"REMOVE","number":"34228","until":null},"accepted":true,"corrected":null}
+{"at":"2026-11-20T19:46:00+04:00","command":"Remove car number thirteen thousand ninety six.","proposed":{"action":"REMOVE","number":"13096","until":null},"accepted":true,"corrected":null}

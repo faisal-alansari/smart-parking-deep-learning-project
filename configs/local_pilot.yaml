@@ -1,0 +1,89 @@
+# Local site pilot: 8 owner photos (4 day, 4 night) of two bays.
+# Truth read from the photos by eye. Boxes = (x0, y0, x1, y1) as fractions of
+# image width/height, covering where a car sits in each bay. Check only:
+# never used for training, model choice or thresholds.
+# plate = true plate of the parked car (code + number, as in AddingUAE);
+# null = no plate fitted (the right answer is NEEDS_REVIEW).
+raw_dir: data/raw/local_pilot
+photo_dir: data/processed/local_pilot/photos
+photos:
+- name: IMG_1601
+  light: day
+  bays:
+    left:
+      occupied: true
+      box: [0.0, 0.422, 0.455, 0.611]
+      plate: {emirate: Sharjah, text: '269030'}
+    right:
+      occupied: true
+      box: [0.524, 0.383, 1.0, 0.606]
+      plate: null
+- name: IMG_1731
+  light: day
+  bays:
+    left:
+      occupied: false
+      box: [0.01, 0.367, 0.518, 0.572]
+    right:
+      occupied: false
+      box: [0.526, 0.367, 0.988, 0.572]
+- name: IMG_1766
+  light: day
+  bays:
+    left:
+      occupied: true
+      box: [0.02, 0.394, 0.504, 0.587]
+      plate: {emirate: Dubai, text: W48556}
+    right:
+      occupied: false
+      box: [0.53, 0.394, 1.0, 0.587]
+- name: IMG_1771
+  light: day
+  bays:
+    left:
+      occupied: false
+      box: [0.0, 0.378, 0.494, 0.602]
+    right:
+      occupied: true
+      box: [0.504, 0.372, 0.982, 0.602]
+      plate: {emirate: Dubai, text: O48837}
+- name: IMG_1817
+  light: night
+  bays:
+    left:
+      occupied: false
+      box: [0.059, 0.472, 0.518, 0.661]
+    right:
+      occupied: true
+      box: [0.557, 0.472, 0.992, 0.661]
+      plate: {emirate: Dubai, text: AA66705}
+- name: IMG_1818
+  light: night
+  bays:
+    left:
+      occupied: true
+      box: [0.059, 0.472, 0.518, 0.661]
+      plate: {emirate: Dubai, text: O33044}
+    right:
+      occupied: false
+      box: [0.557, 0.472, 0.992, 0.661]
+- name: IMG_1819
+  light: night
+  bays:
+    left:
+      occupied: false
+      box: [0.059, 0.472, 0.518, 0.661]
+    right:
+      occupied: false
+      box: [0.557, 0.472, 0.992, 0.661]
+- name: IMG_1820
+  light: night
+  bays:
+    left:
+      occupied: true
+      box: [0.059, 0.472, 0.518, 0.661]
+      plate: {emirate: Dubai, text: O33044}
+    right:
+      occupied: true
+      box: [0.557, 0.472, 0.992, 0.661]
+      plate: {emirate: Dubai, text: AA66705}

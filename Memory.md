@@ -250,6 +250,11 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 - **Outcome:** Safer and slightly more accurate: exact full-plate reads 70.6% → 72.8%, wrong reads 27.5% → 19.2%. The price is coverage: 98% → 92% of plates are answered; the rest go to a person.
 - **Next:** Final. Never rerun.
 
+### 2026-11-25 | Privacy lifted; project change explained
+
+- **Decision / reason:** The owner considers all captured data public (plates and faces included), so local photos, videos, their truth labels and plate-level results may go in the demo, the repository and the report. This supersedes the 2026-11-22 "keep plates local" decision. The owner also confirmed that the project was changed after the intermediate submission, with the professor's agreement, because the earlier project could not continue; the report says so and judges results against this project's own plan, not the old proposal.
+- **Next:** Remove the privacy-only Git ignores, add sample inputs for the demo, and make the local results reproducible (large videos cannot go in Git; derived data or a download link is needed).
+
 ## Decision log
 
 For each **meaningful** new decision, add one short entry:

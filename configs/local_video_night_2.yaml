@@ -1,0 +1,60 @@
+# The owner's last recording: night of 2026-11-24, fixed camera (phone on a stick), 5 files.
+# LOCAL ONLY (real plates, a person). Truth marked by Claude from frames every 10 s and 2 s,
+# checked by the owner on 2026-11-25 (3 corrections applied). Times in seconds inside each file.
+# cars: parked periods (from the end of arriving to the start of leaving). moving: a car driving
+# in, out or close by; not scored. slices: groups reported on their own.
+# Split (fixed before any training): blocks 1-3 train Model A, block 4 chooses its settings.
+# The final test is the first video (configs/local_video_night_1.yaml), never used here.
+title: night video 2 (2026-11-24)
+every_s: 2
+truth_status: checked by the owner (2026-11-25), 3 corrections applied
+permanent: ['33044', '66705']
+# Bay boxes drawn once from Block 4 at 10:00 (both cars parked), like a camera set up once.
+boxes:
+  left: [0.00, 0.40, 0.56, 0.645]
+  right: [0.59, 0.40, 1.00, 0.645]
+files:
+  - video: data/raw/video_night_2/Block 1.MOV
+    split: train
+    cars:
+      - {bay: left, from: 142, to: 222, plate: AA66705}
+    moving: [[120, 142]]
+  - video: data/raw/video_night_2/Block 1 (Continue).MOV
+    split: train
+    cars:
+      - {bay: left, from: 0, to: 208, plate: AA66705}
+      - {bay: right, from: 76, to: 302, plate: O33044}
+    moving: [[68, 76], [208, 218], [302, 314], [336, 348]]
+    slices:
+      person in an empty bay: [[258, 290]]
+  - video: data/raw/video_night_2/Block 2.MOV
+    split: train
+    cars:
+      - {bay: left, from: 54, to: 264, plate: O33044}
+      - {bay: right, from: 156, to: 206, plate: AA66705}
+      - {bay: right, from: 288, to: 501, plate: O33044}
+    # 0:22-0:40 the Tesla adjusts in the lane; 0:40-0:54 it reverses in (owner's correction)
+    moving: [[22, 54], [146, 156], [206, 226], [264, 288]]
+    slices:
+      person in an empty bay: [[388, 487]]
+  - video: data/raw/video_night_2/Block 3.MOV
+    split: train
+    cars:
+      - {bay: right, from: 0, to: 22, plate: O33044}
+      - {bay: right, from: 190, to: 226, plate: AA66705}   # stands about 36 s, then leaves
+      - {bay: both, from: 302, to: 432, plate: AA66705}    # across both bays
+      - {bay: left, from: 522, to: 646, plate: O33044}     # crooked, partly over the line
+    moving: [[22, 32], [112, 128], [182, 190], [226, 238], [294, 302], [432, 444], [502, 522], [646, 658]]
+    slices:
+      car waiting in a bay: [[190, 226]]
+      car across both bays: [[302, 432]]
+      crooked car: [[522, 646]]
+  - video: data/raw/video_night_2/Block 4.MOV
+    split: validation
+    cars:
+      - {bay: right, from: 206, to: 250, plate: AA66705}   # short stay
+      - {bay: right, from: 328, to: 731, plate: O33044}
+      - {bay: left, from: 404, to: 731, plate: AA66705}
+    moving: [[32, 62], [180, 206], [250, 270], [302, 328], [374, 404]]
+    slices:
+      plate blocked by a person: [[507, 531]]
