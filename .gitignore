@@ -13,3 +13,4 @@ experiments/plates/*/*_batch*.jpg
 experiments/plates/*/labels.jpg
 checkpoints/commands/pretrained/
 experiments/occupancy_adapt/*.pt
+outputs/runs/app/

@@ -255,6 +255,21 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 - **Decision / reason:** The owner considers all captured data public (plates and faces included), so local photos, videos, their truth labels and plate-level results may go in the demo, the repository and the report. This supersedes the 2026-11-22 "keep plates local" decision. The owner also confirmed that the project was changed after the intermediate submission, with the professor's agreement, because the earlier project could not continue; the report says so and judges results against this project's own plan, not the old proposal.
 - **Next:** Remove the privacy-only Git ignores, add sample inputs for the demo, and make the local results reproducible (large videos cannot go in Git; derived data or a download link is needed).
 
+### 2026-11-25 | Trust checks, product hardening, demo and report
+
+- **Decision / reason:** Finished the remaining rubric work on branch `trust-checks`. Each choice was made on validation (block 4, or public validation), with three choices informed by the test, each disclosed in its report: (1) Model A keeps its raw probability, because Platt scaling fitted on block 4 worsened calibration on the test night (ECE 0.065 vs 0.112), while Model B uses Platt scaling (0.139 → 0.036); (2) the feature-distance unfamiliar-input check is not used, because it flagged 13% of normal frames on the other night; (3) plate caching was adopted after the efficiency study measured it on the test night.
+- **Cost model:** false alert 5, missed unauthorized car 10, review 1, with 70% of cars allowed. Model A's threshold became 0.86 (stable under every cost assumption). The plate gate was first chosen on public plates (0.7), but it sent 30% of the owner's bays to a person, so it was re-chosen on block 4 (0.15).
+- **Fixes found by the checks:** the sharpness check first flagged every frame 40% darker than usual, so it now uses a contrast-normalised frame. A probe found that covering a plate's last character gives a silent shorter read 58% of the time (not fixed: next step is a rule on how much of the plate width the characters span).
+- **Product:**
+  - camera check (blocked, unfamiliar view, blurred) before any model;
+  - Pydantic output records with reason, guidance and evidence frames;
+  - bad inputs returned as records, never a crash;
+  - a folder without `bays.yaml` means the owner's camera (adapted model); a folder with it means a new camera (public-data model);
+  - plate caching after 3 matching reads (model time 38% of before);
+  - Streamlit demo (`just demo`) with accept, reject or fix feedback.
+- **Outcome:** On the test night, per stay: 85% of bay checks right, 0 false alerts, 13 notifications in 10 minutes, all four normal stays right. `just evaluate` regenerates every report table. Model C's frozen-test numbers replay exactly with `--as-tested`. A clean clone installs, passes 134 tests and runs the demo. The final report is `docs/final_report.md` (about 2,400 words).
+- **Next:** Host the raw local videos and photos (about 6.5 GB, too big for Git) so `just evaluate` can be reproduced fully; merge and push when the owner says.
+
 ## Decision log
 
 For each **meaningful** new decision, add one short entry:
