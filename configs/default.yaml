@@ -38,6 +38,9 @@ occupancy:
   lr: 0.001
   weight_decay: 0.0001
   seeds: [42, 43, 44]
+  # The product uses Model A adapted to the owner's camera (outputs/occupancy/adaptation_*.md);
+  # `final` = the model trained on public data only.
+  deploy: adapted
   min_val_gain: 0.002
   baseline_size: 64
   hog_c_grid: [0.001, 0.003, 0.01, 0.1, 1.0]

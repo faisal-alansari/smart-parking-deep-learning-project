@@ -93,7 +93,7 @@ def score(cfg: OccupancyTrainConfig, images: np.ndarray, rows: pd.DataFrame) -> 
     votes = []
     for seed in cfg.seeds:
         model, mean, std, summary = load_checkpoint(
-            cfg.checkpoint_dir / f"final_s{seed}.pt", device
+            cfg.checkpoint_dir / f"{cfg.deploy}_s{seed}.pt", device
         )
         prob = predict(model, x, mean, std)
         out[f"p_s{seed}"] = prob.astype(float).round(3)

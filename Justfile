@@ -125,3 +125,11 @@ video-night-1:
 # One decision per car's stay on the night video (uses the saved per-frame results)
 video-night-1-stays:
     uv run python -m smart_parking.stays
+
+# Adapt Model A to the owner's camera: train options on video 2 blocks 1-3, choose on block 4
+adapt-occupancy:
+    uv run python -m smart_parking.occupancy.adapt
+
+# The one final test of the adapted Model A (first night video, public tests, local photos)
+adapt-occupancy-final:
+    uv run python -m smart_parking.occupancy.adapt --final

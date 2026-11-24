@@ -62,7 +62,8 @@ class Pipeline:
         self.lp, self.size, self.device = lp, project.occupancy.input_size, pick_device()
         occ = project.occupancy
         self.seeds = [
-            load_checkpoint(occ.checkpoint_dir / f"final_s{s}.pt", self.device) for s in occ.seeds
+            load_checkpoint(occ.checkpoint_dir / f"{occ.deploy}_s{s}.pt", self.device)
+            for s in occ.seeds
         ]
         plates = project.plates
         run = plates.run_dir / f"final_s{lp.PLATE_SEED}" / "summary.json"

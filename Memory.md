@@ -240,7 +240,15 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 - **Options:** (a) no training, only a new threshold chosen on block 4; (b) fine-tune the last conv block and the head; (c) fine-tune the whole model at a low learning rate (1e-4 and 3e-4 tried); (d) a wider CNN (channels 32-64-128-256, about 1.2M parameters, under the 50M limit) trained from scratch on public + local crops. Options b-d mix equal numbers of public and local crops in every epoch, so the model does not forget the public data. Each option is trained with seeds 42, 43, 44; the deployed model is the majority vote of the 3 seeds, as before.
 - **Choosing (block 4 only):** for each run, the best epoch and the threshold are those with the best balanced accuracy (the average of the right rate on empty and on occupied bays) on block 4. The winning option has the best majority-vote balanced accuracy on block 4, provided that (1) it misses no more parked cars than the current model on block 4, and (2) its public validation F1 is at most 1 point below the current model's. Ties go to the smaller, simpler option (a, then b, c, d).
 - **Final tests (once, results accepted):** the first video (frame by frame, then the full system per stay), the public test sets, and the local photos, each before and after.
-- **Outcome:** Pending.
+- **Outcome (chosen on block 4, tested once):** Option b (fine-tune the last block, about 3 s per seed) won under the rule. Several options reached 100% on block 4 but forgot the public data (the 1-point limit caught them); b passed that limit only just. Final test on the first video (another night): in normal frames, empty bays called occupied fell from 78 to 2 with 0 parked cars missed (balanced accuracy 84% → 99.6%). But when the car stood across both bays, the bay holding only half of it was called empty 50 times (the old model got these right only because it called nearly everything occupied). The price is general skill: public test F1 0.994 → 0.988, unseen public site 0.932 → 0.857, and on other car parks' night photos more missed cars (6 → 16) but fewer false alarms (20 → 5). Full system on the first video: answers right on the owner's cars 69% → 84% (98% in normal frames), notifications per stay 29 → 13, phantom stays 5 → 1, still 0 false alerts.
+- **Decision:** The product uses the adapted model (`occupancy.deploy: adapted`), because the product is the owner's fixed camera. The public-only model stays as the general model and as the baseline. Item count, counted conservatively: about 2,700 local crops (train, block 4 and the test video), so the project stays under the 10,000-item cap even if scratch-model data is counted.
+- **Next:** Trust checks, the app, `just evaluate`, README and the report.
+
+### 2026-11-25 | Plate reader: the one test rerun with the safety rules
+
+- **Decision / reason:** The three plate safety rules were added after the plate reader's first test, so the public plate test was rerun once with the final system, as planned. The first result is kept in `outputs/plates/final_results_before_safety_rules.md`.
+- **Outcome:** Safer and slightly more accurate: exact full-plate reads 70.6% → 72.8%, wrong reads 27.5% → 19.2%. The price is coverage: 98% → 92% of plates are answered; the rest go to a person.
+- **Next:** Final. Never rerun.
 
 ## Decision log
 

@@ -18,3 +18,4 @@ outputs/occupancy/local_pilot/
 outputs/occupancy/local_night_1/predictions.csv
 outputs/occupancy/local_night_1/results.md
 outputs/loop/local/
+experiments/occupancy_adapt/*.pt

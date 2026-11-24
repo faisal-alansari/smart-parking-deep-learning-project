@@ -5,9 +5,9 @@ image,found,answered,correct,emirate_ok,cer,pred_text,pred_emirate,reason,emirat
 1-29100_jpg.rf.2c0911b3cbac6581ba5cd45c3bd96034,True,True,True,True,0.0,129100,Sharjah,,Sharjah,129100,Sharjah
 1-32511_jpg.rf.c8cc54bf31b1fe3e1938b5950a0cf786,True,True,True,True,0.0,132511,Sharjah,,Sharjah,132511,Sharjah
 1-34536_jpg.rf.eeb287088aa67f6edac0eb6406788ac2,True,False,False,False,0.5,3455,,no_emirate,Sharjah,134536,Sharjah
-1-4274_jpg.rf.18dce92f54b3a7f65bc55fbb1e9cfb97,True,True,False,True,0.2,14244,Sharjah,,Sharjah,14274,Sharjah
+1-4274_jpg.rf.18dce92f54b3a7f65bc55fbb1e9cfb97,True,True,False,True,0.2,1424,Sharjah,,Sharjah,14274,Sharjah
 1-4420_jpg.rf.785a889bc246a171885d11242a96be7d,True,True,False,True,0.2,14620,Abu Dhabi,,Abu Dhabi,14420,Abu Dhabi
-1-48872_jpg.rf.4e7a1917b35ddb8472f2a16b418fc4d2,True,True,False,True,0.5,486272,Sharjah,,Sharjah,148872,Sharjah
+1-48872_jpg.rf.4e7a1917b35ddb8472f2a16b418fc4d2,True,True,False,True,0.5,48622,Sharjah,,Sharjah,148872,Sharjah
 1-49235_jpg.rf.94ba756b007a219460d8308e271b777e,True,True,True,True,0.0,149235,Sharjah,,Sharjah,149235,Sharjah
 1-52017_jpg.rf.d09101b1e5152123782c1bd68ff64e30,True,True,True,True,0.0,152017,Sharjah,,Sharjah,152017,Sharjah
 1-600_jpg.rf.b089a84fe96ecfc6f8ac6231dddea5fb,True,True,True,True,0.0,1600,Abu Dhabi,,Abu Dhabi,1600,Abu Dhabi
@@ -17,14 +17,14 @@ image,found,answered,correct,emirate_ok,cer,pred_text,pred_emirate,reason,emirat
 1-74166_jpg.rf.fe7feedaf0882fedf8ba921ea29f3254,True,True,True,True,0.0,174166,Sharjah,,Sharjah,174166,Sharjah
 1-78911_jpg.rf.4fd418577d0f5a821648c6ccdad12035,True,True,True,True,0.0,178911,Sharjah,,Sharjah,178911,Sharjah
 1-84062_jpg.rf.68b50578ddcb5dae2d766bf15a3ecb34,True,True,False,True,0.16666666666666666,84062,Sharjah,,Sharjah,184062,Sharjah
-1-92009_jpg.rf.c8c10b8c198dba15300f4b77574db8a4,True,True,False,True,0.16666666666666666,1292009,Sharjah,,Sharjah,192009,Sharjah
+1-92009_jpg.rf.c8c10b8c198dba15300f4b77574db8a4,True,True,True,True,0.0,192009,Sharjah,,Sharjah,192009,Sharjah
 1-94727_jpg.rf.87bd7b458a5dcaaa5a2484ca539cc623,True,True,True,True,0.0,194727,Sharjah,,Sharjah,194727,Sharjah
-1-9568_jpg.rf.f191b3f285c5891817e21d4f003cc19b,True,True,False,True,0.2,119568,Sharjah,,Sharjah,19568,Sharjah
+1-9568_jpg.rf.f191b3f285c5891817e21d4f003cc19b,True,True,True,True,0.0,19568,Sharjah,,Sharjah,19568,Sharjah
 1-96852_jpg.rf.098469dfafccefcc2e8dcd45ffa1aab8,True,True,True,True,0.0,196852,Sharjah,,Sharjah,196852,Sharjah
 1-97877_jpg.rf.78df8c5eaea943bae1f53e1dc41715b6,True,True,True,True,0.0,197877,Sharjah,,Sharjah,197877,Sharjah
 1-99522_jpg.rf.3abd18d3a6d2d6b40097292a02736124,True,True,True,True,0.0,199522,Sharjah,,Sharjah,199522,Sharjah
 10-28684_jpg.rf.d38f4cef825551df07065e327510731a,True,True,True,True,0.0,1028684,Abu Dhabi,,Abu Dhabi,1028684,Abu Dhabi
-10-34541_jpg.rf.e7759324f18d4a81b9252144b8eb5111,True,False,False,True,0.14285714285714285,10034541,Abu Dhabi,invalid_length,Abu Dhabi,1034541,Abu Dhabi
+10-34541_jpg.rf.e7759324f18d4a81b9252144b8eb5111,True,True,True,True,0.0,1034541,Abu Dhabi,,Abu Dhabi,1034541,Abu Dhabi
 10-43869_jpg.rf.8fa9165a65140ee5d0910626a5cf57cf,True,True,True,True,0.0,1043869,Abu Dhabi,,Abu Dhabi,1043869,Abu Dhabi
 10-51142_jpg.rf.e09ef42af1a622126ee3abe08a686a60,True,True,True,True,0.0,1051142,Abu Dhabi,,Abu Dhabi,1051142,Abu Dhabi
 10-59642_jpg.rf.7b0ad58e11ae3e24bab2c90002e62670,True,True,True,True,0.0,1059642,Abu Dhabi,,Abu Dhabi,1059642,Abu Dhabi
@@ -44,12 +44,12 @@ image,found,answered,correct,emirate_ok,cer,pred_text,pred_emirate,reason,emirat
 2-6565_jpg.rf.e62bde07af99fe1662817fdace097dc1,True,True,True,True,0.0,26565,Sharjah,,Sharjah,26565,Sharjah
 2-6734_jpg.rf.0ccf91d5bd710432f873bf0bafa540ea,True,True,True,True,0.0,26734,Sharjah,,Sharjah,26734,Sharjah
 2-7446_jpg.rf.7b7754220f61298dfb7399c3adb40abc,True,True,True,True,0.0,27446,Sharjah,,Sharjah,27446,Sharjah
-2-7556_jpg.rf.6768e8148002aab4239c8b1c619632a8,True,True,False,True,0.2,275556,Sharjah,,Sharjah,27556,Sharjah
-2-76677_jpg.rf.d1036e3fb8ef9c2cb6523fb7cb71e1f5,True,True,False,False,0.16666666666666666,76677,Dubai,,Abu Dhabi,276677,Abu Dhabi
+2-7556_jpg.rf.6768e8148002aab4239c8b1c619632a8,True,True,True,True,0.0,27556,Sharjah,,Sharjah,27556,Sharjah
+2-76677_jpg.rf.d1036e3fb8ef9c2cb6523fb7cb71e1f5,True,False,False,False,0.16666666666666666,76677,Dubai,missing_code,Abu Dhabi,276677,Abu Dhabi
 2-76727_jpg.rf.ca6db7069ea487b1af1c9587e930ba6c,True,True,False,False,0.0,276727,Sharjah,,Dubai,276727,Dubai
 2-77919_jpg.rf.b7a2af877b27f9d8eaeb6b2c8fad72bc,True,True,False,True,0.3333333333333333,7799,Sharjah,,Sharjah,277919,Sharjah
 2-78314_jpg.rf.99eb4bca24ea2f1399299db32e742be2,True,True,True,True,0.0,278314,Sharjah,,Sharjah,278314,Sharjah
-2-88999_jpg.rf.a43f70b9635e385d2df7940d083b229e,True,True,False,True,0.3333333333333333,8892,Sharjah,,Sharjah,889992,Sharjah
+2-88999_jpg.rf.a43f70b9635e385d2df7940d083b229e,True,True,False,True,0.2,8892,Sharjah,,Sharjah,88992,Sharjah
 2-9200_jpg.rf.aca96a49fd65ad7c0081b4e743dd0705,True,True,True,True,0.0,29200,Sharjah,,Sharjah,29200,Sharjah
 2-92229_jpg.rf.31ec5371864efe5a25e0ad78e80583f0,True,True,True,True,0.0,292229,Abu Dhabi,,Abu Dhabi,292229,Abu Dhabi
 2-99786_jpg.rf.572d57ce7f6f650c33cd0e1792c9d897,True,True,True,True,0.0,997862,Sharjah,,Sharjah,997862,Sharjah
@@ -66,7 +66,7 @@ image,found,answered,correct,emirate_ok,cer,pred_text,pred_emirate,reason,emirat
 3-41490_jpg.rf.c8ea41a22d801dfcac57981e1dee1794,True,True,True,True,0.0,341490,Sharjah,,Sharjah,341490,Sharjah
 3-47_jpg.rf.325b1b6acfc6b6b8b6250122f911452c,True,True,True,True,0.0,347,Sharjah,,Sharjah,347,Sharjah
 3-64967_jpg.rf.24939f1538294fb9b1262b5f61b9863e,True,True,True,True,0.0,364967,Sharjah,,Sharjah,364967,Sharjah
-3-70150_jpg.rf.f06937e174d6ab87ba5e61a1f175a71f,True,True,False,False,0.0,370150,Dubai,,Abu Dhabi,370150,Abu Dhabi
+3-70150_jpg.rf.f06937e174d6ab87ba5e61a1f175a71f,True,False,False,False,0.0,370150,Dubai,missing_code,Abu Dhabi,370150,Abu Dhabi
 3-72936_jpg.rf.acb3c7280ec864dbd1dacdace6c6d2b0,True,True,True,True,0.0,372936,Sharjah,,Sharjah,372936,Sharjah
 3-87105_jpg.rf.11ced1aaae94015ff4a5be90102d52a1,True,True,True,True,0.0,387105,Sharjah,,Sharjah,387105,Sharjah
 4-10984_jpg.rf.b070c8c218bfa76b78580f3ea5f9a11b,True,True,True,True,0.0,410984,Abu Dhabi,,Abu Dhabi,410984,Abu Dhabi
@@ -87,7 +87,7 @@ image,found,answered,correct,emirate_ok,cer,pred_text,pred_emirate,reason,emirat
 4-73723_jpg.rf.6d28b54acef8470626408fd1339471db,True,True,False,True,0.16666666666666666,47373,Abu Dhabi,,Abu Dhabi,473723,Abu Dhabi
 4-79490_jpg.rf.0ef2e596437a42dbab69517d0bfadad6,True,True,True,True,0.0,479490,Abu Dhabi,,Abu Dhabi,479490,Abu Dhabi
 4-80551_jpg.rf.a4dbbd1ada399a030b8af042deb6c965,True,True,True,True,0.0,480551,Abu Dhabi,,Abu Dhabi,480551,Abu Dhabi
-4-8531_jpg.rf.ba6eb6a60decff1efc2bcdfe540d20e2,True,True,False,True,0.2,485311,Abu Dhabi,,Abu Dhabi,48531,Abu Dhabi
+4-8531_jpg.rf.ba6eb6a60decff1efc2bcdfe540d20e2,True,True,True,True,0.0,48531,Abu Dhabi,,Abu Dhabi,48531,Abu Dhabi
 4-85894_jpg.rf.cd54cf6deba5457d01f62fa699cff737,True,True,True,True,0.0,485894,Abu Dhabi,,Abu Dhabi,485894,Abu Dhabi
 4-8607_jpg.rf.120aad3a074429ec72f2dfe3a6dcfbe4,True,True,True,True,0.0,48607,Abu Dhabi,,Abu Dhabi,48607,Abu Dhabi
 4-9182_jpg.rf.cf3fdf4d57f25f66c7e5d91701d5c7b2,True,True,True,True,0.0,49182,Abu Dhabi,,Abu Dhabi,49182,Abu Dhabi
@@ -107,7 +107,7 @@ image,found,answered,correct,emirate_ok,cer,pred_text,pred_emirate,reason,emirat
 5-86351_jpg.rf.a291e78d7211968a8e4f6fd936716982,True,True,True,True,0.0,586351,Abu Dhabi,,Abu Dhabi,586351,Abu Dhabi
 5-87804_jpg.rf.7e20da3ecdbba75fea197b6fdfc06046,True,True,True,True,0.0,587804,Abu Dhabi,,Abu Dhabi,587804,Abu Dhabi
 5-90197_jpg.rf.65eb57a4e22206b7fe9542391c9acf88,True,True,True,True,0.0,590197,Abu Dhabi,,Abu Dhabi,590197,Abu Dhabi
-5-920_jpg.rf.7442567999560b2b5893c19336f58068,True,True,False,True,0.25,59220,Abu Dhabi,,Abu Dhabi,5920,Abu Dhabi
+5-920_jpg.rf.7442567999560b2b5893c19336f58068,True,True,True,True,0.0,5920,Abu Dhabi,,Abu Dhabi,5920,Abu Dhabi
 5-9499_jpg.rf.646337615bba07fda2e1e19ec9c32742,True,True,True,True,0.0,59499,Abu Dhabi,,Abu Dhabi,59499,Abu Dhabi
 5-96325_jpg.rf.a49ded16e2a20c61824730cf97292c09,True,True,True,True,0.0,596325,Abu Dhabi,,Abu Dhabi,596325,Abu Dhabi
 5-978_jpg.rf.8d45e95aeb03c8c60bb4d61ef46fcecc,True,True,True,True,0.0,5978,Abu Dhabi,,Abu Dhabi,5978,Abu Dhabi
@@ -121,7 +121,7 @@ image,found,answered,correct,emirate_ok,cer,pred_text,pred_emirate,reason,emirat
 6-33267_jpg.rf.c02d5418850b7838c40054b6d1816f17,True,True,True,True,0.0,633267,Abu Dhabi,,Abu Dhabi,633267,Abu Dhabi
 6-34170_jpg.rf.0a9462f647f6a3eb1e5c9add897050a7,True,True,False,False,0.16666666666666666,34170,Ras Al Khaimah,,Abu Dhabi,634170,Abu Dhabi
 6-37098_jpg.rf.b0fa557a8dcbd3c07f70154dccb18c4e,True,True,True,True,0.0,637098,Abu Dhabi,,Abu Dhabi,637098,Abu Dhabi
-6-53226_jpg.rf.f58731bb6ebb55e8c596368909c4b8f7,True,True,False,False,0.3333333333333333,8532226,Dubai,,Abu Dhabi,653226,Abu Dhabi
+6-53226_jpg.rf.f58731bb6ebb55e8c596368909c4b8f7,True,False,False,False,0.16666666666666666,853226,Dubai,missing_code,Abu Dhabi,653226,Abu Dhabi
 6-53554_jpg.rf.fb9037804ec3901f24894f5d883c1074,True,True,False,True,0.3333333333333333,5354,Abu Dhabi,,Abu Dhabi,653554,Abu Dhabi
 6-57708_jpg.rf.faf4e32abb67f2124e6231299d1f1d37,True,True,True,True,0.0,657708,Abu Dhabi,,Abu Dhabi,657708,Abu Dhabi
 6-59307_jpg.rf.09c2b6e16a73fe982382d5a4f79d360d,True,True,True,True,0.0,659307,Abu Dhabi,,Abu Dhabi,659307,Abu Dhabi
@@ -140,13 +140,13 @@ image,found,answered,correct,emirate_ok,cer,pred_text,pred_emirate,reason,emirat
 7-2595_jpg.rf.433abbcd500d00fc3596b16a85c86951,True,True,True,True,0.0,72595,Abu Dhabi,,Abu Dhabi,72595,Abu Dhabi
 7-26611_jpg.rf.3e0cd75bfecf4df5d79c64eb77460f00,True,True,True,True,0.0,726611,Abu Dhabi,,Abu Dhabi,726611,Abu Dhabi
 7-44798_jpg.rf.e92421558db80eaf57457d0dc80155f5,True,False,False,False,0.0,744798,,no_emirate,Abu Dhabi,744798,Abu Dhabi
-7-47248_jpg.rf.564c58e480fe00b78f53742dc9daeda0,True,True,False,True,0.16666666666666666,7447248,Abu Dhabi,,Abu Dhabi,747248,Abu Dhabi
+7-47248_jpg.rf.564c58e480fe00b78f53742dc9daeda0,True,True,True,True,0.0,747248,Abu Dhabi,,Abu Dhabi,747248,Abu Dhabi
 7-47921_jpg.rf.eafb3bf12fa21e4877b2f2210314a744,True,True,False,True,0.5,74272,Abu Dhabi,,Abu Dhabi,747921,Abu Dhabi
 7-48760_jpg.rf.ddfe33fb6aee0e498e49dd1f97abe8ce,True,True,False,True,0.16666666666666666,74760,Abu Dhabi,,Abu Dhabi,748760,Abu Dhabi
 7-63907_jpg.rf.76911c3eff3dbeddf0dee244f53c07c4,True,True,True,True,0.0,763907,Abu Dhabi,,Abu Dhabi,763907,Abu Dhabi
 7-6767_jpg.rf.8ea8f345da9c31c73c09a9a586cec0c2,True,True,True,True,0.0,76767,Abu Dhabi,,Abu Dhabi,76767,Abu Dhabi
-7-71_jpg.rf.7358a6260a1ac39e09311a73a993e714,True,True,False,True,0.6666666666666666,7114,Abu Dhabi,,Abu Dhabi,771,Abu Dhabi
-7-74432_jpg.rf.90240bbf5f935938402532fbf83f1245,True,True,False,True,0.16666666666666666,744432,Abu Dhabi,,Abu Dhabi,774432,Abu Dhabi
+7-71_jpg.rf.7358a6260a1ac39e09311a73a993e714,True,True,False,True,0.3333333333333333,71,Abu Dhabi,,Abu Dhabi,771,Abu Dhabi
+7-74432_jpg.rf.90240bbf5f935938402532fbf83f1245,True,True,False,True,0.16666666666666666,74432,Abu Dhabi,,Abu Dhabi,774432,Abu Dhabi
 7-85692_jpg.rf.610d3cd420928d86712a39ee9eb9229d,True,True,True,True,0.0,785692,Abu Dhabi,,Abu Dhabi,785692,Abu Dhabi
 7-86630_jpg.rf.3bb3f215697ed9e757706fc724d7e85c,True,True,True,True,0.0,786630,Abu Dhabi,,Abu Dhabi,786630,Abu Dhabi
 7-91930_jpg.rf.14854c67dd752a2d87134a2af6ce8d3c,True,True,False,True,0.16666666666666666,91930,Abu Dhabi,,Abu Dhabi,791930,Abu Dhabi
@@ -165,7 +165,7 @@ image,found,answered,correct,emirate_ok,cer,pred_text,pred_emirate,reason,emirat
 8-70571_jpg.rf.e1ad733252b3d44ebdb6dff5d8c5078f,True,True,True,True,0.0,870571,Abu Dhabi,,Abu Dhabi,870571,Abu Dhabi
 8-74846_jpg.rf.5288bf5ee33f99f65169ea94a26b0cc1,True,True,False,True,0.16666666666666666,74846,Abu Dhabi,,Abu Dhabi,874846,Abu Dhabi
 8-75608_jpg.rf.6e5c45e20ff02153a73a243e935615a6,True,True,True,True,0.0,875608,Abu Dhabi,,Abu Dhabi,875608,Abu Dhabi
-8-77585_jpg.rf.51fff51ac7c0c0de9bfe6f7a8954609b,True,True,False,True,0.16666666666666666,P77585,Abu Dhabi,,Abu Dhabi,877585,Abu Dhabi
+8-77585_jpg.rf.51fff51ac7c0c0de9bfe6f7a8954609b,True,True,False,True,0.3333333333333333,P7585,Abu Dhabi,,Abu Dhabi,877585,Abu Dhabi
 8-8374_jpg.rf.0d8494ac6f55578d1899b7d1f14b3971,True,True,True,True,0.0,88374,Abu Dhabi,,Abu Dhabi,88374,Abu Dhabi
 8-88690_jpg.rf.3ec59681849ac85b977d5907c6a32c9e,True,True,True,True,0.0,888690,Abu Dhabi,,Abu Dhabi,888690,Abu Dhabi
 8-91431_jpg.rf.660b403cb19354d86dbcbda19eb8146d,True,True,True,True,0.0,891431,Abu Dhabi,,Abu Dhabi,891431,Abu Dhabi
@@ -202,11 +202,11 @@ A-2862_jpg.rf.164fc61815b3310d7c7f8e6ae6779191,True,True,False,True,0.2,N2862,Aj
 A-2879_jpg.rf.94d8eae6166c600f30914d8785acac92,True,True,True,True,0.0,A2879,Ajman,,Ajman,A2879,Ajman
 A-33473_jpg.rf.939e14d40ed4f35b0d9c5ba27bd172d7,True,True,True,True,0.0,A33473,Fujairah,,Fujairah,A33473,Fujairah
 A-3353_jpg.rf.fb140f51baf230bf17c6ded6cb9f9473,True,True,True,True,0.0,A3353,Ajman,,Ajman,A3353,Ajman
-A-36759_jpg.rf.66b4b8f549f3c911d25c3264cc37b3f9,True,True,False,False,0.5,6769,Dubai,,Fujairah,A36759,Fujairah
+A-36759_jpg.rf.66b4b8f549f3c911d25c3264cc37b3f9,True,False,False,False,0.5,6769,Dubai,missing_code,Fujairah,A36759,Fujairah
 A-39753_jpg.rf.96af996716578f1f8cb8fbdb21c24b8e,True,True,True,True,0.0,A39753,Fujairah,,Fujairah,A39753,Fujairah
 A-39889_jpg.rf.fc0494ac64a67eb8fdb204e6c888aee8,True,True,True,True,0.0,A39889,Fujairah,,Fujairah,A39889,Fujairah
 A-40072_jpg.rf.086a74fb718b59d022d83b3cf2c73a91,True,True,False,True,0.3333333333333333,20072,Fujairah,,Fujairah,40072A,Fujairah
-A-4440_jpg.rf.d03530319eaecff2e25304be048edf7d,True,True,False,True,0.6,44A440,Fujairah,,Fujairah,4440A,Fujairah
+A-4440_jpg.rf.d03530319eaecff2e25304be048edf7d,True,True,True,True,0.0,4440A,Fujairah,,Fujairah,4440A,Fujairah
 A-4600_jpg.rf.ceab4ea7a4554636530c04f1b80ee21e,True,True,True,True,0.0,4600A,Fujairah,,Fujairah,4600A,Fujairah
 A-48248_jpg.rf.9e21e388c816d9c97a21bfe1a26a3fc5,True,True,True,True,0.0,A48248,Fujairah,,Fujairah,A48248,Fujairah
 A-50379_jpg.rf.eadd358a62ffd3cd417a10245523d8fe,True,True,True,True,0.0,A50379,Fujairah,,Fujairah,A50379,Fujairah
@@ -221,11 +221,11 @@ A-76836_jpg.rf.86f49330432a52c7f5aaf96866ca8685,True,True,True,True,0.0,76836A,F
 A-89855_jpg.rf.54f29e3a2991980b02b666e7f599d6fd,True,True,False,True,0.16666666666666666,39855A,Ajman,,Ajman,89855A,Ajman
 B-16237_jpg.rf.67eabecd2b58e3768be05890f642dd9a,True,True,True,True,0.0,B16237,Dubai,,Dubai,B16237,Dubai
 B-174_jpg.rf.fef8c38b913dca8d9ee644f6ca4a58c5,True,True,True,True,0.0,B174,Dubai,,Dubai,B174,Dubai
-B-20779_jpg.rf.a3cf6a57c6e75ded9aa16d5108570c21,True,True,False,False,0.16666666666666666,20779,Dubai,,Ajman,20779B,Ajman
+B-20779_jpg.rf.a3cf6a57c6e75ded9aa16d5108570c21,True,False,False,False,0.16666666666666666,20779,Dubai,missing_code,Ajman,20779B,Ajman
 B-22263_jpg.rf.6de46c2bc3d9847e6705289c29bbbe03,True,True,True,True,0.0,B22263,Ajman,,Ajman,B22263,Ajman
 B-234_jpg.rf.604de71c0ff345d1023182db3777aa53,True,True,True,True,0.0,B234,Dubai,,Dubai,B234,Dubai
 B-25028_jpg.rf.88419ddfe84d6743c229810dc242ba49,True,True,True,True,0.0,25028B,Ajman,,Ajman,25028B,Ajman
-B-25842_jpg.rf.518d571931c893194d97ec8e67a6c301,True,True,False,True,0.16666666666666666,B25822,Dubai,,Dubai,B25842,Dubai
+B-25842_jpg.rf.518d571931c893194d97ec8e67a6c301,True,True,False,True,0.16666666666666666,B2582,Dubai,,Dubai,B25842,Dubai
 B-28580_jpg.rf.c051d209fe22932c80e4dadf912f672e,True,True,True,True,0.0,28580B,Ras Al Khaimah,,Ras Al Khaimah,28580B,Ras Al Khaimah
 B-32935_jpg.rf.ed356d2f20a64cb41c0bd9245406f16a,True,True,True,True,0.0,B32935,Dubai,,Dubai,B32935,Dubai
 B-37071_jpg.rf.208ae20ceaba7e0139281c6117e6a57d,True,True,True,True,0.0,B37071,Dubai,,Dubai,B37071,Dubai
@@ -236,7 +236,7 @@ B-43_jpg.rf.6bb0f4ec474adff7e03e3c7ae68993ec,True,True,False,False,0.0,B43,Dubai
 B-48580_jpg.rf.fcf372579f42f218b8d5b96dea10b81d,True,True,True,True,0.0,B48580,Dubai,,Dubai,B48580,Dubai
 B-48_jpg.rf.303406351e803f2aeab1e16ae9428de4,True,True,True,True,0.0,B48,Dubai,,Dubai,B48,Dubai
 B-50574_jpg.rf.063aa171032a0153053ef5dc910ed537,True,True,True,True,0.0,B50574,Dubai,,Dubai,B50574,Dubai
-B-55590_jpg.rf.561280999201cc4ec70c8222b47b999d,True,True,False,True,0.3333333333333333,555590P,Dubai,,Dubai,55590B,Dubai
+B-55590_jpg.rf.561280999201cc4ec70c8222b47b999d,True,True,False,True,0.16666666666666666,55590P,Dubai,,Dubai,55590B,Dubai
 B-57240_jpg.rf.de5fef14678bea25c3269931bf04e33b,True,True,False,True,0.16666666666666666,R57240,Dubai,,Dubai,B57240,Dubai
 B-6616_jpg.rf.488a3bbc789706bbad4a7bebcb96dadd,True,True,True,True,0.0,B6616,Fujairah,,Fujairah,B6616,Fujairah
 B-6792_jpg.rf.4abcac66029e0374adfeab5189f53922,True,True,True,True,0.0,B6792,Dubai,,Dubai,B6792,Dubai
@@ -251,14 +251,14 @@ B-84473_jpg.rf.bfc42be8f0ff9d89beacbab3ec545e23,True,True,False,False,0.0,84473B
 B-85888_jpg.rf.4fd8e2b678494549b270c8f0ac92776c,True,True,False,True,0.5,B6586,Dubai,,Dubai,B85888,Dubai
 B-91511_jpg.rf.7d5e182c6de69361670d86f69a5e0c25,True,True,True,True,0.0,B91511,Dubai,,Dubai,B91511,Dubai
 B-98114_jpg.rf.51817eaca15f2981d277dcb9b4a04381,True,True,True,True,0.0,B98114,Dubai,,Dubai,B98114,Dubai
-B-9991_jpg.rf.44dbaec6944e025c9911075818c9ee35,True,True,False,True,0.2,B99991,Dubai,,Dubai,B9991,Dubai
+B-9991_jpg.rf.44dbaec6944e025c9911075818c9ee35,True,True,True,True,0.0,B9991,Dubai,,Dubai,B9991,Dubai
 C-12763_jpg.rf.d3263fa37101acdcdde93cb33badadd2,True,True,True,True,0.0,C12763,Fujairah,,Fujairah,C12763,Fujairah
 C-13358_jpg.rf.b3b7328246b31e138b3ac5e34c577a76,True,False,False,False,0.0,C13358,,no_emirate,Ras Al Khaimah,C13358,Ras Al Khaimah
-C-13596_jpg.rf.c7ff8759101973c24d374db14d65b3ff,True,True,False,False,0.3333333333333333,1396,Dubai,,Fujairah,13596C,Fujairah
+C-13596_jpg.rf.c7ff8759101973c24d374db14d65b3ff,True,False,False,False,0.3333333333333333,1396,Dubai,missing_code,Fujairah,13596C,Fujairah
 C-16583_jpg.rf.eccc0f177fe93db3ef945e543778960a,True,True,True,True,0.0,16583C,Fujairah,,Fujairah,16583C,Fujairah
 C-19592_jpg.rf.265b41afdc6270e28cea481d255466c7,True,True,True,True,0.0,C19592,Fujairah,,Fujairah,C19592,Fujairah
 C-19636_jpg.rf.d66021f17f49baa052b3b51f356f9b9a,True,True,True,True,0.0,C19636,Ras Al Khaimah,,Ras Al Khaimah,C19636,Ras Al Khaimah
-C-21472_jpg.rf.3729231c01f87e57b29af06d21b23460,True,False,False,False,0.16666666666666666,231472C,,no_emirate,Ras Al Khaimah,21472C,Ras Al Khaimah
+C-21472_jpg.rf.3729231c01f87e57b29af06d21b23460,True,False,False,False,0.16666666666666666,23472C,,no_emirate,Ras Al Khaimah,21472C,Ras Al Khaimah
 C-22405_jpg.rf.e69c62e905d7cfe00d22ba5053be52f6,True,True,True,True,0.0,22405C,Fujairah,,Fujairah,22405C,Fujairah
 C-22546_jpg.rf.911fa1a0711b38270dc6dbcd698c2aac,True,True,True,True,0.0,C22546,Fujairah,,Fujairah,C22546,Fujairah
 C-24630_jpg.rf.9090bed5ff778591af3dab3c82e0c30b,True,True,False,False,0.6666666666666666,L440,Dubai,,Fujairah,C24630,Fujairah
@@ -273,8 +273,8 @@ C-35101_jpg.rf.bcc774ff6403b4e47e3feb7cb63fe5c1,True,True,True,True,0.0,C35101,F
 C-36905_jpg.rf.41ecf37b4a808a1195c09e9a89dfaf96,True,True,True,True,0.0,36905C,Ras Al Khaimah,,Ras Al Khaimah,36905C,Ras Al Khaimah
 C-37264_jpg.rf.a7b88d1c7b89be75cdc2be25f240f793,True,True,False,True,0.3333333333333333,37284A,Fujairah,,Fujairah,37264C,Fujairah
 C-40134_jpg.rf.12f4ccf4a1f59670a3c15bacf1088388,True,True,True,True,0.0,C40134,Fujairah,,Fujairah,C40134,Fujairah
-C-40649_jpg.rf.184b278c9cdf938d2041820ab82e0373,True,True,False,False,0.3333333333333333,40049,Dubai,,Fujairah,40649C,Fujairah
-C-45910_jpg.rf.cade10e30cef4fe71b8d5e8b992446b6,True,True,False,False,0.5,45704,Dubai,,Ras Al Khaimah,45910C,Ras Al Khaimah
+C-40649_jpg.rf.184b278c9cdf938d2041820ab82e0373,True,False,False,False,0.3333333333333333,40049,Dubai,missing_code,Fujairah,40649C,Fujairah
+C-45910_jpg.rf.cade10e30cef4fe71b8d5e8b992446b6,True,False,False,False,0.5,45704,Dubai,missing_code,Ras Al Khaimah,45910C,Ras Al Khaimah
 C-48265_jpg.rf.6165c84adc117f5d2a8e49ac7c63c706,True,True,False,False,0.0,C48265,Sharjah,,Ras Al Khaimah,C48265,Ras Al Khaimah
 C-6207_jpg.rf.b655652a1267c82670300d67b91c1dd9,True,True,True,True,0.0,6207C,Ajman,,Ajman,6207C,Ajman
 C-835_jpg.rf.c7a48642bd0a6eba992fbc8fb4af8c03,True,True,True,True,0.0,C835,Fujairah,,Fujairah,C835,Fujairah
@@ -289,7 +289,7 @@ D-35359_jpg.rf.72690cea6e59e8b6f3a0cbb87157b9be,True,True,True,True,0.0,D35359,D
 D-36820_jpg.rf.a7b78685cc486308403bf56ba320a2c5,True,True,True,True,0.0,D36820,Dubai,,Dubai,D36820,Dubai
 D-3836_jpg.rf.058fb5732638ad7869fbbcc781d14974,True,True,True,True,0.0,D3836,Dubai,,Dubai,D3836,Dubai
 D-394_jpg.rf.4c9319a3bf50e4a1a1c03b11b15b83d1,True,True,True,True,0.0,D394,Dubai,,Dubai,D394,Dubai
-D-40027_jpg.rf.98b31712acbd39224e442b0529cd3a01,True,True,False,True,0.16666666666666666,D400227,Dubai,,Dubai,D40027,Dubai
+D-40027_jpg.rf.98b31712acbd39224e442b0529cd3a01,True,True,True,True,0.0,D40027,Dubai,,Dubai,D40027,Dubai
 D-44487_jpg.rf.2b6c13741204f17fe374bc24f9350181,True,True,True,True,0.0,D44487,Dubai,,Dubai,D44487,Dubai
 D-51419_jpg.rf.009d4f4abafb54598ea734164ac0b967,True,True,False,True,0.3333333333333333,D5449,Dubai,,Dubai,D51419,Dubai
 D-555_jpg.rf.a83c2076d3bad5e9ee44bc70a880d2f6,True,True,True,True,0.0,D555,Fujairah,,Fujairah,D555,Fujairah
@@ -298,18 +298,18 @@ D-63692_jpg.rf.4b8ba93393fb7d341668af774ced4183,True,True,True,True,0.0,D63692,D
 D-694_jpg.rf.b75550663b8ae4123f9f444207065d33,True,True,True,True,0.0,D694,Dubai,,Dubai,D694,Dubai
 D-7274_jpg.rf.6534582db13469f4f08bc5791e30026a,True,True,True,True,0.0,D7274,Dubai,,Dubai,D7274,Dubai
 D-75848_jpg.rf.120b893f4556b6b9179725fc5d715fea,True,True,True,True,0.0,D75848,Dubai,,Dubai,D75848,Dubai
-D-76078_jpg.rf.e335ef2139f485b497f462e1f7581527,True,True,False,True,0.3333333333333333,7608,Dubai,,Dubai,D76078,Dubai
+D-76078_jpg.rf.e335ef2139f485b497f462e1f7581527,True,False,False,True,0.3333333333333333,7608,Dubai,missing_code,Dubai,D76078,Dubai
 D-76491_jpg.rf.4b4e5ea7dd41b9e3429858528d1e1cfe,True,True,True,True,0.0,D76491,Dubai,,Dubai,D76491,Dubai
 D-7703_jpg.rf.b858e69b78bba91097c6cea5e88e5c09,True,True,True,True,0.0,D7703,Dubai,,Dubai,D7703,Dubai
 D-80284_jpg.rf.e57f48432955a810d7a55a61d3a3c463,True,True,True,True,0.0,D80284,Dubai,,Dubai,D80284,Dubai
 D-80837_jpg.rf.6fc8e1376fe9d5b8a13543bb1eb911d1,True,True,True,True,0.0,D80837,Dubai,,Dubai,D80837,Dubai
-D-89338_jpg.rf.7e1cb3d6ca03229fb879422ea84ae181,True,True,False,True,0.16666666666666666,89338,Dubai,,Dubai,D89338,Dubai
+D-89338_jpg.rf.7e1cb3d6ca03229fb879422ea84ae181,True,False,False,True,0.16666666666666666,89338,Dubai,missing_code,Dubai,D89338,Dubai
 D-8_jpg.rf.b093825fd94b88ec9d2c8d158e01f5c0,True,True,False,False,0.5,U8,Dubai,,Fujairah,D8,Fujairah
 D-92243_jpg.rf.303bcafb891e0e5c0dd3ea2e813ae226,True,True,True,True,0.0,D92243,Dubai,,Dubai,D92243,Dubai
 D-93745_jpg.rf.67d640db4017631a6eb24f8631ebb613,True,True,True,True,0.0,D93745,Dubai,,Dubai,D93745,Dubai
 D-98400_jpg.rf.5916f01dcd516101cd7c3905bde0963a,True,True,True,True,0.0,D98400,Dubai,,Dubai,D98400,Dubai
 D-9997_jpg.rf.491ef82b0f9c41538f66e2d933e8b626,True,True,True,True,0.0,D9997,Dubai,,Dubai,D9997,Dubai
-E-10078_jpg.rf.1b79cb2d36b6c7f712d84613c7a62dfc,True,True,False,True,0.16666666666666666,10078,Dubai,,Dubai,E10078,Dubai
+E-10078_jpg.rf.1b79cb2d36b6c7f712d84613c7a62dfc,True,False,False,True,0.16666666666666666,10078,Dubai,missing_code,Dubai,E10078,Dubai
 E-11911_jpg.rf.61b6c5a4da44df4c5c8b5bf6cf78e730,True,True,False,True,0.3333333333333333,F1191,Dubai,,Dubai,E11911,Dubai
 E-12567_jpg.rf.eb137c138767b4b9d7afd7b411d2bf07,True,True,True,True,0.0,E12567,Dubai,,Dubai,E12567,Dubai
 E-13573_jpg.rf.0bf59ac0b16cf19ff56c7572f38a2854,True,True,False,True,0.16666666666666666,E73573,Dubai,,Dubai,E13573,Dubai
@@ -332,7 +332,7 @@ E-84813_jpg.rf.0c4406bf26ebeb04cbb74607d8af7a34,True,False,False,True,0.83333333
 E-91852_jpg.rf.4a17a67cbe1f3ae6df1f38f1abab3c17,True,True,True,True,0.0,E91852,Dubai,,Dubai,E91852,Dubai
 E-9293_jpg.rf.f098ef8ede573cf175c16785e5f716de,True,True,True,True,0.0,E9293,Dubai,,Dubai,E9293,Dubai
 E-9779_jpg.rf.cc0bff1e3592c705a1770cd09d174720,True,True,True,True,0.0,E9779,Dubai,,Dubai,E9779,Dubai
-F-11604_jpg.rf.c51d81054afea8cd79d5340a737acdb7,True,True,False,True,0.16666666666666666,11604,Dubai,,Dubai,F11604,Dubai
+F-11604_jpg.rf.c51d81054afea8cd79d5340a737acdb7,True,False,False,True,0.16666666666666666,11604,Dubai,missing_code,Dubai,F11604,Dubai
 F-17290_jpg.rf.b4d84f521b8213aae8bb5697a150172e,True,True,True,True,0.0,F17290,Dubai,,Dubai,F17290,Dubai
 F-25052_jpg.rf.615deade7b5c6c63b63e576b7a4fc598,True,True,True,True,0.0,F25052,Dubai,,Dubai,F25052,Dubai
 F-27390_jpg.rf.bd591e14f6efa04d643c70e2c441e174,True,True,True,True,0.0,F27390,Dubai,,Dubai,F27390,Dubai
@@ -350,15 +350,15 @@ F-68295_jpg.rf.909da360383f7b6238621eabde30d7cf,True,True,False,True,0.666666666
 F-71418_jpg.rf.f2778319c6244b13a10c563f1ee8c5f4,True,True,True,True,0.0,F71418,Dubai,,Dubai,F71418,Dubai
 F-7171_jpg.rf.94c8f3ed6b51fc0845394e94e77ff660,True,True,False,True,0.6,S777,Dubai,,Dubai,F7171,Dubai
 F-7177_jpg.rf.cfec0950ea9524c6eae9d6a02d95dcd2,True,True,True,True,0.0,F7177,Dubai,,Dubai,F7177,Dubai
-F-71897_jpg.rf.69f29af232f0a3408b212fcafcfaa9dd,True,True,False,True,0.16666666666666666,71897,Dubai,,Dubai,F71897,Dubai
+F-71897_jpg.rf.69f29af232f0a3408b212fcafcfaa9dd,True,False,False,True,0.16666666666666666,71897,Dubai,missing_code,Dubai,F71897,Dubai
 F-7346_jpg.rf.fce519cbe491cdc1475bfca5d2fc2884,True,True,True,True,0.0,F7346,Dubai,,Dubai,F7346,Dubai
 F-75538_jpg.rf.1b8d34e5e2ac6e6445f7b235da2cc24c,True,True,True,True,0.0,F75538,Dubai,,Dubai,F75538,Dubai
 F-786_jpg.rf.8f37ab5009f2ca07da7f299ec90a84ae,True,True,True,True,0.0,F786,Dubai,,Dubai,F786,Dubai
-F-83857_jpg.rf.6fda2bbbc8e72b9a1fb4237d365305f4,True,True,False,True,0.3333333333333333,83957,Dubai,,Dubai,F83857,Dubai
+F-83857_jpg.rf.6fda2bbbc8e72b9a1fb4237d365305f4,True,False,False,True,0.3333333333333333,83957,Dubai,missing_code,Dubai,F83857,Dubai
 F-842_jpg.rf.c45738ee6b8eec4dba6884894346c653,True,True,True,True,0.0,F842,Dubai,,Dubai,F842,Dubai
 F-8755_jpg.rf.84a75ddc8c481d8705133992c53914c2,True,True,True,True,0.0,F8755,Dubai,,Dubai,F8755,Dubai
 F-992_jpg.rf.152ae310b750bd99432033d63dc39351,True,True,True,True,0.0,992F,Dubai,,Dubai,992F,Dubai
-G-11142_jpg.rf.cbbc56a46caf7f07e0b3144b23ccbff5,True,True,False,True,0.16666666666666666,G111142,Dubai,,Dubai,G11142,Dubai
+G-11142_jpg.rf.cbbc56a46caf7f07e0b3144b23ccbff5,True,True,True,True,0.0,G11142,Dubai,,Dubai,G11142,Dubai
 G-115_jpg.rf.7bee7c79f7a35cfd6ef381526cb8bcb4,True,True,True,True,0.0,G115,Dubai,,Dubai,G115,Dubai
 G-14507_jpg.rf.44cb67ea930816aac3862d5fc061299b,True,True,True,True,0.0,G14507,Dubai,,Dubai,G14507,Dubai
 G-19943_jpg.rf.8c3293a18c443337284f39df1e3e607b,True,True,True,True,0.0,G19943,Dubai,,Dubai,G19943,Dubai
@@ -366,7 +366,7 @@ G-22222_jpg.rf.e79f512c59046a565cf54a9519833cc4,True,True,True,True,0.0,G22222,F
 G-24887_jpg.rf.3a42c73440fbb6bbd633ae85a4a0c05c,True,True,False,True,0.16666666666666666,Q24887,Dubai,,Dubai,G24887,Dubai
 G-3252_jpg.rf.b71c0779086770e4462359d60c2f4568,True,True,True,True,0.0,G3252,Dubai,,Dubai,G3252,Dubai
 G-39769_jpg.rf.de47f1b2f9e6d1d9ed2a1c1d22dd686d,True,True,True,True,0.0,G39769,Dubai,,Dubai,G39769,Dubai
-G-43210_jpg.rf.eaf960896953908d6304f7ae85583891,True,True,False,True,0.16666666666666666,43210,Dubai,,Dubai,G43210,Dubai
+G-43210_jpg.rf.eaf960896953908d6304f7ae85583891,True,False,False,True,0.16666666666666666,43210,Dubai,missing_code,Dubai,G43210,Dubai
 G-45305_jpg.rf.71296cb65719ea1386091f4c4eb90920,True,True,False,True,0.16666666666666666,8G45305,Dubai,,Dubai,G45305,Dubai
 G-454_jpg.rf.4589dc1796383c31dedc5db8cc9d3846,True,True,True,True,0.0,G454,Dubai,,Dubai,G454,Dubai
 G-4723_jpg.rf.8db090f6c2eac099f9476825d33b8f3e,True,True,True,True,0.0,G4723,Dubai,,Dubai,G4723,Dubai
@@ -381,13 +381,13 @@ G-73071_jpg.rf.c0bd28e3b4b3dd902a0b737985f594ad,True,True,True,True,0.0,G73071,D
 G-73734_jpg.rf.039ff6e13d5ee1e6d97486ed38a17cf9,True,True,True,True,0.0,G73734,Dubai,,Dubai,G73734,Dubai
 G-73905_jpg.rf.bb1124f0768ab309adb1d1292926dde1,True,True,True,True,0.0,G73905,Dubai,,Dubai,G73905,Dubai
 G-77463_jpg.rf.cea150d91ab5d72054990835fb54eda8,True,True,True,True,0.0,G77463,Dubai,,Dubai,G77463,Dubai
-G-808_jpg.rf.f9d54a37ad475f7bb8c0218d802748ba,True,True,False,True,0.75,968,Dubai,,Dubai,808G,Dubai
+G-808_jpg.rf.f9d54a37ad475f7bb8c0218d802748ba,True,False,False,True,0.75,68,Dubai,missing_code,Dubai,808G,Dubai
 G-84962_jpg.rf.9f3ac6a7502ff0b5e2f9afda7a1238e7,True,True,False,True,0.16666666666666666,G54962,Dubai,,Dubai,G84962,Dubai
 G-86481_jpg.rf.921854c58be930a840a7de2428d383c0,True,True,True,True,0.0,G86481,Dubai,,Dubai,G86481,Dubai
 G-88008_jpg.rf.2d80a4deb0745e312ac08e118d7e3687,True,True,True,True,0.0,G88008,Dubai,,Dubai,G88008,Dubai
 G-88280_jpg.rf.6d1685f632cda0c3a6325f6d043bb21e,True,True,True,True,0.0,G88280,Dubai,,Dubai,G88280,Dubai
 G-88768_jpg.rf.788f7862006118e24fd5ec0d7d472391,True,True,True,True,0.0,G88768,Dubai,,Dubai,G88768,Dubai
-G-93901_jpg.rf.2efde11380bef79321a6729b01ae4296,True,True,False,True,0.5,O93011,Dubai,,Dubai,G93901,Dubai
+G-93901_jpg.rf.2efde11380bef79321a6729b01ae4296,True,True,False,True,0.3333333333333333,O9301,Dubai,,Dubai,G93901,Dubai
 G-98773_jpg.rf.1e36a2f4d9c71ddc9fc1e076d2dc82b0,True,True,True,True,0.0,G98773,Dubai,,Dubai,G98773,Dubai
 G-99122_jpg.rf.bb41aa7ca8df1781972aecf342360b45,True,True,True,True,0.0,G99122,Dubai,,Dubai,G99122,Dubai
 G-99998_jpg.rf.09c3fbd5faf55fb2d257070cc28c4dff,True,False,False,False,0.5,B9939,,no_emirate,Fujairah,G99998,Fujairah
@@ -398,7 +398,7 @@ H-22940_jpg.rf.d8732b5b077f842fa408033c89d36de3,True,True,True,True,0.0,H22940,D
 H-24025_jpg.rf.2875401483c5ed4428e7a49530d2f9b7,True,True,True,True,0.0,H24025,Dubai,,Dubai,H24025,Dubai
 H-24272_jpg.rf.2382043c437eb39fee0ae9720edc9209,True,True,True,True,0.0,H24272,Dubai,,Dubai,H24272,Dubai
 H-32528_jpg.rf.ec25a7c4387bc57ab81906bddb69767d,True,True,True,True,0.0,H32528,Dubai,,Dubai,H32528,Dubai
-H-3274_jpg.rf.ae30f0927e27e0b9a7847fae971695b2,True,True,False,True,0.2,3774H,Dubai,,Dubai,3274H,Dubai
+H-3274_jpg.rf.ae30f0927e27e0b9a7847fae971695b2,True,True,False,True,0.2,374H,Dubai,,Dubai,3274H,Dubai
 H-36798_jpg.rf.49c5b617eab30f2b5e18d21d06158313,True,True,True,True,0.0,H36798,Dubai,,Dubai,H36798,Dubai
 H-46694_jpg.rf.7420dbb57dfaa8ea64cbf643c05eb49f,True,True,True,True,0.0,H46694,Dubai,,Dubai,H46694,Dubai
 H-5049_jpg.rf.b30bf0f1ce9a3f72e94e2c67f28d525c,True,True,False,True,0.2,R5049,Dubai,,Dubai,H5049,Dubai
@@ -421,7 +421,7 @@ I-32751_jpg.rf.b07b9bcfc9d3bb2f856adb1db1842f8f,True,True,True,True,0.0,I32751,D
 I-35970_jpg.rf.9ebe797ba4aeb6ee4ca4181b36f27915,True,True,True,True,0.0,I35970,Dubai,,Dubai,I35970,Dubai
 I-39630_jpg.rf.9e1a2eab3d572b2ef79760ffe75c3c7e,True,True,True,True,0.0,I39630,Dubai,,Dubai,I39630,Dubai
 I-40127_jpg.rf.f44f16584707cd4c89d0538e38fe3680,True,True,True,True,0.0,I40127,Dubai,,Dubai,I40127,Dubai
-I-42181_jpg.rf.a6bcc01c2b8d51d844340f3793283776,True,True,False,True,0.16666666666666666,42181,Dubai,,Dubai,I42181,Dubai
+I-42181_jpg.rf.a6bcc01c2b8d51d844340f3793283776,True,False,False,True,0.16666666666666666,42181,Dubai,missing_code,Dubai,I42181,Dubai
 I-4313_jpg.rf.b13c189504334e1b0a2dd45d2b80045f,True,True,True,True,0.0,I4313,Dubai,,Dubai,I4313,Dubai
 I-444_jpg.rf.611546f5b05933151dd3339a71570dd0,True,True,False,True,0.25,444,Fujairah,,Fujairah,444I,Fujairah
 I-46475_jpg.rf.d5a7f96214ac39b99712753de1568d88,True,True,True,True,0.0,I46475,Dubai,,Dubai,I46475,Dubai
@@ -434,14 +434,14 @@ I-66243_jpg.rf.3fe715bb1071d24d2e4439bffb931774,True,True,True,True,0.0,I66243,D
 I-70726_jpg.rf.be18406b20d280eb4cff621c302385ae,True,True,True,True,0.0,I70726,Dubai,,Dubai,I70726,Dubai
 I-77481_jpg.rf.155962baac5309cd7942ddd53d02d863,True,True,False,True,0.16666666666666666,I7781,Dubai,,Dubai,I77481,Dubai
 I-7771_jpg.rf.0fdb78b17cf3723efebd9e789acaeaea,True,True,True,True,0.0,I7771,Dubai,,Dubai,I7771,Dubai
-I-79260_jpg.rf.d08355150edd73aa2901e736db3ed0ed,True,True,False,True,0.5,9280,Dubai,,Dubai,I79260,Dubai
+I-79260_jpg.rf.d08355150edd73aa2901e736db3ed0ed,True,False,False,True,0.5,9280,Dubai,missing_code,Dubai,I79260,Dubai
 I-82092_jpg.rf.3578e0559cec89a3f5f9f2644addb3cb,True,True,True,True,0.0,I82092,Dubai,,Dubai,I82092,Dubai
 I-83147_jpg.rf.4063b38f0a285fdb12b120adce30dec7,True,True,True,True,0.0,I83147,Dubai,,Dubai,I83147,Dubai
 I-8329_jpg.rf.1287d7669438b85a1b39c65c96883da0,True,True,False,True,0.2,T8329,Dubai,,Dubai,I8329,Dubai
 I-85983_jpg.rf.002c7869f6d21bb00f5a780e17448110,True,True,True,True,0.0,I85983,Dubai,,Dubai,I85983,Dubai
 I-87686_jpg.rf.a6b7cd0ec6fa525bf0144c2b06102821,True,True,False,True,0.16666666666666666,P87686,Dubai,,Dubai,I87686,Dubai
-I-89029_jpg.rf.971576bb77d9993700a6f8a43e274385,True,True,False,True,0.3333333333333333,89028,Dubai,,Dubai,I89029,Dubai
-I-89272_jpg.rf.5f0da7dfa622fcd76ee2612fec154633,True,True,False,True,0.16666666666666666,89272,Dubai,,Dubai,I89272,Dubai
+I-89029_jpg.rf.971576bb77d9993700a6f8a43e274385,True,False,False,True,0.3333333333333333,89028,Dubai,missing_code,Dubai,I89029,Dubai
+I-89272_jpg.rf.5f0da7dfa622fcd76ee2612fec154633,True,False,False,True,0.16666666666666666,89272,Dubai,missing_code,Dubai,I89272,Dubai
 I-8960_jpg.rf.7635b07e530dee11854249ff9c809537,True,True,True,True,0.0,I8960,Dubai,,Dubai,I8960,Dubai
 I-911_jpg.rf.5680fce3e6d3caabbee47ff441d02aae,True,True,False,True,0.75,01T,Dubai,,Dubai,911I,Dubai
 I-93483_jpg.rf.9486452e6d462bb58a97228158805adc,True,True,False,True,0.16666666666666666,I33483,Dubai,,Dubai,I93483,Dubai
@@ -451,9 +451,9 @@ J-1148_jpg.rf.bb6e9c4a0c25ae089c1ea74836dbd075,True,True,True,True,0.0,J1148,Dub
 J-1430_jpg.rf.0ae7ff934b6944e80b7e754801d12d26,True,True,True,True,0.0,J1430,Dubai,,Dubai,J1430,Dubai
 J-1800_jpg.rf.3e79b0a2c734cf93dbf946ba77da0bb2,True,True,True,True,0.0,J1800,Dubai,,Dubai,J1800,Dubai
 J-20277_jpg.rf.a905064f4021d427575942065693baf3,True,True,True,True,0.0,J20277,Dubai,,Dubai,J20277,Dubai
-J-21763_jpg.rf.33ada9f8fd67b5c2d694c042e022c6ee,True,True,False,True,0.8333333333333334,7779,Dubai,,Dubai,J21763,Dubai
+J-21763_jpg.rf.33ada9f8fd67b5c2d694c042e022c6ee,True,False,False,True,0.8333333333333334,7779,Dubai,missing_code,Dubai,J21763,Dubai
 J-22911_jpg.rf.c820f1bd3b7ded1dd00f94b94a78a4ad,True,True,True,True,0.0,J22911,Dubai,,Dubai,J22911,Dubai
-J-231_jpg.rf.71818a9f0e8dbeadedab6c7eabf8f342,True,True,False,True,0.25,J2311,Dubai,,Dubai,J231,Dubai
+J-231_jpg.rf.71818a9f0e8dbeadedab6c7eabf8f342,True,True,True,True,0.0,J231,Dubai,,Dubai,J231,Dubai
 J-27420_jpg.rf.02d4b430509417c0595b175adb47a163,True,True,True,True,0.0,J27420,Dubai,,Dubai,J27420,Dubai
 J-3037_jpg.rf.caa7c62576ed12e51ad3ca1b054e2e3a,True,True,True,True,0.0,J3037,Dubai,,Dubai,J3037,Dubai
 J-31281_jpg.rf.607cffad8a4630ed9ce1db435850423a,True,True,True,True,0.0,J31281,Dubai,,Dubai,J31281,Dubai
@@ -465,8 +465,8 @@ J-44660_jpg.rf.d6cf9823a3a6ac84faa8298f158619a3,True,True,True,True,0.0,J44660,D
 J-4502_jpg.rf.17da8a0abee38fc578f2e16f2f2422d0,True,True,True,True,0.0,J4502,Dubai,,Dubai,J4502,Dubai
 J-48700_jpg.rf.c457719f8226447517cc27295be215a0,True,True,True,True,0.0,J48700,Dubai,,Dubai,J48700,Dubai
 J-48773_jpg.rf.5b74bfdf4adfed6e0ae0333b727c9ca6,True,True,True,True,0.0,J48773,Dubai,,Dubai,J48773,Dubai
-J-49449_jpg.rf.784bed298e92b050996d067d27546cc2,True,True,False,True,0.16666666666666666,49449,Dubai,,Dubai,J49449,Dubai
-J-50683_jpg.rf.7136eb7bd7dbf81ec5eaa70477488021,True,True,False,True,0.16666666666666666,50683,Dubai,,Dubai,J50683,Dubai
+J-49449_jpg.rf.784bed298e92b050996d067d27546cc2,True,False,False,True,0.16666666666666666,49449,Dubai,missing_code,Dubai,J49449,Dubai
+J-50683_jpg.rf.7136eb7bd7dbf81ec5eaa70477488021,True,False,False,True,0.16666666666666666,50683,Dubai,missing_code,Dubai,J50683,Dubai
 J-51296_jpg.rf.2073bd2347ca94123b2849ba9c4cf048,True,True,True,True,0.0,J51296,Dubai,,Dubai,J51296,Dubai
 J-5246_jpg.rf.ed65420000a32fdf663cd664eb06e96f,True,True,True,True,0.0,J5246,Dubai,,Dubai,J5246,Dubai
 J-53979_jpg.rf.fb4baa404ec2db74a5806d8c256f2325,True,True,True,True,0.0,J53979,Dubai,,Dubai,J53979,Dubai
@@ -479,38 +479,38 @@ J-60917_jpg.rf.c7ecf399e60a08aac1623345248adec9,True,True,False,True,0.166666666
 J-62888_jpg.rf.2d148e3e54ad1ab70e6e85f264c4d827,True,True,True,True,0.0,J62888,Dubai,,Dubai,J62888,Dubai
 J-67430_jpg.rf.fce882ddfbeee9537c8eda5c021bbb50,True,True,True,True,0.0,J67430,Dubai,,Dubai,J67430,Dubai
 J-68018_jpg.rf.104d3f7a289b9f950d0f69a69ef34c80,True,True,True,True,0.0,J68018,Dubai,,Dubai,J68018,Dubai
-J-70213_jpg.rf.8aaa5762f248c7c31a6f06f5b5fdf042,True,True,False,True,0.6666666666666666,025,Dubai,,Dubai,J70213,Dubai
+J-70213_jpg.rf.8aaa5762f248c7c31a6f06f5b5fdf042,True,False,False,True,0.6666666666666666,025,Dubai,missing_code,Dubai,J70213,Dubai
 J-75136_jpg.rf.5bb7380447eead0e48170b65d3697eb0,True,True,True,True,0.0,J75136,Dubai,,Dubai,J75136,Dubai
 J-75666_jpg.rf.efb048c84c90d03a5173c0daf0115798,True,True,True,True,0.0,J75666,Dubai,,Dubai,J75666,Dubai
 J-7923_jpg.rf.ae118aec8bb9dce2d58db101530ae340,True,True,True,True,0.0,J7923,Dubai,,Dubai,J7923,Dubai
 J-79591_jpg.rf.42fa1578e4332e4f32350545c0432721,True,True,False,True,0.16666666666666666,J7991,Dubai,,Dubai,J79591,Dubai
 J-80158_jpg.rf.c600e26d8e599917b4a972b8c4828ae3,True,True,True,True,0.0,J80158,Dubai,,Dubai,J80158,Dubai
 J-8560_jpg.rf.f5fb426b07c4e4a2d054578ea2058c04,True,True,True,True,0.0,J8560,Dubai,,Dubai,J8560,Dubai
-J-8594_jpg.rf.18c7421166b174da94dc13833d8e1b7b,True,True,False,True,0.6,P85504,Dubai,,Dubai,J8594,Dubai
+J-8594_jpg.rf.18c7421166b174da94dc13833d8e1b7b,True,True,False,True,0.6,P850,Dubai,,Dubai,J8594,Dubai
 J-86906_jpg.rf.cbae632fb6cc61a5b27595f584fbe336,True,True,True,True,0.0,J86906,Dubai,,Dubai,J86906,Dubai
 J-8783_jpg.rf.26c7d19e6526df012f34c3cea13c7a7e,True,True,True,True,0.0,J8783,Dubai,,Dubai,J8783,Dubai
-J-88109_jpg.rf.f839bbdc9f23e2e222a88749e2ca79ab,True,True,False,True,0.8333333333333334,2229,Dubai,,Dubai,J88109,Dubai
+J-88109_jpg.rf.f839bbdc9f23e2e222a88749e2ca79ab,True,False,False,True,0.8333333333333334,2229,Dubai,missing_code,Dubai,J88109,Dubai
 J-88676_jpg.rf.e05f3fefb93da593a01b213452159e7a,True,True,True,True,0.0,J88676,Dubai,,Dubai,J88676,Dubai
 J-89155_jpg.rf.c39f659b083b559f3c6d4de7b29c8629,True,True,True,True,0.0,J89155,Dubai,,Dubai,J89155,Dubai
 J-9897_jpg.rf.dd03a3a56e8716fc6e7e91f5201ed125,True,True,True,True,0.0,J9897,Dubai,,Dubai,J9897,Dubai
 K-15553_jpg.rf.39c94db78c5183d1d6f548aaf95ad95d,True,True,True,True,0.0,K15553,Dubai,,Dubai,K15553,Dubai
-K-16281_jpg.rf.297dddcc08e131a92d3234d8bc2c3ff7,True,True,False,True,0.16666666666666666,K169281,Dubai,,Dubai,K16281,Dubai
+K-16281_jpg.rf.297dddcc08e131a92d3234d8bc2c3ff7,True,True,True,True,0.0,K16281,Dubai,,Dubai,K16281,Dubai
 K-1779_jpg.rf.f12f99bab477bfeaefacfb110a2ea28d,True,True,True,True,0.0,K1779,Dubai,,Dubai,K1779,Dubai
 K-19024_jpg.rf.b51040ae7601c8f24d0c550fb815359b,True,True,True,True,0.0,K19024,Dubai,,Dubai,K19024,Dubai
 K-20120_jpg.rf.9f305a71ed2239076f0fba020901cd05,True,True,True,True,0.0,K20120,Dubai,,Dubai,K20120,Dubai
 K-28389_jpg.rf.2f701d5d50b2b179c9362013e46770ea,True,True,True,True,0.0,K28389,Dubai,,Dubai,K28389,Dubai
-K-29761_jpg.rf.d1415e9ab10b12eb32eafe4752b9949c,True,True,False,True,0.16666666666666666,K27761,Dubai,,Dubai,K29761,Dubai
+K-29761_jpg.rf.d1415e9ab10b12eb32eafe4752b9949c,True,True,False,True,0.16666666666666666,K2761,Dubai,,Dubai,K29761,Dubai
 K-33225_jpg.rf.ecce694b832ebf3d3217c8484732e361,True,True,True,True,0.0,K33225,Dubai,,Dubai,K33225,Dubai
 K-35902_jpg.rf.d7cf881f08c8328aaa6ecdfc37db4d32,True,True,True,True,0.0,35902K,Dubai,,Dubai,35902K,Dubai
 K-39168_jpg.rf.25b0bae71ff00b1f74e3581d0820530d,True,True,False,True,0.16666666666666666,3968K,Dubai,,Dubai,39168K,Dubai
-K-41547_jpg.rf.757a3fc596d3a26d8e10e8c76920b93a,True,True,False,True,0.8333333333333334,16,Dubai,,Dubai,K41547,Dubai
+K-41547_jpg.rf.757a3fc596d3a26d8e10e8c76920b93a,True,False,False,True,0.8333333333333334,16,Dubai,missing_code,Dubai,K41547,Dubai
 K-4507_jpg.rf.a9801bfbd7469fd7f0a3a3897eda1c74,True,False,False,False,0.4,G6507,,no_emirate,Dubai,K4507,Dubai
 K-46700_jpg.rf.5e2e9f3205dadb9dae3dabe1b866f49d,True,True,True,True,0.0,K46700,Dubai,,Dubai,K46700,Dubai
 K-4818_jpg.rf.91d048eb5e5a272e80a0531b25e20544,True,True,True,True,0.0,K4818,Dubai,,Dubai,K4818,Dubai
 K-4823_jpg.rf.58d08470c29ec4b922b87a5bd8d11f57,True,True,True,True,0.0,K4823,Dubai,,Dubai,K4823,Dubai
 K-48466_jpg.rf.f4c8c9ca67b08ae3d116bd069a92e63e,True,True,True,True,0.0,K48466,Dubai,,Dubai,K48466,Dubai
 K-5362_jpg.rf.1bc0e9e33ec05662f22e870aeb9db9f7,True,True,True,True,0.0,K5362,Dubai,,Dubai,K5362,Dubai
-K-65337_jpg.rf.c2e8730477e8db92e7ceee7b221852ee,True,True,False,True,0.6666666666666666,639,Dubai,,Dubai,K65337,Dubai
+K-65337_jpg.rf.c2e8730477e8db92e7ceee7b221852ee,True,False,False,True,0.6666666666666666,639,Dubai,missing_code,Dubai,K65337,Dubai
 K-67720_jpg.rf.04e265c6f69627c10b8ee242e2117753,True,True,True,True,0.0,K67720,Dubai,,Dubai,K67720,Dubai
 K-69433_jpg.rf.1d81cdb68c15a151000fbdbc16ed9716,True,True,True,True,0.0,K69433,Dubai,,Dubai,K69433,Dubai
 K-69777_jpg.rf.0f8db29c89a6749c68371672d2a94ebe,True,True,True,True,0.0,K69777,Dubai,,Dubai,K69777,Dubai
@@ -520,13 +520,13 @@ K-73129_jpg.rf.baf57e32b2a1b35c8ec956968df3b2d3,True,True,True,True,0.0,K73129,D
 K-74070_jpg.rf.a602acf69cc3a0edc1822841529f9189,True,True,True,True,0.0,K74070,Dubai,,Dubai,K74070,Dubai
 K-76552_jpg.rf.2bb267a383a8646abcc7a8e414d07c05,True,True,True,True,0.0,K76552,Dubai,,Dubai,K76552,Dubai
 K-7694_jpg.rf.2d0144ff1205f3cfda27222f2351cc24,True,True,True,True,0.0,K7694,Dubai,,Dubai,K7694,Dubai
-K-81482_jpg.rf.ad79091d631b32fc82d3f81d0949c68a,True,True,False,True,0.16666666666666666,81482,Dubai,,Dubai,K81482,Dubai
+K-81482_jpg.rf.ad79091d631b32fc82d3f81d0949c68a,True,False,False,True,0.16666666666666666,81482,Dubai,missing_code,Dubai,K81482,Dubai
 K-8312_jpg.rf.b3d0d21fa76a1d7905d50a1bd601b6eb,True,True,True,True,0.0,K8312,Dubai,,Dubai,K8312,Dubai
 K-83445_jpg.rf.c2df2c4553196d6d7c86c81357582e84,True,True,True,True,0.0,K83445,Dubai,,Dubai,K83445,Dubai
 K-87221_jpg.rf.c1aed76bbeb74b1d7ed39e91519742f4,True,True,True,True,0.0,K87221,Dubai,,Dubai,K87221,Dubai
 K-88016_jpg.rf.d111224e749e348a81ca07f2770e6639,True,True,False,True,0.16666666666666666,K8806,Dubai,,Dubai,K88016,Dubai
 K-880_jpg.rf.f273a6e276d54788970215eca49e3bc9,True,True,True,True,0.0,K880,Dubai,,Dubai,K880,Dubai
-K-97709_jpg.rf.f7342e9e21b06a91d2b6292e33b28648,True,True,False,True,0.16666666666666666,97709,Dubai,,Dubai,K97709,Dubai
+K-97709_jpg.rf.f7342e9e21b06a91d2b6292e33b28648,True,False,False,True,0.16666666666666666,97709,Dubai,missing_code,Dubai,K97709,Dubai
 K-99530_jpg.rf.dfae96e02559bf33154b79f5ad5e1128,True,True,True,True,0.0,K99530,Dubai,,Dubai,K99530,Dubai
 L-11080_jpg.rf.1fa71d8bbe0ca1b17f2998830ab4db89,True,True,True,True,0.0,L11080,Dubai,,Dubai,L11080,Dubai
 L-12520_jpg.rf.0211ce2af65210fbacb2d19a270bb241,True,True,True,True,0.0,L12520,Dubai,,Dubai,L12520,Dubai
@@ -552,21 +552,21 @@ L-23165_jpg.rf.ac3fa307e202c1c2c1e87e6327c6cd94,True,True,False,True,0.166666666
 L-24360_jpg.rf.d12d464a303413430bffdf6f80d734b7,True,True,True,True,0.0,L24360,Dubai,,Dubai,L24360,Dubai
 L-25116_jpg.rf.ebf403438e0cc847e9b310d5f608fdca,True,True,False,True,0.16666666666666666,L2516,Dubai,,Dubai,L25116,Dubai
 L-25811_jpg.rf.865455e08931a5841de4a65c7de38c12,True,True,False,True,0.3333333333333333,L25811,Dubai,,Dubai,25811L,Dubai
-L-25918_jpg.rf.639fa3006bc04f45245e4f3e1c811883,True,True,False,True,0.16666666666666666,25918,Dubai,,Dubai,25918L,Dubai
+L-25918_jpg.rf.639fa3006bc04f45245e4f3e1c811883,True,False,False,True,0.16666666666666666,25918,Dubai,missing_code,Dubai,25918L,Dubai
 L-27813_jpg.rf.e4df86078f521533ef2a0cd4bcfd942f,True,True,True,True,0.0,L27813,Dubai,,Dubai,L27813,Dubai
 L-27901_jpg.rf.68aa3ab90689b04c82fa8a729c4ff7f3,True,True,True,True,0.0,L27901,Dubai,,Dubai,L27901,Dubai
 L-28046_jpg.rf.eb5efbb807c59b0a385d4128787fa1e1,True,True,True,True,0.0,L28046,Dubai,,Dubai,L28046,Dubai
 L-28389_jpg.rf.f1bc42324a96fafa4af3daa28cf68337,True,True,True,True,0.0,L28389,Dubai,,Dubai,L28389,Dubai
 L-28611_jpg.rf.8caa190615849a716fd2f15ec0b004eb,True,True,False,True,0.16666666666666666,L28511,Dubai,,Dubai,L28611,Dubai
 L-28751_jpg.rf.7f0fb92747a0f418c840c34f0f2c1bb7,True,True,True,True,0.0,L28751,Dubai,,Dubai,L28751,Dubai
-L-29132_jpg.rf.7d3ad7e957e4e6a8952c6dde2f713e02,True,True,False,True,0.16666666666666666,29132,Dubai,,Dubai,L29132,Dubai
+L-29132_jpg.rf.7d3ad7e957e4e6a8952c6dde2f713e02,True,False,False,True,0.16666666666666666,29132,Dubai,missing_code,Dubai,L29132,Dubai
 L-29636_jpg.rf.1b6dd321b411e928741ad8f1f1685caf,True,True,True,True,0.0,L29636,Dubai,,Dubai,L29636,Dubai
 L-3025_jpg.rf.073a10b191f7ceacb229d456c7f52555,True,True,True,True,0.0,L3025,Dubai,,Dubai,L3025,Dubai
 L-30465_jpg.rf.3f29d10860a036764f885ed7303c15b1,True,True,True,True,0.0,L30465,Dubai,,Dubai,L30465,Dubai
 L-36046_jpg.rf.a44f779b4ff69a5f199b71e409a5c517,True,True,True,True,0.0,L36046,Dubai,,Dubai,L36046,Dubai
 L-37007_jpg.rf.9d28af3e930a27085af2833261374a9d,True,True,True,True,0.0,L37007,Dubai,,Dubai,L37007,Dubai
 L-44227_jpg.rf.1e31cb2e587456efce35f862993309c3,True,True,True,True,0.0,L44227,Dubai,,Dubai,L44227,Dubai
-L-51233_jpg.rf.b358b680196b28c46c142d05b2ac6ca9,True,True,False,True,0.16666666666666666,51233,Dubai,,Dubai,51233L,Dubai
+L-51233_jpg.rf.b358b680196b28c46c142d05b2ac6ca9,True,False,False,True,0.16666666666666666,51233,Dubai,missing_code,Dubai,51233L,Dubai
 L-53507_jpg.rf.dab78587170b22bedd265ede94219933,True,True,True,True,0.0,L53507,Dubai,,Dubai,L53507,Dubai
 L-5472_jpg.rf.4d8747dd517141560cddc64a8e76d01e,True,True,True,True,0.0,L5472,Dubai,,Dubai,L5472,Dubai
 L-55348_jpg.rf.36ae5939282636b98235f6fc73d3aab8,True,True,True,True,0.0,L55348,Dubai,,Dubai,L55348,Dubai
@@ -575,7 +575,7 @@ L-606_jpg.rf.5f5fe274659724a36b9622e5efb36e5a,True,True,True,True,0.0,L606,Dubai
 L-61098_jpg.rf.1dcf6abb822fa1f2ec641fa4aa912d24,True,True,False,True,0.16666666666666666,9L61098,Dubai,,Dubai,L61098,Dubai
 L-61723_jpg.rf.2d3098ea7c669e6c55a566599bbc5871,True,True,True,True,0.0,L61723,Dubai,,Dubai,L61723,Dubai
 L-6263_jpg.rf.90002c53793a32bfd58387fbcbc364fd,True,True,True,True,0.0,L6263,Dubai,,Dubai,L6263,Dubai
-L-63609_jpg.rf.def290fa04b75ca37b48c79ef065228c,True,True,False,True,0.16666666666666666,L636609,Dubai,,Dubai,L63609,Dubai
+L-63609_jpg.rf.def290fa04b75ca37b48c79ef065228c,True,True,True,True,0.0,L63609,Dubai,,Dubai,L63609,Dubai
 L-64860_jpg.rf.99aa08a014224a5c1460aeb9238d4902,True,True,True,True,0.0,L64860,Dubai,,Dubai,L64860,Dubai
 L-64964_jpg.rf.8c041a256f2c2864c14518647f7c486c,True,True,True,True,0.0,L64964,Dubai,,Dubai,L64964,Dubai
 L-6815_jpg.rf.0494c485caef111cdb9998c4d47bb31c,True,True,True,True,0.0,L6815,Dubai,,Dubai,L6815,Dubai
@@ -586,12 +586,12 @@ L-75286_jpg.rf.96f260193666ed15cbad856e83892f8e,True,True,True,True,0.0,L75286,D
 L-8453_jpg.rf.1c56f8389b74bf6dc8a81c29f03de390,True,True,True,True,0.0,L8453,Dubai,,Dubai,L8453,Dubai
 L-99701_jpg.rf.48b94f3888df515f65b3a0b41b3ce854,True,True,True,True,0.0,L99701,Dubai,,Dubai,L99701,Dubai
 L-99990_jpg.rf.a86663010d04987a3dde5b84d595c914,True,True,True,True,0.0,L99990,Dubai,,Dubai,L99990,Dubai
-M-1021_jpg.rf.28c304d11211487917e4826a88aca893,True,True,False,True,0.4,121,Dubai,,Dubai,M1021,Dubai
+M-1021_jpg.rf.28c304d11211487917e4826a88aca893,True,False,False,True,0.4,121,Dubai,missing_code,Dubai,M1021,Dubai
 M-12267_jpg.rf.8620c40d6679084b8bdd05dc3fb79998,True,True,True,True,0.0,M12267,Dubai,,Dubai,M12267,Dubai
 M-1250_jpg.rf.590a7aecdbdddb2f2ed9c0f3d3149712,True,True,True,True,0.0,M1250,Dubai,,Dubai,M1250,Dubai
 M-12_jpg.rf.b130ab89aeb4cd01b45d7f2566dd9e00,True,True,False,True,0.3333333333333333,N12,Fujairah,,Fujairah,M12,Fujairah
 M-13294_jpg.rf.8410b21facfe7f5989a8b9978bbaa138,True,True,True,True,0.0,M13294,Dubai,,Dubai,M13294,Dubai
-M-1444_jpg.rf.b00ab461a5ade4c0487336ae9652428c,True,True,False,True,0.2,1444,Dubai,,Dubai,M1444,Dubai
+M-1444_jpg.rf.b00ab461a5ade4c0487336ae9652428c,True,False,False,True,0.2,1444,Dubai,missing_code,Dubai,M1444,Dubai
 M-14512_jpg.rf.7fc79b0894b15543aef85ef27a960080,True,True,False,True,0.16666666666666666,W14512,Dubai,,Dubai,M14512,Dubai
 M-15083_jpg.rf.3616fcba4d10df4e7ae01035e8b88437,True,True,False,True,0.16666666666666666,M1503,Dubai,,Dubai,M15083,Dubai
 M-150_jpg.rf.05628380fb90cb8067f5971c32ee9182,True,True,False,True,0.5,N750,Dubai,,Dubai,M150,Dubai
@@ -601,16 +601,16 @@ M-21444_jpg.rf.3f128e6b31d2a18a1977b387ee2e2d8b,True,True,True,True,0.0,M21444,D
 M-3127_jpg.rf.ced06a9f410e580370f69a6c69ae8472,True,True,True,True,0.0,M3127,Dubai,,Dubai,M3127,Dubai
 M-36483_jpg.rf.5046a95f7a462247fa14e09975b3ffb8,True,True,True,True,0.0,M36483,Dubai,,Dubai,M36483,Dubai
 M-37464_jpg.rf.8233ecd227acb6a9b1401687392bda21,True,True,True,True,0.0,M37464,Dubai,,Dubai,M37464,Dubai
-M-40758_jpg.rf.ab07eada2d0cee7d01a4f06abd300723,True,True,False,True,0.3333333333333333,N440758,Dubai,,Dubai,M40758,Dubai
+M-40758_jpg.rf.ab07eada2d0cee7d01a4f06abd300723,True,True,False,True,0.16666666666666666,N40758,Dubai,,Dubai,M40758,Dubai
 M-43518_jpg.rf.36b50ee748ab91166fd2da333df01a8e,True,True,False,True,0.8333333333333334,888H,Dubai,,Dubai,43518M,Dubai
 M-43699_jpg.rf.eb98c8a878c5099193770e0ec5af6626,True,True,False,True,0.16666666666666666,N43699,Dubai,,Dubai,M43699,Dubai
 M-45051_jpg.rf.cfb7d1c5a36542eb2fa7d43a5fe0f89a,True,True,True,True,0.0,M45051,Dubai,,Dubai,M45051,Dubai
 M-45781_jpg.rf.3d1d4481631474674434e6ecbc427d66,True,True,False,True,0.3333333333333333,W4581,Dubai,,Dubai,M45781,Dubai
 M-4976_jpg.rf.08250614c1e30064dfe026635a3f95b6,True,True,True,True,0.0,M4976,Dubai,,Dubai,M4976,Dubai
-M-51_jpg.rf.cb923878b8a46fad5eed3de8f27fd6a7,True,True,False,True,0.6666666666666666,911,Dubai,,Dubai,M51,Dubai
+M-51_jpg.rf.cb923878b8a46fad5eed3de8f27fd6a7,True,False,False,True,0.6666666666666666,91,Dubai,missing_code,Dubai,M51,Dubai
 M-52665_jpg.rf.3cd4b355580101df51c7d12dc9c26451,True,True,True,True,0.0,M52665,Dubai,,Dubai,M52665,Dubai
 M-53384_jpg.rf.2bfc459dde1a6fd82960f6fb268af5e1,True,True,True,True,0.0,M53384,Dubai,,Dubai,M53384,Dubai
-M-5423_jpg.rf.c6d32c0c0be68242d69c0c41608b5e5b,True,True,False,True,0.2,5423,Dubai,,Dubai,M5423,Dubai
+M-5423_jpg.rf.c6d32c0c0be68242d69c0c41608b5e5b,True,False,False,True,0.2,5423,Dubai,missing_code,Dubai,M5423,Dubai
 M-5580_jpg.rf.7cf277317572e85175f68bf6c26eda37,True,True,False,True,0.2,N5580,Dubai,,Dubai,M5580,Dubai
 M-5788_jpg.rf.11f7b038056d71f5c2808c3ee48794cd,True,True,True,True,0.0,M5788,Dubai,,Dubai,M5788,Dubai
 M-58108_jpg.rf.720ae93ca55105ab1c2277ec398e2012,True,True,True,True,0.0,M58108,Dubai,,Dubai,M58108,Dubai
@@ -637,10 +637,10 @@ N-37734_jpg.rf.bddae189db08025a65f02375e233d80e,True,True,True,True,0.0,N37734,D
 N-3902_jpg.rf.0db639dba00c6631a50e68554fe97a98,True,True,True,True,0.0,N3902,Dubai,,Dubai,N3902,Dubai
 N-47097_jpg.rf.7cc794ab28f08e6ef060fc8d660d53b1,True,True,True,True,0.0,N47097,Dubai,,Dubai,N47097,Dubai
 N-50919_jpg.rf.239931fd20dfefbd5562054577c511e9,True,True,True,True,0.0,N50919,Dubai,,Dubai,N50919,Dubai
-N-52485_jpg.rf.febe5c5a293da0ffe75cedd51028668f,True,True,False,True,0.16666666666666666,52485,Dubai,,Dubai,N52485,Dubai
+N-52485_jpg.rf.febe5c5a293da0ffe75cedd51028668f,True,False,False,True,0.16666666666666666,52485,Dubai,missing_code,Dubai,N52485,Dubai
 N-5970_jpg.rf.ecb21312c443162da299b4f77aad032d,True,True,True,True,0.0,N5970,Dubai,,Dubai,N5970,Dubai
 N-61536_jpg.rf.f8705f815a4b52d93ac580805a033f27,True,True,False,True,0.16666666666666666,V61536,Dubai,,Dubai,N61536,Dubai
-N-6854_jpg.rf.8d717f3ffbeaa0d2c9d446d5796cf952,True,True,False,True,0.2,N66854,Dubai,,Dubai,N6854,Dubai
+N-6854_jpg.rf.8d717f3ffbeaa0d2c9d446d5796cf952,True,True,True,True,0.0,N6854,Dubai,,Dubai,N6854,Dubai
 N-70770_jpg.rf.efcbcb102901786f98a1b3ae9ed4a3c3,True,True,True,True,0.0,N70770,Dubai,,Dubai,N70770,Dubai
 N-73178_jpg.rf.05725459902570e584e2a4fe91d0b512,True,True,True,True,0.0,N73178,Dubai,,Dubai,N73178,Dubai
 N-73734_jpg.rf.ded4719dca36b055bbfc7128ec89aaf1,True,True,True,True,0.0,N73734,Dubai,,Dubai,N73734,Dubai
@@ -648,7 +648,7 @@ N-78251_jpg.rf.7b52d21191fb27711de9227fa46450d9,True,True,True,True,0.0,N78251,D
 N-83886_jpg.rf.a7b4596ca512baeb1d33d9177fd07691,True,True,True,True,0.0,N83886,Dubai,,Dubai,N83886,Dubai
 N-84247_jpg.rf.c6fcc72f2d1dd4ab8b992e1e402bc41d,True,True,True,True,0.0,N84247,Dubai,,Dubai,N84247,Dubai
 N-84929_jpg.rf.d0465daf072ba13ab6752cec33e589a4,True,True,False,True,0.16666666666666666,W84929,Dubai,,Dubai,N84929,Dubai
-N-8509_jpg.rf.0530a9f4cbdf4130f9dc71e078a90054,True,True,False,True,0.4,9509,Dubai,,Dubai,N8509,Dubai
+N-8509_jpg.rf.0530a9f4cbdf4130f9dc71e078a90054,True,False,False,True,0.4,9509,Dubai,missing_code,Dubai,N8509,Dubai
 N-87891_jpg.rf.eb2528bdedf20cb5672e33935fa4df20,True,True,True,True,0.0,N87891,Dubai,,Dubai,N87891,Dubai
 N-92064_jpg.rf.dc2f27111cb4bf9b6d636ba60cdfac21,True,True,False,True,0.16666666666666666,H92064,Dubai,,Dubai,N92064,Dubai
 N-93533_jpg.rf.6685f17e59d7516c69cf346fcb693e56,True,True,True,True,0.0,N93533,Dubai,,Dubai,N93533,Dubai
@@ -659,7 +659,7 @@ O-118_jpg.rf.c17d6e4618c83486db1d90d970080127,True,True,True,True,0.0,O118,Dubai
 O-16563_jpg.rf.9d2978b59a0f754973cb5e40da8639a4,True,True,True,True,0.0,O16563,Dubai,,Dubai,O16563,Dubai
 O-18469_jpg.rf.e48858260cfc99115344148c3429bc53,True,True,True,True,0.0,O18469,Dubai,,Dubai,O18469,Dubai
 O-2245_jpg.rf.a59c77f01d354b3da53add38e4a94c4a,True,True,True,True,0.0,2245O,Dubai,,Dubai,2245O,Dubai
-O-2445_jpg.rf.1b31b3b93ae9c3bddc498216af18f2ff,True,True,False,True,0.2,2445,Dubai,,Dubai,O2445,Dubai
+O-2445_jpg.rf.1b31b3b93ae9c3bddc498216af18f2ff,True,False,False,True,0.2,2445,Dubai,missing_code,Dubai,O2445,Dubai
 O-24_jpg.rf.cad3b943a8578fdf38d2c5d2707d853d,True,True,True,True,0.0,O24,Dubai,,Dubai,O24,Dubai
 O-2513_jpg.rf.575f4b9d2c5eb6a69e17f570a58e2852,True,True,True,True,0.0,O2513,Dubai,,Dubai,O2513,Dubai
 O-25549_jpg.rf.4566efcc20f8ddc4d5f51a339a72a757,True,True,True,True,0.0,O25549,Dubai,,Dubai,O25549,Dubai
@@ -674,12 +674,12 @@ O-47136_jpg.rf.295be8cdb095852f846be6e917d575df,True,True,False,True,0.166666666
 O-47171_jpg.rf.3c586dd3ec2fbc7862bbbef2756dcf86,True,True,True,True,0.0,O47171,Dubai,,Dubai,O47171,Dubai
 O-48308_jpg.rf.bd0d4ae1ce7f85e8074e1a096271f79d,True,True,True,True,0.0,O48308,Dubai,,Dubai,O48308,Dubai
 O-48827_jpg.rf.79030ff1e5804aa5156c4c8262453084,True,True,True,True,0.0,O48827,Dubai,,Dubai,O48827,Dubai
-O-53742_jpg.rf.0be246071cef11b5aed19196834718ac,True,True,False,True,0.16666666666666666,O533742,Dubai,,Dubai,O53742,Dubai
+O-53742_jpg.rf.0be246071cef11b5aed19196834718ac,True,True,True,True,0.0,O53742,Dubai,,Dubai,O53742,Dubai
 O-55852_jpg.rf.f0ff59aa075074eef3b077800ddc7d69,True,True,True,True,0.0,O55852,Dubai,,Dubai,O55852,Dubai
 O-57212_jpg.rf.1b926be6b4eed67c6e8a1a269d7728f6,True,True,True,True,0.0,O57212,Dubai,,Dubai,O57212,Dubai
 O-57846_jpg.rf.522f71a2302ba3d9071945ce8762e693,True,True,True,True,0.0,O57846,Dubai,,Dubai,O57846,Dubai
 O-6851_jpg.rf.d62198723ff50c05b0fc2743973bde98,True,True,True,True,0.0,O6851,Dubai,,Dubai,O6851,Dubai
-O-70963_jpg.rf.883443c69b3986bce70566bdfb61920c,True,True,False,True,0.16666666666666666,O709663,Dubai,,Dubai,O70963,Dubai
+O-70963_jpg.rf.883443c69b3986bce70566bdfb61920c,True,True,True,True,0.0,O70963,Dubai,,Dubai,O70963,Dubai
 O-7193_jpg.rf.58894941d623a4884b7f8417f496aa2f,True,True,True,True,0.0,O7193,Dubai,,Dubai,O7193,Dubai
 O-75700_jpg.rf.ea33677e04cb97103c1ffdc4d2002394,True,True,True,True,0.0,O75700,Dubai,,Dubai,O75700,Dubai
 O-77186_jpg.rf.9e8e6d51df9083792aa62bda43b2a7aa,True,True,True,True,0.0,O77186,Dubai,,Dubai,O77186,Dubai
@@ -696,7 +696,7 @@ P-1225_jpg.rf.0260b98e460354fe9c2351d01175a95a,True,True,True,True,0.0,P1225,Dub
 P-12454_jpg.rf.3d8d8da787ad24aea072e1e877ee04c4,True,True,True,True,0.0,P12454,Dubai,,Dubai,P12454,Dubai
 P-12527_jpg.rf.44950bd8f977f4f30ccd2b6228b772b0,True,True,False,True,0.16666666666666666,Q12527,Dubai,,Dubai,P12527,Dubai
 P-12869_jpg.rf.31cc91b4972b549a34e57a31ee29ecdc,True,True,True,True,0.0,P12869,Dubai,,Dubai,P12869,Dubai
-P-1390_jpg.rf.4d762fd0645a497e51c9b80dd6e280e8,True,True,False,True,0.2,1390,Dubai,,Dubai,P1390,Dubai
+P-1390_jpg.rf.4d762fd0645a497e51c9b80dd6e280e8,True,False,False,True,0.2,1390,Dubai,missing_code,Dubai,P1390,Dubai
 P-16733_jpg.rf.42e2564f9da6b023a74c7be6e502a566,True,True,True,True,0.0,P16733,Dubai,,Dubai,P16733,Dubai
 P-21430_jpg.rf.3ec0b378aac997016801383b5177027f,True,True,True,True,0.0,P21430,Dubai,,Dubai,P21430,Dubai
 P-25492_jpg.rf.28998218759477200f0651aff8f0de56,True,True,True,True,0.0,P25492,Dubai,,Dubai,P25492,Dubai
@@ -709,37 +709,37 @@ P-42809_jpg.rf.43607c2ad13bf6292ee788c4f334b637,True,True,False,True,0.333333333
 P-4698_jpg.rf.34132bd11e9a077612a6bbba00e595c3,True,True,True,True,0.0,P4698,Dubai,,Dubai,P4698,Dubai
 P-4726_jpg.rf.988032e6919818f81aafd1b820f1aa0f,True,True,False,True,0.2,P426,Dubai,,Dubai,P4726,Dubai
 P-47535_jpg.rf.8e5d1209e145d4a880012f262fef1067,True,True,True,True,0.0,P47535,Dubai,,Dubai,P47535,Dubai
-P-51993_jpg.rf.de0b17fdbdf1217130cd0fc06f97d220,True,True,False,True,0.5,5893,Dubai,,Dubai,P51993,Dubai
+P-51993_jpg.rf.de0b17fdbdf1217130cd0fc06f97d220,True,False,False,True,0.5,5893,Dubai,missing_code,Dubai,P51993,Dubai
 P-58033_jpg.rf.999617f19b76c78ce27026ed08f68e62,True,True,True,True,0.0,P58033,Dubai,,Dubai,P58033,Dubai
-P-58211_jpg.rf.b6463f073204a5a5fd229d32a59fab9c,True,True,False,True,0.16666666666666666,P582111,Dubai,,Dubai,P58211,Dubai
+P-58211_jpg.rf.b6463f073204a5a5fd229d32a59fab9c,True,True,True,True,0.0,P58211,Dubai,,Dubai,P58211,Dubai
 P-5948_jpg.rf.08066d125db740f9b6921679f7c0de92,True,True,True,True,0.0,P5948,Dubai,,Dubai,P5948,Dubai
 P-69234_jpg.rf.f8b9f7eb4f14677f222193ec9d5595b3,True,True,True,True,0.0,P69234,Dubai,,Dubai,P69234,Dubai
 P-7070_jpg.rf.1cdace20b83b382e9685b1f92daa810a,True,True,True,True,0.0,P7070,Dubai,,Dubai,P7070,Dubai
-P-7105_jpg.rf.df0686cc043fe07fc583f898bc3a48b5,True,True,False,True,0.4,P718,Dubai,,Dubai,P7105,Dubai
+P-7105_jpg.rf.df0686cc043fe07fc583f898bc3a48b5,True,True,False,True,0.6,P78,Dubai,,Dubai,P7105,Dubai
 P-72137_jpg.rf.ae1afe2637b231ee7c452ad35a332e31,True,True,True,True,0.0,P72137,Dubai,,Dubai,P72137,Dubai
 P-79358_jpg.rf.9ff5c6db69d970332edd271b47a73ce9,True,True,True,True,0.0,P79358,Dubai,,Dubai,P79358,Dubai
 P-8800_jpg.rf.bcec0726482acb31c0db64fa903746f4,True,True,True,True,0.0,P8800,Dubai,,Dubai,P8800,Dubai
 P-88154_jpg.rf.01660bd7db8e3e761019f634c6f7232c,True,True,True,True,0.0,P88154,Dubai,,Dubai,P88154,Dubai
 P-90236_jpg.rf.fae8116b05f5f065259006fe777c934d,True,True,True,True,0.0,P90236,Dubai,,Dubai,P90236,Dubai
-P-91173_jpg.rf.0dee23ccbca7711654967b92782138bb,True,True,False,True,0.6666666666666666,9121,Dubai,,Dubai,P91173,Dubai
+P-91173_jpg.rf.0dee23ccbca7711654967b92782138bb,True,False,False,True,0.5,911,Dubai,missing_code,Dubai,P91173,Dubai
 P-94472_jpg.rf.d3a6047960e5592be0d481077afccb93,True,True,True,True,0.0,P94472,Dubai,,Dubai,P94472,Dubai
 P-94988_jpg.rf.8f62a06b93311b9232d064c2e3fe2a1a,True,True,True,True,0.0,P94988,Dubai,,Dubai,P94988,Dubai
 P-95347_jpg.rf.e25bf58d9a0dbfc84d747e3b9c8aeff4,True,True,True,True,0.0,P95347,Dubai,,Dubai,P95347,Dubai
-P-965_jpg.rf.7af91f3dd7a6448f92c45caf1fa00a84,True,True,False,True,0.5,962,Dubai,,Dubai,965P,Dubai
+P-965_jpg.rf.7af91f3dd7a6448f92c45caf1fa00a84,True,False,False,True,0.5,962,Dubai,missing_code,Dubai,965P,Dubai
 P-99101_jpg.rf.3c9c992de244673a28041717c69a9178,True,True,True,True,0.0,P99101,Dubai,,Dubai,P99101,Dubai
 P-99128_jpg.rf.43699302d431990e1113fc46d9c36f20,True,True,True,True,0.0,P99128,Dubai,,Dubai,P99128,Dubai
 P-99808_jpg.rf.251066a814feec59629ab86f265e3cc4,True,True,True,True,0.0,P99808,Dubai,,Dubai,P99808,Dubai
 Q-1122_jpg.rf.6a74f2acf0fd9e01aa76d59a1df71bb4,True,True,False,True,0.2,P1122,Dubai,,Dubai,Q1122,Dubai
-Q-1213_jpg.rf.15136db1549c53bed79da348075a7693,True,True,False,True,0.4,123,Dubai,,Dubai,Q1213,Dubai
+Q-1213_jpg.rf.15136db1549c53bed79da348075a7693,True,False,False,True,0.4,123,Dubai,missing_code,Dubai,Q1213,Dubai
 Q-123_jpg.rf.8a5d54208661a16c9eec0c548ad00ce7,True,True,True,True,0.0,Q123,Dubai,,Dubai,Q123,Dubai
 Q-21687_jpg.rf.a6e217cedc318bf65b89e00f7ec8a921,True,True,True,True,0.0,Q21687,Dubai,,Dubai,Q21687,Dubai
 Q-24358_jpg.rf.5c7edbe82f59b325e839ba0272d40609,True,True,True,True,0.0,Q24358,Dubai,,Dubai,Q24358,Dubai
-Q-2611_jpg.rf.169de9d94e8aaa200d8f3f5612896334,True,True,False,True,0.2,2611,Dubai,,Dubai,Q2611,Dubai
+Q-2611_jpg.rf.169de9d94e8aaa200d8f3f5612896334,True,False,False,True,0.2,2611,Dubai,missing_code,Dubai,Q2611,Dubai
 Q-29407_jpg.rf.1da79c3342614e3b39af942fdd664c4b,True,True,True,True,0.0,Q29407,Dubai,,Dubai,Q29407,Dubai
 Q-2943_jpg.rf.7f0814ce77cefa429dc74c68c35d235b,True,True,False,True,0.2,S2943,Dubai,,Dubai,Q2943,Dubai
 Q-29836_jpg.rf.0e62b80964092e717a27931372e267d5,True,True,False,True,0.16666666666666666,O29836,Dubai,,Dubai,Q29836,Dubai
 Q-30374_jpg.rf.563c24afdab7899f58dc6da444799763,True,True,False,True,0.16666666666666666,Q30274,Dubai,,Dubai,Q30374,Dubai
-Q-36930_jpg.rf.7871213c1ddd66bcc5792d7fe6f77f14,True,True,False,True,0.16666666666666666,36930,Dubai,,Dubai,Q36930,Dubai
+Q-36930_jpg.rf.7871213c1ddd66bcc5792d7fe6f77f14,True,False,False,True,0.16666666666666666,36930,Dubai,missing_code,Dubai,Q36930,Dubai
 Q-37150_jpg.rf.23438e718ea51ac9079f20e9edc35bb5,True,True,True,True,0.0,Q37150,Dubai,,Dubai,Q37150,Dubai
 Q-38141_jpg.rf.d2eb43dddd82ce23b229b8a44f14194c,True,True,True,True,0.0,Q38141,Dubai,,Dubai,Q38141,Dubai
 Q-42727_jpg.rf.3faee7c02e6c2b02913f941a1a73e8c5,True,True,True,True,0.0,Q42727,Dubai,,Dubai,Q42727,Dubai
@@ -763,17 +763,17 @@ Q-76966_jpg.rf.bcc66b98f2d17fbb70c2389c3845bf19,True,True,True,True,0.0,Q76966,D
 Q-77229_jpg.rf.03a22050ba12f8bf7d0d03e1a90222d6,True,True,True,True,0.0,Q77229,Dubai,,Dubai,Q77229,Dubai
 Q-84556_jpg.rf.88b5c579dfc1e2363ddde48928c7e81e,True,True,True,True,0.0,Q84556,Dubai,,Dubai,Q84556,Dubai
 Q-86447_jpg.rf.db5d2b14c0ef5bb3dc00b5b70194c676,True,True,True,True,0.0,Q86447,Dubai,,Dubai,Q86447,Dubai
-Q-87688_jpg.rf.2471ac0a68642c2297552c57e4a6fd53,True,True,False,True,0.16666666666666666,87688,Dubai,,Dubai,Q87688,Dubai
+Q-87688_jpg.rf.2471ac0a68642c2297552c57e4a6fd53,True,False,False,True,0.16666666666666666,87688,Dubai,missing_code,Dubai,Q87688,Dubai
 Q-87907_jpg.rf.b087d415f3dfe8b4af0d89b80a28db0a,True,True,True,True,0.0,Q87907,Dubai,,Dubai,Q87907,Dubai
-Q-90111_jpg.rf.8e771643202a63583b8f723f0e3f7391,True,True,False,True,0.16666666666666666,Q901111,Dubai,,Dubai,Q90111,Dubai
+Q-90111_jpg.rf.8e771643202a63583b8f723f0e3f7391,True,True,True,True,0.0,Q90111,Dubai,,Dubai,Q90111,Dubai
 Q-95078_jpg.rf.95379cd666f30a4beea0ee311555d008,True,True,True,True,0.0,Q95078,Dubai,,Dubai,Q95078,Dubai
-Q-99101_jpg.rf.66a290355d1558671221864fbe91d7b3,True,True,False,True,0.16666666666666666,99101,Dubai,,Dubai,Q99101,Dubai
+Q-99101_jpg.rf.66a290355d1558671221864fbe91d7b3,True,False,False,True,0.16666666666666666,99101,Dubai,missing_code,Dubai,Q99101,Dubai
 R-1069_jpg.rf.abbb1ad9f5850dcbe30776738ae58cf4,True,True,True,True,0.0,R1069,Dubai,,Dubai,R1069,Dubai
 R-12141_jpg.rf.74be1ec446027f1f73642ed03bc6e311,True,True,True,True,0.0,R12141,Dubai,,Dubai,R12141,Dubai
 R-1234_jpg.rf.f1bf63b0c24eacb58980fe894b330fdf,True,True,True,True,0.0,R1234,Dubai,,Dubai,R1234,Dubai
 R-13611_jpg.rf.05f0e1e98c2e5df02e8fcce4a852f90f,True,True,False,True,0.16666666666666666,R13617,Dubai,,Dubai,R13611,Dubai
 R-18268_jpg.rf.f015d3153aa9fea82c4e22189991b883,True,True,True,True,0.0,R18268,Dubai,,Dubai,R18268,Dubai
-R-1997_jpg.rf.b4db35441014cbf86e7a90045108ca35,True,True,False,True,0.2,R19977,Dubai,,Dubai,R1997,Dubai
+R-1997_jpg.rf.b4db35441014cbf86e7a90045108ca35,True,True,True,True,0.0,R1997,Dubai,,Dubai,R1997,Dubai
 R-20142_jpg.rf.a6407d1a7b8599275fdf2f49dd15a520,True,True,True,True,0.0,R20142,Dubai,,Dubai,R20142,Dubai
 R-22194_jpg.rf.1efc5c5fa38b226abba43ebc820988a7,True,True,False,True,0.16666666666666666,2294R,Dubai,,Dubai,22194R,Dubai
 R-22471_jpg.rf.e59f2632dc4e8154b0f19dc66ca0b695,True,True,True,True,0.0,R22471,Dubai,,Dubai,R22471,Dubai
@@ -794,11 +794,11 @@ R-4793_jpg.rf.1b79e9209722557bde2ad0eb2cdfd6cd,True,True,True,True,0.0,R4793,Dub
 R-49400_jpg.rf.70722714465dae66f8ac774059ddc918,True,True,True,True,0.0,R49400,Dubai,,Dubai,R49400,Dubai
 R-54037_jpg.rf.58026376315db7c4bbec972e9d958446,True,True,True,True,0.0,R54037,Dubai,,Dubai,R54037,Dubai
 R-5642_jpg.rf.7c9041bdf3e270792eb98cd1b3e2ad86,True,True,True,True,0.0,R5642,Dubai,,Dubai,R5642,Dubai
-R-59042_jpg.rf.c4ddcc302f274e2440f60bedf11eaffa,True,True,False,True,0.6666666666666666,54,Dubai,,Dubai,R59042,Dubai
-R-60592_jpg.rf.acb7acf283bff842af150242b8ac04d9,True,True,False,True,0.16666666666666666,60592,Dubai,,Dubai,R60592,Dubai
+R-59042_jpg.rf.c4ddcc302f274e2440f60bedf11eaffa,True,False,False,True,0.6666666666666666,54,Dubai,missing_code,Dubai,R59042,Dubai
+R-60592_jpg.rf.acb7acf283bff842af150242b8ac04d9,True,False,False,True,0.16666666666666666,60592,Dubai,missing_code,Dubai,R60592,Dubai
 R-61255_jpg.rf.caa9b1d1816626a01b1f5b010e870f85,True,True,True,True,0.0,R61255,Dubai,,Dubai,R61255,Dubai
 R-61623_jpg.rf.2034ab961c32701800c54e4e64e5ac05,True,True,True,True,0.0,R61623,Dubai,,Dubai,R61623,Dubai
-R-63196_jpg.rf.fbc28f330186d789410300ec854aac98,True,True,False,True,0.3333333333333333,R63366,Dubai,,Dubai,R63196,Dubai
+R-63196_jpg.rf.fbc28f330186d789410300ec854aac98,True,True,False,True,0.16666666666666666,R63396,Dubai,,Dubai,R63196,Dubai
 R-67175_jpg.rf.2e4ab8a6023048851290e82c4b0b8de3,True,True,True,True,0.0,R67175,Dubai,,Dubai,R67175,Dubai
 R-7124_jpg.rf.3287860a1b3fbb13effc10696cdadccb,True,True,True,True,0.0,R7124,Dubai,,Dubai,R7124,Dubai
 R-71700_jpg.rf.b09e6d8494383288f13d9380fc77e07c,True,True,True,True,0.0,R71700,Dubai,,Dubai,R71700,Dubai
@@ -806,7 +806,7 @@ R-7284_jpg.rf.3316bcecd5a76160c06f018a05d8db77,True,True,True,True,0.0,R7284,Dub
 R-73424_jpg.rf.c7a9226c6b5a7bc233283716d1659ef2,True,True,True,True,0.0,R73424,Dubai,,Dubai,R73424,Dubai
 R-75926_jpg.rf.ae5ec7b046d0dfeca712a13f773b0863,True,True,True,True,0.0,R75926,Dubai,,Dubai,R75926,Dubai
 R-79052_jpg.rf.4dd13a5d89fa2c004cf203186ea20387,True,True,True,True,0.0,R79052,Dubai,,Dubai,R79052,Dubai
-R-8900_jpg.rf.2796afae4ac294e5d858abdb4464f6cf,True,True,False,True,0.2,8900,Dubai,,Dubai,R8900,Dubai
+R-8900_jpg.rf.2796afae4ac294e5d858abdb4464f6cf,True,False,False,True,0.2,8900,Dubai,missing_code,Dubai,R8900,Dubai
 R-91019_jpg.rf.a601bea7476480dad1de699a9344210b,True,True,True,True,0.0,R91019,Dubai,,Dubai,R91019,Dubai
 R-91632_jpg.rf.e01d24e76abe85142453e696d3df18e6,True,True,True,True,0.0,R91632,Dubai,,Dubai,R91632,Dubai
 R-94318_jpg.rf.60e5a7cbd32d4e87559b03d2309ba211,True,True,True,True,0.0,R94318,Dubai,,Dubai,R94318,Dubai
@@ -821,15 +821,15 @@ S-26380_jpg.rf.1ab240b403bcfb8bc95b33964d179ea5,True,True,True,True,0.0,S26380,D
 S-28156_jpg.rf.78ec71b85c6666cc88766c11f1fb27d2,True,True,True,True,0.0,S28156,Dubai,,Dubai,S28156,Dubai
 S-29291_jpg.rf.c7b4126fdf08fe4fef3facb115082156,True,False,False,False,0.8333333333333334,69,,no_emirate,Dubai,S29291,Dubai
 S-31646_jpg.rf.45082f955732225b2608903af45b2922,True,True,True,True,0.0,S31646,Dubai,,Dubai,S31646,Dubai
-S-34286_jpg.rf.818141f029604f060954eedd3d37b45e,True,True,False,True,0.5,346,Dubai,,Dubai,S34286,Dubai
-S-34438_jpg.rf.0d983f8bea34a91c514e53aeef370db1,True,True,False,True,0.16666666666666666,S344438,Dubai,,Dubai,S34438,Dubai
+S-34286_jpg.rf.818141f029604f060954eedd3d37b45e,True,False,False,True,0.5,346,Dubai,missing_code,Dubai,S34286,Dubai
+S-34438_jpg.rf.0d983f8bea34a91c514e53aeef370db1,True,True,True,True,0.0,S34438,Dubai,,Dubai,S34438,Dubai
 S-35373_jpg.rf.b98435117871c1c27c598376b14b7b4a,True,True,True,True,0.0,S35373,Dubai,,Dubai,S35373,Dubai
 S-36339_jpg.rf.2d027635e209633a26126058b003ad03,True,True,True,True,0.0,S36339,Dubai,,Dubai,S36339,Dubai
 S-37391_jpg.rf.cdf72484389e7bff7f1317a005084ff0,True,True,True,True,0.0,S37391,Dubai,,Dubai,S37391,Dubai
 S-42324_jpg.rf.4014332774c323ab48c5b31b1f827893,True,True,True,True,0.0,S42324,Dubai,,Dubai,S42324,Dubai
 S-42963_jpg.rf.8184c3e5c96eb468a0b501b1427e47b5,True,True,False,True,0.3333333333333333,4953S,Dubai,,Dubai,42963S,Dubai
-S-51891_jpg.rf.331bcac59cd0c2187cf93b5d4beef1ae,True,True,False,True,0.16666666666666666,S511891,Dubai,,Dubai,S51891,Dubai
-S-5526_jpg.rf.2cac5c8bde84cef1c7f42a5e2f54cae5,True,True,False,True,0.2,S55526,Dubai,,Dubai,S5526,Dubai
+S-51891_jpg.rf.331bcac59cd0c2187cf93b5d4beef1ae,True,True,True,True,0.0,S51891,Dubai,,Dubai,S51891,Dubai
+S-5526_jpg.rf.2cac5c8bde84cef1c7f42a5e2f54cae5,True,True,True,True,0.0,S5526,Dubai,,Dubai,S5526,Dubai
 S-58732_jpg.rf.f63b4a4fb332d13bbb4b0a3453320310,True,True,True,True,0.0,S58732,Dubai,,Dubai,S58732,Dubai
 S-58796_jpg.rf.ba62f197fede0e12cc4370872b1dfcbd,True,True,True,True,0.0,S58796,Dubai,,Dubai,S58796,Dubai
 S-63525_jpg.rf.81cf4476fe32ed9dc6aad75e4fbe886a,True,True,False,True,0.3333333333333333,S65325,Dubai,,Dubai,S63525,Dubai
@@ -842,9 +842,9 @@ S-74088_jpg.rf.94cbc68039d43169ce9e2633d001f9c4,True,True,False,True,0.166666666
 S-75_jpg.rf.fbb852039da30a269df7afd9b234c638,True,True,False,True,0.3333333333333333,B75,Dubai,,Dubai,S75,Dubai
 S-7771_jpg.rf.62fd7df707963a39779565bd604f2dbf,True,True,False,False,0.0,S7771,Sharjah,,Abu Dhabi,S7771,Abu Dhabi
 S-82056_jpg.rf.02ea7c1379fb4ae75ca3dfc0a9755131,True,True,True,True,0.0,S82056,Dubai,,Dubai,S82056,Dubai
-S-82095_jpg.rf.9e4c53029991c7a079d2b306610f481f,True,True,False,True,0.6666666666666666,4285,Dubai,,Dubai,S82095,Dubai
+S-82095_jpg.rf.9e4c53029991c7a079d2b306610f481f,True,False,False,True,0.6666666666666666,4285,Dubai,missing_code,Dubai,S82095,Dubai
 S-82536_jpg.rf.b458f532072730e1a4c7b478f4f0c847,True,True,True,True,0.0,S82536,Dubai,,Dubai,S82536,Dubai
-S-86663_jpg.rf.5941fa2161ff453985f4defcb0622cb3,True,True,False,True,0.16666666666666666,86663,Dubai,,Dubai,S86663,Dubai
+S-86663_jpg.rf.5941fa2161ff453985f4defcb0622cb3,True,False,False,True,0.16666666666666666,86663,Dubai,missing_code,Dubai,S86663,Dubai
 S-9018_jpg.rf.27dc23711a96c53dab1edba78200cda5,True,True,True,True,0.0,S9018,Dubai,,Dubai,S9018,Dubai
 S-90432_jpg.rf.d51bb6d5e683f78cd96aaf2cd11d7aaf,True,True,True,True,0.0,S90432,Dubai,,Dubai,S90432,Dubai
 S-90934_jpg.rf.87ccf90c25f18e7648f5b6143b437791,True,True,True,True,0.0,S90934,Dubai,,Dubai,S90934,Dubai
@@ -854,7 +854,7 @@ S-98156_jpg.rf.2a070b03c8613aa930cf5e0240aa0666,True,True,True,True,0.0,S98156,D
 S-9915_jpg.rf.78f482b1d726a14ac0de12d1271a2588,True,True,True,True,0.0,S9915,Dubai,,Dubai,S9915,Dubai
 T-10074_jpg.rf.c34c935bf8f4bcf87b982dc5e7c4af2b,True,True,True,True,0.0,T10074,Dubai,,Dubai,T10074,Dubai
 T-15703_jpg.rf.cb35f690aba583df6f88c958fc6da72a,True,True,True,True,0.0,T15703,Dubai,,Dubai,T15703,Dubai
-T-17196_jpg.rf.51821bc4e8394c3bf8a9e18dd8cef9a7,True,True,False,True,0.5,T7006,Dubai,,Dubai,T17196,Dubai
+T-17196_jpg.rf.51821bc4e8394c3bf8a9e18dd8cef9a7,True,True,False,True,0.5,T706,Dubai,,Dubai,T17196,Dubai
 T-26769_jpg.rf.a11d56aee2ee43884ccbcafe779960eb,True,True,False,True,0.5,T2975,Dubai,,Dubai,T26769,Dubai
 T-38217_jpg.rf.ee4c2f647f97575f5dd55c480b5c393b,True,True,True,True,0.0,T38217,Dubai,,Dubai,T38217,Dubai
 T-38747_jpg.rf.7e3e1a113931d2ae38988e506b426b05,True,True,True,True,0.0,T38747,Dubai,,Dubai,T38747,Dubai
@@ -863,7 +863,7 @@ T-45697_jpg.rf.64746c6d69b940cce80c667fa26661c5,True,True,True,True,0.0,T45697,D
 T-47922_jpg.rf.487d1bc69135363bf40e675cdf60569f,True,True,True,True,0.0,T47922,Dubai,,Dubai,T47922,Dubai
 T-48082_jpg.rf.4b4481346aba00863cd8a03fa9929271,True,True,True,True,0.0,T48082,Dubai,,Dubai,T48082,Dubai
 T-49822_jpg.rf.4f506e81ca94da4d9612860aad5c982f,True,True,True,True,0.0,T49822,Dubai,,Dubai,T49822,Dubai
-T-50529_jpg.rf.ccc48970b217c963208748ddb5d38d80,True,True,False,True,0.16666666666666666,50529,Dubai,,Dubai,T50529,Dubai
+T-50529_jpg.rf.ccc48970b217c963208748ddb5d38d80,True,False,False,True,0.16666666666666666,50529,Dubai,missing_code,Dubai,T50529,Dubai
 T-50819_jpg.rf.17c466dc61de602f9a9df31e35193db6,True,True,True,True,0.0,T50819,Dubai,,Dubai,T50819,Dubai
 T-53563_jpg.rf.3e8955bb9c9dc1782db8cfc531ff7182,True,True,True,True,0.0,T53563,Dubai,,Dubai,T53563,Dubai
 T-54_jpg.rf.8fc8677a8bddefd5d67a006aeec2d556,True,True,True,True,0.0,T54,Dubai,,Dubai,T54,Dubai
@@ -872,18 +872,18 @@ T-59563_jpg.rf.575f7343a69fa972587177e8507da222,True,False,False,False,0.6666666
 T-61810_jpg.rf.28f8cb0d88d3680d50b7846455537a6d,True,True,True,True,0.0,T61810,Dubai,,Dubai,T61810,Dubai
 T-62693_jpg.rf.cf420f2bdd7afd1ba756e749431eec33,True,True,True,True,0.0,T62693,Dubai,,Dubai,T62693,Dubai
 T-62776_jpg.rf.66ec5db52037de3a84c8130e891a66a8,True,True,True,True,0.0,T62776,Dubai,,Dubai,T62776,Dubai
-T-65668_jpg.rf.072f87710c5093d37b83dec5b2ca4ed6,True,True,False,True,0.3333333333333333,T66688,Dubai,,Dubai,T65668,Dubai
+T-65668_jpg.rf.072f87710c5093d37b83dec5b2ca4ed6,True,True,False,True,0.3333333333333333,T6688,Dubai,,Dubai,T65668,Dubai
 T-66211_jpg.rf.3fe8b1d3ae0ed24ad584b4d10450e847,True,True,True,True,0.0,T66211,Dubai,,Dubai,T66211,Dubai
 T-6907_jpg.rf.74f0ba9736c15a6cbae96a96ccd658cb,True,True,True,True,0.0,T6907,Dubai,,Dubai,T6907,Dubai
 T-69572_jpg.rf.ae2e143b8a542de251684777bd84fb91,True,True,True,True,0.0,T69572,Dubai,,Dubai,T69572,Dubai
 T-70248_jpg.rf.e90493ea06ec342810ed9efb2932870a,True,True,True,True,0.0,T70248,Dubai,,Dubai,T70248,Dubai
-T-70254_jpg.rf.fc0b77792b7a61c67f2f8fc9f6dcf5e2,True,True,False,True,0.16666666666666666,70254,Dubai,,Dubai,T70254,Dubai
+T-70254_jpg.rf.fc0b77792b7a61c67f2f8fc9f6dcf5e2,True,False,False,True,0.16666666666666666,70254,Dubai,missing_code,Dubai,T70254,Dubai
 T-70992_jpg.rf.658252f7ed287b3aa38207b2b1a1a741,True,True,True,True,0.0,T70992,Dubai,,Dubai,T70992,Dubai
 T-79280_jpg.rf.cdf5ac44bea1d5598eb301fd0b7e30f9,True,True,True,True,0.0,T79280,Dubai,,Dubai,T79280,Dubai
 T-80824_jpg.rf.b96c4f13af9971da9fe79cf878d4c41a,True,True,True,True,0.0,T80824,Dubai,,Dubai,T80824,Dubai
 T-85235_jpg.rf.b7951c66d2965fc491768185a87f7cad,True,True,True,True,0.0,T85235,Dubai,,Dubai,T85235,Dubai
-T-85300_jpg.rf.abdde46409b5593990ad22d271aa4221,True,True,False,True,0.6666666666666666,00,Dubai,,Dubai,T85300,Dubai
-T-86284_jpg.rf.7144081525eb6b07812c0430bc7865bf,True,True,False,True,0.5,L86226,Dubai,,Dubai,T86284,Dubai
+T-85300_jpg.rf.abdde46409b5593990ad22d271aa4221,True,False,False,True,0.8333333333333334,0,Dubai,invalid_length,Dubai,T85300,Dubai
+T-86284_jpg.rf.7144081525eb6b07812c0430bc7865bf,True,True,False,True,0.5,8626L,Dubai,,Dubai,T86284,Dubai
 T-88800_jpg.rf.7a1683e0c72ac0bf0629072dd3098748,True,True,True,True,0.0,T88800,Dubai,,Dubai,T88800,Dubai
 T-92531_jpg.rf.d7a8071a894efd1d757dcf600f456f67,True,True,True,True,0.0,T92531,Dubai,,Dubai,T92531,Dubai
 T-92557_jpg.rf.67d77ebe84c1e847a1d76d15406e1e5f,True,False,False,False,0.8333333333333334,591,,no_emirate,Dubai,T92557,Dubai
@@ -899,15 +899,15 @@ U-1111_jpg.rf.1dceb32c4765c8f72901f7cb18a6bf42,True,True,False,True,0.2,U111,Dub
 U-11973_jpg.rf.b92271a4ab98a48980821eade36d7a3f,True,True,True,True,0.0,U11973,Dubai,,Dubai,U11973,Dubai
 U-14650_jpg.rf.25a2f2df8e7443f6e1554f43ea1b4065,True,True,True,True,0.0,U14650,Dubai,,Dubai,U14650,Dubai
 U-16339_jpg.rf.52c73298a2e3acdb63f9495606787bdf,True,True,True,True,0.0,U16339,Dubai,,Dubai,U16339,Dubai
-U-1731_jpg.rf.ed318d0d558e6fd0904f3f68a0f16852,True,True,False,True,0.2,1731,Dubai,,Dubai,U1731,Dubai
-U-1806_jpg.rf.765138591266e7e4f01c931267992799,True,True,False,True,0.2,1806,Dubai,,Dubai,U1806,Dubai
+U-1731_jpg.rf.ed318d0d558e6fd0904f3f68a0f16852,True,False,False,True,0.2,1731,Dubai,missing_code,Dubai,U1731,Dubai
+U-1806_jpg.rf.765138591266e7e4f01c931267992799,True,False,False,True,0.2,1806,Dubai,missing_code,Dubai,U1806,Dubai
 U-18749_jpg.rf.2d1503487111b3e0c280c0de9acd44fd,True,True,True,True,0.0,U18749,Dubai,,Dubai,U18749,Dubai
 U-23560_jpg.rf.b5f3ecda567b3ee0963d9f38090fcadf,True,True,True,True,0.0,U23560,Dubai,,Dubai,U23560,Dubai
 U-23849_jpg.rf.b9656bc4ae5fe585dc6aeb2bd344fbef,True,True,True,True,0.0,U23849,Dubai,,Dubai,U23849,Dubai
-U-24907_jpg.rf.5b4c070d528bff660e055be02c365be6,True,True,False,True,0.16666666666666666,24907,Dubai,,Dubai,U24907,Dubai
+U-24907_jpg.rf.5b4c070d528bff660e055be02c365be6,True,False,False,True,0.16666666666666666,24907,Dubai,missing_code,Dubai,U24907,Dubai
 U-2941_jpg.rf.3dc765cce935339679d03e8788823d33,True,True,True,True,0.0,U2941,Dubai,,Dubai,U2941,Dubai
 U-34542_jpg.rf.092b0b42f610d67a64a69eefe62563d5,True,True,True,True,0.0,U34542,Dubai,,Dubai,U34542,Dubai
-U-35173_jpg.rf.beeb33a1be13442052c0de5471b7709f,True,True,False,True,0.16666666666666666,35173,Dubai,,Dubai,U35173,Dubai
+U-35173_jpg.rf.beeb33a1be13442052c0de5471b7709f,True,False,False,True,0.16666666666666666,35173,Dubai,missing_code,Dubai,U35173,Dubai
 U-35372_jpg.rf.281523f587ddf4dc61709da2a8606584,True,True,True,True,0.0,U35372,Dubai,,Dubai,U35372,Dubai
 U-36210_jpg.rf.1c3f1c76f932bb073d1822552adbee53,True,True,True,True,0.0,U36210,Dubai,,Dubai,U36210,Dubai
 U-39065_jpg.rf.72438bf5828cc89fa5472dac21b67b36,True,True,True,True,0.0,U39065,Dubai,,Dubai,U39065,Dubai
@@ -927,7 +927,7 @@ U-57182_jpg.rf.ffbb1d3837f6284c8a4e36276d9efd90,True,True,True,True,0.0,U57182,D
 U-59097_jpg.rf.0f2c223b5683b61e806187da6566a064,True,True,True,True,0.0,U59097,Dubai,,Dubai,U59097,Dubai
 U-60363_jpg.rf.b7c769885658e7b04346b667d6b5c331,True,True,True,True,0.0,U60363,Dubai,,Dubai,U60363,Dubai
 U-60523_jpg.rf.cde00a42c3458d9b1788b714128ae2ef,True,True,True,True,0.0,U60523,Dubai,,Dubai,U60523,Dubai
-U-61085_jpg.rf.9eddbdda8155d0dcfb8bdb74e33bd3d5,True,True,False,True,0.16666666666666666,U610885,Dubai,,Dubai,U61085,Dubai
+U-61085_jpg.rf.9eddbdda8155d0dcfb8bdb74e33bd3d5,True,True,True,True,0.0,U61085,Dubai,,Dubai,U61085,Dubai
 U-65907_jpg.rf.c12fa32e92fece1aeb006af096438fd9,True,True,True,True,0.0,U65907,Dubai,,Dubai,U65907,Dubai
 U-68895_jpg.rf.2cc1373a950659b8fcfb844c829c2d9c,True,True,True,True,0.0,U68895,Dubai,,Dubai,U68895,Dubai
 U-68930_jpg.rf.b46833518912e4e9d3d2bda41f127918,True,True,True,True,0.0,U68930,Dubai,,Dubai,U68930,Dubai
@@ -942,9 +942,9 @@ U-92557_jpg.rf.c67b32453fe9444444d5925f5b01740a,True,True,True,True,0.0,U92557,D
 V-13512_jpg.rf.9d3e81506a4d6e1378452460df815084,True,True,True,True,0.0,V13512,Dubai,,Dubai,V13512,Dubai
 V-19773_jpg.rf.c5b911c26fa6f70b712c6b0253bb16eb,True,False,False,True,1.0,6,Dubai,invalid_length,Dubai,V19773,Dubai
 V-23193_jpg.rf.e37f6169c9e88ab52ed7d495fde52c03,True,True,True,True,0.0,V23193,Dubai,,Dubai,V23193,Dubai
-V-28343_jpg.rf.2193749ad0972d1218c17a9f4992f6b5,True,True,False,True,0.3333333333333333,128843,Dubai,,Dubai,V28343,Dubai
+V-28343_jpg.rf.2193749ad0972d1218c17a9f4992f6b5,True,False,False,True,0.3333333333333333,128843,Dubai,missing_code,Dubai,V28343,Dubai
 V-34783_jpg.rf.25c480f193183233d0cbdfeb79177000,True,True,False,True,0.16666666666666666,V34183,Dubai,,Dubai,V34783,Dubai
-V-37859_jpg.rf.fb5a1442bc844931aff5d08648d073b0,True,True,False,True,0.16666666666666666,37859,Dubai,,Dubai,V37859,Dubai
+V-37859_jpg.rf.fb5a1442bc844931aff5d08648d073b0,True,False,False,True,0.16666666666666666,37859,Dubai,missing_code,Dubai,V37859,Dubai
 V-40928_jpg.rf.0c17f7f47c2adc01be35455f50f9fb55,True,True,True,True,0.0,V40928,Dubai,,Dubai,V40928,Dubai
 V-41660_jpg.rf.cf88bde6991e544664d4473411f60dab,True,True,True,True,0.0,V41660,Dubai,,Dubai,V41660,Dubai
 V-46569_jpg.rf.1dfc4aed75cfef87c55a5a72692239ae,True,True,True,True,0.0,V46569,Dubai,,Dubai,V46569,Dubai
@@ -963,9 +963,9 @@ V-81478_jpg.rf.7243a56b3be2786acfdda17099969c34,True,True,True,True,0.0,V81478,D
 V-81643_jpg.rf.08dc6a67a93ef826df596fc6d1a9d29e,True,True,False,True,0.16666666666666666,U81643,Dubai,,Dubai,V81643,Dubai
 V-91159_jpg.rf.e602a7f9d40d73e11c19712f49ab42e8,True,True,True,True,0.0,V91159,Dubai,,Dubai,V91159,Dubai
 V-92634_jpg.rf.99fda9b29c52aea53014f7a64da6b2fb,True,True,True,True,0.0,V92634,Dubai,,Dubai,V92634,Dubai
-V-94038_jpg.rf.edff089daa1df840b8094e4b4f56c4c3,True,True,False,True,0.16666666666666666,94038,Dubai,,Dubai,V94038,Dubai
+V-94038_jpg.rf.edff089daa1df840b8094e4b4f56c4c3,True,False,False,True,0.16666666666666666,94038,Dubai,missing_code,Dubai,V94038,Dubai
 V-96721_jpg.rf.800984f93fe070adc68425c6ffde8da9,True,True,True,True,0.0,V96721,Dubai,,Dubai,V96721,Dubai
-W-11580_jpg.rf.907d1c93f7152bc9c1e10c71467f999a,True,True,False,True,0.16666666666666666,M11580,Dubai,,Dubai,W11580,Dubai
+W-11580_jpg.rf.907d1c93f7152bc9c1e10c71467f999a,True,True,False,True,0.3333333333333333,M1580,Dubai,,Dubai,W11580,Dubai
 W-18070_jpg.rf.e26193f4a01047d1c7b6331c058ff4c0,True,True,True,True,0.0,W18070,Dubai,,Dubai,W18070,Dubai
 W-22081_jpg.rf.5a86efdc884d950d4f2433149550c6b1,True,True,True,True,0.0,W22081,Dubai,,Dubai,W22081,Dubai
 W-26322_jpg.rf.1af74d1fe25e58f92d9afb8e8c75173b,True,True,False,True,0.3333333333333333,W26322,Dubai,,Dubai,26322W,Dubai
@@ -978,16 +978,16 @@ W-37419_jpg.rf.ad8e97c6f66f0826cc9de009ce3c5a8b,True,True,True,True,0.0,W37419,D
 W-40793_jpg.rf.caafc49d60b7c0462f6fca0e8134e131,True,True,True,True,0.0,W40793,Dubai,,Dubai,W40793,Dubai
 W-41723_jpg.rf.90d24c29d09fed823c4e4b23bf710356,True,True,True,True,0.0,41723W,Dubai,,Dubai,41723W,Dubai
 W-45997_jpg.rf.5b5cfb42bd049da84574f972ea0876f6,True,True,True,True,0.0,W45997,Dubai,,Dubai,W45997,Dubai
-W-47052_jpg.rf.e77ad74da6593485643ff918cb87a21e,True,True,False,True,0.5,4002,Dubai,,Dubai,W47052,Dubai
+W-47052_jpg.rf.e77ad74da6593485643ff918cb87a21e,True,False,False,True,0.5,4002,Dubai,missing_code,Dubai,W47052,Dubai
 W-59676_jpg.rf.37926674661ba564a63af1dcee469f6d,True,True,True,True,0.0,59676W,Dubai,,Dubai,59676W,Dubai
-W-62314_jpg.rf.1902f8786311eea33a61a16121fc42a2,True,True,False,True,0.16666666666666666,62314,Dubai,,Dubai,W62314,Dubai
+W-62314_jpg.rf.1902f8786311eea33a61a16121fc42a2,True,False,False,True,0.16666666666666666,62314,Dubai,missing_code,Dubai,W62314,Dubai
 W-63783_jpg.rf.30960bb68ef5615d817d822a90b7cd6a,True,True,True,True,0.0,W63783,Dubai,,Dubai,W63783,Dubai
 W-68872_jpg.rf.be8dd3597e3ff5e4da1ec53d69b466db,True,True,True,True,0.0,68827W,Dubai,,Dubai,68827W,Dubai
 W-72418_jpg.rf.752bd1617bf587a485d80e66365d183c,True,True,False,True,0.16666666666666666,H72418,Dubai,,Dubai,W72418,Dubai
-W-74523_jpg.rf.2688e958feff7531e0ac164906efb913,True,True,False,True,0.16666666666666666,74523,Dubai,,Dubai,W74523,Dubai
+W-74523_jpg.rf.2688e958feff7531e0ac164906efb913,True,False,False,True,0.16666666666666666,74523,Dubai,missing_code,Dubai,W74523,Dubai
 W-84668_jpg.rf.be92f2272fcecac649e32da7041f42ee,True,True,True,True,0.0,W84668,Dubai,,Dubai,W84668,Dubai
 W-89282_jpg.rf.646cd6860a8a4fc1c05276597a6b0260,True,True,True,True,0.0,W89282,Dubai,,Dubai,W89282,Dubai
-W-92415_jpg.rf.7e9aa7b2bbd72cfff3a68935cc3068ec,True,True,False,True,1.0,9298887,Dubai,,Dubai,W92415,Dubai
+W-92415_jpg.rf.7e9aa7b2bbd72cfff3a68935cc3068ec,True,False,False,True,0.8333333333333334,929887,Dubai,missing_code,Dubai,W92415,Dubai
 W-94506_jpg.rf.54fa33c687d7e7e26b3ecd5c2549e2ae,True,True,False,True,0.16666666666666666,W9456,Dubai,,Dubai,W94506,Dubai
 W-96030_jpg.rf.a8c951db1707181a438080f0432af9fe,True,True,True,True,0.0,W96030,Dubai,,Dubai,W96030,Dubai
 W-97076_jpg.rf.a244eb813355d4f9310c71db631ef40e,True,True,False,True,0.16666666666666666,M97076,Dubai,,Dubai,W97076,Dubai

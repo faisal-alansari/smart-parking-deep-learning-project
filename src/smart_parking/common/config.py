@@ -60,6 +60,8 @@ class OccupancyTrainConfig(BaseModel):
     lr: float = 1e-3
     weight_decay: float = 1e-4
     seeds: list[int] = [42, 43, 44]
+    # Checkpoints the product uses: "final" (public data only) or "adapted" (owner's camera)
+    deploy: str = "final"
     # An option replaces the current choice only if validation F1 rises by more than this
     min_val_gain: float = 0.002
     # Baselines

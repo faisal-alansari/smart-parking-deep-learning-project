@@ -59,7 +59,9 @@ def bay_votes(pilot: dict) -> pd.DataFrame:
     """Per bay and box variant: each seed's vote, the majority, and crop brightness."""
     cfg = load_config().occupancy
     device = pick_device()
-    models = [load_checkpoint(cfg.checkpoint_dir / f"final_s{s}.pt", device) for s in cfg.seeds]
+    models = [
+        load_checkpoint(cfg.checkpoint_dir / f"{cfg.deploy}_s{s}.pt", device) for s in cfg.seeds
+    ]
     rows = []
     for photo in pilot["photos"]:
         path = Path(pilot["photo_dir"]) / f"{photo['name']}.jpg"

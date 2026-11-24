@@ -4,14 +4,14 @@
 
 | variant | bays | right | false alerts (alert on a car that is not unauthorized) | unauthorized cars |   alerted |   sent to a person |   missed (bay called empty) |   let through as AUTHORIZED | sent to a person (NEEDS_REVIEW) |   of which not needed |
 |---|---|---|---|---|---|---|---|---|---|---|
-| full system | 102 | 65 (64%) | 0 | 35 | 23 | 7 | 5 | 0 | 32 | 31 |
+| full system | 102 | 74 (73%) | 0 | 35 | 16 | 6 | 13 | 0 | 13 | 12 |
 | no Model A (every bay occupied) | 102 | 36 (35%) | 0 | 35 | 27 | 8 | 0 | 0 | 67 | 66 |
-| no Model B (no plate reading) | 102 | 34 (33%) | 0 | 35 | 0 | 30 | 5 | 0 | 63 | 62 |
-| no Model C: rule parser, owner checks | 102 | 65 (64%) | 0 | 35 | 23 | 7 | 5 | 0 | 32 | 31 |
-| no Model C: rule parser, no owner check | 102 | 65 (64%) | 0 | 35 | 23 | 7 | 5 | 0 | 32 | 31 |
-| no Model C: no commands (empty table) | 102 | 57 (56%) | 8 | 35 | 23 | 7 | 5 | 0 | 32 | 31 |
-| Model C, no owner check | 102 | 63 (62%) | 2 | 35 | 23 | 7 | 5 | 0 | 32 | 31 |
-| no time check (permits never end) | 102 | 59 (58%) | 0 | 35 | 17 | 7 | 5 | 6 | 32 | 31 |
+| no Model B (no plate reading) | 102 | 50 (49%) | 0 | 35 | 0 | 22 | 13 | 0 | 37 | 36 |
+| no Model C: rule parser, owner checks | 102 | 74 (73%) | 0 | 35 | 16 | 6 | 13 | 0 | 13 | 12 |
+| no Model C: rule parser, no owner check | 102 | 74 (73%) | 0 | 35 | 16 | 6 | 13 | 0 | 13 | 12 |
+| no Model C: no commands (empty table) | 102 | 66 (65%) | 8 | 35 | 16 | 6 | 13 | 0 | 13 | 12 |
+| Model C, no owner check | 102 | 72 (71%) | 2 | 35 | 16 | 6 | 13 | 0 | 13 | 12 |
+| no time check (permits never end) | 102 | 69 (68%) | 0 | 35 | 11 | 6 | 13 | 5 | 13 | 12 |
 
 ## Owner effort for the commands (of 33)
 

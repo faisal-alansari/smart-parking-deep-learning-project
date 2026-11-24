@@ -1,0 +1,184 @@
+{
+  "test_images": 1000,
+  "fine_tuned": {
+    "models": [
+      "final_s42",
+      "final_s43",
+      "final_s44"
+    ],
+    "metrics": {
+      "exact_match": {
+        "mean": 0.7063333333333333,
+        "std": 0.0036817870057290905
+      },
+      "coverage": {
+        "mean": 0.9816666666666666,
+        "std": 0.0016996731711975963
+      },
+      "answered_accuracy": {
+        "mean": 0.7195204361548702,
+        "std": 0.00254751080788015
+      },
+      "misread_rate": {
+        "mean": 0.2753333333333334,
+        "std": 0.0020548046676563273
+      },
+      "plate_found": {
+        "mean": 0.999,
+        "std": 0.0
+      },
+      "emirate_accuracy": {
+        "mean": 0.9686666666666666,
+        "std": 0.0018856180831641283
+      },
+      "cer": {
+        "mean": 0.08569047619047616,
+        "std": 0.0015018104468579778
+      }
+    },
+    "ci95": {
+      "exact_match": [
+        0.6803333333333335,
+        0.730675
+      ],
+      "coverage": [
+        0.9739999999999999,
+        0.9876666666666667
+      ],
+      "answered_accuracy": [
+        0.6953304374227952,
+        0.7436065147634046
+      ],
+      "misread_rate": [
+        0.252,
+        0.299
+      ],
+      "plate_found": [
+        0.997,
+        1.0
+      ],
+      "emirate_accuracy": [
+        0.9593333333333334,
+        0.977
+      ],
+      "cer": [
+        0.07609724206349205,
+        0.0964718253968254
+      ]
+    },
+    "detection": {
+      "map50": 0.8560895784141781,
+      "map50_95": 0.6540229793269173
+    },
+    "ms_per_image": 11.522329807281494
+  },
+  "from_scratch_baseline": {
+    "models": [
+      "exp_img960_full_n5000_scratch"
+    ],
+    "metrics": {
+      "exact_match": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "coverage": {
+        "mean": 0.902,
+        "std": 0.0
+      },
+      "answered_accuracy": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "misread_rate": {
+        "mean": 0.902,
+        "std": 0.0
+      },
+      "plate_found": {
+        "mean": 0.996,
+        "std": 0.0
+      },
+      "emirate_accuracy": {
+        "mean": 0.728,
+        "std": 0.0
+      },
+      "cer": {
+        "mean": 0.6789095238095237,
+        "std": 0.0
+      }
+    },
+    "ci95": {
+      "exact_match": [
+        0.0,
+        0.0
+      ],
+      "coverage": [
+        0.883,
+        0.921
+      ],
+      "answered_accuracy": [
+        0.0,
+        0.0
+      ],
+      "misread_rate": [
+        0.883,
+        0.921
+      ],
+      "plate_found": [
+        0.992,
+        1.0
+      ],
+      "emirate_accuracy": [
+        0.701,
+        0.756
+      ],
+      "cer": [
+        0.6661985714285714,
+        0.6913358928571429
+      ]
+    },
+    "detection": {
+      "map50": 0.18358323823099432,
+      "map50_95": 0.11640747268596259
+    },
+    "ms_per_image": 10.501147985458374
+  },
+  "per_emirate_fine_tuned": {
+    "Abu Dhabi": {
+      "images": 135,
+      "exact_match": 0.6024691358024691,
+      "misread_rate": 0.3679012345679012
+    },
+    "Ajman": {
+      "images": 17,
+      "exact_match": 0.4901960784313726,
+      "misread_rate": 0.37254901960784315
+    },
+    "Dubai": {
+      "images": 735,
+      "exact_match": 0.7333333333333334,
+      "misread_rate": 0.25532879818594106
+    },
+    "Fujairah": {
+      "images": 48,
+      "exact_match": 0.6875,
+      "misread_rate": 0.2916666666666667
+    },
+    "Ras Al Khaimah": {
+      "images": 10,
+      "exact_match": 0.3666666666666667,
+      "misread_rate": 0.4666666666666666
+    },
+    "Sharjah": {
+      "images": 55,
+      "exact_match": 0.7454545454545455,
+      "misread_rate": 0.23636363636363633
+    }
+  },
+  "settings": {
+    "imgsz": 960,
+    "freeze": null,
+    "train_size": 5000,
+    "seed42_run": "exp_img960_full_n5000",
+    "baseline_run": "exp_img960_full_n5000_scratch"
+  }
+}
