@@ -70,8 +70,11 @@ def view_similarity(reference: np.ndarray, image: Image.Image, boxes: dict) -> f
 
 
 def sharpness(image: Image.Image) -> float:
-    """Tier 2b: variance of the Laplacian of a mid-size grey frame (low = blurred lens)."""
+    """Tier 2b: variance of the Laplacian of a mid-size grey frame (low = blurred lens). The
+    frame is first scaled to zero mean and unit spread, so a darker scene is not taken for blur
+    (the first version, without this, flagged every frame 40% darker than usual)."""
     g = np.asarray(image.convert("L").resize((270, 480), Image.BILINEAR), dtype=np.float32)
+    g = (g - g.mean()) / max(float(g.std()), 1e-3)
     lap = g[1:-1, 1:-1] * 4 - g[:-2, 1:-1] - g[2:, 1:-1] - g[1:-1, :-2] - g[1:-1, 2:]
     return float(lap.var())
 

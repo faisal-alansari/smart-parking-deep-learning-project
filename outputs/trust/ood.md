@@ -20,16 +20,16 @@ guesses on a view it does not know.
 
 After the first run the bay check flagged 13% of normal frames on the other night (1% on block 4): its cut-off is tuned to the training night, the same lesson as calibration. The product therefore uses the blocked, view and sharpness checks; the bay check is reported but not used (a choice informed by the test). The sharpness check (frame sharpness divided by the snapshot's) was added after the first run showed that heavy blur passes the view check.
 
-Cut-offs: view similarity below 0.725, sharpness ratio below 0.629, bay distance above 18.31; blocked: mean pixel value below 12 or above 243. One frame every 10 s. AUROC: how well each check separates these frames from the in-distribution test frames (1 = perfectly).
+Cut-offs: view similarity below 0.725, sharpness ratio below 0.666, bay distance above 18.31; blocked: mean pixel value below 12 or above 243. One frame every 10 s. AUROC: how well each check separates these frames from the in-distribution test frames (1 = perfectly).
 
 | frames | n | blocked | view check | sharpness check | product (blocked, view or sharpness) | bay check (not used) | view AUROC | sharpness AUROC | bay AUROC |
 |---|---|---|---|---|---|---|---|---|---|
 | in: night 2, block 4 (validation) | 74 | 0% | 1% | 1% | 3% | 1% |  |  |  |
 | in: night 1 (test, its own snapshot) | 61 | 0% | 2% | 3% | 5% | 13% |  |  |  |
-| out: other car parks (51 photos) | 51 | 0% | 90% | 18% | 92% | 18% | 0.995 | 0.341 | 0.658 |
-| out: camera set up again, old snapshot (night 2 vs night 1) | 25 | 0% | 88% | 0% | 88% | 8% | 0.991 | 0.146 | 0.632 |
-| out: night 1, camera moved (shifted and zoomed) | 61 | 0% | 98% | 2% | 98% | 13% | 0.999 | 0.347 | 0.46 |
+| out: other car parks (51 photos) | 51 | 0% | 90% | 31% | 94% | 18% | 0.995 | 0.537 | 0.658 |
+| out: camera set up again, old snapshot (night 2 vs night 1) | 25 | 0% | 88% | 0% | 88% | 8% | 0.991 | 0.367 | 0.632 |
+| out: night 1, camera moved (shifted and zoomed) | 61 | 0% | 98% | 2% | 98% | 13% | 0.999 | 0.202 | 0.46 |
 | out: night 1, heavy blur | 61 | 0% | 2% | 100% | 100% | 13% | 0.538 | 1.0 | 0.659 |
-| out: night 1, over-exposed (x3) | 61 | 2% | 13% | 11% | 23% | 34% | 0.821 | 0.22 | 0.711 |
-| out: night 1, lens almost covered | 61 | 100% | 2% | 100% | 100% | 100% | 0.636 | 1.0 | 1.0 |
-| out: night 1, pure noise | 61 | 0% | 100% | 0% | 100% | 100% | 1.0 | 0.066 | 1.0 |
+| out: night 1, over-exposed (x3) | 61 | 2% | 13% | 25% | 36% | 34% | 0.821 | 0.876 | 0.711 |
+| out: night 1, lens almost covered | 61 | 100% | 2% | 0% | 100% | 100% | 0.636 | 0.006 | 1.0 |
+| out: night 1, pure noise | 61 | 0% | 100% | 0% | 100% | 100% | 1.0 | 0.0 | 1.0 |

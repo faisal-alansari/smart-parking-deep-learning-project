@@ -145,3 +145,7 @@ costs:
 # Unfamiliar-input (OOD) detector for the camera: fit, cut-off on block 4, evaluation
 ood:
     uv run python -m smart_parking.trust.ood
+
+# Image robustness at increasing severity (Model A + camera check, Model B)
+robustness-images:
+    uv run python -m smart_parking.trust.robustness
