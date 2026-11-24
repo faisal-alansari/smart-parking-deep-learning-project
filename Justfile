@@ -149,3 +149,7 @@ ood:
 # Image robustness at increasing severity (Model A + camera check, Model B)
 robustness-images:
     uv run python -m smart_parking.trust.robustness
+
+# Monitoring demo: the other night replayed with a dimming light and a knocked camera
+monitor-demo:
+    uv run python -m smart_parking.trust.monitor

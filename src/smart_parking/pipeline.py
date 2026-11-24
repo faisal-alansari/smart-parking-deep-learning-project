@@ -40,11 +40,13 @@ from smart_parking.decision import gate_plate, occupancy_decision
 from smart_parking.loop import TZ, _md, bay_status, true_status
 from smart_parking.plates.reader import PlateRead, read_plates
 from smart_parking.stays import BayTracker, stay_status
+from smart_parking.trust.ood import ViewGuard
 
 PHOTOS = {".jpg", ".jpeg", ".png", ".heic"}
 VIDEOS = {".mov", ".mp4", ".m4v"}
 RUNS = Path("outputs/loop/local/runs")
 STAGES = {
+    "V": "camera check (one frame)",
     "A": "A occupancy (one frame, both bays)",
     "B": "B plate read (one occupied bay)",
     "T": "permit table check (one bay)",
@@ -115,19 +117,29 @@ class Pipeline:
             lp._check_size(lp._pick(reads, local), bay[2] - bay[0]), self.decision_cfg
         )
 
-    def frame(self, im: Image.Image, boxes: dict, at: datetime, table: PermitTable) -> list[dict]:
-        """One photo or video frame: a status for each bay."""
+    def frame(self, im: Image.Image, boxes: dict, at: datetime, table: PermitTable,
+              guard: ViewGuard | None = None) -> list[dict]:  # fmt: skip
+        """One photo or video frame: a status for each bay. A frame that does not look like this
+        camera (`guard`) is not judged: both bays go to a person with the reason."""
+        if guard is not None and (reason := self._timed("V", guard.check, im)):
+            logger.bind(reason=reason).info("Camera check: asking a person ({})", reason)
+            return [{"bay": bay, "occupied": -1, "occupancy_p": None, "status": "NEEDS_REVIEW",
+                     "reason": reason, "plate": "", "plate_decision": "", "read": None}
+                    for bay in boxes]  # fmt: skip
         occupancy = self._timed("A", self.occupancy, im, boxes)
         rows = []
         for bay, box in boxes.items():
             occupied, unsure, prob = occupancy[bay]
             read = self._timed("B", self.plate, im, box) if occupied else None
             status = self._timed("T", bay_status, occupied, read, at, table)
+            reason = "occupancy_unsure" if unsure else (read.reason or "") if read else ""
             if unsure:
                 status = "NEEDS_REVIEW"  # Model A is unsure: a person looks
+            elif status == "NEEDS_REVIEW" and not reason:
+                reason = "no_plate_found"
             rows.append({
                 "bay": bay, "occupied": int(occupied), "occupancy_p": round(prob, 3),
-                "status": status,
+                "status": status, "reason": reason,
                 "plate": f"{read.emirate} {read.text}" if read else "",
                 "plate_decision": f"{read.decision} {read.reason or ''}".strip() if read else "",
                 "read": read,  # Model B's read itself (dropped before saving)
