@@ -36,6 +36,7 @@ from smart_parking.commands.owner import handle
 from smart_parking.commands.schema import Action, ParsedCommand, PermitTable
 from smart_parking.common.config import load_config
 from smart_parking.common.log import setup_logging
+from smart_parking.decision import gate_plate, occupancy_decision
 from smart_parking.loop import TZ, _md, bay_status, true_status
 from smart_parking.plates.reader import PlateRead, read_plates
 from smart_parking.stays import BayTracker, stay_status
@@ -75,6 +76,7 @@ class Pipeline:
             from smart_parking.commands.score import PARSERS
 
             self.decide = PARSERS["tiered"].load(project.commands).decide
+        self.decision_cfg = project.decision
         self.times: dict[str, list[float]] = defaultdict(list)
 
     def _timed(self, stage: str, fn, *args):  # noqa: ANN001, ANN202
@@ -88,8 +90,8 @@ class Pipeline:
         w, h = im.size
         return round(box[0] * w), round(box[1] * h), round(box[2] * w), round(box[3] * h)
 
-    def occupancy(self, im: Image.Image, boxes: dict[str, list[float]]) -> dict[str, bool]:
-        """Model A: majority vote of the three final seeds at their validation thresholds."""
+    def occupancy(self, im: Image.Image, boxes: dict[str, list[float]]) -> dict[str, tuple]:
+        """Model A: (occupied, unsure, mean probability) per bay, at the cost-chosen threshold."""
         from smart_parking.occupancy.train import predict, to_tensor
 
         crops = [
@@ -97,8 +99,10 @@ class Pipeline:
             for b in boxes.values()
         ]
         x = to_tensor(np.stack(crops), self.device)
-        votes = [predict(m, x, mean, std) >= s["threshold"] for m, mean, std, s in self.seeds]
-        return dict(zip(boxes, (np.mean(votes, axis=0) > 0.5).tolist(), strict=True))
+        probs = [predict(m, x, mean, std) for m, mean, std, _ in self.seeds]
+        p, occupied, unsure = occupancy_decision(probs, self.decision_cfg)
+        return {bay: (bool(o), bool(u), float(q))
+                for bay, o, u, q in zip(boxes, occupied, unsure, p, strict=True)}  # fmt: skip
 
     def plate(self, im: Image.Image, box: list[float]) -> PlateRead | None:
         """Model B in the bay area, as in the local photo checks."""
@@ -107,17 +111,23 @@ class Pipeline:
         area = lp.search_area(bay, w, h)
         reads = read_plates(lp._detect(self.yolo, im.crop(area), self.imgsz), self.plate_threshold)
         local = (bay[0] - area[0], bay[1] - area[1], bay[2] - area[0], bay[3] - area[1])
-        return lp._check_size(lp._pick(reads, local), bay[2] - bay[0])
+        return gate_plate(
+            lp._check_size(lp._pick(reads, local), bay[2] - bay[0]), self.decision_cfg
+        )
 
     def frame(self, im: Image.Image, boxes: dict, at: datetime, table: PermitTable) -> list[dict]:
         """One photo or video frame: a status for each bay."""
-        occupied = self._timed("A", self.occupancy, im, boxes)
+        occupancy = self._timed("A", self.occupancy, im, boxes)
         rows = []
         for bay, box in boxes.items():
-            read = self._timed("B", self.plate, im, box) if occupied[bay] else None
-            status = self._timed("T", bay_status, occupied[bay], read, at, table)
+            occupied, unsure, prob = occupancy[bay]
+            read = self._timed("B", self.plate, im, box) if occupied else None
+            status = self._timed("T", bay_status, occupied, read, at, table)
+            if unsure:
+                status = "NEEDS_REVIEW"  # Model A is unsure: a person looks
             rows.append({
-                "bay": bay, "occupied": int(occupied[bay]), "status": status,
+                "bay": bay, "occupied": int(occupied), "occupancy_p": round(prob, 3),
+                "status": status,
                 "plate": f"{read.emirate} {read.text}" if read else "",
                 "plate_decision": f"{read.decision} {read.reason or ''}".strip() if read else "",
                 "read": read,  # Model B's read itself (dropped before saving)

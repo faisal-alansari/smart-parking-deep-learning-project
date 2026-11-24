@@ -144,6 +144,22 @@ class CommandsConfig(BaseModel):
     action_word_min: float = 0.6
 
 
+class DecisionConfig(BaseModel):
+    """Operating thresholds chosen by expected cost on validation (`just costs`)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    occupancy_threshold: float = 0.5  # on the mean probability of the Model A seeds
+    occupancy_review_band: float = 0.0  # unsure (ask a person) within this distance of it
+    plate_min_confidence: float = 0.0  # calibrated plate confidence below this: ask a person
+    plate_platt_a: float = 1.0  # Platt scaling of the plate confidence (`just calibration`)
+    plate_platt_b: float = 0.0
+    cost_false_alert: float = 5.0
+    cost_missed_unauthorized: float = 10.0
+    cost_review: float = 1.0
+    p_authorized: float = 0.7
+
+
 class ProjectConfig(BaseModel):
     """Top-level project configuration."""
 
@@ -157,6 +173,7 @@ class ProjectConfig(BaseModel):
     plate_data: PlateDataConfig = PlateDataConfig()
     plates: PlateTrainConfig = PlateTrainConfig()
     commands: CommandsConfig = CommandsConfig()
+    decision: DecisionConfig = DecisionConfig()
 
 
 def load_config(path: Path = DEFAULT_CONFIG_PATH) -> ProjectConfig:

@@ -103,3 +103,16 @@ commands:
   time_near_miss: 0.05
   # A change needs a word this close in meaning to an action word (MiniLM; set on dev)
   action_word_min: 0.6
+
+# Decision thresholds chosen by expected cost on validation (`just costs`,
+# outputs/trust/costs.md). Costs in minutes of the owner's attention.
+decision:
+  occupancy_threshold: 0.86
+  occupancy_review_band: 0.0
+  plate_min_confidence: 0.7
+  plate_platt_a: 1.55574674600719
+  plate_platt_b: 0.6611495211918684
+  cost_false_alert: 5.0
+  cost_missed_unauthorized: 10.0
+  cost_review: 1.0
+  p_authorized: 0.7

@@ -26,6 +26,7 @@ from PIL import Image, ImageDraw, ImageOps
 
 from smart_parking.common.config import OccupancyTrainConfig, PlateTrainConfig, load_config
 from smart_parking.common.log import setup_logging
+from smart_parking.decision import gate_plate, occupancy_decision
 from smart_parking.occupancy.train import load_checkpoint, pick_device, predict, to_tensor
 from smart_parking.plates.reader import Box, PlateRead, fits_bay, read_plates
 from smart_parking.plates.train import LOW_CONF
@@ -90,15 +91,16 @@ def score(cfg: OccupancyTrainConfig, images: np.ndarray, rows: pd.DataFrame) -> 
     device = pick_device()
     x = to_tensor(images, device)
     out = rows.copy()
-    votes = []
+    probs = []
     for seed in cfg.seeds:
         model, mean, std, summary = load_checkpoint(
             cfg.checkpoint_dir / f"{cfg.deploy}_s{seed}.pt", device
         )
         prob = predict(model, x, mean, std)
         out[f"p_s{seed}"] = prob.astype(float).round(3)
-        votes.append(prob >= summary["threshold"])
-    out["pred"] = (np.mean(votes, axis=0) > 0.5).astype(int)
+        probs.append(prob)
+    _, occupied, _ = occupancy_decision(probs, load_config().decision)
+    out["pred"] = occupied.astype(int)
     out["correct"] = out["pred"] == out["truth"]
     return out
 
@@ -173,6 +175,7 @@ def read_bay_plates(pilot: dict, cfg: PlateTrainConfig, res: pd.DataFrame) -> pd
     `bay` mode reads from the bay area (the product loop); `photo` mode reads the whole
     photo and keeps the plate whose centre falls in the bay (comparison only).
     """
+    decision = load_config().decision
     summary = json.loads((cfg.run_dir / f"final_s{PLATE_SEED}" / "summary.json").read_text())
     model = YOLO(str(cfg.checkpoint_dir / f"final_s{PLATE_SEED}.pt"))
     imgsz, threshold = summary["imgsz"], summary["threshold"]
@@ -202,10 +205,12 @@ def read_bay_plates(pilot: dict, cfg: PlateTrainConfig, res: pd.DataFrame) -> pd
             bay_px[2] - area[0],
             bay_px[3] - area[1],
         )
-        bay_read = _check_size(_pick(reads, local), bay_px[2] - bay_px[0])
+        bay_read = gate_plate(_check_size(_pick(reads, local), bay_px[2] - bay_px[0]), decision)
         if row.photo not in photo_reads:
             photo_reads[row.photo] = read_plates(_detect(model, im, imgsz), threshold)
-        photo_read = _check_size(_pick(photo_reads[row.photo], bay_px), bay_px[2] - bay_px[0])
+        photo_read = gate_plate(
+            _check_size(_pick(photo_reads[row.photo], bay_px), bay_px[2] - bay_px[0]), decision
+        )
         for prefix, read in (("bay", bay_read), ("photo", photo_read)):
             cols[f"{prefix}_read"].append(f"{read.emirate} {read.text}" if read else "none")
             cols[f"{prefix}_outcome"].append(_outcome(read, row.true_plate, bool(row.truth)))

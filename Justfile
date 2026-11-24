@@ -137,3 +137,7 @@ adapt-occupancy-final:
 # Calibration: reliability diagrams, ECE and Platt scaling for Models A and B (outputs/trust/)
 calibration:
     uv run python -m smart_parking.trust.calibration
+
+# Error-cost model: thresholds chosen on validation, test cost, sensitivity, risk-coverage
+costs:
+    uv run python -m smart_parking.trust.costs
