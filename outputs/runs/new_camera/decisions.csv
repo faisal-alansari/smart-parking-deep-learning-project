@@ -1,0 +1,5 @@
+source,time,clock,bay,status,stay_status,occupied,occupancy_confidence,plate,plate_confidence,reason,guidance,evidence
+IMG_1818.jpg,2026-11-25T01:47:33.267376+04:00,,left,AUTHORIZED,AUTHORIZED,True,0.996,Dubai O33044,0.942,,,outputs/runs/new_camera/evidence/IMG_1818_left.jpg
+IMG_1818.jpg,2026-11-25T01:47:33.267376+04:00,,right,EMPTY,EMPTY,False,0.114,,,,,
+IMG_1820.jpg,2026-11-25T01:47:33.272260+04:00,,left,AUTHORIZED,AUTHORIZED,True,0.997,Dubai O33044,0.983,,,outputs/runs/new_camera/evidence/IMG_1820_left.jpg
+IMG_1820.jpg,2026-11-25T01:47:33.272260+04:00,,right,POTENTIALLY_UNAUTHORIZED,POTENTIALLY_UNAUTHORIZED,True,1.0,Dubai A66705,0.243,,"This car has no valid permit. Check it, or allow it with a command.",outputs/runs/new_camera/evidence/IMG_1820_right.jpg

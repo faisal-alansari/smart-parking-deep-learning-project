@@ -7,7 +7,9 @@ Per bay, frame by frame:
   appear at least `MIN_READS` times and in more than half of the clear reads, else the stay
   goes to a person;
 - the permit check is redone at every frame's time;
-- each change of a bay's answer is one notification to the owner.
+- each change of a bay's answer is one notification to the owner;
+- once the stay's plate has been read the same way `SETTLE_READS` times, Model B stops reading
+  that bay until the car leaves (added after the efficiency study).
 
 `just video-night-1-stays` applies it to the saved per-frame results of the night video
 (no models are run again) and compares it with frame-by-frame answers.
@@ -30,6 +32,9 @@ from smart_parking.loop import Status, _md
 
 CONFIRM_FRAMES = 5
 MIN_READS = 2
+# Plate caching (efficiency study, outputs/trust/efficiency.md): once a stay's plate has been
+# read the same way this many times, Model B is not run on that bay until the car leaves.
+SETTLE_READS = 3
 PU = "POTENTIALLY_UNAUTHORIZED"
 
 
@@ -50,6 +55,16 @@ class BayTracker:
     streak: int = 0  # frames in a row that disagree with `occupied`
     pending: list[str] = field(default_factory=list)  # reads while an arrival is confirmed
     reads: list[str] = field(default_factory=list)
+    confirm: int = CONFIRM_FRAMES
+    settle_after: int | None = None  # stop reading plates once the stay's plate has this many
+
+    @property
+    def needs_read(self) -> bool:
+        """Whether Model B must run on this bay now (False once the stay's plate is settled)."""
+        if self.settle_after is None or not self.occupied:
+            return True
+        plate = stay_plate(self.reads)
+        return plate is None or self.reads.count(plate) < self.settle_after
 
     def update(self, occupied: bool, read: str | None) -> tuple[bool, str | None]:
         """One frame: Model A's answer and Model B's clear read ('' or None if none).
@@ -60,7 +75,7 @@ class BayTracker:
             self.streak += 1
         if occupied and read:
             (self.reads if self.occupied else self.pending).append(read)
-        if self.streak >= CONFIRM_FRAMES:
+        if self.streak >= self.confirm:
             self.occupied, self.streak = occupied, 0
             self.reads, self.pending = (self.pending, []) if occupied else ([], [])
         return self.occupied, stay_plate(self.reads) if self.occupied else None
@@ -78,10 +93,10 @@ def apply_stays(frames: pd.DataFrame, start: datetime, owner: PermitTable) -> pd
     """Add per-stay columns to the per-frame results (one row per frame and bay)."""
     out = []
     for _bay, g in frames.sort_values("t").groupby("bay", sort=False):
-        tracker = BayTracker()
+        tracker = BayTracker(settle_after=SETTLE_READS)
         for r in g.itertuples():
             clear = isinstance(r.plate, str) and str(r.plate_decision).startswith("READ")
-            text = r.plate.rsplit(" ", 1)[-1] if clear else None
+            text = r.plate.rsplit(" ", 1)[-1] if clear and tracker.needs_read else None
             occ, plate = tracker.update(bool(r.occupied), text)
             at = start + timedelta(seconds=float(r.t))
             visitor = stay_status(occ, plate, at, PermitTable())

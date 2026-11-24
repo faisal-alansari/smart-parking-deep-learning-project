@@ -1,0 +1,6 @@
+# A new camera (the owner's pilot photos): bay boxes as fractions of the frame (x0, y0, x1, y1).
+# The snapshot is a frame with both bays empty; the camera check compares later frames with it.
+boxes:
+  left: [0.059, 0.472, 0.518, 0.661]
+  right: [0.557, 0.472, 0.992, 0.661]
+snapshot: IMG_1819.jpg

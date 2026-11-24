@@ -161,3 +161,7 @@ probes:
 # Failure analysis: every error sorted into causes, fixes and what remains
 failures:
     uv run python -m smart_parking.trust.failures
+
+# Efficiency study: frame rate and plate caching, quality against model time
+efficiency:
+    uv run python -m smart_parking.trust.efficiency

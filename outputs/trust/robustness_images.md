@@ -46,30 +46,30 @@ outputs/commands/robustness.md.
 
 | stress | level | images | exact | wrong reads | answered |
 |---|---|---|---|---|---|
-| darkness (brightness x) | 1.0 | 400 | 0.573 | 0.06 | 0.632 |
-| darkness (brightness x) | 0.6 | 400 | 0.575 | 0.058 | 0.632 |
-| darkness (brightness x) | 0.35 | 400 | 0.557 | 0.037 | 0.595 |
-| darkness (brightness x) | 0.2 | 400 | 0.46 | 0.035 | 0.495 |
-| darkness (brightness x) | 0.1 | 400 | 0.292 | 0.052 | 0.345 |
-| blur (radius px) | 0.0 | 400 | 0.573 | 0.06 | 0.632 |
-| blur (radius px) | 2.0 | 400 | 0.407 | 0.058 | 0.465 |
-| blur (radius px) | 4.0 | 400 | 0.02 | 0.005 | 0.025 |
+| darkness (brightness x) | 1.0 | 400 | 0.703 | 0.23 | 0.932 |
+| darkness (brightness x) | 0.6 | 400 | 0.71 | 0.223 | 0.932 |
+| darkness (brightness x) | 0.35 | 400 | 0.705 | 0.21 | 0.915 |
+| darkness (brightness x) | 0.2 | 400 | 0.63 | 0.263 | 0.892 |
+| darkness (brightness x) | 0.1 | 400 | 0.475 | 0.268 | 0.743 |
+| blur (radius px) | 0.0 | 400 | 0.703 | 0.23 | 0.932 |
+| blur (radius px) | 2.0 | 400 | 0.52 | 0.312 | 0.833 |
+| blur (radius px) | 4.0 | 400 | 0.03 | 0.12 | 0.15 |
 | blur (radius px) | 8.0 | 400 | 0.0 | 0.0 | 0.0 |
 | blur (radius px) | 16.0 | 400 | 0.0 | 0.0 | 0.0 |
-| sensor noise (sd) | 0.0 | 400 | 0.573 | 0.06 | 0.632 |
-| sensor noise (sd) | 10.0 | 400 | 0.562 | 0.07 | 0.632 |
-| sensor noise (sd) | 20.0 | 400 | 0.412 | 0.062 | 0.475 |
-| sensor noise (sd) | 40.0 | 400 | 0.135 | 0.085 | 0.22 |
-| sensor noise (sd) | 80.0 | 400 | 0.0 | 0.005 | 0.005 |
-| JPEG compression (quality) | 95.0 | 400 | 0.573 | 0.058 | 0.63 |
-| JPEG compression (quality) | 40.0 | 400 | 0.565 | 0.068 | 0.632 |
-| JPEG compression (quality) | 20.0 | 400 | 0.573 | 0.07 | 0.642 |
-| JPEG compression (quality) | 10.0 | 400 | 0.49 | 0.083 | 0.573 |
-| JPEG compression (quality) | 5.0 | 400 | 0.325 | 0.068 | 0.393 |
-| headlight glare (strength) | 0.0 | 400 | 0.573 | 0.06 | 0.632 |
-| headlight glare (strength) | 0.25 | 400 | 0.573 | 0.072 | 0.645 |
-| headlight glare (strength) | 0.5 | 400 | 0.575 | 0.07 | 0.645 |
-| headlight glare (strength) | 0.75 | 400 | 0.568 | 0.062 | 0.63 |
-| headlight glare (strength) | 1.0 | 400 | 0.547 | 0.06 | 0.608 |
+| sensor noise (sd) | 0.0 | 400 | 0.703 | 0.23 | 0.932 |
+| sensor noise (sd) | 10.0 | 400 | 0.688 | 0.237 | 0.925 |
+| sensor noise (sd) | 20.0 | 400 | 0.603 | 0.26 | 0.863 |
+| sensor noise (sd) | 40.0 | 400 | 0.24 | 0.365 | 0.605 |
+| sensor noise (sd) | 80.0 | 400 | 0.005 | 0.04 | 0.045 |
+| JPEG compression (quality) | 95.0 | 400 | 0.705 | 0.225 | 0.93 |
+| JPEG compression (quality) | 40.0 | 400 | 0.695 | 0.233 | 0.927 |
+| JPEG compression (quality) | 20.0 | 400 | 0.672 | 0.263 | 0.935 |
+| JPEG compression (quality) | 10.0 | 400 | 0.632 | 0.297 | 0.93 |
+| JPEG compression (quality) | 5.0 | 400 | 0.463 | 0.352 | 0.815 |
+| headlight glare (strength) | 0.0 | 400 | 0.703 | 0.23 | 0.932 |
+| headlight glare (strength) | 0.25 | 400 | 0.695 | 0.233 | 0.927 |
+| headlight glare (strength) | 0.5 | 400 | 0.685 | 0.242 | 0.927 |
+| headlight glare (strength) | 0.75 | 400 | 0.682 | 0.24 | 0.922 |
+| headlight glare (strength) | 1.0 | 400 | 0.675 | 0.237 | 0.912 |
 
 ![Robustness](figures/robustness_images.png)

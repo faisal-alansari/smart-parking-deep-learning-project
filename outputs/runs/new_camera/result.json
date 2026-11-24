@@ -1,0 +1,75 @@
+{
+  "folder": "samples/new_camera",
+  "camera": "set up from bays.yaml",
+  "occupancy_model": "final",
+  "decisions": [
+    {
+      "source": "IMG_1818.jpg",
+      "time": "2026-11-25T01:47:33.267376+04:00",
+      "clock": null,
+      "bay": "left",
+      "status": "AUTHORIZED",
+      "stay_status": "AUTHORIZED",
+      "occupied": true,
+      "occupancy_confidence": 0.996,
+      "plate": "Dubai O33044",
+      "plate_confidence": 0.942,
+      "reason": null,
+      "guidance": null,
+      "evidence": "outputs/runs/new_camera/evidence/IMG_1818_left.jpg"
+    },
+    {
+      "source": "IMG_1818.jpg",
+      "time": "2026-11-25T01:47:33.267376+04:00",
+      "clock": null,
+      "bay": "right",
+      "status": "EMPTY",
+      "stay_status": "EMPTY",
+      "occupied": false,
+      "occupancy_confidence": 0.114,
+      "plate": null,
+      "plate_confidence": null,
+      "reason": null,
+      "guidance": null,
+      "evidence": null
+    },
+    {
+      "source": "IMG_1820.jpg",
+      "time": "2026-11-25T01:47:33.272260+04:00",
+      "clock": null,
+      "bay": "left",
+      "status": "AUTHORIZED",
+      "stay_status": "AUTHORIZED",
+      "occupied": true,
+      "occupancy_confidence": 0.997,
+      "plate": "Dubai O33044",
+      "plate_confidence": 0.983,
+      "reason": null,
+      "guidance": null,
+      "evidence": "outputs/runs/new_camera/evidence/IMG_1820_left.jpg"
+    },
+    {
+      "source": "IMG_1820.jpg",
+      "time": "2026-11-25T01:47:33.272260+04:00",
+      "clock": null,
+      "bay": "right",
+      "status": "POTENTIALLY_UNAUTHORIZED",
+      "stay_status": "POTENTIALLY_UNAUTHORIZED",
+      "occupied": true,
+      "occupancy_confidence": 1.0,
+      "plate": "Dubai A66705",
+      "plate_confidence": 0.243,
+      "reason": null,
+      "guidance": "This car has no valid permit. Check it, or allow it with a command.",
+      "evidence": "outputs/runs/new_camera/evidence/IMG_1820_right.jpg"
+    }
+  ],
+  "commands": [
+    {
+      "time": "2026-01-01T08:00:00+04:00",
+      "command": "please add 33044",
+      "reply": "Done: Allow car 33044 in either bay permanently (no end time)."
+    }
+  ],
+  "problems": []
+}

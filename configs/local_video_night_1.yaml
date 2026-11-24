@@ -3,6 +3,7 @@
 # from the start. Check only: never used for training, model choice or thresholds.
 video: data/raw/video_night_1/IMG_1503.MOV
 every_s: 2
+snapshot_s: 340  # set-up snapshot for the camera check: 5:40, both bays empty
 truth_status: checked by the owner (2026-11-22), no changes
 # Bay boxes drawn once from a frame (3:20) with a car in each bay, like a fixed camera set up once.
 boxes:

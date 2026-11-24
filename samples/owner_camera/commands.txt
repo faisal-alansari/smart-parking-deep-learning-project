@@ -1,0 +1,4 @@
+# time | command (the owner's own wording). The BMW is allowed; the Tesla is not (yet).
+2026-01-01 08:00 | allow car 66705
+2026-01-01 08:01 | what's the weather today
+2026-01-01 08:02 | add 12345 until 6
