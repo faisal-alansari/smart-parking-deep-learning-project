@@ -228,6 +228,12 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 - **Outcome (seen check, rule unchanged after running):** It worked on the main points. False alerts on the owner's cars fell from 4 frames to 0, notifications fell from 78 to 29 over 10 minutes, and every real stay was found with the right answer at its end. The exception is the bay without the plate when the BMW stood across both bays, which goes to a person. Still weak: 5 "phantom" stays (a person standing in a bay, a car pulling up close and turning away), and empty bays at night called occupied (67 of 243 checks), so most remaining notifications are "please look" requests. With only a few reads early in a stay, the plate rule can flip once or twice before settling. The folder command now uses per-stay answers for videos (`outputs/loop/video_night_1_stays.md`).
 - **Next:** A fresh video recorded later, not looked at first, is the clean test. The biggest remaining gain is night occupancy (adapting Model A on local photos, open item).
 
+### 2026-11-25 | Last recording: night video 2 and the data split
+
+- **Decision / reason:** The owner made the last recording: about 43 minutes on the night of 2026-11-24, from a fixed spot (phone on a stick), in 5 files that follow the checklist closely. Daytime recording is not possible (the site is too crowded), so local work is night only; daytime evidence comes from public data and 4 local day photos. Claude marked every arrival, departure, person and passing car; the owner checked the list and made 3 corrections (`configs/local_video_night_2.yaml`, local only). The waiting car counts as occupied, and a car across both bays counts in both. The camera did not move between files, but the view is closer than in video 1, so new bay boxes were drawn once from a frame with both cars parked.
+- **Split (fixed before any training):** blocks 1–3 train Model A; block 4 chooses its settings; the first night video (a different night) is the final test, run once. Local photos and the public test set are extra checks that adapting did not break other car parks or daytime.
+- **Next:** Write the adaptation plan here before training, then adapt Model A.
+
 ## Decision log
 
 For each **meaningful** new decision, add one short entry:
