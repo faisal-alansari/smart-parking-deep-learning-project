@@ -141,3 +141,7 @@ calibration:
 # Error-cost model: thresholds chosen on validation, test cost, sensitivity, risk-coverage
 costs:
     uv run python -m smart_parking.trust.costs
+
+# Unfamiliar-input (OOD) detector for the camera: fit, cut-off on block 4, evaluation
+ood:
+    uv run python -m smart_parking.trust.ood
