@@ -116,6 +116,11 @@ included), so truth labels, plate-level results and samples are in Git.
 **Report length.** `just report-check` counts the report's prose (tables, figures and captions
 excluded) against the 3,000-word limit.
 
+**Submission package.** `just package` clones the repository into `dist/` and zips it
+(`dist/smart-parking-submission.zip`): code, full Git history, configs, trained weights,
+experiment logs, outputs, samples and docs. It leaves out the raw data (data card), the
+downloaded pretrained models (`just download-weights`, `just download-command-models`) and caches.
+
 ## Layout
 
 | path | contents |

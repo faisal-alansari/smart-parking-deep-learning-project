@@ -121,6 +121,15 @@ clean:
     rm -rf .pytest_cache .ruff_cache logs
     find . -type d -name __pycache__ -prune -exec rm -rf {} +
 
+# Build the submission zip from Git: code, full history, weights, logs and outputs (no raw
+# data, downloaded models or caches; uncommitted changes are left out)
+package:
+    rm -rf dist && mkdir -p dist
+    git clone --quiet . dist/smart-parking
+    git -C dist/smart-parking remote set-url origin "$(git remote get-url origin)"
+    cd dist && zip -qr smart-parking-submission.zip smart-parking
+    @du -h dist/smart-parking-submission.zip
+
 # Full loop story on the owner's photos: all three models and the permit table (local only)
 full-loop-scenario:
     HF_HUB_OFFLINE=1 uv run python -m smart_parking.loop --scenario

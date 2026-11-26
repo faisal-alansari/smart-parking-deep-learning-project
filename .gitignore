@@ -18,3 +18,6 @@ experiments/occupancy_adapt/*.pt
 # the adaptation candidates: `just adapt-occupancy-choice-report` re-scores them on block 4
 !experiments/occupancy_adapt/[bcd]_*.pt
 outputs/runs/app/
+# local leftovers kept out of the submission, and the built submission zip
+_local_archive/
+dist/
