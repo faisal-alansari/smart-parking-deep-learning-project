@@ -8,9 +8,13 @@ logs/
 checkpoints/occupancy/exp_*.pt
 checkpoints/plates/pretrained/
 checkpoints/plates/exp_*.pt
+# the from-scratch plate baseline: `just evaluate-plates` scores it
+!checkpoints/plates/exp_img960_full_n5000_scratch.pt
 experiments/plates/*/weights/
 experiments/plates/*/*_batch*.jpg
 experiments/plates/*/labels.jpg
 checkpoints/commands/pretrained/
 experiments/occupancy_adapt/*.pt
+# the adaptation candidates: `just adapt-occupancy-choice-report` re-scores them on block 4
+!experiments/occupancy_adapt/[bcd]_*.pt
 outputs/runs/app/

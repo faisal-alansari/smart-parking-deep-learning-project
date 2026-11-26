@@ -29,6 +29,7 @@ from smart_parking.common.config import load_config  # noqa: E402
 from smart_parking.common.log import setup_logging  # noqa: E402
 from smart_parking.trust.common import (  # noqa: E402
     FITTED_CHANGED,
+    FITTED_MISSING,
     OUT,
     md,
     occupancy_models,
@@ -133,8 +134,10 @@ def run(refit: bool = False) -> None:
     params = {"occupancy": {"method": "raw", "platt_a": ab_a[0], "platt_b": ab_a[1]},
               "plate": {"method": "platt", "a": ab_b[0], "b": ab_b[1]}}  # fmt: skip
     saved = OUT / "calibration.json"
-    if refit or not saved.exists():
+    if refit:
         saved.write_text(json.dumps(params, indent=2))
+    elif not saved.exists():
+        raise SystemExit(FITTED_MISSING.format(saved))
     elif not same_numbers(json.loads(saved.read_text()), params):
         raise SystemExit(FITTED_CHANGED.format("Calibration"))
     bins = []

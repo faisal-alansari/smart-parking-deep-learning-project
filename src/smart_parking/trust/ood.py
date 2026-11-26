@@ -34,7 +34,14 @@ from smart_parking.common.config import load_config
 from smart_parking.common.log import setup_logging
 from smart_parking.occupancy.adapt import VIDEO_TEST, VIDEO_TRAIN, build_crops
 from smart_parking.occupancy.train import to_tensor
-from smart_parking.trust.common import FITTED_CHANGED, OUT, md, occupancy_models, refit_flag
+from smart_parking.trust.common import (
+    FITTED_CHANGED,
+    FITTED_MISSING,
+    OUT,
+    md,
+    occupancy_models,
+    refit_flag,
+)
 
 DETECTOR = Path("checkpoints/occupancy/ood_detector.npz")
 REFERENCE = Path("checkpoints/occupancy/reference_view.npz")  # small grey view: no plates
@@ -215,9 +222,11 @@ def run(refit: bool = False) -> None:
                     **{f"box_{k}": np.array(b) for k, b in cfg2["boxes"].items()}},
     }  # fmt: skip
     for path, arrays in fitted.items():
-        if refit or not path.exists():
+        if refit:
             np.savez(path, **arrays)
             continue
+        if not path.exists():
+            raise SystemExit(FITTED_MISSING.format(path))
         saved = np.load(path)
         if set(saved.files) != set(arrays) or not all(
             np.allclose(saved[k], arrays[k], rtol=1e-5, atol=1e-6) for k in arrays

@@ -23,6 +23,10 @@ FITTED_CHANGED = (
     "{} differs from the saved, validation-fitted value. `just evaluate` never changes fitted "
     "settings; run `just refit` on purpose (validation data only) and commit the change."
 )
+FITTED_MISSING = (
+    "{} is missing. `just evaluate` never creates fitted settings; restore it from Git or run "
+    "`just refit` on purpose (validation data only)."
+)
 OUT = Path("outputs/trust")
 PLATE_SEED = 42
 
