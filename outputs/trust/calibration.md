@@ -15,7 +15,7 @@ The fitted parameters are saved to outputs/trust/calibration.json and used in th
 | model | split | items | ECE before | ECE after |
 |---|---|---|---|---|
 | A occupancy | validation (block 4) | 600 | 0.0101 | 0.0039 |
-| A occupancy | test (first video) | 486 | 0.0651 | 0.1122 |
+| A occupancy | test (night video 3) | 1142 | 0.0521 | 0.1457 |
 | B plate read | validation (public) | 921 | 0.1229 | 0.0299 |
 | B plate read | test (public) | 913 | 0.139 | 0.0356 |
 
@@ -24,7 +24,7 @@ The fitted parameters are saved to outputs/trust/calibration.json and used in th
 ## What this says
 
 - **Model B is under-confident:** its reads are right more often than its confidence says (bins below). Platt scaling fitted on validation fixes this on test, so the product shows Model B's calibrated confidence.
-- **Model A's raw probability is already fairly calibrated on the other night.** Platt scaling fitted on block 4 (the same night as its training data) looks better on block 4 but worse on the test night: it pushes almost every crop to 0 or 1 and becomes sure that a bay holding half of a car standing across both bays is empty. The product therefore keeps Model A's raw probability. This choice was informed by the test result (one night cannot calibrate another), and is reported as such.
+- **Model A keeps its raw probability.** The choice was made on block 4 alone: with each of two folds of block 4 held out in turn, Platt scaling had a higher calibration error than the raw probability (`validation_choices.md`). The test night only reports how both behave; nothing was chosen on it.
 
 ## Bins (test)
 
@@ -32,31 +32,31 @@ The fitted parameters are saved to outputs/trust/calibration.json and used in th
 
 | bin | count | mean confidence | observed rate |
 |---|---|---|---|
-| 0.0-0.1 | 177 | 0.008 | 0.0 |
-| 0.1-0.2 | 5 | 0.176 | 0.0 |
-| 0.2-0.3 | 16 | 0.254 | 0.0 |
-| 0.3-0.4 | 6 | 0.352 | 0.0 |
-| 0.4-0.5 | 11 | 0.438 | 0.091 |
-| 0.5-0.6 | 12 | 0.557 | 0.083 |
-| 0.6-0.7 | 41 | 0.659 | 0.829 |
-| 0.7-0.8 | 10 | 0.754 | 0.5 |
-| 0.8-0.9 | 11 | 0.866 | 0.545 |
-| 0.9-1.0 | 197 | 0.992 | 0.995 |
+| 0.0-0.1 | 461 | 0.006 | 0.0 |
+| 0.1-0.2 | 5 | 0.141 | 0.0 |
+| 0.2-0.3 | 10 | 0.233 | 0.5 |
+| 0.3-0.4 | 36 | 0.353 | 0.944 |
+| 0.4-0.5 | 3 | 0.409 | 1.0 |
+| 0.5-0.6 | 36 | 0.536 | 1.0 |
+| 0.6-0.7 | 4 | 0.665 | 1.0 |
+| 0.7-0.8 | 11 | 0.755 | 0.909 |
+| 0.8-0.9 | 19 | 0.859 | 0.947 |
+| 0.9-1.0 | 557 | 0.984 | 1.0 |
 
 ### A Platt (test)
 
 | bin | count | mean confidence | observed rate |
 |---|---|---|---|
-| 0.0-0.1 | 283 | 0.003 | 0.152 |
-| 0.1-0.2 | 4 | 0.167 | 0.75 |
-| 0.2-0.3 | 6 | 0.248 | 0.833 |
-| 0.3-0.4 | 5 | 0.327 | 0.8 |
-| 0.4-0.5 | 3 | 0.441 | 1.0 |
-| 0.5-0.6 | 2 | 0.563 | 1.0 |
-| 0.6-0.7 | 2 | 0.688 | 1.0 |
-| 0.7-0.8 | 0 |  |  |
-| 0.8-0.9 | 1 | 0.847 | 1.0 |
-| 0.9-1.0 | 180 | 0.995 | 1.0 |
+| 0.0-0.1 | 574 | 0.001 | 0.174 |
+| 0.1-0.2 | 9 | 0.155 | 0.889 |
+| 0.2-0.3 | 19 | 0.258 | 1.0 |
+| 0.3-0.4 | 31 | 0.349 | 1.0 |
+| 0.4-0.5 | 12 | 0.456 | 1.0 |
+| 0.5-0.6 | 5 | 0.54 | 1.0 |
+| 0.6-0.7 | 7 | 0.657 | 1.0 |
+| 0.7-0.8 | 17 | 0.759 | 1.0 |
+| 0.8-0.9 | 51 | 0.865 | 1.0 |
+| 0.9-1.0 | 417 | 0.99 | 1.0 |
 
 ### B raw (test)
 

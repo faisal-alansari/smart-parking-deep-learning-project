@@ -1,6 +1,6 @@
 # Model C: flan-t5 on test
 
-Time per command: 242 ms mean, 467 ms p95.
+Time per command: 232 ms mean, 450 ms p95.
 
 | slice | n | exact | dangerous | needless question | action | number | until |
 |---|---|---|---|---|---|---|---|

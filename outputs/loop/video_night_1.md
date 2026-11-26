@@ -32,7 +32,7 @@ One 10-minute night video of the owner's two bays, one frame every 2 s (301 fram
 
 | stage | calls | mean ms | p95 ms |
 |---|---|---|---|
-| camera check (one frame) | 301 | 4.9 | 5.3 |
-| A occupancy (one frame, both bays) | 292 | 6.4 | 6.7 |
-| B plate read (one occupied bay) | 235 | 53.9 | 53.0 |
+| camera check (one frame) | 301 | 4.9 | 5.5 |
+| A occupancy (one frame, both bays) | 292 | 6.7 | 7.7 |
+| B plate read (one occupied bay) | 235 | 47.1 | 54.1 |
 | permit table check (one bay) | 584 | 0.0 | 0.0 |

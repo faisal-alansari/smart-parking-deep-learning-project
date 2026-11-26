@@ -66,14 +66,20 @@ The folder may hold photos (`.jpg .jpeg .png .heic`), videos (`.mov .mp4 .m4v`),
 `bays.yaml` (`boxes: {left: [x0, y0, x1, y1], right: [...]}` as fractions of the frame). Without
 `bays.yaml` the owner's camera is assumed. Results go to `outputs/runs/<folder>/`:
 `result.json` (validated Pydantic records: status, confidence, reason, guidance, evidence frame),
-`decisions.csv`, `summary.md` and `evidence/`. Bad or unsupported inputs are reported with
-guidance, never a crash. Without `--yes`, each proposed permit change is asked in the terminal.
+`decisions.csv`, `summary.md` and `evidence/`. Bad inputs never crash the run: unreadable or
+unsupported files, a broken `bays.yaml` or snapshot (photos and videos are then not judged),
+non-UTF-8 `commands.txt`, an empty or missing folder and an invalid `--every` all come back as
+structured problems with guidance, and `result.json` is always written. A frame the camera check
+refuses keeps the bay at NEEDS_REVIEW until the view is usable again. Without `--yes`, each
+proposed permit change is asked in the terminal; closed input declines it. `--yes` simulates
+the owner's confirmation for a demo.
 
 ## Reproduce
 
 ```bash
 just train      # public occupancy CNN, plate reader, Model A adaptation (seeds in configs/)
-just evaluate   # regenerates every table and figure used in the report (no training)
+just evaluate   # read-only: regenerates every report table and figure (no training)
+just refit      # only when meant: re-fits calibration, cost thresholds and the camera check
 ```
 
 Main recipes, each writing to `outputs/`:
@@ -81,16 +87,34 @@ Main recipes, each writing to `outputs/`:
 | recipe | what it produces |
 |---|---|
 | `evaluate-occupancy`, `evaluate-plates` | Models A (public data) and B against baselines on their test splits |
-| `adapt-occupancy` / `adapt-occupancy-report` | Model A adaptation: options chosen on validation; the one final test |
+| `adapt-occupancy` / `adapt-occupancy-report` | Model A adaptation: options chosen on validation; the deployed copies scored on the sealed night 3 |
 | `command-test`, `command-robustness` | Model C on its frozen test, as tested; robustness levels |
-| `full-loop`, `full-loop-ablation`, `video-night-1`, `video-night-1-stays` | the joined system; one part removed at a time; the test night, frame by frame and per stay |
+| `final-test` | the one final system test on the sealed night video 3 (runs the models once; `just final-test --report` rebuilds its report) |
+| `full-loop`, `full-loop-ablation`, `video-night-1`, `video-night-1-stays` | the joined system; one part removed at a time; night 1 (a seen check), frame by frame and per stay |
 | `calibration`, `costs`, `ood`, `robustness-images`, `monitor-demo` | trust: reliability and ECE, cost-based thresholds, unfamiliar inputs, stress tests, monitoring |
 | `efficiency`, `probes`, `failures`, `budget` | efficiency study, explainability probes, failure taxonomy, parameter budget |
+| `occupancy-experiments-report`, `plate-experiments-report`, `adapt-occupancy-choice-report` | training-choice and adaptation tables rebuilt from the logged runs |
+| `validation-choices`, `latency`, `report-check` | choices redone on block 4 only; time and memory per stage; report word count |
 
 **Data.** Public: CNRPark+EXT and AddingUAE (download links in the data card). The owner's
-photos and videos (about 6.5 GB) go in `data/raw/` (`local_pilot/`, `local_night_1/`,
-`video_night_1/`, `video_night_2/`); their truth labels are in `configs/local_*.yaml`. All
-seeds are set in `configs/default.yaml` (42, 43, 44).
+photos and videos (about 8 GB) go in `data/raw/` (`local_pilot/`, `local_night_1/`,
+`video_night_1/`, `video_night_2/`, `video_test/`); their truth labels are in `configs/local_*.yaml`. All
+model-training seeds are 42, 43, 44. Command data seeds 1-7 are in
+`configs/default.yaml`; seeded stress and bootstrap routines also use local seeds in source.
+
+**How `just evaluate` stays honest.** It never trains and never writes a fitted setting:
+calibration, cost thresholds and the camera check are re-computed and compared with the saved
+values, and a difference stops the run (only `just refit` stores new ones, from validation data).
+Training-choice tables are rebuilt from the logged runs. `command-test` replays the one frozen
+Model C comparison exactly as tested; nothing is chosen from it. Before evaluating, download
+and prepare the public data (`just prepare-data`, `just audit-plates`, `just prepare-plates`) and
+place the owner's videos and photos in `data/raw/` (download link in the data card).
+
+**Privacy.** The owner considers all captured photos and videos public (plates and faces
+included), so truth labels, plate-level results and samples are in Git.
+
+**Report length.** `just report-check` counts the report's prose (tables, figures and captions
+excluded) against the 3,000-word limit.
 
 ## Layout
 
@@ -120,3 +144,9 @@ seeds are set in `configs/default.yaml` (42, 43, 44).
 - SmolLM2: L. Ben Allal et al., "SmolLM2: When smol goes big", 2025.
 - FLAN-T5 (a candidate, not used): H. W. Chung et al., "Scaling instruction-finetuned language
   models", 2022.
+
+Model cards (exact revisions are pinned in `commands/candidates.py`):
+[GLiNER](https://huggingface.co/urchade/gliner_small-v2.1),
+[MiniLM](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2),
+[SmolLM2](https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct),
+[FLAN-T5](https://huggingface.co/google/flan-t5-small).

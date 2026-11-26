@@ -30,7 +30,7 @@ Camera: set up from bays.yaml; occupancy model: final. 1 commands, 4 bay decisio
 | stage | calls | mean ms | p95 ms |
 |---|---|---|---|
 | C command (one command) | 1 | 0.5 | 0.5 |
-| camera check (one frame) | 2 | 7.0 | 7.2 |
-| A occupancy (one frame, both bays) | 2 | 19.2 | 30.6 |
-| B plate read (one occupied bay) | 3 | 59.4 | 72.5 |
+| camera check (one frame) | 2 | 6.5 | 6.5 |
+| A occupancy (one frame, both bays) | 2 | 17.9 | 28.4 |
+| B plate read (one occupied bay) | 3 | 58.8 | 70.5 |
 | permit table check (one bay) | 4 | 0.0 | 0.0 |

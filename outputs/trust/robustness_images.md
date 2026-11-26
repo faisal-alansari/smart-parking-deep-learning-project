@@ -4,7 +4,7 @@ Stresses (4 levels each): darkness (the street light fails), blur (a dirty or fo
 sensor noise (night grain), JPEG compression (a weak video link) and headlight glare (a bright
 blob over the bays). Each is applied to the whole frame.
 
-- Model A + the camera check: frames of the other night (test, one every 4 s, moving periods
+- Model A + the camera check: frames of night video 1 (a seen night, one every 4 s, moving periods
   left out). For each level: how often the camera check asks a person (graceful abstention),
   and Model A's balanced accuracy on the frames it still answers.
 - Model B: 400 public plate test images under the same stresses: exact full-plate reads,

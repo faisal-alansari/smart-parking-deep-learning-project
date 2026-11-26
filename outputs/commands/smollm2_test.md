@@ -1,6 +1,6 @@
 # Model C: smollm2 on test
 
-Time per command: 295 ms mean, 414 ms p95.
+Time per command: 298 ms mean, 432 ms p95.
 
 | slice | n | exact | dangerous | needless question | action | number | until |
 |---|---|---|---|---|---|---|---|

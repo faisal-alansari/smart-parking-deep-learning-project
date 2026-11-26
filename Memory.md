@@ -250,12 +250,14 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 - **Outcome:** Safer and slightly more accurate: exact full-plate reads 70.6% → 72.8%, wrong reads 27.5% → 19.2%. The price is coverage: 98% → 92% of plates are answered; the rest go to a person.
 - **Next:** Final. Never rerun.
 
-### 2026-11-25 | Privacy lifted; project change explained
+### 2026-11-25 | Privacy lifted; project change explained (confirmed by the owner 2026-11-26)
 
 - **Decision / reason:** The owner considers all captured data public (plates and faces included), so local photos, videos, their truth labels and plate-level results may go in the demo, the repository and the report. This supersedes the 2026-11-22 "keep plates local" decision. The owner also confirmed that the project was changed after the intermediate submission, with the professor's agreement, because the earlier project could not continue; the report says so and judges results against this project's own plan, not the old proposal.
 - **Next:** Remove the privacy-only Git ignores, add sample inputs for the demo, and make the local results reproducible (large videos cannot go in Git; derived data or a download link is needed).
 
 ### 2026-11-25 | Trust checks, product hardening, demo and report
+
+**Audit correction (2026-11-26):** the claims below that every report artifact is regenerated and that the local system has an untouched final test are superseded by the submission audit. Historical results are retained.
 
 - **Decision / reason:** Finished the remaining rubric work on branch `trust-checks`. Each choice was made on validation (block 4, or public validation), with three choices informed by the test, each disclosed in its report: (1) Model A keeps its raw probability, because Platt scaling fitted on block 4 worsened calibration on the test night (ECE 0.065 vs 0.112), while Model B uses Platt scaling (0.139 → 0.036); (2) the feature-distance unfamiliar-input check is not used, because it flagged 13% of normal frames on the other night; (3) plate caching was adopted after the efficiency study measured it on the test night.
 - **Cost model:** false alert 5, missed unauthorized car 10, review 1, with 70% of cars allowed. Model A's threshold became 0.86 (stable under every cost assumption). The plate gate was first chosen on public plates (0.7), but it sent 30% of the owner's bays to a person, so it was re-chosen on block 4 (0.15).
@@ -269,6 +271,52 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
   - Streamlit demo (`just demo`) with accept, reject or fix feedback.
 - **Outcome:** On the test night, per stay: 85% of bay checks right, 0 false alerts, 13 notifications in 10 minutes, all four normal stays right. `just evaluate` regenerates every report table. Model C's frozen-test numbers replay exactly with `--as-tested`. A clean clone installs, passes 134 tests and runs the demo. The final report is `docs/final_report.md` (about 2,400 words).
 - **Next:** Host the raw local videos and photos (about 6.5 GB, too big for Git) so `just evaluate` can be reproduced fully; merge and push when the owner says.
+
+### 2026-11-26 | Submission audit: evidence boundary and safe fixes
+
+- **Decision / reason:** Audit the saved evidence and use synthetic inputs for behavior checks; do not run frozen-test inference, retrain, choose settings or use `--final`. Keep larger changes for owner approval.
+- **Outcome:** The clean demo works and model/data limits pass. Full reproduction is incomplete, and earlier system choices used the seen test night. A synthetic blocked video loses its review warning in the displayed stay result. Small fixes cover missing terminal confirmation, folder quoting, logging, dependency declarations and inaccurate report claims. Details and all rubric checks are in `docs/submission_audit.md`.
+- **Next:** Owner approval is needed for shared video logic, input validation, safe replay/data packaging and a genuinely fresh evaluation. Existing scores remain historical; no new performance result is claimed.
+
+### 2026-11-26 | Privacy restored for submission work (superseded the same day: data stays public)
+
+- **Decision / reason:** The current owner instruction keeps real plates and local photos private, superseding the earlier permission to publish them.
+- **Outcome:** Current documentation and ignore rules now reflect that instruction. Private artifacts are already tracked, so ignore rules alone do not make the repository shareable. Nothing was committed, pushed, uploaded or removed from history.
+- **Next:** Prepare an owner-approved sanitized submission package before sharing; keep original private evidence local.
+
+### 2026-11-26 | Review of the Codex audit: data public, one sealed test video
+
+- **Decision / reason:** An independent review of the Codex audit found that its "privacy restored" entry came from an outdated rule copied into the audit prompt, not from the owner. The owner confirmed that all plates, photos and videos are public, so the 2026-11-25 decision stands and the privacy edits were undone. The review also confirmed that night video 1 was looked at and used for three choices (Model A's confidence, the feature-distance check, plate caching), so it can no longer be a clean test.
+- **New split:** public data unchanged. Night 2 blocks 1-3 train, block 4 chooses every local setting (including the three choices above, redone on block 4 only). Night 1 becomes a seen cross-night check. The owner will record **one new night video (at most 20 minutes, `docs/planning/test_video_checklist.md`)** as the only final system test: truth marked and checked before any model sees it, settings frozen and committed first, run once.
+- **Next:** Fix the video safety bug (a blocked camera lost its review status), input checks and the evaluate recipe before the new video; then freeze and test once. Results pending.
+
+### 2026-11-26 | Rules for redoing the three test-informed choices on block 4 (fixed before running)
+
+- **Decision / reason:** The three choices once informed by night video 1 are made again on block 4 (validation) only, with these rules written down before any block-4 result is seen. Block 4 is split by time into a first and a second half; each rule uses one half to fit and the other to check, both ways.
+- **Model A confidence:** use Platt scaling only if its mean held-out ECE is lower than the raw probability's on the same halves; otherwise (or a tie) keep the raw probability.
+- **Feature-distance bay check:** use it only if its held-out false-alarm rate is at most 2% **and** it catches at least 5% of corrupted block-4 frames (blur, over-exposure, noise, moved camera, covered lens) that the blocked, view and sharpness checks miss.
+- **Plate caching:** replay block 4 with and without caching; keep caching only if it answers at least as many stay ends right, per-stay answers on scored frames stay within 1 percentage point, and Model B runs fewer times.
+- **Next:** Run `just validation-choices` and `just efficiency` on block 4, apply what the rules say, and record the outcome here.
+- **Change before any result (same day):** the time halves failed at once: the second half of block 4 has only parked cars, so Platt scaling cannot be fitted on it. No score had been seen. Both checks now use two folds of alternating 60-second blocks instead of halves; the rules are otherwise unchanged.
+- **Outcome:** All three rules give the same choice as before, now backed by block 4 alone: Model A keeps its raw probability (held-out ECE 0.011 raw vs 0.023 Platt); the bay check stays off (2.6% held-out false alarms, above the 2% limit, although it would catch about 13% of corrupted frames the other checks miss); plate caching stays (same stay answers, Model B time cut to about 13%). Details: `outputs/trust/validation_choices.md`, `outputs/trust/efficiency.md`. Night 1 is now only a seen check.
+
+### 2026-11-26 | Fixes before the sealed test: video safety, input checks, read-only evaluate
+
+- **Decision / reason:** Fixed the problems the audit review confirmed, before the new test video, so the test runs on the final design.
+- **Video safety:** a frame the camera check refuses is now "unknown": it neither confirms nor ends a stay, and the bay shows NEEDS_REVIEW with the reason until the view is usable. Cached plate reads no longer count as new votes. One shared step now serves the CLI, the demo, the replays and the efficiency study (they disagreed before). Re-run on night 1 (seen check): per-stay answers 85% → 83%, notifications 13 → 28, because camera-check reviews that the old replay hid now reach the owner.
+- **Input checks:** a bad `--every`, non-UTF-8 commands, an empty or broken `bays.yaml`, a missing snapshot and an empty or missing folder now return structured problems and always write `result.json`; a broken camera set-up never judges photos with the owner's boxes. The demo validates the owner's fixes.
+- **Reproduction:** `just evaluate` is read-only: it rebuilds the training-choice and adaptation tables from logged runs and stops if calibration, thresholds or the camera check would change (only `just refit` stores them). Latency is now measured by a recipe (`just latency`): 21 ms per frame on average, 113 ms per command, 5 s to load, 2.6 GB.
+- **Next:** Record the sealed test video; freeze and commit; mark truth before any model sees it; run once. Host the raw data and add the link.
+
+### 2026-11-27 | Final test on night video 3: rules fixed before the run
+
+- **What happened:** The owner recorded night video 3 alone (24 minutes, same spot as night 2) for the test only; it sits in `data/raw/video_test/`. Claude marked its truth from frames every 10 s and 2 s before any model saw it (`configs/local_video_night_3.yaml`). The commands file follows the checklist exactly (BMW always; Tesla until 9 minutes after the start, rounded down to 00:14; one off-topic line), not chosen after seeing the events. Bay boxes were drawn once from a frame with both cars parked, and the camera snapshot is the frame at 0:10, as on the earlier nights.
+- **Rules (fixed now):** `just final-test` runs once and refuses to run again; it needs the owner's truth check first. Model C reads the commands and its proposals are accepted as proposed, so its mistakes reach the bays. **Primary measure:** of the true stays of at least 30 s, the share whose answer at the stay's last parked frame is right. Secondary measures: stays under 30 s, plate found per stay, per-frame occupancy and plate reads, lens-blocked frames sent to a person, false alerts on allowed cars, stays seen with no car, notifications, commands understood. A car over the middle line counts in both bays; a lens blocked by a person must give NEEDS_REVIEW.
+- **Night 3 also replaces night 1** as the test for Model A's adaptation, calibration, costs and the camera check (scored with the frozen models, nothing chosen). Monitoring and image robustness stay on night 1 (demonstrations, not tests). Fine-tuning items now count only what a model learned from or was chosen on (8,204 of 10,000); test items are listed apart.
+- **Owner check and freeze:** the owner checked the truth on 2026-11-27 with no changes. Frozen before the run: commit 1a48211 plus the working tree (SHA-256 of src, configs, Justfile, pyproject and uv.lock: 6eb99bd16276f47f; deployed weights: c028975ff6848ff2). Not committed, on the owner's time limit.
+- **Outcome (run once, 2026-11-27):** 5 of 9 stays of 30 s or more answered right; the 22 s stay right too. Every normal stay was right (both owner's cars, the Tesla after its permit ended, the crooked Tesla, a person in front of a plate or in an empty bay, the lens blocked: 20 of 20 frames to a person). All four wrong stays are the two cars across both bays: the BMW went to NEEDS_REVIEW (safe), but the Tesla over the middle line was called EMPTY in both bays, so one car without a valid permit was missed. No false alert on an allowed car, no stay seen with no car there, 20 notifications in 24 minutes, Model C got all 3 commands right (the off-topic line got a question, not a refusal). `outputs/final_test/night_3.md`.
+- **What it means:** the known weakness (a car across both bays) is the one that fails, and it can now fail unsafely (a miss), not only by review. Not fixed after the test: fixing it now would tune on the test. Next fix, untested: treat "one car over both bays" as its own event.
+- **Other test-night findings (scored with frozen models, nothing chosen):** Model A on normal frames 0.999 balanced accuracy (public model 0.961), but across the whole night the adapted model costs more than the public one because of the cars across both bays. The camera check caught only 3% of simulated shifted-and-zoomed frames (98% on night 1), so a knocked camera is not reliably caught; blur, a covered lens and noise were all caught. The explainability probes now run on night 3 and partly support the half-car hypothesis (greying the left half of a car crop leaves 48% called occupied).
 
 ## Decision log
 

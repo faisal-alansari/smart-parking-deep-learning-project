@@ -35,7 +35,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:12+04:00",
+      "time": "2026-11-26T22:00:38+04:00",
       "clock": "0:00",
       "bay": "left",
       "status": "EMPTY",
@@ -50,7 +50,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:12+04:00",
+      "time": "2026-11-26T22:00:38+04:00",
       "clock": "0:00",
       "bay": "right",
       "status": "AUTHORIZED",
@@ -65,7 +65,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:14+04:00",
+      "time": "2026-11-26T22:00:40+04:00",
       "clock": "0:02",
       "bay": "left",
       "status": "EMPTY",
@@ -80,7 +80,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:14+04:00",
+      "time": "2026-11-26T22:00:40+04:00",
       "clock": "0:02",
       "bay": "right",
       "status": "AUTHORIZED",
@@ -95,7 +95,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:16+04:00",
+      "time": "2026-11-26T22:00:42+04:00",
       "clock": "0:04",
       "bay": "left",
       "status": "EMPTY",
@@ -110,7 +110,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:16+04:00",
+      "time": "2026-11-26T22:00:42+04:00",
       "clock": "0:04",
       "bay": "right",
       "status": "AUTHORIZED",
@@ -125,7 +125,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:18+04:00",
+      "time": "2026-11-26T22:00:44+04:00",
       "clock": "0:06",
       "bay": "left",
       "status": "EMPTY",
@@ -140,7 +140,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:18+04:00",
+      "time": "2026-11-26T22:00:44+04:00",
       "clock": "0:06",
       "bay": "right",
       "status": "AUTHORIZED",
@@ -155,67 +155,67 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:20+04:00",
+      "time": "2026-11-26T22:00:46+04:00",
       "clock": "0:08",
       "bay": "left",
       "status": "NEEDS_REVIEW",
-      "stay_status": "EMPTY",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "blurred_view",
-      "guidance": null,
-      "evidence": null
+      "guidance": "The image is blurred. Clean the lens or check the focus.",
+      "evidence": "outputs/runs/owner_camera/evidence/night_clip_left_0-08.jpg"
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:20+04:00",
+      "time": "2026-11-26T22:00:46+04:00",
       "clock": "0:08",
       "bay": "right",
       "status": "NEEDS_REVIEW",
-      "stay_status": "EMPTY",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "blurred_view",
-      "guidance": null,
-      "evidence": null
+      "guidance": "The image is blurred. Clean the lens or check the focus.",
+      "evidence": "outputs/runs/owner_camera/evidence/night_clip_right_0-08.jpg"
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:22+04:00",
+      "time": "2026-11-26T22:00:48+04:00",
       "clock": "0:10",
       "bay": "left",
       "status": "NEEDS_REVIEW",
-      "stay_status": "EMPTY",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "blurred_view",
-      "guidance": null,
+      "guidance": "The image is blurred. Clean the lens or check the focus.",
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:22+04:00",
+      "time": "2026-11-26T22:00:48+04:00",
       "clock": "0:10",
       "bay": "right",
       "status": "NEEDS_REVIEW",
-      "stay_status": "EMPTY",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "blurred_view",
-      "guidance": null,
+      "guidance": "The image is blurred. Clean the lens or check the focus.",
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:24+04:00",
+      "time": "2026-11-26T22:00:50+04:00",
       "clock": "0:12",
       "bay": "left",
       "status": "EMPTY",
@@ -230,22 +230,22 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:24+04:00",
+      "time": "2026-11-26T22:00:50+04:00",
       "clock": "0:12",
       "bay": "right",
       "status": "AUTHORIZED",
-      "stay_status": "EMPTY",
+      "stay_status": "AUTHORIZED",
       "occupied": true,
       "occupancy_confidence": 1.0,
       "plate": "Dubai AA66705",
       "plate_confidence": 0.739,
       "reason": null,
       "guidance": null,
-      "evidence": null
+      "evidence": "outputs/runs/owner_camera/evidence/night_clip_right_0-12.jpg"
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:26+04:00",
+      "time": "2026-11-26T22:00:52+04:00",
       "clock": "0:14",
       "bay": "left",
       "status": "EMPTY",
@@ -260,22 +260,22 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:26+04:00",
+      "time": "2026-11-26T22:00:52+04:00",
       "clock": "0:14",
       "bay": "right",
       "status": "AUTHORIZED",
-      "stay_status": "EMPTY",
+      "stay_status": "AUTHORIZED",
       "occupied": true,
       "occupancy_confidence": 1.0,
       "plate": "Dubai AA66705",
-      "plate_confidence": 0.755,
+      "plate_confidence": 0.739,
       "reason": null,
       "guidance": null,
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:28+04:00",
+      "time": "2026-11-26T22:00:54+04:00",
       "clock": "0:16",
       "bay": "left",
       "status": "EMPTY",
@@ -290,22 +290,22 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:28+04:00",
+      "time": "2026-11-26T22:00:54+04:00",
       "clock": "0:16",
       "bay": "right",
       "status": "AUTHORIZED",
-      "stay_status": "EMPTY",
+      "stay_status": "AUTHORIZED",
       "occupied": true,
       "occupancy_confidence": 1.0,
       "plate": "Dubai AA66705",
-      "plate_confidence": 0.685,
+      "plate_confidence": 0.739,
       "reason": null,
       "guidance": null,
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:30+04:00",
+      "time": "2026-11-26T22:00:56+04:00",
       "clock": "0:18",
       "bay": "left",
       "status": "EMPTY",
@@ -320,22 +320,22 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:30+04:00",
+      "time": "2026-11-26T22:00:56+04:00",
       "clock": "0:18",
       "bay": "right",
       "status": "AUTHORIZED",
-      "stay_status": "EMPTY",
+      "stay_status": "AUTHORIZED",
       "occupied": true,
       "occupancy_confidence": 1.0,
       "plate": "Dubai AA66705",
-      "plate_confidence": 0.747,
+      "plate_confidence": 0.739,
       "reason": null,
       "guidance": null,
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:32+04:00",
+      "time": "2026-11-26T22:00:58+04:00",
       "clock": "0:20",
       "bay": "left",
       "status": "EMPTY",
@@ -350,7 +350,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:32+04:00",
+      "time": "2026-11-26T22:00:58+04:00",
       "clock": "0:20",
       "bay": "right",
       "status": "AUTHORIZED",
@@ -358,14 +358,14 @@
       "occupied": true,
       "occupancy_confidence": 1.0,
       "plate": "Dubai AA66705",
-      "plate_confidence": 0.859,
+      "plate_confidence": 0.739,
       "reason": null,
       "guidance": null,
-      "evidence": "outputs/runs/owner_camera/evidence/night_clip_right_0-20.jpg"
+      "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:34+04:00",
+      "time": "2026-11-26T22:01:00+04:00",
       "clock": "0:22",
       "bay": "left",
       "status": "EMPTY",
@@ -380,7 +380,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:34+04:00",
+      "time": "2026-11-26T22:01:00+04:00",
       "clock": "0:22",
       "bay": "right",
       "status": "AUTHORIZED",
@@ -388,14 +388,14 @@
       "occupied": true,
       "occupancy_confidence": 1.0,
       "plate": "Dubai AA66705",
-      "plate_confidence": 0.859,
+      "plate_confidence": 0.739,
       "reason": null,
       "guidance": null,
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:36+04:00",
+      "time": "2026-11-26T22:01:02+04:00",
       "clock": "0:24",
       "bay": "left",
       "status": "EMPTY",
@@ -410,7 +410,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:36+04:00",
+      "time": "2026-11-26T22:01:02+04:00",
       "clock": "0:24",
       "bay": "right",
       "status": "AUTHORIZED",
@@ -418,14 +418,14 @@
       "occupied": true,
       "occupancy_confidence": 1.0,
       "plate": "Dubai AA66705",
-      "plate_confidence": 0.859,
+      "plate_confidence": 0.739,
       "reason": null,
       "guidance": null,
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:38+04:00",
+      "time": "2026-11-26T22:01:04+04:00",
       "clock": "0:26",
       "bay": "left",
       "status": "EMPTY",
@@ -440,7 +440,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:38+04:00",
+      "time": "2026-11-26T22:01:04+04:00",
       "clock": "0:26",
       "bay": "right",
       "status": "AUTHORIZED",
@@ -448,14 +448,14 @@
       "occupied": true,
       "occupancy_confidence": 1.0,
       "plate": "Dubai AA66705",
-      "plate_confidence": 0.859,
+      "plate_confidence": 0.739,
       "reason": null,
       "guidance": null,
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:40+04:00",
+      "time": "2026-11-26T22:01:06+04:00",
       "clock": "0:28",
       "bay": "left",
       "status": "EMPTY",
@@ -470,7 +470,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:40+04:00",
+      "time": "2026-11-26T22:01:06+04:00",
       "clock": "0:28",
       "bay": "right",
       "status": "AUTHORIZED",
@@ -478,14 +478,14 @@
       "occupied": true,
       "occupancy_confidence": 1.0,
       "plate": "Dubai AA66705",
-      "plate_confidence": 0.859,
+      "plate_confidence": 0.739,
       "reason": null,
       "guidance": null,
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:42+04:00",
+      "time": "2026-11-26T22:01:08+04:00",
       "clock": "0:30",
       "bay": "left",
       "status": "EMPTY",
@@ -500,7 +500,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:42+04:00",
+      "time": "2026-11-26T22:01:08+04:00",
       "clock": "0:30",
       "bay": "right",
       "status": "AUTHORIZED",
@@ -508,44 +508,44 @@
       "occupied": true,
       "occupancy_confidence": 1.0,
       "plate": "Dubai AA66705",
-      "plate_confidence": 0.859,
+      "plate_confidence": 0.739,
       "reason": null,
       "guidance": null,
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:44+04:00",
+      "time": "2026-11-26T22:01:10+04:00",
       "clock": "0:32",
       "bay": "left",
       "status": "NEEDS_REVIEW",
-      "stay_status": "EMPTY",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "unfamiliar_view",
-      "guidance": null,
-      "evidence": null
+      "guidance": "This does not look like the configured camera. If it is a new camera, add bays.yaml with its bay boxes; if the camera moved, take a new snapshot.",
+      "evidence": "outputs/runs/owner_camera/evidence/night_clip_left_0-32.jpg"
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:44+04:00",
+      "time": "2026-11-26T22:01:10+04:00",
       "clock": "0:32",
       "bay": "right",
       "status": "NEEDS_REVIEW",
-      "stay_status": "AUTHORIZED",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "unfamiliar_view",
-      "guidance": null,
-      "evidence": null
+      "guidance": "This does not look like the configured camera. If it is a new camera, add bays.yaml with its bay boxes; if the camera moved, take a new snapshot.",
+      "evidence": "outputs/runs/owner_camera/evidence/night_clip_right_0-32.jpg"
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:46+04:00",
+      "time": "2026-11-26T22:01:12+04:00",
       "clock": "0:34",
       "bay": "left",
       "status": "EMPTY",
@@ -560,7 +560,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:46+04:00",
+      "time": "2026-11-26T22:01:12+04:00",
       "clock": "0:34",
       "bay": "right",
       "status": "AUTHORIZED",
@@ -568,14 +568,14 @@
       "occupied": true,
       "occupancy_confidence": 1.0,
       "plate": "Dubai AA66705",
-      "plate_confidence": 0.859,
+      "plate_confidence": 0.739,
       "reason": null,
       "guidance": null,
-      "evidence": null
+      "evidence": "outputs/runs/owner_camera/evidence/night_clip_right_0-34.jpg"
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:48+04:00",
+      "time": "2026-11-26T22:01:14+04:00",
       "clock": "0:36",
       "bay": "left",
       "status": "EMPTY",
@@ -590,7 +590,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:48+04:00",
+      "time": "2026-11-26T22:01:14+04:00",
       "clock": "0:36",
       "bay": "right",
       "status": "AUTHORIZED",
@@ -598,44 +598,44 @@
       "occupied": true,
       "occupancy_confidence": 1.0,
       "plate": "Dubai AA66705",
-      "plate_confidence": 0.859,
+      "plate_confidence": 0.739,
       "reason": null,
       "guidance": null,
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:50+04:00",
+      "time": "2026-11-26T22:01:16+04:00",
       "clock": "0:38",
       "bay": "left",
       "status": "NEEDS_REVIEW",
-      "stay_status": "EMPTY",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "unfamiliar_view",
-      "guidance": null,
-      "evidence": null
+      "guidance": "This does not look like the configured camera. If it is a new camera, add bays.yaml with its bay boxes; if the camera moved, take a new snapshot.",
+      "evidence": "outputs/runs/owner_camera/evidence/night_clip_left_0-38.jpg"
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:50+04:00",
+      "time": "2026-11-26T22:01:16+04:00",
       "clock": "0:38",
       "bay": "right",
       "status": "NEEDS_REVIEW",
-      "stay_status": "AUTHORIZED",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "unfamiliar_view",
-      "guidance": null,
-      "evidence": null
+      "guidance": "This does not look like the configured camera. If it is a new camera, add bays.yaml with its bay boxes; if the camera moved, take a new snapshot.",
+      "evidence": "outputs/runs/owner_camera/evidence/night_clip_right_0-38.jpg"
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:52+04:00",
+      "time": "2026-11-26T22:01:18+04:00",
       "clock": "0:40",
       "bay": "left",
       "status": "EMPTY",
@@ -650,7 +650,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:52+04:00",
+      "time": "2026-11-26T22:01:18+04:00",
       "clock": "0:40",
       "bay": "right",
       "status": "AUTHORIZED",
@@ -658,14 +658,14 @@
       "occupied": true,
       "occupancy_confidence": 1.0,
       "plate": "Dubai AA66705",
-      "plate_confidence": 0.859,
+      "plate_confidence": 0.739,
       "reason": null,
       "guidance": null,
-      "evidence": null
+      "evidence": "outputs/runs/owner_camera/evidence/night_clip_right_0-40.jpg"
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:54+04:00",
+      "time": "2026-11-26T22:01:20+04:00",
       "clock": "0:42",
       "bay": "left",
       "status": "EMPTY",
@@ -680,7 +680,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:54+04:00",
+      "time": "2026-11-26T22:01:20+04:00",
       "clock": "0:42",
       "bay": "right",
       "status": "AUTHORIZED",
@@ -688,194 +688,194 @@
       "occupied": true,
       "occupancy_confidence": 1.0,
       "plate": "Dubai AA66705",
-      "plate_confidence": 0.859,
+      "plate_confidence": 0.739,
       "reason": null,
       "guidance": null,
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:56+04:00",
+      "time": "2026-11-26T22:01:22+04:00",
       "clock": "0:44",
       "bay": "left",
       "status": "NEEDS_REVIEW",
-      "stay_status": "EMPTY",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "blurred_view",
-      "guidance": null,
-      "evidence": null
+      "guidance": "The image is blurred. Clean the lens or check the focus.",
+      "evidence": "outputs/runs/owner_camera/evidence/night_clip_left_0-44.jpg"
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:56+04:00",
+      "time": "2026-11-26T22:01:22+04:00",
       "clock": "0:44",
       "bay": "right",
       "status": "NEEDS_REVIEW",
-      "stay_status": "AUTHORIZED",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "blurred_view",
-      "guidance": null,
-      "evidence": null
+      "guidance": "The image is blurred. Clean the lens or check the focus.",
+      "evidence": "outputs/runs/owner_camera/evidence/night_clip_right_0-44.jpg"
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:58+04:00",
+      "time": "2026-11-26T22:01:24+04:00",
       "clock": "0:46",
       "bay": "left",
       "status": "NEEDS_REVIEW",
-      "stay_status": "EMPTY",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "blurred_view",
-      "guidance": null,
+      "guidance": "The image is blurred. Clean the lens or check the focus.",
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:47:58+04:00",
+      "time": "2026-11-26T22:01:24+04:00",
       "clock": "0:46",
       "bay": "right",
       "status": "NEEDS_REVIEW",
-      "stay_status": "AUTHORIZED",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "blurred_view",
-      "guidance": null,
+      "guidance": "The image is blurred. Clean the lens or check the focus.",
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:00+04:00",
+      "time": "2026-11-26T22:01:26+04:00",
       "clock": "0:48",
       "bay": "left",
       "status": "NEEDS_REVIEW",
-      "stay_status": "EMPTY",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "blurred_view",
-      "guidance": null,
+      "guidance": "The image is blurred. Clean the lens or check the focus.",
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:00+04:00",
+      "time": "2026-11-26T22:01:26+04:00",
       "clock": "0:48",
       "bay": "right",
       "status": "NEEDS_REVIEW",
-      "stay_status": "AUTHORIZED",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "blurred_view",
-      "guidance": null,
+      "guidance": "The image is blurred. Clean the lens or check the focus.",
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:02+04:00",
+      "time": "2026-11-26T22:01:28+04:00",
       "clock": "0:50",
       "bay": "left",
       "status": "NEEDS_REVIEW",
-      "stay_status": "EMPTY",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "blurred_view",
-      "guidance": null,
+      "guidance": "The image is blurred. Clean the lens or check the focus.",
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:02+04:00",
+      "time": "2026-11-26T22:01:28+04:00",
       "clock": "0:50",
       "bay": "right",
       "status": "NEEDS_REVIEW",
-      "stay_status": "AUTHORIZED",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "blurred_view",
-      "guidance": null,
+      "guidance": "The image is blurred. Clean the lens or check the focus.",
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:04+04:00",
+      "time": "2026-11-26T22:01:30+04:00",
       "clock": "0:52",
       "bay": "left",
       "status": "NEEDS_REVIEW",
-      "stay_status": "EMPTY",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "blurred_view",
-      "guidance": null,
+      "guidance": "The image is blurred. Clean the lens or check the focus.",
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:04+04:00",
+      "time": "2026-11-26T22:01:30+04:00",
       "clock": "0:52",
       "bay": "right",
       "status": "NEEDS_REVIEW",
-      "stay_status": "EMPTY",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "blurred_view",
-      "guidance": null,
+      "guidance": "The image is blurred. Clean the lens or check the focus.",
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:06+04:00",
+      "time": "2026-11-26T22:01:32+04:00",
       "clock": "0:54",
       "bay": "left",
       "status": "NEEDS_REVIEW",
-      "stay_status": "EMPTY",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "unfamiliar_view",
-      "guidance": null,
+      "guidance": "This does not look like the configured camera. If it is a new camera, add bays.yaml with its bay boxes; if the camera moved, take a new snapshot.",
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:06+04:00",
+      "time": "2026-11-26T22:01:32+04:00",
       "clock": "0:54",
       "bay": "right",
       "status": "NEEDS_REVIEW",
-      "stay_status": "EMPTY",
+      "stay_status": "NEEDS_REVIEW",
       "occupied": null,
       "occupancy_confidence": null,
       "plate": null,
       "plate_confidence": null,
       "reason": "unfamiliar_view",
-      "guidance": null,
+      "guidance": "This does not look like the configured camera. If it is a new camera, add bays.yaml with its bay boxes; if the camera moved, take a new snapshot.",
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:08+04:00",
+      "time": "2026-11-26T22:01:34+04:00",
       "clock": "0:56",
       "bay": "left",
       "status": "EMPTY",
@@ -890,22 +890,22 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:08+04:00",
+      "time": "2026-11-26T22:01:34+04:00",
       "clock": "0:56",
       "bay": "right",
       "status": "AUTHORIZED",
-      "stay_status": "EMPTY",
+      "stay_status": "AUTHORIZED",
       "occupied": true,
       "occupancy_confidence": 1.0,
       "plate": "Dubai AA66705",
-      "plate_confidence": 0.421,
+      "plate_confidence": 0.739,
       "reason": null,
       "guidance": null,
-      "evidence": null
+      "evidence": "outputs/runs/owner_camera/evidence/night_clip_right_0-56.jpg"
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:10+04:00",
+      "time": "2026-11-26T22:01:36+04:00",
       "clock": "0:58",
       "bay": "left",
       "status": "EMPTY",
@@ -920,22 +920,22 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:10+04:00",
+      "time": "2026-11-26T22:01:36+04:00",
       "clock": "0:58",
       "bay": "right",
-      "status": "POTENTIALLY_UNAUTHORIZED",
-      "stay_status": "EMPTY",
+      "status": "AUTHORIZED",
+      "stay_status": "AUTHORIZED",
       "occupied": true,
       "occupancy_confidence": 1.0,
-      "plate": "Dubai AA65705",
-      "plate_confidence": 0.37,
+      "plate": "Dubai AA66705",
+      "plate_confidence": 0.739,
       "reason": null,
       "guidance": null,
       "evidence": null
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:12+04:00",
+      "time": "2026-11-26T22:01:38+04:00",
       "clock": "1:00",
       "bay": "left",
       "status": "EMPTY",
@@ -950,11 +950,11 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:12+04:00",
+      "time": "2026-11-26T22:01:38+04:00",
       "clock": "1:00",
       "bay": "right",
       "status": "EMPTY",
-      "stay_status": "EMPTY",
+      "stay_status": "AUTHORIZED",
       "occupied": false,
       "occupancy_confidence": 0.142,
       "plate": null,
@@ -965,7 +965,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:14+04:00",
+      "time": "2026-11-26T22:01:40+04:00",
       "clock": "1:02",
       "bay": "left",
       "status": "EMPTY",
@@ -980,11 +980,11 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:14+04:00",
+      "time": "2026-11-26T22:01:40+04:00",
       "clock": "1:02",
       "bay": "right",
       "status": "EMPTY",
-      "stay_status": "EMPTY",
+      "stay_status": "AUTHORIZED",
       "occupied": false,
       "occupancy_confidence": 0.021,
       "plate": null,
@@ -995,7 +995,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:16+04:00",
+      "time": "2026-11-26T22:01:42+04:00",
       "clock": "1:04",
       "bay": "left",
       "status": "EMPTY",
@@ -1010,11 +1010,11 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:16+04:00",
+      "time": "2026-11-26T22:01:42+04:00",
       "clock": "1:04",
       "bay": "right",
       "status": "EMPTY",
-      "stay_status": "EMPTY",
+      "stay_status": "AUTHORIZED",
       "occupied": false,
       "occupancy_confidence": 0.0,
       "plate": null,
@@ -1025,7 +1025,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:18+04:00",
+      "time": "2026-11-26T22:01:44+04:00",
       "clock": "1:06",
       "bay": "left",
       "status": "EMPTY",
@@ -1040,11 +1040,11 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:18+04:00",
+      "time": "2026-11-26T22:01:44+04:00",
       "clock": "1:06",
       "bay": "right",
       "status": "EMPTY",
-      "stay_status": "EMPTY",
+      "stay_status": "AUTHORIZED",
       "occupied": false,
       "occupancy_confidence": 0.0,
       "plate": null,
@@ -1055,7 +1055,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:20+04:00",
+      "time": "2026-11-26T22:01:46+04:00",
       "clock": "1:08",
       "bay": "left",
       "status": "EMPTY",
@@ -1070,7 +1070,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:20+04:00",
+      "time": "2026-11-26T22:01:46+04:00",
       "clock": "1:08",
       "bay": "right",
       "status": "EMPTY",
@@ -1085,7 +1085,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:22+04:00",
+      "time": "2026-11-26T22:01:48+04:00",
       "clock": "1:10",
       "bay": "left",
       "status": "EMPTY",
@@ -1100,7 +1100,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:22+04:00",
+      "time": "2026-11-26T22:01:48+04:00",
       "clock": "1:10",
       "bay": "right",
       "status": "EMPTY",
@@ -1115,7 +1115,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:24+04:00",
+      "time": "2026-11-26T22:01:50+04:00",
       "clock": "1:12",
       "bay": "left",
       "status": "EMPTY",
@@ -1130,7 +1130,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:24+04:00",
+      "time": "2026-11-26T22:01:50+04:00",
       "clock": "1:12",
       "bay": "right",
       "status": "EMPTY",
@@ -1145,7 +1145,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:26+04:00",
+      "time": "2026-11-26T22:01:52+04:00",
       "clock": "1:14",
       "bay": "left",
       "status": "EMPTY",
@@ -1160,7 +1160,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:26+04:00",
+      "time": "2026-11-26T22:01:52+04:00",
       "clock": "1:14",
       "bay": "right",
       "status": "EMPTY",
@@ -1175,7 +1175,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:28+04:00",
+      "time": "2026-11-26T22:01:54+04:00",
       "clock": "1:16",
       "bay": "left",
       "status": "EMPTY",
@@ -1190,7 +1190,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:28+04:00",
+      "time": "2026-11-26T22:01:54+04:00",
       "clock": "1:16",
       "bay": "right",
       "status": "EMPTY",
@@ -1205,7 +1205,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:30+04:00",
+      "time": "2026-11-26T22:01:56+04:00",
       "clock": "1:18",
       "bay": "left",
       "status": "EMPTY",
@@ -1220,7 +1220,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:30+04:00",
+      "time": "2026-11-26T22:01:56+04:00",
       "clock": "1:18",
       "bay": "right",
       "status": "EMPTY",
@@ -1235,7 +1235,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:32+04:00",
+      "time": "2026-11-26T22:01:58+04:00",
       "clock": "1:20",
       "bay": "left",
       "status": "EMPTY",
@@ -1250,7 +1250,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:32+04:00",
+      "time": "2026-11-26T22:01:58+04:00",
       "clock": "1:20",
       "bay": "right",
       "status": "EMPTY",
@@ -1265,7 +1265,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:34+04:00",
+      "time": "2026-11-26T22:02:00+04:00",
       "clock": "1:22",
       "bay": "left",
       "status": "EMPTY",
@@ -1280,7 +1280,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:34+04:00",
+      "time": "2026-11-26T22:02:00+04:00",
       "clock": "1:22",
       "bay": "right",
       "status": "EMPTY",
@@ -1295,7 +1295,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:36+04:00",
+      "time": "2026-11-26T22:02:02+04:00",
       "clock": "1:24",
       "bay": "left",
       "status": "EMPTY",
@@ -1310,7 +1310,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:36+04:00",
+      "time": "2026-11-26T22:02:02+04:00",
       "clock": "1:24",
       "bay": "right",
       "status": "EMPTY",
@@ -1325,7 +1325,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:38+04:00",
+      "time": "2026-11-26T22:02:04+04:00",
       "clock": "1:26",
       "bay": "left",
       "status": "EMPTY",
@@ -1340,7 +1340,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:38+04:00",
+      "time": "2026-11-26T22:02:04+04:00",
       "clock": "1:26",
       "bay": "right",
       "status": "EMPTY",
@@ -1355,7 +1355,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:40+04:00",
+      "time": "2026-11-26T22:02:06+04:00",
       "clock": "1:28",
       "bay": "left",
       "status": "EMPTY",
@@ -1370,7 +1370,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:40+04:00",
+      "time": "2026-11-26T22:02:06+04:00",
       "clock": "1:28",
       "bay": "right",
       "status": "EMPTY",
@@ -1385,7 +1385,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:42+04:00",
+      "time": "2026-11-26T22:02:08+04:00",
       "clock": "1:30",
       "bay": "left",
       "status": "EMPTY",
@@ -1400,7 +1400,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:42+04:00",
+      "time": "2026-11-26T22:02:08+04:00",
       "clock": "1:30",
       "bay": "right",
       "status": "EMPTY",
@@ -1415,7 +1415,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:44+04:00",
+      "time": "2026-11-26T22:02:10+04:00",
       "clock": "1:32",
       "bay": "left",
       "status": "EMPTY",
@@ -1430,7 +1430,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:44+04:00",
+      "time": "2026-11-26T22:02:10+04:00",
       "clock": "1:32",
       "bay": "right",
       "status": "EMPTY",
@@ -1445,7 +1445,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:46+04:00",
+      "time": "2026-11-26T22:02:12+04:00",
       "clock": "1:34",
       "bay": "left",
       "status": "EMPTY",
@@ -1460,7 +1460,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:46+04:00",
+      "time": "2026-11-26T22:02:12+04:00",
       "clock": "1:34",
       "bay": "right",
       "status": "EMPTY",
@@ -1475,7 +1475,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:48+04:00",
+      "time": "2026-11-26T22:02:14+04:00",
       "clock": "1:36",
       "bay": "left",
       "status": "EMPTY",
@@ -1490,7 +1490,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:48+04:00",
+      "time": "2026-11-26T22:02:14+04:00",
       "clock": "1:36",
       "bay": "right",
       "status": "EMPTY",
@@ -1505,7 +1505,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:50+04:00",
+      "time": "2026-11-26T22:02:16+04:00",
       "clock": "1:38",
       "bay": "left",
       "status": "EMPTY",
@@ -1520,7 +1520,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:50+04:00",
+      "time": "2026-11-26T22:02:16+04:00",
       "clock": "1:38",
       "bay": "right",
       "status": "EMPTY",
@@ -1535,7 +1535,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:52+04:00",
+      "time": "2026-11-26T22:02:18+04:00",
       "clock": "1:40",
       "bay": "left",
       "status": "EMPTY",
@@ -1550,7 +1550,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:52+04:00",
+      "time": "2026-11-26T22:02:18+04:00",
       "clock": "1:40",
       "bay": "right",
       "status": "EMPTY",
@@ -1565,7 +1565,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:54+04:00",
+      "time": "2026-11-26T22:02:20+04:00",
       "clock": "1:42",
       "bay": "left",
       "status": "EMPTY",
@@ -1580,7 +1580,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:54+04:00",
+      "time": "2026-11-26T22:02:20+04:00",
       "clock": "1:42",
       "bay": "right",
       "status": "EMPTY",
@@ -1595,7 +1595,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:56+04:00",
+      "time": "2026-11-26T22:02:22+04:00",
       "clock": "1:44",
       "bay": "left",
       "status": "EMPTY",
@@ -1610,7 +1610,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:56+04:00",
+      "time": "2026-11-26T22:02:22+04:00",
       "clock": "1:44",
       "bay": "right",
       "status": "EMPTY",
@@ -1625,7 +1625,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:58+04:00",
+      "time": "2026-11-26T22:02:24+04:00",
       "clock": "1:46",
       "bay": "left",
       "status": "EMPTY",
@@ -1640,7 +1640,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:48:58+04:00",
+      "time": "2026-11-26T22:02:24+04:00",
       "clock": "1:46",
       "bay": "right",
       "status": "EMPTY",
@@ -1655,7 +1655,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:00+04:00",
+      "time": "2026-11-26T22:02:26+04:00",
       "clock": "1:48",
       "bay": "left",
       "status": "EMPTY",
@@ -1670,7 +1670,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:00+04:00",
+      "time": "2026-11-26T22:02:26+04:00",
       "clock": "1:48",
       "bay": "right",
       "status": "EMPTY",
@@ -1685,7 +1685,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:02+04:00",
+      "time": "2026-11-26T22:02:28+04:00",
       "clock": "1:50",
       "bay": "left",
       "status": "EMPTY",
@@ -1700,7 +1700,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:02+04:00",
+      "time": "2026-11-26T22:02:28+04:00",
       "clock": "1:50",
       "bay": "right",
       "status": "EMPTY",
@@ -1715,7 +1715,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:04+04:00",
+      "time": "2026-11-26T22:02:30+04:00",
       "clock": "1:52",
       "bay": "left",
       "status": "EMPTY",
@@ -1730,7 +1730,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:04+04:00",
+      "time": "2026-11-26T22:02:30+04:00",
       "clock": "1:52",
       "bay": "right",
       "status": "EMPTY",
@@ -1745,7 +1745,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:06+04:00",
+      "time": "2026-11-26T22:02:32+04:00",
       "clock": "1:54",
       "bay": "left",
       "status": "EMPTY",
@@ -1760,7 +1760,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:06+04:00",
+      "time": "2026-11-26T22:02:32+04:00",
       "clock": "1:54",
       "bay": "right",
       "status": "EMPTY",
@@ -1775,7 +1775,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:08+04:00",
+      "time": "2026-11-26T22:02:34+04:00",
       "clock": "1:56",
       "bay": "left",
       "status": "EMPTY",
@@ -1790,7 +1790,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:08+04:00",
+      "time": "2026-11-26T22:02:34+04:00",
       "clock": "1:56",
       "bay": "right",
       "status": "EMPTY",
@@ -1805,7 +1805,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:10+04:00",
+      "time": "2026-11-26T22:02:36+04:00",
       "clock": "1:58",
       "bay": "left",
       "status": "EMPTY",
@@ -1820,7 +1820,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:10+04:00",
+      "time": "2026-11-26T22:02:36+04:00",
       "clock": "1:58",
       "bay": "right",
       "status": "EMPTY",
@@ -1835,7 +1835,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:12+04:00",
+      "time": "2026-11-26T22:02:38+04:00",
       "clock": "2:00",
       "bay": "left",
       "status": "EMPTY",
@@ -1850,7 +1850,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:12+04:00",
+      "time": "2026-11-26T22:02:38+04:00",
       "clock": "2:00",
       "bay": "right",
       "status": "EMPTY",
@@ -1865,7 +1865,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:14+04:00",
+      "time": "2026-11-26T22:02:40+04:00",
       "clock": "2:02",
       "bay": "left",
       "status": "EMPTY",
@@ -1880,7 +1880,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:14+04:00",
+      "time": "2026-11-26T22:02:40+04:00",
       "clock": "2:02",
       "bay": "right",
       "status": "NEEDS_REVIEW",
@@ -1895,7 +1895,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:16+04:00",
+      "time": "2026-11-26T22:02:42+04:00",
       "clock": "2:04",
       "bay": "left",
       "status": "EMPTY",
@@ -1910,7 +1910,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:16+04:00",
+      "time": "2026-11-26T22:02:42+04:00",
       "clock": "2:04",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -1925,7 +1925,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:18+04:00",
+      "time": "2026-11-26T22:02:44+04:00",
       "clock": "2:06",
       "bay": "left",
       "status": "EMPTY",
@@ -1940,7 +1940,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:18+04:00",
+      "time": "2026-11-26T22:02:44+04:00",
       "clock": "2:06",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -1955,7 +1955,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:20+04:00",
+      "time": "2026-11-26T22:02:46+04:00",
       "clock": "2:08",
       "bay": "left",
       "status": "EMPTY",
@@ -1970,7 +1970,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:20+04:00",
+      "time": "2026-11-26T22:02:46+04:00",
       "clock": "2:08",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -1985,7 +1985,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:22+04:00",
+      "time": "2026-11-26T22:02:48+04:00",
       "clock": "2:10",
       "bay": "left",
       "status": "EMPTY",
@@ -2000,7 +2000,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:22+04:00",
+      "time": "2026-11-26T22:02:48+04:00",
       "clock": "2:10",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2015,7 +2015,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:24+04:00",
+      "time": "2026-11-26T22:02:50+04:00",
       "clock": "2:12",
       "bay": "left",
       "status": "EMPTY",
@@ -2030,7 +2030,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:24+04:00",
+      "time": "2026-11-26T22:02:50+04:00",
       "clock": "2:12",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2045,7 +2045,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:26+04:00",
+      "time": "2026-11-26T22:02:52+04:00",
       "clock": "2:14",
       "bay": "left",
       "status": "EMPTY",
@@ -2060,7 +2060,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:26+04:00",
+      "time": "2026-11-26T22:02:52+04:00",
       "clock": "2:14",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2075,7 +2075,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:28+04:00",
+      "time": "2026-11-26T22:02:54+04:00",
       "clock": "2:16",
       "bay": "left",
       "status": "EMPTY",
@@ -2090,7 +2090,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:28+04:00",
+      "time": "2026-11-26T22:02:54+04:00",
       "clock": "2:16",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2105,7 +2105,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:30+04:00",
+      "time": "2026-11-26T22:02:56+04:00",
       "clock": "2:18",
       "bay": "left",
       "status": "EMPTY",
@@ -2120,7 +2120,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:30+04:00",
+      "time": "2026-11-26T22:02:56+04:00",
       "clock": "2:18",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2135,7 +2135,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:32+04:00",
+      "time": "2026-11-26T22:02:58+04:00",
       "clock": "2:20",
       "bay": "left",
       "status": "EMPTY",
@@ -2150,7 +2150,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:32+04:00",
+      "time": "2026-11-26T22:02:58+04:00",
       "clock": "2:20",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2165,7 +2165,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:34+04:00",
+      "time": "2026-11-26T22:03:00+04:00",
       "clock": "2:22",
       "bay": "left",
       "status": "EMPTY",
@@ -2180,7 +2180,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:34+04:00",
+      "time": "2026-11-26T22:03:00+04:00",
       "clock": "2:22",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2195,7 +2195,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:36+04:00",
+      "time": "2026-11-26T22:03:02+04:00",
       "clock": "2:24",
       "bay": "left",
       "status": "EMPTY",
@@ -2210,7 +2210,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:36+04:00",
+      "time": "2026-11-26T22:03:02+04:00",
       "clock": "2:24",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2225,7 +2225,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:38+04:00",
+      "time": "2026-11-26T22:03:04+04:00",
       "clock": "2:26",
       "bay": "left",
       "status": "EMPTY",
@@ -2240,7 +2240,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:38+04:00",
+      "time": "2026-11-26T22:03:04+04:00",
       "clock": "2:26",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2255,7 +2255,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:40+04:00",
+      "time": "2026-11-26T22:03:06+04:00",
       "clock": "2:28",
       "bay": "left",
       "status": "EMPTY",
@@ -2270,7 +2270,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:40+04:00",
+      "time": "2026-11-26T22:03:06+04:00",
       "clock": "2:28",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2285,7 +2285,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:42+04:00",
+      "time": "2026-11-26T22:03:08+04:00",
       "clock": "2:30",
       "bay": "left",
       "status": "EMPTY",
@@ -2300,7 +2300,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:42+04:00",
+      "time": "2026-11-26T22:03:08+04:00",
       "clock": "2:30",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2315,7 +2315,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:44+04:00",
+      "time": "2026-11-26T22:03:10+04:00",
       "clock": "2:32",
       "bay": "left",
       "status": "EMPTY",
@@ -2330,7 +2330,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:44+04:00",
+      "time": "2026-11-26T22:03:10+04:00",
       "clock": "2:32",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2345,7 +2345,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:46+04:00",
+      "time": "2026-11-26T22:03:12+04:00",
       "clock": "2:34",
       "bay": "left",
       "status": "EMPTY",
@@ -2360,7 +2360,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:46+04:00",
+      "time": "2026-11-26T22:03:12+04:00",
       "clock": "2:34",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2375,7 +2375,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:48+04:00",
+      "time": "2026-11-26T22:03:14+04:00",
       "clock": "2:36",
       "bay": "left",
       "status": "EMPTY",
@@ -2390,7 +2390,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:48+04:00",
+      "time": "2026-11-26T22:03:14+04:00",
       "clock": "2:36",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2405,7 +2405,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:50+04:00",
+      "time": "2026-11-26T22:03:16+04:00",
       "clock": "2:38",
       "bay": "left",
       "status": "EMPTY",
@@ -2420,7 +2420,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:50+04:00",
+      "time": "2026-11-26T22:03:16+04:00",
       "clock": "2:38",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2435,7 +2435,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:52+04:00",
+      "time": "2026-11-26T22:03:18+04:00",
       "clock": "2:40",
       "bay": "left",
       "status": "EMPTY",
@@ -2450,7 +2450,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:52+04:00",
+      "time": "2026-11-26T22:03:18+04:00",
       "clock": "2:40",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2465,7 +2465,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:54+04:00",
+      "time": "2026-11-26T22:03:20+04:00",
       "clock": "2:42",
       "bay": "left",
       "status": "EMPTY",
@@ -2480,7 +2480,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:54+04:00",
+      "time": "2026-11-26T22:03:20+04:00",
       "clock": "2:42",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2495,7 +2495,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:56+04:00",
+      "time": "2026-11-26T22:03:22+04:00",
       "clock": "2:44",
       "bay": "left",
       "status": "EMPTY",
@@ -2510,7 +2510,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:56+04:00",
+      "time": "2026-11-26T22:03:22+04:00",
       "clock": "2:44",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2525,7 +2525,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:58+04:00",
+      "time": "2026-11-26T22:03:24+04:00",
       "clock": "2:46",
       "bay": "left",
       "status": "EMPTY",
@@ -2540,7 +2540,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:49:58+04:00",
+      "time": "2026-11-26T22:03:24+04:00",
       "clock": "2:46",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2555,7 +2555,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:00+04:00",
+      "time": "2026-11-26T22:03:26+04:00",
       "clock": "2:48",
       "bay": "left",
       "status": "EMPTY",
@@ -2570,7 +2570,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:00+04:00",
+      "time": "2026-11-26T22:03:26+04:00",
       "clock": "2:48",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2585,7 +2585,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:02+04:00",
+      "time": "2026-11-26T22:03:28+04:00",
       "clock": "2:50",
       "bay": "left",
       "status": "EMPTY",
@@ -2600,7 +2600,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:02+04:00",
+      "time": "2026-11-26T22:03:28+04:00",
       "clock": "2:50",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2615,7 +2615,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:04+04:00",
+      "time": "2026-11-26T22:03:30+04:00",
       "clock": "2:52",
       "bay": "left",
       "status": "EMPTY",
@@ -2630,7 +2630,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:04+04:00",
+      "time": "2026-11-26T22:03:30+04:00",
       "clock": "2:52",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2645,7 +2645,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:06+04:00",
+      "time": "2026-11-26T22:03:32+04:00",
       "clock": "2:54",
       "bay": "left",
       "status": "EMPTY",
@@ -2660,7 +2660,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:06+04:00",
+      "time": "2026-11-26T22:03:32+04:00",
       "clock": "2:54",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2675,7 +2675,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:08+04:00",
+      "time": "2026-11-26T22:03:34+04:00",
       "clock": "2:56",
       "bay": "left",
       "status": "EMPTY",
@@ -2690,7 +2690,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:08+04:00",
+      "time": "2026-11-26T22:03:34+04:00",
       "clock": "2:56",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2705,7 +2705,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:10+04:00",
+      "time": "2026-11-26T22:03:36+04:00",
       "clock": "2:58",
       "bay": "left",
       "status": "EMPTY",
@@ -2720,7 +2720,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:10+04:00",
+      "time": "2026-11-26T22:03:36+04:00",
       "clock": "2:58",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2735,7 +2735,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:12+04:00",
+      "time": "2026-11-26T22:03:38+04:00",
       "clock": "3:00",
       "bay": "left",
       "status": "EMPTY",
@@ -2750,7 +2750,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:12+04:00",
+      "time": "2026-11-26T22:03:38+04:00",
       "clock": "3:00",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2765,7 +2765,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:14+04:00",
+      "time": "2026-11-26T22:03:40+04:00",
       "clock": "3:02",
       "bay": "left",
       "status": "EMPTY",
@@ -2780,7 +2780,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:14+04:00",
+      "time": "2026-11-26T22:03:40+04:00",
       "clock": "3:02",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2795,7 +2795,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:16+04:00",
+      "time": "2026-11-26T22:03:42+04:00",
       "clock": "3:04",
       "bay": "left",
       "status": "EMPTY",
@@ -2810,7 +2810,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:16+04:00",
+      "time": "2026-11-26T22:03:42+04:00",
       "clock": "3:04",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2825,7 +2825,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:18+04:00",
+      "time": "2026-11-26T22:03:44+04:00",
       "clock": "3:06",
       "bay": "left",
       "status": "EMPTY",
@@ -2840,7 +2840,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:18+04:00",
+      "time": "2026-11-26T22:03:44+04:00",
       "clock": "3:06",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2855,7 +2855,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:20+04:00",
+      "time": "2026-11-26T22:03:46+04:00",
       "clock": "3:08",
       "bay": "left",
       "status": "EMPTY",
@@ -2870,7 +2870,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:20+04:00",
+      "time": "2026-11-26T22:03:46+04:00",
       "clock": "3:08",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2885,7 +2885,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:22+04:00",
+      "time": "2026-11-26T22:03:48+04:00",
       "clock": "3:10",
       "bay": "left",
       "status": "EMPTY",
@@ -2900,7 +2900,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:22+04:00",
+      "time": "2026-11-26T22:03:48+04:00",
       "clock": "3:10",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2915,7 +2915,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:24+04:00",
+      "time": "2026-11-26T22:03:50+04:00",
       "clock": "3:12",
       "bay": "left",
       "status": "EMPTY",
@@ -2930,7 +2930,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:24+04:00",
+      "time": "2026-11-26T22:03:50+04:00",
       "clock": "3:12",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2945,7 +2945,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:26+04:00",
+      "time": "2026-11-26T22:03:52+04:00",
       "clock": "3:14",
       "bay": "left",
       "status": "EMPTY",
@@ -2960,7 +2960,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:26+04:00",
+      "time": "2026-11-26T22:03:52+04:00",
       "clock": "3:14",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -2975,7 +2975,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:28+04:00",
+      "time": "2026-11-26T22:03:54+04:00",
       "clock": "3:16",
       "bay": "left",
       "status": "EMPTY",
@@ -2990,7 +2990,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:28+04:00",
+      "time": "2026-11-26T22:03:54+04:00",
       "clock": "3:16",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3005,7 +3005,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:30+04:00",
+      "time": "2026-11-26T22:03:56+04:00",
       "clock": "3:18",
       "bay": "left",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3020,7 +3020,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:30+04:00",
+      "time": "2026-11-26T22:03:56+04:00",
       "clock": "3:18",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3035,7 +3035,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:32+04:00",
+      "time": "2026-11-26T22:03:58+04:00",
       "clock": "3:20",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3050,7 +3050,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:32+04:00",
+      "time": "2026-11-26T22:03:58+04:00",
       "clock": "3:20",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3065,7 +3065,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:34+04:00",
+      "time": "2026-11-26T22:04:00+04:00",
       "clock": "3:22",
       "bay": "left",
       "status": "EMPTY",
@@ -3080,7 +3080,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:34+04:00",
+      "time": "2026-11-26T22:04:00+04:00",
       "clock": "3:22",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3095,7 +3095,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:36+04:00",
+      "time": "2026-11-26T22:04:02+04:00",
       "clock": "3:24",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3110,7 +3110,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:36+04:00",
+      "time": "2026-11-26T22:04:02+04:00",
       "clock": "3:24",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3125,7 +3125,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:38+04:00",
+      "time": "2026-11-26T22:04:04+04:00",
       "clock": "3:26",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3140,7 +3140,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:38+04:00",
+      "time": "2026-11-26T22:04:04+04:00",
       "clock": "3:26",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3155,7 +3155,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:40+04:00",
+      "time": "2026-11-26T22:04:06+04:00",
       "clock": "3:28",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3170,7 +3170,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:40+04:00",
+      "time": "2026-11-26T22:04:06+04:00",
       "clock": "3:28",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3185,7 +3185,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:42+04:00",
+      "time": "2026-11-26T22:04:08+04:00",
       "clock": "3:30",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3200,7 +3200,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:42+04:00",
+      "time": "2026-11-26T22:04:08+04:00",
       "clock": "3:30",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3215,7 +3215,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:44+04:00",
+      "time": "2026-11-26T22:04:10+04:00",
       "clock": "3:32",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3230,7 +3230,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:44+04:00",
+      "time": "2026-11-26T22:04:10+04:00",
       "clock": "3:32",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3245,7 +3245,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:46+04:00",
+      "time": "2026-11-26T22:04:12+04:00",
       "clock": "3:34",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3260,7 +3260,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:46+04:00",
+      "time": "2026-11-26T22:04:12+04:00",
       "clock": "3:34",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3275,7 +3275,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:48+04:00",
+      "time": "2026-11-26T22:04:14+04:00",
       "clock": "3:36",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3290,7 +3290,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:48+04:00",
+      "time": "2026-11-26T22:04:14+04:00",
       "clock": "3:36",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3305,7 +3305,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:50+04:00",
+      "time": "2026-11-26T22:04:16+04:00",
       "clock": "3:38",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3320,7 +3320,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:50+04:00",
+      "time": "2026-11-26T22:04:16+04:00",
       "clock": "3:38",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3335,7 +3335,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:52+04:00",
+      "time": "2026-11-26T22:04:18+04:00",
       "clock": "3:40",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3350,7 +3350,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:52+04:00",
+      "time": "2026-11-26T22:04:18+04:00",
       "clock": "3:40",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3365,7 +3365,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:54+04:00",
+      "time": "2026-11-26T22:04:20+04:00",
       "clock": "3:42",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3380,7 +3380,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:54+04:00",
+      "time": "2026-11-26T22:04:20+04:00",
       "clock": "3:42",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3395,7 +3395,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:56+04:00",
+      "time": "2026-11-26T22:04:22+04:00",
       "clock": "3:44",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3410,7 +3410,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:56+04:00",
+      "time": "2026-11-26T22:04:22+04:00",
       "clock": "3:44",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3425,7 +3425,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:58+04:00",
+      "time": "2026-11-26T22:04:24+04:00",
       "clock": "3:46",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3440,7 +3440,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:50:58+04:00",
+      "time": "2026-11-26T22:04:24+04:00",
       "clock": "3:46",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3455,7 +3455,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:51:00+04:00",
+      "time": "2026-11-26T22:04:26+04:00",
       "clock": "3:48",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3470,7 +3470,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:51:00+04:00",
+      "time": "2026-11-26T22:04:26+04:00",
       "clock": "3:48",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3485,7 +3485,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:51:02+04:00",
+      "time": "2026-11-26T22:04:28+04:00",
       "clock": "3:50",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3500,7 +3500,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:51:02+04:00",
+      "time": "2026-11-26T22:04:28+04:00",
       "clock": "3:50",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3515,7 +3515,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:51:04+04:00",
+      "time": "2026-11-26T22:04:30+04:00",
       "clock": "3:52",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3530,7 +3530,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:51:04+04:00",
+      "time": "2026-11-26T22:04:30+04:00",
       "clock": "3:52",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3545,7 +3545,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:51:06+04:00",
+      "time": "2026-11-26T22:04:32+04:00",
       "clock": "3:54",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3560,7 +3560,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:51:06+04:00",
+      "time": "2026-11-26T22:04:32+04:00",
       "clock": "3:54",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3575,7 +3575,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:51:08+04:00",
+      "time": "2026-11-26T22:04:34+04:00",
       "clock": "3:56",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3590,7 +3590,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:51:08+04:00",
+      "time": "2026-11-26T22:04:34+04:00",
       "clock": "3:56",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3605,7 +3605,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:51:10+04:00",
+      "time": "2026-11-26T22:04:36+04:00",
       "clock": "3:58",
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3620,7 +3620,7 @@
     },
     {
       "source": "night_clip.mp4",
-      "time": "2026-11-25T01:51:10+04:00",
+      "time": "2026-11-26T22:04:36+04:00",
       "clock": "3:58",
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3635,7 +3635,7 @@
     },
     {
       "source": "both_parked.jpg",
-      "time": "2026-11-25T01:47:33.238853+04:00",
+      "time": "2026-11-26T22:00:38.371893+04:00",
       "clock": null,
       "bay": "left",
       "status": "AUTHORIZED",
@@ -3650,7 +3650,7 @@
     },
     {
       "source": "both_parked.jpg",
-      "time": "2026-11-25T01:47:33.238853+04:00",
+      "time": "2026-11-26T22:00:38.371893+04:00",
       "clock": null,
       "bay": "right",
       "status": "POTENTIALLY_UNAUTHORIZED",
@@ -3665,7 +3665,7 @@
     },
     {
       "source": "covered_lens.jpg",
-      "time": "2026-11-25T01:47:33.255646+04:00",
+      "time": "2026-11-26T22:00:38.373106+04:00",
       "clock": null,
       "bay": "left",
       "status": "NEEDS_REVIEW",
@@ -3680,7 +3680,7 @@
     },
     {
       "source": "covered_lens.jpg",
-      "time": "2026-11-25T01:47:33.255646+04:00",
+      "time": "2026-11-26T22:00:38.373106+04:00",
       "clock": null,
       "bay": "right",
       "status": "NEEDS_REVIEW",

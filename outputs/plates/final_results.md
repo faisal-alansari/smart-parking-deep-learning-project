@@ -13,7 +13,7 @@
 | Character error rate | 0.0803 ± 0.0013 [0.071, 0.091] | 0.6722 [0.659, 0.685] |
 | Detection mAP50 | 0.8561 | 0.1836 |
 | Detection mAP50-95 | 0.6540 | 0.1164 |
-| Milliseconds per image | 12 | 12 |
+| Milliseconds per image | 11 | 11 |
 
 ## Fine-tuned model by emirate
 

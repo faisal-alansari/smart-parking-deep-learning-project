@@ -27,23 +27,23 @@ repeated for other cost assumptions (sensitivity).
 
 Model A: threshold **0.86**, review band **±0.0** (validation cost 0.0033 per bay check). Model B: minimum calibrated confidence **0.15**, chosen on block 4 (validation cost 0.0322 per plate).
 
-The first gate (0.7) was chosen on the public plate validation split (cost 0.5250). On the owner's camera it sent about 30% of bays to a person in normal operation (block 4, seen in the monitoring baseline), because correct reads there carry lower confidence than on the public photos: every clear read on block 4 was right. The gate was therefore re-chosen on block 4, the deployment camera's validation data, with the same costs. On the night-1 test plates the two gates cost about the same: block 4 had no wrong reads, so it cannot show the gate's value, and the per-stay majority vote already protects against single misreads.
+The first gate (0.7) was chosen on the public plate validation split (cost 0.5250). On the owner's camera it sent about 30% of bays to a person in normal operation (block 4, seen in the monitoring baseline), because correct reads there carry lower confidence than on the public photos: every clear read on block 4 was right. The gate was therefore re-chosen on block 4, the deployment camera's validation data, with the same costs. On the test night's plates the block-4 gate costs less than the public one (table below); block 4 had no wrong reads, so the gate's value against misreads is not shown, and the per-stay majority vote already protects against single misreads.
 
 ## Test cost against the alternatives
 
 | Model A policy | test cost per bay check |
 |---|---|
-| public model, majority vote (before adapting) | 0.1605 |
-| adapted, majority vote (tested product) | 0.3128 |
-| adapted, cost threshold 0.86 and band 0.0 (chosen on block 4) | 0.2716 |
-| always occupied (no Model A) | 0.5 |
+| public model, majority vote (before adapting) | 0.0736 |
+| adapted, majority vote (tested product) | 0.387 |
+| adapted, cost threshold 0.86 and band 0.0 (chosen on block 4) | 0.2636 |
+| always occupied (no Model A) | 0.4159 |
 | always ask a person | 1.0 |
-| public model, car-level view | 0.1605 |
-| adapted (tested product), car-level view | 0.0165 |
-| public model, normal frames only | 0.2155 |
-| adapted (tested product), normal frames only | 0.0055 |
+| public model, car-level view | 0.0736 |
+| adapted (tested product), car-level view | 0.2715 |
+| public model, normal frames only | 0.0403 |
+| adapted (tested product), normal frames only | 0.0016 |
 
-Bay by bay, the adapted model costs more than the public model on the test night: it calls the bay holding half of a car standing across both bays empty, and each such check is charged as a missed car (3), while the public model's many false 'occupied' calls cost 1 each. That car is seen in the other bay, though, so it is not really missed: the car-level rows (a view added after seeing the test) and the normal-frame rows show the adapted model is far cheaper once that case is set aside.
+On the test night the adapted model costs more than the public model, bay by bay and car by car: it calls a bay holding part of a car standing across both bays empty, each such check is charged as a missed car (3), and one car centred on the middle line was called empty in both bays, so it really was missed. The public model's many false 'occupied' calls cost 1 each. On normal frames the adapted model is far cheaper. The car-level view was added after seeing night 1, not this test.
 
 ### Model B
 
@@ -53,10 +53,10 @@ Bay by bay, the adapted model costs more than the public model on the test night
 | public test | gate 0.7 (chosen on public validation) | 0.498 |
 | public test | gate 0.15 (chosen on block 4, the owner's camera) | 0.7415 |
 | public test | always ask a person | 1.0 |
-| owner's camera, night 1 | no confidence gate | 0.7222 |
-| owner's camera, night 1 | gate 0.7 (chosen on public validation) | 0.6975 |
-| owner's camera, night 1 | gate 0.15 (chosen on block 4, the owner's camera) | 0.7222 |
-| owner's camera, night 1 | always ask a person | 1.0 |
+| owner's camera, night 3 | no confidence gate | 0.3876 |
+| owner's camera, night 3 | gate 0.7 (chosen on public validation) | 0.6327 |
+| owner's camera, night 3 | gate 0.15 (chosen on block 4, the owner's camera) | 0.3876 |
+| owner's camera, night 3 | always ask a person | 1.0 |
 
 ## Sensitivity to the cost assumptions
 
@@ -64,14 +64,14 @@ Each row re-chooses the thresholds on validation under other costs, then reports
 
 | cost assumption | A threshold | A band | A test cost | B gate (public) | B public test cost | B gate (camera) | B camera test cost |
 |---|---|---|---|---|---|---|---|
-| base | 0.86 | 0.0 | 0.2716 | 0.7 | 0.498 | 0.15 | 0.7222 |
-| missed x0.5 (5) | 0.86 | 0.0 | 0.1389 | 0.7 | 0.498 | 0.15 | 0.7222 |
-| missed x2 (20) | 0.86 | 0.0 | 0.537 | 0.7 | 0.498 | 0.15 | 0.7222 |
-| false alert x0.4 (2) | 0.86 | 0.0 | 0.2716 | 0.1 | 0.3488 | 0.15 | 0.4716 |
-| false alert x2 (10) | 0.86 | 0.0 | 0.2716 | 0.85 | 0.567 | 0.15 | 1.1399 |
-| review x0.5 (0.5) | 0.86 | 0.0 | 0.2685 | 0.85 | 0.2835 | 0.15 | 0.57 |
-| review x3 (3) | 0.86 | 0.0 | 0.284 | 0.1 | 0.9155 | 0.15 | 1.3313 |
-| p_authorized 0.3 | 0.86 | 0.0 | 0.6255 | 0.35 | 0.356 | 0.15 | 0.4835 |
-| p_authorized 0.95 | 0.88 | 0.0 | 0.0504 | 0.85 | 0.5333 | 0.15 | 0.8714 |
+| base | 0.86 | 0.0 | 0.2636 | 0.7 | 0.498 | 0.15 | 0.3876 |
+| missed x0.5 (5) | 0.86 | 0.0 | 0.1322 | 0.7 | 0.498 | 0.15 | 0.3876 |
+| missed x2 (20) | 0.86 | 0.0 | 0.5263 | 0.7 | 0.498 | 0.15 | 0.3876 |
+| false alert x0.4 (2) | 0.86 | 0.0 | 0.2636 | 0.1 | 0.3488 | 0.15 | 0.3403 |
+| false alert x2 (10) | 0.86 | 0.0 | 0.2636 | 0.85 | 0.567 | 0.15 | 0.4663 |
+| review x0.5 (0.5) | 0.86 | 0.0 | 0.2631 | 0.85 | 0.2835 | 0.15 | 0.2331 |
+| review x3 (3) | 0.86 | 0.0 | 0.2653 | 0.1 | 0.9155 | 0.15 | 1.0052 |
+| p_authorized 0.3 | 0.86 | 0.0 | 0.6138 | 0.35 | 0.356 | 0.15 | 0.3426 |
+| p_authorized 0.95 | 0.88 | 0.0 | 0.0451 | 0.85 | 0.5333 | 0.15 | 0.4157 |
 
 ![Risk-coverage](figures/risk_coverage.png)

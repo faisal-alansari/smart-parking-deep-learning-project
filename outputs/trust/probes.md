@@ -1,6 +1,6 @@
 # Explainability probes
 
-Model A (bay crops of the other night, test; the adapted model against the public-only one):
+Model A (bay crops of the sealed test night 3; the adapted model against the public-only one):
 - A1 where it looks: grey out the top, middle or bottom third of crops holding a car;
 - A2 glare: add a headlight-like glow to empty bays;
 - A3 half a car: grey out the left or right half of crops holding a car.
@@ -19,20 +19,20 @@ Hypotheses: A1, the model looks at the car itself (middle and bottom: body, bump
 | A1 where it looks | adapted (product) | cars, unchanged | 100% |
 | A1 where it looks | adapted (product) | cars, top third greyed | 100% |
 | A1 where it looks | adapted (product) | cars, middle third greyed | 100% |
-| A1 where it looks | adapted (product) | cars, bottom third greyed | 10% |
-| A2 glare | adapted (product) | empty bays, unchanged | 1% |
-| A2 glare | adapted (product) | empty bays, glare 0.3 | 2% |
-| A2 glare | adapted (product) | empty bays, glare 0.6 | 16% |
-| A2 glare | adapted (product) | empty bays, glare 0.9 | 89% |
-| A3 half a car | adapted (product) | cars, left half greyed | 100% |
-| A3 half a car | adapted (product) | cars, right half greyed | 100% |
+| A1 where it looks | adapted (product) | cars, bottom third greyed | 4% |
+| A2 glare | adapted (product) | empty bays, unchanged | 0% |
+| A2 glare | adapted (product) | empty bays, glare 0.3 | 0% |
+| A2 glare | adapted (product) | empty bays, glare 0.6 | 0% |
+| A2 glare | adapted (product) | empty bays, glare 0.9 | 98% |
+| A3 half a car | adapted (product) | cars, left half greyed | 48% |
+| A3 half a car | adapted (product) | cars, right half greyed | 99% |
 | A1 where it looks | public only | cars, unchanged | 100% |
 | A1 where it looks | public only | cars, top third greyed | 100% |
 | A1 where it looks | public only | cars, middle third greyed | 100% |
-| A1 where it looks | public only | cars, bottom third greyed | 60% |
-| A2 glare | public only | empty bays, unchanged | 30% |
-| A2 glare | public only | empty bays, glare 0.3 | 31% |
-| A2 glare | public only | empty bays, glare 0.6 | 63% |
+| A1 where it looks | public only | cars, bottom third greyed | 48% |
+| A2 glare | public only | empty bays, unchanged | 7% |
+| A2 glare | public only | empty bays, glare 0.3 | 10% |
+| A2 glare | public only | empty bays, glare 0.6 | 65% |
 | A2 glare | public only | empty bays, glare 0.9 | 100% |
 | A3 half a car | public only | cars, left half greyed | 100% |
 | A3 half a car | public only | cars, right half greyed | 100% |

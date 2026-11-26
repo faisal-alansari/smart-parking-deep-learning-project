@@ -12,10 +12,21 @@ Counted from the loaded models.
 
 Pretrained and fine-tuned models together: 312,493,232 parameters (limit 1,000,000,000): within the limit.
 
+## Evaluated but not deployed, and the deployed ensemble
+
+| model | role | parameters |
+|---|---|---|
+| A as deployed: majority vote of 3 seeds | 3 copies of Model A in memory | 882,387 |
+| A option d: wider OccupancyCNN (32-64-128-256) | adaptation candidate, rejected | 1,173,473 |
+| B baseline: YOLO11n from random weights | from-scratch plate baseline | 2,616,304 |
+| C candidate: FLAN-T5-small | Model C candidate, rejected on dev | 76,961,152 |
+
 ## Fine-tuning items (cap 10,000)
 
-| items | count |
-|---|---|
-| plate images used to fine-tune YOLO11n (train, validation and test) | 7000 |
-| local bay crops used to adapt Model A (night 2) and test it (night 1); scratch-model data, counted here to be safe | 2690 |
-| total | 9690 |
+| items | count | counted |
+|---|---|---|
+| plate images used to fine-tune YOLO11n (train and validation) | 6000 | yes |
+| local bay crops used to adapt Model A (night 2, train and validation); scratch-model data, counted here to be safe | 2204 | yes |
+| total counted against the cap | 8204 |  |
+| test only, never learned from: plate test images | 1000 | no |
+| test only, never learned from: local bay crops (nights 1 and 3) | 1628 | no |

@@ -1,20 +1,17 @@
-# Time and memory per stage (step 5)
+# Time and memory per stage
 
-Measured on the owner's Mac (Apple GPU, "MPS") on 2026-11-22, using `smart_parking.pipeline`
-with all three models loaded once. Sources: the night video (301 frames, one every 2 s) and a
-mixed folder (`just run-folder`: 6 iPhone photos, the video at one frame every 10 s, and the 60
-dev commands).
+Measured on the sample night clip (`samples/owner_camera`, one frame every 2 s) and the Model C
+dev commands, never on test data. Writes `outputs/loop/latency.md`.
 
-| stage | what one call does | mean | p95 |
+Machine: arm64 macOS 15.7.9, device mps. Models loaded once in **5.0 s**; peak memory of the process **2.7 GB**.
+
+| stage | calls | mean ms | p95 ms |
 |---|---|---|---|
-| A occupancy | both bays of one frame, 3 CNN seeds | 8 ms | 8–13 ms |
-| B plate read | YOLO11n + reading rules on one occupied bay | 51 ms | 55–73 ms |
-| permit table check | one bay | under 0.1 ms | under 0.1 ms |
-| C command | one typed command through Model C (tiered) | 117 ms | 365 ms |
+| C command (one command) | 63 | 114.4 | 376.8 |
+| camera check (one frame) | 123 | 5.1 | 5.6 |
+| A occupancy (one frame, both bays) | 111 | 6.6 | 7.0 |
+| permit table check (one bay) | 222 | 0.0 | 0.0 |
+| B plate read (one occupied bay) | 19 | 56.6 | 61.7 |
+| one frame end to end (camera check + A + B + permits) | 123 | 19.8 | 67.4 |
 
-- **One camera frame** (both bays occupied, the slowest case): about 8 + 2 × 51 ≈ 110 ms, so
-  roughly 9 frames per second. One frame every 1–2 seconds is plenty for parking.
-- **One owner command:** about 0.1 s on average, at most about 0.4 s for 95% of commands. Most of
-  this is the two command models (GLiNER + MiniLM, then the SmolLM2 check).
-- **Loading:** about 10 s once at start (all models); peak memory about 2.2 GB.
-- Model C on the CPU only is about 6× slower (0.7 s per command; `outputs/commands/candidates.md`).
+At one frame every 2 s, a frame that takes well under a second keeps up in real time; a command answers in well under a second.

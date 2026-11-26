@@ -18,18 +18,18 @@ without a new snapshot, and corrupted frames. An unfamiliar frame returns NEEDS_
 bays with the reason (`camera_blocked`, `unfamiliar_view` or `blurred_view`): the product never
 guesses on a view it does not know.
 
-After the first run the bay check flagged 13% of normal frames on the other night (1% on block 4): its cut-off is tuned to the training night, the same lesson as calibration. The product therefore uses the blocked, view and sharpness checks; the bay check is reported but not used (a choice informed by the test). The sharpness check (frame sharpness divided by the snapshot's) was added after the first run showed that heavy blur passes the view check.
+The product uses the blocked, view and sharpness checks. The feature-distance bay check is reported but not used: on block 4 alone its held-out false-alarm rate was above the 2% limit (`validation_choices.md`). The sharpness check (frame sharpness divided by the snapshot's) was added after an earlier run on night 1 showed that heavy blur passes the view check. Night 3 is the sealed test: nothing here was chosen on it.
 
 Cut-offs: view similarity below 0.725, sharpness ratio below 0.666, bay distance above 18.31; blocked: mean pixel value below 12 or above 243. One frame every 10 s. AUROC: how well each check separates these frames from the in-distribution test frames (1 = perfectly).
 
 | frames | n | blocked | view check | sharpness check | product (blocked, view or sharpness) | bay check (not used) | view AUROC | sharpness AUROC | bay AUROC |
 |---|---|---|---|---|---|---|---|---|---|
 | in: night 2, block 4 (validation) | 74 | 0% | 1% | 1% | 3% | 1% |  |  |  |
-| in: night 1 (test, its own snapshot) | 61 | 0% | 2% | 3% | 5% | 13% |  |  |  |
-| out: other car parks (51 photos) | 51 | 0% | 90% | 31% | 94% | 18% | 0.995 | 0.537 | 0.658 |
-| out: camera set up again, old snapshot (night 2 vs night 1) | 25 | 0% | 88% | 0% | 88% | 8% | 0.991 | 0.367 | 0.632 |
-| out: night 1, camera moved (shifted and zoomed) | 61 | 0% | 98% | 2% | 98% | 13% | 0.999 | 0.202 | 0.46 |
-| out: night 1, heavy blur | 61 | 0% | 2% | 100% | 100% | 13% | 0.538 | 1.0 | 0.659 |
-| out: night 1, over-exposed (x3) | 61 | 2% | 13% | 25% | 36% | 34% | 0.821 | 0.876 | 0.711 |
-| out: night 1, lens almost covered | 61 | 100% | 2% | 0% | 100% | 100% | 0.636 | 0.006 | 1.0 |
-| out: night 1, pure noise | 61 | 0% | 100% | 0% | 100% | 100% | 1.0 | 0.0 | 1.0 |
+| in: night 3 (test, its own snapshot) | 144 | 0% | 1% | 1% | 1% | 2% |  |  |  |
+| out: other car parks (51 photos) | 51 | 0% | 90% | 31% | 94% | 18% | 0.996 | 0.552 | 0.79 |
+| out: camera set up again, old snapshot (night 2 frames vs night 3 snapshot) | 25 | 0% | 8% | 8% | 8% | 0% | 0.965 | 0.7 | 0.569 |
+| out: night 3, camera moved (shifted and zoomed) | 144 | 0% | 3% | 1% | 3% | 1% | 0.986 | 0.348 | 0.456 |
+| out: night 3, heavy blur | 144 | 0% | 1% | 100% | 100% | 4% | 0.56 | 1.0 | 0.493 |
+| out: night 3, over-exposed (x3) | 144 | 0% | 1% | 24% | 24% | 51% | 0.822 | 0.766 | 0.882 |
+| out: night 3, lens almost covered | 144 | 100% | 1% | 1% | 100% | 100% | 0.766 | 0.023 | 0.999 |
+| out: night 3, pure noise | 144 | 0% | 100% | 0% | 100% | 100% | 1.0 | 0.0 | 1.0 |

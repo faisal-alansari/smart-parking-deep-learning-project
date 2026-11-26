@@ -42,6 +42,6 @@ Problems injected: the street light dims from 4:00 (to 15% by 6:00); the camera 
 
 - The dimming light was flagged (`lighting_change`) about a minute after it began, and Model A then became unsure (`model_unsure`).
 - The knocked camera was flagged (`camera_problem`) only after about 1.5 minutes: on this night, normal frames already score 0.75-0.97 on the view check (headlights and parked cars change the scene), and the knocked view scored about 0.74, just above the cut-off set on the training night (0.725). It crossed it only when a car drove in.
-- Before any problem, the monitor fired twice: while a car stood across both bays for minutes (one bay always needs a person) and while cars were manoeuvring (Model A unsure). The first is useful news for the owner; the second is a false alarm that a longer window would reduce.
+- Before any problem, the monitor fired once (`model_unsure` at 0:58, cleared at 3:04): a car stood across both bays and then manoeuvred out, and Model A was unsure about those frames. It is a false alarm that a longer window would reduce.
 
 ![Monitoring](figures/monitoring.png)

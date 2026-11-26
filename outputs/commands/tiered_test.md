@@ -1,6 +1,6 @@
 # Model C: tiered on test
 
-Time per command: 123 ms mean, 403 ms p95.
+Time per command: 122 ms mean, 409 ms p95.
 
 | slice | n | exact | dangerous | needless question | action | number | until |
 |---|---|---|---|---|---|---|---|

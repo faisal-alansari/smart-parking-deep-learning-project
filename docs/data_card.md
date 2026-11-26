@@ -16,7 +16,7 @@ The `data/` folder is not stored in Git. This card explains where each dataset c
 
 - **Source:** http://cnrpark.it/ (files: `CNR-EXT-Patches-150x150.zip`, `CNRPark-Patches-150x150.zip`, `CNRPark+EXT.csv`, `splits.zip`). Unzip into `data/raw/cnrpark/`.
 - **Citation:** G. Amato, F. Carrara, F. Falchi, C. Gennaro, C. Meghini, C. Vairo, "Deep learning for decentralized parking lot occupancy detection", *Expert Systems with Applications*, 2017. G. Amato et al., "Car parking occupancy detection using smart camera networks and deep learning", *IEEE ISCC*, 2016.
-- **License:** A third-party mirror lists ODbL v1.0. Not yet confirmed on the official site.
+- **License:** Open Data Commons Open Database License (ODbL) v1.0, as listed for the [official dataset](https://cnrpark.it/).
 - **Contents:** 157,549 labelled crops of single parking spaces (free / busy) from 11 cameras: CNR-EXT (9 cameras, Nov 2015 – Feb 2016) and CNRPark A/B (July 2015). Captured 07:00–18:00; almost no night images.
 - **Cleaning:** 39 blank images, 26 crops whose CSV label disagrees with the official label file, and 704 crops too dark to check by eye are excluded. 37,062 near-copies (same bay looking the same as its last kept snapshot) are removed.
 - **Splits:** camera C02 and the CNRPark A/B site are held out completely (unseen camera and unseen site tests). The other 8 cameras are split by the official day lists, so no day is shared. Train is balanced to 20,000 free + 20,000 busy, spread over cameras; validation and test keep their natural class mix. Full counts: `outputs/occupancy/data/data_report.md`.
@@ -32,16 +32,17 @@ The `data/` folder is not stored in Git. This card explains where each dataset c
 - **Fine-tuning subset (`just prepare-plates`):** 7,000 car photos, 5,000 train / 1,000 val / 1,000 test, re-split from scratch (the export's split is not used). 6,852 are verified (labels exactly match the file name). 148 unverified car photos were checked by eye and added to train only: 67 RAK, 32 Ajman, 40 Fujairah and 9 Sharjah; 38 were rejected. Decisions and reasons: `configs/plates_manual_review.yaml`. The same plate identity or near-identical photos never cross splits. All verified plates from the smaller emirates and all images with X, Y or Z are included; Dubai fills the rest. Val and test keep each emirate's share. Per-emirate counts: `outputs/plates/data/finetune_ledger.md`; full list: `finetune_ledger.csv`.
 - **Left out on purpose:** Umm Al Quwain plates and plates without an emirate box (too few examples); the product sends them to human review.
 - **Coverage limits:** RAK and Ajman have only 10 and 17 val/test images each, and new-style Sharjah plates are absent, so results for these are not reliable.
-- **Fine-tuning cap:** all 7,000 selected images count (train, val and test).
+- **Fine-tuning cap:** the 6,000 train and val images count; the 1,000 test images are never learned from and are listed apart (`outputs/budget.md`).
 
 ## 3. Owner's videos (fixed camera, night)
 
-Two night recordings of the owner's two bays from a phone fixed on a stick (portrait, 1080x1920, 30 fps), with the owner's two cars arriving, leaving, parking across both bays, standing in front of a bay and parking crookedly; people stand in and walk through the bays, and other cars pass behind. Daytime recording was not possible (the site is too crowded by day).
+Three night recordings of the owner's two bays from a phone fixed on a stick (portrait, 1080x1920, 30 fps), with the owner's two cars arriving, leaving, parking across both bays, standing in front of a bay and parking crookedly; people stand in and walk through the bays, and other cars pass behind. Daytime recording was not possible (the site is too crowded by day).
 
-- **Night 1** (16 Nov 2026, `IMG_1503.MOV`, 10 min): the **final test** of the adapted Model A and of the full system. Never used for training or for choosing anything. Truth: `configs/local_video_night_1.yaml`.
+- **Night 1** (16 Nov 2026, `IMG_1503.MOV`, 10 min): a **cross-night check** of the adapted Model A and of the full system. Never used for training. It was seen during development and first informed three choices (Model A's raw confidence, no feature-distance check, plate caching); those were made again on block 4 alone (`outputs/trust/validation_choices.md`), so night 1 is reported as a seen check, not a test. Truth: `configs/local_video_night_1.yaml`.
+- **Night 3** (27 Nov 2026, `data/raw/video_test/night_3.MOV`, 24 min, recorded alone by the owner to `docs/planning/test_video_checklist.md`): the **final system test**, recorded after the design was frozen. Truth (`configs/local_video_night_3.yaml`) was marked before any model saw the video and checked by the owner with no changes; the owner's `commands.txt` sits beside the video. Run once (`just final-test`, `outputs/final_test/night_3.md`). Never used for training, validation or any choice.
 - **Night 2** (24 Nov 2026, five files, about 43 min, recorded to a checklist): blocks 1-3 (about 31 min) **train** Model A's adaptation; block 4 (12 min) **chooses** its settings, thresholds and gates. Truth: `configs/local_video_night_2.yaml`.
 
-Truth for both was marked by Claude from frames every 10 s and every 2 s and **checked by the owner** (night 2 with three corrections). Moving periods (a car driving in or out) are not scored. A car standing across both bays counts as parked in both; a car waiting in a bay counts as occupied. The camera did not move within a night, but the two nights' views differ, so each has its own bay boxes, drawn once from one frame (like setting up a camera). Bay crops: one frame every 2 s, 64 px: night 2 gives 1,604 training crops (913 empty, 691 occupied) and 600 validation crops; night 1 gives 486 test crops.
+Truth for all three was marked by Claude from frames every 10 s and every 2 s and **checked by the owner** (night 2 with three corrections). Moving periods (a car driving in or out) are not scored. A car standing across both bays counts as parked in both; a car waiting in a bay counts as occupied. The camera did not move within a night, but the nights' views differ, so each has its own bay boxes, drawn once from one frame (like setting up a camera). Bay crops: one frame every 2 s, 64 px: night 2 gives 1,604 training crops (913 empty, 691 occupied) and 600 validation crops; night 1 gives 486 check crops and night 3 1,142 test crops (a blocked lens is left out, like moving cars).
 
 ## 4. Owner's local pilot photos
 
@@ -49,9 +50,9 @@ Truth for both was marked by Claude from frames every 10 s and every 2 s and **c
 
 ## 5. Owner's night photo set 1
 
-43 phone photos taken on 20 November 2026 at night in several public car parks, each showing one pair of bays from a standing position: 86 bays (46 empty, 40 occupied), 40 readable plates (36 distinct cars). One shared pair of bay boxes is used for every photo (`configs/local_night_1.yaml`), like a fixed camera. Bay states come from the owner; plates were read by eye from the full-size photos. Used only to check the full loop and to probe its errors (`just local-night-1`); never used for training or thresholds. The code letter on IMG_1838 was confirmed by the owner.
+43 phone photos taken on 20 November 2026 at night in several public car parks, each showing one pair of bays from a standing position: 86 bays (46 empty, 40 occupied), 40 readable plates (36 distinct cars). One shared pair of bay boxes is used for every photo (`configs/local_night_1.yaml`), like a fixed camera. Bay states come from the owner; plates were read by eye from the full-size photos. Used only to check the full loop and to probe its errors (`just local-night-1`); failures informed plate safety rules. Not used for gradient training. The code letter on IMG_1838 was confirmed by the owner.
 
-**Privacy (2026-11-25):** the owner considers all captured photos and videos public, plates and faces included, so truth labels and plate-level results are in Git and short samples are in `samples/`. The raw videos are too large for Git (about 6 GB); see the README for how to obtain them.
+**Privacy (2026-11-25, confirmed 2026-11-26):** the owner considers all captured photos and videos public, plates and faces included, so truth labels and plate-level results are in Git and short samples are in `samples/`. The raw videos are too large for Git (about 8 GB). **Download:** link pending (the owner will host the raw photos and videos; place them in `data/raw/` as listed in the README).
 
 ## 6. Owner command sets (Model C)
 

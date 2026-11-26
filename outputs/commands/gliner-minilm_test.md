@@ -1,6 +1,6 @@
 # Model C: gliner-minilm on test
 
-Time per command: 27 ms mean, 38 ms p95.
+Time per command: 24 ms mean, 33 ms p95.
 
 | slice | n | exact | dangerous | needless question | action | number | until |
 |---|---|---|---|---|---|---|---|
