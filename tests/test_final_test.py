@@ -77,3 +77,12 @@ def test_the_test_video_is_never_in_training_or_validation():
             assert "video_test" not in text, config
     train = yaml.safe_load(Path("configs/local_video_night_2.yaml").read_text())
     assert {f["split"] for f in train["files"]} == {"train", "validation"}
+
+
+def test_the_test_start_time_is_pinned_not_read_from_the_file():
+    """Copying the video must not change the permit times the report is scored with."""
+    from smart_parking.pipeline import config_start
+
+    cfg = yaml.safe_load(Path("configs/local_video_night_3.yaml").read_text())
+    cfg["video"] = "does/not/exist.MOV"  # the file is never opened
+    assert config_start(cfg) == datetime(2026, 11, 27, 0, 5, 38, tzinfo=TZ)

@@ -78,8 +78,8 @@ Camera: the owner's camera (default boxes and snapshot); occupancy model: adapte
 
 | stage | calls | mean ms | p95 ms |
 |---|---|---|---|
-| C command (one command) | 3 | 31.7 | 84.8 |
-| camera check (one frame) | 123 | 5.0 | 5.4 |
-| A occupancy (one frame, both bays) | 111 | 6.8 | 7.2 |
+| C command (one command) | 3 | 33.0 | 88.3 |
+| camera check (one frame) | 123 | 5.1 | 5.7 |
+| A occupancy (one frame, both bays) | 111 | 7.3 | 8.7 |
 | permit table check (one bay) | 222 | 0.0 | 0.0 |
-| B plate read (one occupied bay) | 19 | 60.0 | 79.0 |
+| B plate read (one occupied bay) | 19 | 60.6 | 82.8 |

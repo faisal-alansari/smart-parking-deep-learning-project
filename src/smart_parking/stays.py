@@ -213,13 +213,13 @@ def main() -> None:
     args = ap.parse_args()
     setup_logging(load_config().logging)
     cfg = yaml.safe_load(args.config.read_text())
-    from smart_parking.pipeline import video_start
+    from smart_parking.pipeline import config_start
 
     frames = pd.read_csv(Path("outputs/loop/local/video_night_1.csv"), keep_default_na=False)
     owner = PermitTable()
     for n in cfg["permanent"]:
         owner.apply(ParsedCommand(action=Action.ALLOW, number=str(n)), confirm=lambda q: True)
-    d = apply_stays(frames, video_start(Path(cfg["video"])), owner)
+    d = apply_stays(frames, config_start(cfg), owner)
     d.to_csv(Path("outputs/loop/local/video_night_1_stays.csv"), index=False)
     out = Path("outputs/loop/video_night_1_stays.md")
     out.write_text(report(d, cfg))

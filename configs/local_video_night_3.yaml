@@ -8,6 +8,7 @@
 title: night video 3 (2026-11-27, sealed final test)
 video: data/raw/video_test/night_3.MOV
 every_s: 2
+start: '2026-11-27T00:05:38+04:00'  # recording start, from the video's own metadata
 snapshot_s: 10  # set-up snapshot for the camera check: both bays empty, at the start
 truth_status: checked by the owner (2026-11-27), no changes
 # Bay boxes drawn once from a frame (20:20) with a car in each bay, like a camera set up once.

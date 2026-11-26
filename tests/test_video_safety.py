@@ -139,3 +139,27 @@ def test_folder_run_keeps_a_blocked_camera_visible(tmp_path):
     assert stays[-1] == "AUTHORIZED"  # the view came back and the car never left
     assert pipe.cached_seen > 0  # the settled plate was reused, not re-read
     assert (tmp_path / "runs" / "cam" / "result.json").exists()
+
+
+class _CommandPipe(_FakePipe):
+    """Also answers owner commands: any command allows car 12345 (Model C's job, stubbed)."""
+
+    def command(self, text, now, table, review, feedback):  # noqa: ANN001, ANN201
+        table.apply(ParsedCommand(action=Action.ALLOW, number="12345"), confirm=lambda q: True)
+        return "Done"
+
+
+def test_a_permit_typed_during_a_video_applies_from_the_next_frame(tmp_path, monkeypatch):
+    folder = tmp_path / "cam"
+    folder.mkdir()
+    (folder / "bays.yaml").write_text("boxes: {left: [0.1, 0.1, 0.9, 0.9]}\n")
+    _video(folder / "clip.mp4", 60)
+    start = datetime(2026, 11, 26, 20, 59, 30, tzinfo=ZoneInfo("Asia/Dubai"))
+    monkeypatch.setattr("smart_parking.pipeline.video_start", lambda path: start)
+    (folder / "commands.txt").write_text("2026-11-26 21:00 | allow car 12345\n")  # 30 s in
+    result = run_folder(folder, 1, True, tmp_path / "runs", PermitTable(),
+                        {"final": _CommandPipe([1] * 60)})  # fmt: skip
+    by_second = {(d.time - start).total_seconds(): d.stay_status for d in result.decisions}
+    assert by_second[20] == "POTENTIALLY_UNAUTHORIZED"  # parked, no permit yet
+    assert by_second[30] == "AUTHORIZED"  # the permit arrives with this frame
+    assert len(result.commands) == 1

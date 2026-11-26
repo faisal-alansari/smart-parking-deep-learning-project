@@ -130,12 +130,12 @@ def simulate(
 
 def study(d: pd.DataFrame, cfg: dict, a_ms: float, b_ms: float) -> pd.DataFrame:
     """Every frame rate with and without caching on one video's saved per-frame results."""
-    from smart_parking.pipeline import video_start
+    from smart_parking.pipeline import config_start
 
     owner = PermitTable()
     for n in cfg["permanent"]:
         owner.apply(ParsedCommand(action=Action.ALLOW, number=str(n)), confirm=lambda q: True)
-    start = video_start(Path(cfg["video"]))
+    start = config_start(cfg)
     minutes = (d["t"].max() + 2) / 60
     rows = []
     for every in (2, 4, 8):

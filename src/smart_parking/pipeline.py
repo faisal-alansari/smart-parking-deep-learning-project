@@ -248,6 +248,14 @@ def video_start(path: Path) -> datetime:
         return datetime.fromtimestamp(path.stat().st_mtime, TZ)
 
 
+def config_start(cfg: dict) -> datetime:
+    """A truth config's recording start: pinned in the config (`start`), so replays never depend
+    on file metadata that can change when the video is copied; else read from the file."""
+    if "start" in cfg:
+        return datetime.fromisoformat(str(cfg["start"])).astimezone(TZ)
+    return video_start(Path(cfg["video"]))
+
+
 def video_frames(path: Path, every: float) -> Iterator[tuple[float, Image.Image]]:
     """(seconds from the start, frame) every `every` seconds."""
     import cv2
@@ -536,12 +544,22 @@ def run_folder(
     out.mkdir(parents=True, exist_ok=True)
     feedback = out / "feedback.jsonl"
     review = (lambda q, c: c) if yes else ask_owner
+    pending = [(at, str(item)) for at, kind, item in events if kind == "command"]
+
+    def run_due(now: datetime | None) -> None:
+        """Answer every command typed up to `now` (all of them when None), in time order, so a
+        permit given during a video applies from the next frame."""
+        while pending and (now is None or pending[0][0] <= now):
+            at, text = pending.pop(0)
+            reply = pipe.command(text, at, table, review, feedback)
+            result.commands.append(CommandResult(time=at, command=text, reply=reply))
+            logger.bind(command=text).info("Reply: {}", reply)
+
     for at, kind, item in events:
         if kind == "command":
-            reply = pipe.command(str(item), at, table, review, feedback)
-            result.commands.append(CommandResult(time=at, command=str(item), reply=reply))
-            logger.bind(command=item).info("Reply: {}", reply)
-        elif kind == "photo":
+            continue  # answered by `run_due` at its own time
+        run_due(at)
+        if kind == "photo":
             im = open_photo(item)
             for r in pipe.frame(im, boxes, at, table, guard):
                 ev = (
@@ -556,6 +574,7 @@ def run_folder(
             last_stay = {bay: "EMPTY" for bay in boxes}
             for t, im in video_frames(item, every):
                 when = at + timedelta(seconds=t)
+                run_due(when)
                 cached = {
                     b: last_read[b]
                     for b, tr in trackers.items()
@@ -576,6 +595,7 @@ def run_folder(
                         logger.bind(bay=r["bay"], status=stay).info("Notify owner at {}", clock(t))
                     last_stay[r["bay"]] = stay
                     result.decisions.append(_decision(item.name, when, r, stay, clock(t), ev))
+    run_due(None)
     _write_run(result, out, pipe)
     return result
 
@@ -659,7 +679,7 @@ def frame_table(
     covered: the right answer is NEEDS_REVIEW) and slices. `table` is the permit table the
     system uses and `true_table` the owner's intended one; both default to the permanent list."""
     path = Path(cfg["video"])
-    start = video_start(path)
+    start = config_start(cfg)
     pipe = pipe or Pipeline(commands=False)
     guard = None  # the camera check, set up from the snapshot frame named in the config
     if "snapshot_s" in cfg:

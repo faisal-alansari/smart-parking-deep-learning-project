@@ -167,9 +167,9 @@ def measures(d: pd.DataFrame, stays: pd.DataFrame) -> pd.DataFrame:
 
 def write_report(d: pd.DataFrame, cfg: dict, commands: pd.DataFrame, timing: pd.DataFrame) -> None:
     """Write `outputs/final_test/night_3.md` and `night_3.json`."""
-    from smart_parking.pipeline import video_start
+    from smart_parking.pipeline import config_start
 
-    start = video_start(Path(cfg["video"]))
+    start = config_start(cfg)
     stays = stay_rows(d, cfg, start, intended_table(cfg))
     m = measures(d, stays)
     by_slice = []
@@ -226,13 +226,13 @@ def main() -> None:
         return
     if FRAMES.exists():
         raise SystemExit("The final test has already been run once; use --report.")
-    from smart_parking.pipeline import Pipeline, frame_table, video_start
+    from smart_parking.pipeline import Pipeline, config_start, frame_table
 
     pipe = Pipeline(commands=True, deploy="adapted")
     table = PermitTable()
     commands = run_commands(cfg, pipe, table)
     frames, pipe = frame_table(cfg, pipe, table=table, true_table=intended_table(cfg))
-    d = apply_stays(frames, video_start(Path(cfg["video"])), table)
+    d = apply_stays(frames, config_start(cfg), table)
     d.to_csv(FRAMES, index=False)
     commands.to_csv(OUT / "local" / "night_3_commands.csv", index=False)
     timing = pipe.timing()
