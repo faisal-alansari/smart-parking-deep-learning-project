@@ -1,0 +1,9 @@
+{
+  "report": "docs/final_report.md",
+  "words_including_headings": 2788,
+  "limit": 3000,
+  "within_word_limit": true,
+  "exclusions": "tables, images, fenced diagrams and Table/Figure captions",
+  "page_count": null,
+  "page_note": "Markdown has no intrinsic pages; see the audit's stated print layout."
+}
