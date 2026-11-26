@@ -28,12 +28,15 @@ from sklearn.linear_model import LogisticRegression  # noqa: E402
 from smart_parking.common.config import load_config  # noqa: E402
 from smart_parking.common.log import setup_logging  # noqa: E402
 from smart_parking.trust.common import (  # noqa: E402
+    FITTED_CHANGED,
     OUT,
     md,
     occupancy_models,
     occupancy_scores,
     occupancy_sets,
     plate_rows,
+    refit_flag,
+    same_numbers,
 )
 
 BINS = 10
@@ -41,6 +44,7 @@ EPS = 1e-6
 
 
 def logit(p: np.ndarray) -> np.ndarray:
+    """Log-odds of p, clipped away from 0 and 1."""
     p = np.clip(p, EPS, 1 - EPS)
     return np.log(p / (1 - p))
 
@@ -59,6 +63,7 @@ def reliability(y: np.ndarray, p: np.ndarray, bins: int = BINS) -> pd.DataFrame:
 
 
 def ece(y: np.ndarray, p: np.ndarray, bins: int = BINS) -> float:
+    """Expected calibration error over equal-width bins."""
     edges = np.linspace(0, 1, bins + 1)
     idx = np.clip(np.digitize(p, edges[1:-1]), 0, bins - 1)
     return float(sum((idx == b).mean() * abs(p[idx == b].mean() - y[idx == b].mean())
@@ -72,6 +77,7 @@ def platt(y: np.ndarray, p: np.ndarray) -> tuple[float, float]:
 
 
 def apply_platt(p: np.ndarray, ab: tuple[float, float]) -> np.ndarray:
+    """Apply Platt parameters (a, b) to probabilities."""
     return 1 / (1 + np.exp(-(ab[0] * logit(p) + ab[1])))
 
 
@@ -91,7 +97,8 @@ def _panel(ax, y: np.ndarray, p: np.ndarray, title: str) -> None:  # noqa: ANN00
     ax.title.set_fontsize(8)
 
 
-def run() -> None:
+def run(refit: bool = False) -> None:
+    """Fit Platt scaling for Models A and B, compare ECE on test, write `calibration.md`."""
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "figures").mkdir(exist_ok=True)
     sets, models = occupancy_sets(), occupancy_models()
@@ -107,7 +114,7 @@ def run() -> None:
         {"model": "A occupancy", "split": "validation (block 4)", "items": len(a["validation"][1]),
          "ECE before": ece(a["validation"][1], a["validation"][0]),
          "ECE after": ece(a["validation"][1], apply_platt(a["validation"][0], ab_a))},
-        {"model": "A occupancy", "split": "test (first video)", "items": len(ya_t),
+        {"model": "A occupancy", "split": "test (night video 3)", "items": len(ya_t),
          "ECE before": ece(ya_t, pa_t), "ECE after": ece(ya_t, apply_platt(pa_t, ab_a))},
         {"model": "B plate read", "split": "validation (public)", "items": len(yb_v),
          "ECE before": ece(yb_v, pb_v), "ECE after": ece(yb_v, apply_platt(pb_v, ab_b))},
@@ -125,7 +132,11 @@ def run() -> None:
     # Used by the product: Platt for Model B; Model A keeps its raw probability (see below)
     params = {"occupancy": {"method": "raw", "platt_a": ab_a[0], "platt_b": ab_a[1]},
               "plate": {"method": "platt", "a": ab_b[0], "b": ab_b[1]}}  # fmt: skip
-    (OUT / "calibration.json").write_text(json.dumps(params, indent=2))
+    saved = OUT / "calibration.json"
+    if refit or not saved.exists():
+        saved.write_text(json.dumps(params, indent=2))
+    elif not same_numbers(json.loads(saved.read_text()), params):
+        raise SystemExit(FITTED_CHANGED.format("Calibration"))
     bins = []
     for name, y, p in (("A raw", ya_t, pa_t), ("A Platt", ya_t, apply_platt(pa_t, ab_a)),
                        ("B raw", yb_t, pb_t),
@@ -141,20 +152,19 @@ def run() -> None:
         "- **Model B is under-confident:** its reads are right more often than its confidence "
         "says (bins below). Platt scaling fitted on validation fixes this on test, so the "
         "product shows Model B's calibrated confidence.\n"
-        "- **Model A's raw probability is already fairly calibrated on the other night.** "
-        "Platt scaling fitted on block 4 (the same night as its training data) looks better on "
-        "block 4 but worse on the test night: it pushes almost every crop to 0 or 1 and becomes "
-        "sure that a bay holding half of a car standing across both bays is empty. The product "
-        "therefore keeps Model A's raw probability. This choice was informed by the test result "
-        "(one night cannot calibrate another), and is reported as such.\n\n"
+        "- **Model A keeps its raw probability.** The choice was made on block 4 alone: with "
+        "each of two folds of block 4 held out in turn, Platt scaling had a higher calibration "
+        "error than the raw probability (`validation_choices.md`). The test night only reports how "
+        "both behave; nothing was chosen on it.\n\n"
         "## Bins (test)\n\n" + "\n\n".join(bins) + "\n"
     )
     logger.info("Calibration -> {}", OUT / "calibration.md")
 
 
 def main() -> None:
+    """Set up logging and run the calibration (`--refit` stores the new fit)."""
     setup_logging(load_config().logging)
-    run()
+    run(refit_flag())
 
 
 if __name__ == "__main__":

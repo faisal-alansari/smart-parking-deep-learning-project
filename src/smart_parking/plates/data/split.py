@@ -195,6 +195,7 @@ def ledger_summary(selected: pd.DataFrame, cap: int) -> dict:
 
 
 def write_markdown(summary: dict, path: Path) -> None:
+    """Write the fine-tuning ledger summary as Markdown."""
     lines = [
         "# Plate fine-tuning subset and ledger",
         "",
@@ -219,6 +220,7 @@ def write_markdown(summary: dict, path: Path) -> None:
 
 
 def main() -> None:
+    """Select and split the plate fine-tuning subset; write the YOLO dataset and ledger."""
     from smart_parking.common.config import load_config
     from smart_parking.common.log import setup_logging
 

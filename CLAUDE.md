@@ -2,7 +2,7 @@
 
 ## Decision memory
 
-- After any **meaningful** design, data, model, training, evaluation, threshold, or workflow decision, update `memory.md` **in the same working session**.
+- After any **meaningful** design, data, model, training, evaluation, threshold, or workflow decision, update `Memory.md` **in the same working session**.
 - Record the **decision or hypothesis**, **why it was tried**, **what the result means** (worked, failed, or inconclusive), and **what to do next**.
 - Include failed experiments and rejected approaches when they change our understanding. If a new finding reverses an earlier decision, mark the earlier decision as superseded.
 - Keep entries **short, plain-language, and nontechnical by default**. Include only a number or comparison needed to explain a decision. Store detailed metrics, logs, configurations, and debugging information elsewhere.

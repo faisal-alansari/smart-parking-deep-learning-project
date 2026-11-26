@@ -29,6 +29,7 @@ class OccupancyCNN(nn.Module):
         self.head = nn.Sequential(nn.Flatten(), nn.Dropout(dropout), nn.Linear(c_in, 1))
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """One occupancy logit per crop: conv features, average pooling, then the head."""
         x = self.features(x)
         x = torch.nn.functional.adaptive_avg_pool2d(x, 1)
         return self.head(x).squeeze(1)

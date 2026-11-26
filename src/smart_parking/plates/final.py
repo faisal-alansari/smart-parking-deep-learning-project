@@ -193,6 +193,7 @@ def _write_markdown(results: dict, cfg: PlateTrainConfig) -> None:
 
 
 def main() -> None:
+    """Train the final plate seeds and/or evaluate them."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--train", action="store_true")
     parser.add_argument("--evaluate", action="store_true")

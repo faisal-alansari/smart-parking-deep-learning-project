@@ -24,6 +24,7 @@ def occupancy_decision(
 
 
 def calibrated(confidence: float, d: DecisionConfig) -> float:
+    """Platt-scale a plate read's confidence with the configured a and b."""
     z = np.log(max(confidence, 1e-6) / max(1 - confidence, 1e-6))
     return float(1 / (1 + np.exp(-(d.plate_platt_a * z + d.plate_platt_b))))
 

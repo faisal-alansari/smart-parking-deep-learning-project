@@ -56,6 +56,25 @@ download-weights:
 plate-experiments:
     uv run python -m smart_parking.plates.experiments
 
+# Rebuild the training-choice tables from the logged runs (no training)
+occupancy-experiments-report:
+    uv run python -m smart_parking.occupancy.experiments --report
+
+plate-experiments-report:
+    uv run python -m smart_parking.plates.experiments --report
+
+# Rebuild the Model A adaptation choice table from the saved runs (no training)
+adapt-occupancy-choice-report:
+    uv run python -m smart_parking.occupancy.adapt --report-choice
+
+# Model A confidence and the bay check, chosen again on block 4 only (rules in Memory.md)
+validation-choices:
+    uv run python -m smart_parking.trust.validation_choices
+
+# Compute and latency budget on the sample clip and dev commands (outputs/loop/latency.md)
+latency:
+    HF_HUB_OFFLINE=1 uv run python -m smart_parking.latency
+
 # Train the selected YOLO11n settings once per seed
 train-plates:
     uv run python -m smart_parking.plates.final --train
@@ -116,11 +135,16 @@ full-loop-ablation:
 
 # Run the full system on a folder of new photos, videos and commands.txt (see pipeline.py)
 run-folder dir *flags:
-    HF_HUB_OFFLINE=1 uv run python -m smart_parking.pipeline --folder {{dir}} {{flags}}
+    HF_HUB_OFFLINE=1 uv run python -m smart_parking.pipeline --folder {{quote(dir)}} {{flags}}
 
 # Full loop on the owner's night video against its truth (local only; counts-only summary)
 video-night-1:
     HF_HUB_OFFLINE=1 uv run python -m smart_parking.pipeline --video-eval configs/local_video_night_1.yaml
+
+# The one final test: the whole system on the sealed night video 3 (runs the models once;
+# `just final-test --report` rebuilds the report from the saved results)
+final-test *flags:
+    HF_HUB_OFFLINE=1 uv run python -m smart_parking.final_test {{flags}}
 
 # One decision per car's stay on the night video (uses the saved per-frame results)
 video-night-1-stays:
@@ -172,7 +196,7 @@ efficiency:
 
 # Demo web app (Streamlit): owner commands with accept/reject/fix, camera runs on samples/
 demo:
-    HF_HUB_OFFLINE=1 uv run streamlit run src/smart_parking/app.py --server.headless true
+    HF_HUB_OFFLINE=1 uv run streamlit run src/smart_parking/app.py --server.headless true --server.address 127.0.0.1 --browser.gatherUsageStats false
 
 # Demo on the command line: both sample folders through the full system (outputs/runs/)
 demo-cli:
@@ -183,18 +207,31 @@ demo-cli:
 budget:
     HF_HUB_OFFLINE=1 uv run python -m smart_parking.budget
 
+# Check the report word limit without evaluating or choosing any model
+report-check:
+    uv run python -m smart_parking.report_check
+
 # Train every learned part in order (public occupancy CNN, plate reader, Model A adaptation)
 train: train-occupancy train-plates adapt-occupancy
 
 # Model C on its frozen test exactly as tested (reproduces the reported test numbers)
+# Replay the one frozen Model C test comparison exactly as tested (fixed parsers; nothing is chosen)
 command-test:
     for p in oracle rules smollm2 flan-t5 gliner-minilm checked tiered; do HF_HUB_OFFLINE=1 uv run python -m smart_parking.commands.score $p test --final --as-tested; done
 
-# Regenerate every table and figure in the report from the saved models (no training)
+# Regenerate every table and figure in the report from saved models and logged runs. Read-only:
+# it never trains and never changes a fitted setting (a mismatch stops it; see `just refit`).
 evaluate:
+    just occupancy-experiments-report
+    just plate-experiments-report
+    just adapt-occupancy-choice-report
     just evaluate-occupancy
     just evaluate-plates
     just adapt-occupancy-report
+    just validation-choices
+    just calibration
+    just costs
+    just ood
     just command-test
     just command-robustness
     just command-demo
@@ -203,13 +240,20 @@ evaluate:
     just full-loop-scenario
     just video-night-1
     just video-night-1-stays
-    just calibration
-    just costs
-    just ood
+    just final-test --report
     just robustness-images
     just monitor-demo
+    just latency
     just efficiency
     just probes
     just failures
     just budget
+    just report-check
     just demo-cli
+
+# Re-fit the validation-only settings (calibration, cost thresholds, camera check) and store them
+refit:
+    uv run python -m smart_parking.trust.calibration --refit
+    uv run python -m smart_parking.trust.costs --refit
+    uv run python -m smart_parking.trust.ood --refit
+

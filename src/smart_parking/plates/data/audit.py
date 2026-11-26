@@ -377,6 +377,7 @@ def plate_crop_sheet(
 
 
 def main() -> None:
+    """Audit the raw plate data; write the boxes, plates, images, duplicates and report."""
     from smart_parking.common.config import load_config
     from smart_parking.common.log import setup_logging
 

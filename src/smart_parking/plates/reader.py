@@ -43,18 +43,22 @@ class Box:
 
     @property
     def cx(self) -> float:
+        """Horizontal centre of the box."""
         return (self.x0 + self.x1) / 2
 
     @property
     def cy(self) -> float:
+        """Vertical centre of the box."""
         return (self.y0 + self.y1) / 2
 
     @property
     def h(self) -> float:
+        """Height of the box."""
         return self.y1 - self.y0
 
     @property
     def area(self) -> float:
+        """Area of the box (0 if it is empty)."""
         return max(0.0, self.x1 - self.x0) * max(0.0, self.y1 - self.y0)
 
 
@@ -70,6 +74,7 @@ class PlateRead(BaseModel):
 
 
 def iou(a: Box, b: Box) -> float:
+    """Intersection over union of two boxes."""
     ix = max(0.0, min(a.x1, b.x1) - max(a.x0, b.x0))
     iy = max(0.0, min(a.y1, b.y1) - max(a.y0, b.y0))
     inter = ix * iy

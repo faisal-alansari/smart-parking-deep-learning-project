@@ -4,7 +4,7 @@ Stresses (4 levels each): darkness (the street light fails), blur (a dirty or fo
 sensor noise (night grain), JPEG compression (a weak video link) and headlight glare (a bright
 blob over the bays). Each is applied to the whole frame.
 
-- Model A + the camera check: frames of the other night (test, one every 4 s, moving periods
+- Model A + the camera check: frames of night video 1 (a seen night, one every 4 s, moving periods
   left out). For each level: how often the camera check asks a person (graceful abstention),
   and Model A's balanced accuracy on the frames it still answers.
 - Model B: 400 public plate test images under the same stresses: exact full-plate reads,
@@ -29,7 +29,7 @@ from PIL import Image, ImageDraw, ImageFilter  # noqa: E402
 from smart_parking.common.config import load_config  # noqa: E402
 from smart_parking.common.log import setup_logging  # noqa: E402
 from smart_parking.decision import gate_plate, occupancy_decision  # noqa: E402
-from smart_parking.occupancy.adapt import VIDEO_TEST, balanced, truth, video_files  # noqa: E402
+from smart_parking.occupancy.adapt import VIDEO_SEEN, balanced, truth, video_files  # noqa: E402
 from smart_parking.occupancy.train import predict, to_tensor  # noqa: E402
 from smart_parking.trust.common import OUT, md, occupancy_models  # noqa: E402
 from smart_parking.trust.ood import ViewGuard, _crops, sharpness, small_view  # noqa: E402
@@ -44,6 +44,7 @@ LEVELS = {
 
 
 def stress(im: Image.Image, kind: str, level: float, rng: np.random.Generator) -> Image.Image:
+    """Apply one image stress (darkness, blur, noise, JPEG, headlight) at a level."""
     a = np.asarray(im).astype(np.float32)
     if kind.startswith("darkness"):
         return Image.fromarray(np.clip(a * level, 0, 255).astype(np.uint8))
@@ -71,13 +72,14 @@ def stress(im: Image.Image, kind: str, level: float, rng: np.random.Generator) -
 def _test_frames() -> tuple[list[tuple[float, Image.Image]], dict, dict]:
     from smart_parking.pipeline import in_any, video_frames
 
-    cfg = yaml.safe_load(VIDEO_TEST.read_text())
+    cfg = yaml.safe_load(VIDEO_SEEN.read_text())
     f = video_files(cfg)[0]
     frames = [(t, im) for t, im in video_frames(Path(f["video"]), 4) if not in_any(t, f["moving"])]
     return frames, cfg, f
 
 
 def occupancy_robustness() -> pd.DataFrame:
+    """Model A and the camera check on night-1 frames at each stress level."""
     frames, cfg, f = _test_frames()
     boxes = cfg["boxes"]
     snap = next(im for t, im in frames if t >= 340)
@@ -109,6 +111,7 @@ def occupancy_robustness() -> pd.DataFrame:
 
 
 def plate_robustness(n: int = 400) -> pd.DataFrame:
+    """Model B on the first n public test images at each stress level."""
     from smart_parking.plates.metrics import score_image, summarise
     from smart_parking.plates.reader import Box, read_plates
     from smart_parking.plates.train import ground_truth
@@ -146,6 +149,7 @@ def plate_robustness(n: int = 400) -> pd.DataFrame:
 
 
 def run() -> None:
+    """Run the robustness tests, plot them and write `robustness_images.md`."""
     a, b = occupancy_robustness(), plate_robustness()
     fig, axes = plt.subplots(1, 3, figsize=(13, 3.4))
     for kind, g in a.groupby("stress", sort=False):
@@ -176,6 +180,7 @@ def run() -> None:
 
 
 def main() -> None:
+    """Set up logging and run the image robustness tests."""
     setup_logging(load_config().logging)
     run()
 

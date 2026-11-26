@@ -70,6 +70,7 @@ def _typo(rng: random.Random, text: str) -> str:
 
 
 def build() -> list[dict]:
+    """The robustness set: 40 dev commands at three damage levels, plus off-topic and tricks."""
     rng = random.Random(SEED)
     cfg = load_config().commands
     used = {
@@ -116,6 +117,11 @@ def build() -> list[dict]:
 
 
 def main() -> None:
+    """Run the documented entry point with contextual, rotating application logs."""
+    from smart_parking.common.config import load_config
+    from smart_parking.common.log import setup_logging
+
+    setup_logging(load_config().logging)
     cfg = load_config().commands
     rows = build()
     (cfg.data_dir / "robustness.jsonl").write_text("".join(json.dumps(r) + "\n" for r in rows))

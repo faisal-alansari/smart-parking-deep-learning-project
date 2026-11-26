@@ -92,6 +92,8 @@ def say_command(
 
 @dataclass
 class Command:
+    """One owner command: when it was said, its text and what the owner meant."""
+
     at: datetime
     text: str
     intended: ParsedCommand  # what the owner meant
@@ -125,6 +127,8 @@ def plan_commands(permanent: list[str], arrivals: dict[str, datetime], seed: int
 
 @dataclass
 class Tables:
+    """The permit tables after the commands, and a log of how each command went."""
+
     truth: PermitTable  # what the owner meant
     confirmed: PermitTable  # the product: Model C proposes, the owner confirms or fixes
     unchecked: PermitTable  # Model C alone: every proposal applied, questions dropped
@@ -203,6 +207,7 @@ def plate_read(row) -> PlateRead | None:  # noqa: ANN001  (a DataFrame row)
 
 
 def plate_text(true_plate: str) -> str:
+    """The plate's number (the part after the last space), or '' if there is no plate."""
     return true_plate.rsplit(" ", 1)[-1] if true_plate else ""
 
 
@@ -320,6 +325,7 @@ def first_arrivals(res: pd.DataFrame) -> dict[str, datetime]:
 
 
 def evaluate(loop: dict, decide: Decide) -> None:
+    """Run the full loop on every photo set; write the bay CSV, details and summary."""
     res = pd.concat([run_models(s) for s in loop["sets"]], ignore_index=True)
     arrivals = first_arrivals(res)
     (OUT / "local").mkdir(parents=True, exist_ok=True)
@@ -368,6 +374,7 @@ def scenario(loop: dict, decide: Decide) -> None:
 
 
 def main() -> None:
+    """Load Model C and run the scenario and/or the evaluation."""
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     ap.add_argument("--scenario", action="store_true")

@@ -37,6 +37,7 @@ def _number_spans(text: str) -> list[str]:
 
 
 def extract(text: str) -> Extraction:
+    """Rule parser: OTHER for other requests, else the action, numbers and end time."""
     t = re.sub(r"[,!?]|\.(?=\s|$)", " ", text.lower()).strip()
     if OTHER_REQUEST.match(t):
         return Extraction(action=OTHER)

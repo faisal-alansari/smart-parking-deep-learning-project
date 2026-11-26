@@ -150,6 +150,7 @@ def token_pieces(tok) -> list[str]:
 
 
 def candidate_ids(pieces: list[str], allowed_text: str) -> list[int]:
+    """Indices of the token pieces that appear in the allowed text."""
     return [i for i, p in enumerate(pieces) if p and p in allowed_text]
 
 
@@ -194,6 +195,7 @@ def smol_values(s: str) -> list[tuple[str, bool]]:
 
 
 def smol_state(s: str, text: str) -> str:
+    """'bad', 'partial' or 'done' for a SmolLM2 JSON answer so far; values must copy the text."""
     if not SMOL_JSON.fullmatch(s, partial=True):
         return "bad"
     if not all(is_copy(v, text, closed) for v, closed in smol_values(s)):
@@ -202,6 +204,7 @@ def smol_state(s: str, text: str) -> str:
 
 
 def parse_smol(s: str) -> tuple[list[str], str | None]:
+    """The numbers and end time in SmolLM2's JSON answer; none if it is not valid JSON."""
     try:
         d = json.loads(SMOL_PREFIX + s)
     except json.JSONDecodeError:
@@ -210,6 +213,7 @@ def parse_smol(s: str) -> tuple[list[str], str | None]:
 
 
 def option_state(s: str, options: list[str]) -> str:
+    """'done' if the answer is one of the options, 'partial' if it starts one, else 'bad'."""
     s = s.lstrip()
     if s in options:
         return "done"
@@ -217,6 +221,8 @@ def option_state(s: str, options: list[str]) -> str:
 
 
 class SmolLM:
+    """SmolLM2-135M-Instruct with constrained generation: an action, then a JSON answer."""
+
     name = "smollm2-135m"
 
     def __init__(self, cfg: CommandsConfig) -> None:
@@ -232,6 +238,7 @@ class SmolLM:
         self.models = [self.model]
 
     def chat(self, system: str, shots: list[tuple[str, str]], text: str) -> str:
+        """The chat prompt: the system text, the example pairs, then the command."""
         msgs = [{"role": "system", "content": system}]
         for said, answer in shots:
             msgs += [{"role": "user", "content": said}, {"role": "assistant", "content": answer}]
@@ -247,6 +254,7 @@ class SmolLM:
         return constrained_generate(self.model, self.tok, ids, self.pieces, cands, state, eos)
 
     def extract(self, row: dict) -> tuple[Extraction, dict[str, float]]:
+        """Ask for the action, then the numbers and time as JSON; also return confidences."""
         text = row["text"]
         shots = [(said, a["action"]) for said, a in EXAMPLES]
         action, action_sure = self._generate(
@@ -263,6 +271,7 @@ class SmolLM:
         return to_extraction(action.strip(), *parse_smol(answer)), sure
 
     def __call__(self, row: dict) -> Extraction:
+        """The extraction alone, without the confidences."""
         return self.extract(row)[0]
 
 
@@ -291,6 +300,8 @@ def copy_state(s: str, text: str, none: str = "none") -> str:
 
 
 class FlanT5:
+    """FLAN-T5-small with three constrained questions: the action, the number, the end time."""
+
     name = "flan-t5-small"
 
     def __init__(self, cfg: CommandsConfig) -> None:
@@ -317,6 +328,7 @@ class FlanT5:
         return out.strip(), sure
 
     def extract(self, row: dict) -> tuple[Extraction, dict[str, float]]:
+        """Ask for the action, number and end time in turn; also return confidences."""
         text = row["text"]
         opts = list(FLAN_ACTIONS)
         action, action_sure = self._ask(
@@ -335,6 +347,7 @@ class FlanT5:
         return ex, {"action": action_sure, "number": number_sure, "time": time_sure}
 
     def __call__(self, row: dict) -> Extraction:
+        """The extraction alone, without the confidences."""
         return self.extract(row)[0]
 
 
@@ -414,6 +427,8 @@ def lost_day_words(text: str, time: str | None) -> bool:
 
 
 class GlinerMiniLM:
+    """GLiNER finds the numbers and end time; MiniLM picks the action from close examples."""
+
     name = "gliner-minilm"
 
     def __init__(self, cfg: CommandsConfig) -> None:
@@ -456,6 +471,7 @@ class GlinerMiniLM:
         return self.labels[order[0]], sims[order[0]] - sims[order[1]]
 
     def extract(self, row: dict) -> tuple[Extraction, dict[str, float]]:
+        """GLiNER spans and MiniLM's action, with the scores the safety checks use."""
         text = row["text"]
         th = self.cfg.gliner_threshold
         found = self.gliner.predict_entities(text, GLINER_LABELS, threshold=GLINER_LOOK)
@@ -478,6 +494,7 @@ class GlinerMiniLM:
         return to_extraction(action, numbers, " ".join(times) or None), sure
 
     def __call__(self, row: dict) -> Extraction:
+        """The extraction alone, without the scores."""
         return self.extract(row)[0]
 
 
@@ -515,6 +532,7 @@ class Checked:
         self.models = self.main.models + self.check.models
 
     def decide(self, row: dict, now: datetime) -> Result:
+        """The GLiNER + MiniLM result, turned into a review when a safety check fails."""
         from smart_parking.commands.rules import finish
 
         ex, sure = self.main.extract(row)
@@ -538,6 +556,7 @@ class Checked:
         return result
 
     def __call__(self, row: dict) -> Extraction:
+        """The GLiNER + MiniLM extraction alone, without the checks."""
         return self.main(row)  # the extraction alone (the checks need `decide`)
 
 
@@ -549,13 +568,16 @@ class Lazy:
         self.parser: Callable[[dict], Extraction] | None = None
 
     def load(self, cfg: CommandsConfig | None = None) -> Callable[[dict], Extraction]:
+        """The parser, built on first call from the given or the default config."""
         if self.parser is None:
             self.parser = self.factory(cfg or load_config().commands)
         return self.parser
 
     def __call__(self, row: dict) -> Extraction:
+        """Read one command, loading the parser first if needed."""
         return self.load()(row)
 
 
 def weights_present(cfg: CommandsConfig, names: list[str]) -> bool:
+    """Whether every named weights folder exists."""
     return all((Path(cfg.weights_dir) / n).is_dir() for n in names)

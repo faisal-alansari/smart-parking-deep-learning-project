@@ -1,7 +1,7 @@
 """Shared inputs for the trust checks: Model A probabilities and Model B reads with confidence.
 
 Model A: the deployed seeds (`occupancy.deploy`) on the video crops; validation = night video 2
-block 4, test = the first night video. Model B: the deployed plate model (seed 42) on the public
+block 4, test = the sealed night video 3. Model B: the deployed plate model (seed 42) on the public
 plate validation and test splits. Results are cached in data/processed/trust/ (not in Git).
 """
 
@@ -19,11 +19,16 @@ from smart_parking.plates.metrics import MATCH_IOU, score_image
 from smart_parking.plates.reader import Box, iou, read_plates
 
 CACHE = Path("data/processed/trust")
+FITTED_CHANGED = (
+    "{} differs from the saved, validation-fitted value. `just evaluate` never changes fitted "
+    "settings; run `just refit` on purpose (validation data only) and commit the change."
+)
 OUT = Path("outputs/trust")
 PLATE_SEED = 42
 
 
 def occupancy_models(device: torch.device | None = None) -> list[tuple]:
+    """The deployed Model A checkpoint for each seed: (model, mean, std, summary)."""
     cfg = load_config().occupancy
     device = device or pick_device()
     return [
@@ -41,7 +46,7 @@ def occupancy_scores(images: np.ndarray, models: list[tuple]) -> tuple[np.ndarra
 
 
 def occupancy_sets() -> dict[str, tuple[np.ndarray, pd.DataFrame]]:
-    """Validation (block 4) and test (first video) crops with their labels."""
+    """Validation (block 4) and test (sealed night video 3) crops with their labels."""
     images, meta = build_crops(VIDEO_TRAIN, 64)
     va = (meta["split"] == "validation").to_numpy()
     test_images, test_meta = build_crops(VIDEO_TEST, 64)
@@ -116,6 +121,33 @@ def camera_plate_rows(config: Path, split: str) -> pd.DataFrame:
 
 
 def md(df: pd.DataFrame) -> str:
+    """A DataFrame as a Markdown table."""
     lines = ["| " + " | ".join(map(str, df.columns)) + " |", "|" + "---|" * len(df.columns)]
     lines += ["| " + " | ".join(str(v) for v in r) + " |" for r in df.itertuples(index=False)]
     return "\n".join(lines)
+
+
+def same_numbers(saved: dict, fitted: dict, tol: float = 1e-6) -> bool:
+    """Whether two flat or nested dicts of numbers and strings agree (numbers within tol)."""
+    if saved.keys() != fitted.keys():
+        return False
+    for k, a in saved.items():
+        b = fitted[k]
+        if isinstance(a, dict):
+            if not isinstance(b, dict) or not same_numbers(a, b, tol):
+                return False
+        elif isinstance(a, int | float) and isinstance(b, int | float):
+            if not np.isclose(a, b, rtol=tol, atol=tol):
+                return False
+        elif a != b:
+            return False
+    return True
+
+
+def refit_flag() -> bool:
+    """`--refit`: store newly fitted settings; default: check them against the saved ones."""
+    import argparse
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--refit", action="store_true", help="store newly fitted settings")
+    return ap.parse_args().refit

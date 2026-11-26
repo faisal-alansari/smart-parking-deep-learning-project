@@ -26,6 +26,8 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 class Action(StrEnum):
+    """A permit change: allow or remove a car."""
+
     ALLOW = "ALLOW"
     REMOVE = "REMOVE"
 
@@ -104,6 +106,7 @@ class NeedsReview(BaseModel):
 
     @property
     def question(self) -> str:
+        """The question for this reason, with the proposed number if there is one."""
         return QUESTIONS[self.reason].format(number=self.proposal.number if self.proposal else "")
 
 
@@ -114,6 +117,7 @@ class Unsupported(BaseModel):
 
     @property
     def message(self) -> str:
+        """The reply to a request other than allowing or removing a car."""
         return "I can only allow or remove a car. For example: allow car 12345 until 6 PM."
 
 
@@ -121,6 +125,8 @@ Result = ParsedCommand | NeedsReview | Unsupported
 
 
 class Permit(BaseModel):
+    """A car number allowed to park, until an end time or permanently."""
+
     number: str
     until: datetime | None = None  # None: permanent
 

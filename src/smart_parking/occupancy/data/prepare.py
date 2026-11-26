@@ -111,6 +111,7 @@ def write_markdown(summary: dict, path: Path) -> None:
 
 
 def main() -> None:
+    """Build the occupancy manifest, inspection sheets, dataset and data report."""
     parser = argparse.ArgumentParser(description="Prepare the occupancy dataset.")
     parser.add_argument("--config", type=Path, default=Path("configs/default.yaml"))
     args = parser.parse_args()

@@ -74,16 +74,3 @@ def summarise(rows: list[dict]) -> dict[str, float]:
         "emirate_accuracy": float(np.mean([r["emirate_ok"] for r in rows])),
         "cer": float(np.mean([r["cer"] for r in rows])),
     }
-
-
-def bootstrap_ci(rows: list[dict], n_boot: int = 1000, seed: int = 0) -> dict:
-    """95% CI of each metric, resampling images (each plate identity appears once)."""
-    rng = np.random.default_rng(seed)
-    draws = {m: [] for m in PLATE_METRICS}
-    for _ in range(n_boot):
-        sample = [rows[i] for i in rng.integers(0, len(rows), len(rows))]
-        for m, v in summarise(sample).items():
-            draws[m].append(v)
-    return {
-        m: (float(np.percentile(v, 2.5)), float(np.percentile(v, 97.5))) for m, v in draws.items()
-    }

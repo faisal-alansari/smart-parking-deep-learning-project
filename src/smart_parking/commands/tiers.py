@@ -46,9 +46,11 @@ class Tiered:
         self.last_tier = 0
 
     def decide(self, row: dict, now: datetime) -> Result:
+        """Tier 1's result for a fixed-form command, else tier 2's checked decision."""
         ex = fixed_form(row["text"])
         self.last_tier = 1 if ex else 2
         return finish(ex, now) if ex else self.checked.decide(row, now)
 
     def __call__(self, row: dict) -> Extraction:
+        """The fixed-form extraction, else tier 2's extraction."""
         return fixed_form(row["text"]) or self.checked(row)

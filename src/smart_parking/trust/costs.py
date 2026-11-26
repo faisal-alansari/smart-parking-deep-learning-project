@@ -40,6 +40,7 @@ from smart_parking.common.log import setup_logging  # noqa: E402
 from smart_parking.occupancy.adapt import VIDEO_TEST, VIDEO_TRAIN  # noqa: E402
 from smart_parking.trust.calibration import apply_platt  # noqa: E402
 from smart_parking.trust.common import (  # noqa: E402
+    FITTED_CHANGED,
     OUT,
     camera_plate_rows,
     md,
@@ -47,6 +48,8 @@ from smart_parking.trust.common import (  # noqa: E402
     occupancy_scores,
     occupancy_sets,
     plate_rows,
+    refit_flag,
+    same_numbers,
 )
 
 THRESHOLDS = np.round(np.linspace(0.02, 0.98, 49), 2)
@@ -56,6 +59,8 @@ GATES = np.round(np.linspace(0.0, 0.95, 20), 2)
 
 @dataclass(frozen=True)
 class Costs:
+    """Assumed cost of each error type, and the share of cars that are authorized."""
+
     false_alert: float = 5.0
     missed_unauthorized: float = 10.0
     review: float = 1.0
@@ -63,14 +68,17 @@ class Costs:
 
     @property
     def a_empty_called_occupied(self) -> float:
+        """Cost of an empty bay called occupied: a review."""
         return self.review
 
     @property
     def a_car_called_empty(self) -> float:
+        """Cost of a parked car called empty: a missed car, if it is unauthorized."""
         return (1 - self.p_authorized) * self.missed_unauthorized
 
     @property
     def b_wrong_plate(self) -> float:
+        """Cost of a wrong plate read: a false alert, if the car is authorized."""
         return self.p_authorized * self.false_alert
 
 
@@ -106,6 +114,7 @@ def choose_occupancy(y: np.ndarray, p: np.ndarray, c: Costs) -> tuple[float, flo
 
 
 def choose_gate(rows: pd.DataFrame, c: Costs) -> tuple[float, float]:
+    """The plate gate with the lowest cost (the middle of tied gates), and that cost."""
     costs = {g: plate_cost(rows, g, c) for g in GATES}
     best = min(costs.values())
     return _middle([g for g, v in costs.items() if v <= best + 1e-9]), best
@@ -120,7 +129,8 @@ def _risk_coverage(ax, y: np.ndarray, p: np.ndarray, t: float, label: str) -> No
     ax.plot(n / len(y), np.cumsum(wrong) / n, label=label)
 
 
-def run() -> None:
+def run(refit: bool = False) -> None:
+    """Choose thresholds and gates by cost on validation, compare on test; write `costs.md`."""
     project = load_config()
     c = Costs()
     sets, models = occupancy_sets(), occupancy_models()
@@ -185,7 +195,7 @@ def run() -> None:
         )
         plates[split] = r
     gate_public, val_cost_public = choose_gate(plates["val"], c)
-    # The owner's camera: plate reads in bays with a car (block 4 = validation, night 1 = test)
+    # The owner's camera: plate reads in bays with a car (block 4 = validation, night 3 = test)
     for name, (config, split) in {"camera val": (VIDEO_TRAIN, "validation"),
                                   "camera test": (VIDEO_TEST, "test")}.items():  # fmt: skip
         r = camera_plate_rows(config, split)
@@ -196,7 +206,7 @@ def run() -> None:
     gate, val_cost_b = choose_gate(plates["camera val"], c)  # the deployed gate
     rows_b = []
     for data in ("test", "camera test"):
-        where = "public test" if data == "test" else "owner's camera, night 1"
+        where = "public test" if data == "test" else "owner's camera, night 3"
         policies = (("no confidence gate", 0.0),
                     (f"gate {gate_public} (chosen on public validation)", gate_public),
                     (f"gate {gate} (chosen on block 4, the owner's camera)", gate))  # fmt: skip
@@ -229,7 +239,7 @@ def run() -> None:
                          round(plate_cost(plates["camera test"], gc, cc), 4)})  # fmt: skip
     fig, axes = plt.subplots(1, 2, figsize=(9, 3.4))
     _risk_coverage(axes[0], yv, pv, t_a, "validation (block 4)")
-    _risk_coverage(axes[0], yt, pt, t_a, "test (first video)")
+    _risk_coverage(axes[0], yt, pt, t_a, "test (night video 3)")
     axes[0].set(title="Model A: abstain on the least certain bays", xlabel="coverage (answered)",
                 ylabel="error rate among answered")  # fmt: skip
     for split, r in plates.items():
@@ -251,7 +261,14 @@ def run() -> None:
     fig.tight_layout()
     (OUT / "figures").mkdir(parents=True, exist_ok=True)
     fig.savefig(OUT / "figures" / "risk_coverage.png", dpi=150)
-    _write_config(t_a, band, gate, c)
+    if refit:
+        _write_config(t_a, band, gate, c)
+    else:
+        d = project.decision
+        stored = {"t": d.occupancy_threshold, "band": d.occupancy_review_band,
+                  "gate": d.plate_min_confidence}  # fmt: skip
+        if not same_numbers(stored, {"t": t_a, "band": band, "gate": gate}):
+            raise SystemExit(FITTED_CHANGED.format("A cost-chosen threshold"))
     (OUT / "costs.md").write_text(
         "# Error costs, thresholds and risk-coverage\n\n"
         + __doc__.split("\n\n", 1)[1].split("`just")[0].strip()
@@ -263,17 +280,18 @@ def run() -> None:
         "person in normal operation (block 4, seen in the monitoring baseline), because correct "
         "reads there carry lower confidence than on the public photos: every clear read on block 4 "
         "was right. The gate was therefore re-chosen on block 4, the deployment camera's "
-        "validation data, with the same costs. On the night-1 test plates the two gates cost "
-        "about the same: block 4 had no wrong reads, so it cannot show the gate's value, and the "
-        "per-stay majority vote already protects against single misreads.\n\n"
+        "validation data, with the same costs. On the test night's plates the block-4 gate costs "
+        "less than the public one (table below); block 4 had no wrong reads, so the gate's value "
+        "against misreads is not shown, and the per-stay majority vote already protects against "
+        "single misreads.\n\n"
         "## Test cost against the alternatives\n\n"
         + md(pd.DataFrame(rows_a).round(4))
-        + "\n\nBay by bay, the adapted model costs more than the public model on the test "
-        "night: it calls the bay holding half of a car standing across both bays empty, and "
-        "each such check is charged as a missed car (3), while the public model's many false "
-        "'occupied' calls cost 1 each. That car is seen in the other bay, though, so it is not "
-        "really missed: the car-level rows (a view added after seeing the test) and the "
-        "normal-frame rows show the adapted model is far cheaper once that case is set aside.\n\n"
+        + "\n\nOn the test night the adapted model costs more than the public model, bay by "
+        "bay and car by car: it calls a bay holding part of a car standing across both bays "
+        "empty, each such check is charged as a missed car (3), and one car centred on the middle "
+        "line was called empty in both bays, so it really was missed. The public model's many "
+        "false 'occupied' calls cost 1 each. On normal frames the adapted model is far cheaper. "
+        "The car-level view was added after seeing night 1, not this test.\n\n"
         + "### Model B\n\n"
         + md(pd.DataFrame(rows_b).round(4))
         + "\n\n## Sensitivity to the cost assumptions\n\n"
@@ -307,8 +325,9 @@ def _write_config(t_a: float, band: float, gate: float, c: Costs) -> None:
 
 
 def main() -> None:
+    """Set up logging and run the cost study (`--refit` stores the new choices)."""
     setup_logging(load_config().logging)
-    run()
+    run(refit_flag())
 
 
 if __name__ == "__main__":

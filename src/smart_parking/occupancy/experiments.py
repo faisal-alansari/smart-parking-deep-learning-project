@@ -37,8 +37,31 @@ def _label(option: dict) -> str:
     return "_".join(f"{k}-{v}" for k, v in option.items())
 
 
-def run_experiments(base: OccupancyTrainConfig, seed: int) -> dict:
-    """Run all stages and return the rows and the selected settings."""
+def saved_run(cfg: OccupancyTrainConfig, seed: int, name: str) -> dict:
+    """A finished run's logged summary (never trains); it must match the requested settings."""
+    path = cfg.run_dir / name / "summary.json"
+    if not path.exists():
+        raise SystemExit(f"{path} is missing: run `just occupancy-experiments` to train it.")
+    summary = json.loads(path.read_text())
+    paths = {
+        "deploy",
+        "dataset_csv",
+        "raw_root",
+        "cache_dir",
+        "run_dir",
+        "checkpoint_dir",
+        "results_dir",
+    }  # fmt: skip  (where files live, not how the model was trained)
+    logged = {k: v for k, v in summary["config"].items() if k not in paths}
+    wanted = {k: v for k, v in cfg.model_dump(mode="json").items() if k not in paths}
+    if summary.get("seed") != seed or logged != wanted:
+        raise SystemExit(f"{path} was logged with other settings than the current config.")
+    return summary
+
+
+def run_experiments(base: OccupancyTrainConfig, seed: int, report_only: bool = False) -> dict:
+    """Run all stages and return the rows and the selected settings. With `report_only`, the
+    logged runs are read back instead of trained, to regenerate the table exactly."""
     current = base.model_copy()
     rows, done = [], {}
     for stage, short, options in STAGES:
@@ -47,7 +70,8 @@ def run_experiments(base: OccupancyTrainConfig, seed: int) -> dict:
             cfg = current.model_copy(update=option)
             key = json.dumps(cfg.model_dump(mode="json"), sort_keys=True)
             if key not in done:
-                done[key] = train_run(cfg, seed, f"exp_{short}_{_label(option)}")
+                run = saved_run if report_only else train_run
+                done[key] = run(cfg, seed, f"exp_{short}_{_label(option)}")
             results.append((option, done[key]))
         incumbent = next(
             (o, s) for o, s in results if all(getattr(current, k) == v for k, v in o.items())
@@ -104,9 +128,15 @@ def write_report(result: dict, cfg: OccupancyTrainConfig) -> None:
 
 
 def main() -> None:
+    """Train every option (default) or rebuild the table from the logged runs (`--report`)."""
+    import argparse
+
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--report", action="store_true", help="read logged runs; never train")
+    args = ap.parse_args()
     cfg = load_config()
     setup_logging(cfg.logging)
-    result = run_experiments(cfg.occupancy, cfg.seed)
+    result = run_experiments(cfg.occupancy, cfg.seed, report_only=args.report)
     write_report(result, cfg.occupancy)
     logger.info("Experiments finished. Selected: {}", result["selected"])
 

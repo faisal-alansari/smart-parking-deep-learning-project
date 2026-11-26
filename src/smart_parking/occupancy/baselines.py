@@ -108,6 +108,7 @@ def run_baselines(cfg: OccupancyTrainConfig, seed: int) -> dict:
 
 
 def main() -> None:
+    """Run the occupancy baselines with the project config and seed."""
     from smart_parking.common.config import load_config
     from smart_parking.common.log import setup_logging
     from smart_parking.common.seed import set_seed

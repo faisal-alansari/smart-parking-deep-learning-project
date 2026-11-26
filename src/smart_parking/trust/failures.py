@@ -1,8 +1,9 @@
 """Systematic failure analysis: every error collected, sorted into causes, counted.
 
 Sources (all produced by other `just` recipes; nothing is picked by hand):
-1. the full system on the owner's camera, the other night (outputs/loop/local/video_night_1.csv,
-   scored frames): every bay whose final answer differs from the truth;
+1. the full system on the owner's camera, the sealed test night 3
+   (outputs/final_test/local/night_3_frames.csv, scored frames): every bay whose frame-by-frame
+   answer differs from the truth;
 2. the full system on other car parks' photos (outputs/loop/local/bays.csv);
 3. Model B on the public plate test (data/processed/trust/plate_reads_test.csv);
 4. Model C on its frozen test (outputs/commands/tiered_test.md, counts per slice).
@@ -41,7 +42,8 @@ def _camera_cause(r) -> str:  # noqa: ANN001
 
 
 def camera() -> tuple[pd.DataFrame, int]:
-    d = pd.read_csv("outputs/loop/local/video_night_1.csv", keep_default_na=False)
+    """Test-night errors by cause (moving frames left out), and the number of scored checks."""
+    d = pd.read_csv("outputs/final_test/local/night_3_frames.csv", keep_default_na=False)
     d = d[~d["moving"].astype(str).eq("True")]
     wrong = d[d["status"] != d["true_status"]]
     causes = wrong.apply(_camera_cause, axis=1).value_counts()
@@ -51,6 +53,7 @@ def camera() -> tuple[pd.DataFrame, int]:
 
 
 def photos() -> tuple[pd.DataFrame, int]:
+    """Errors on the local photos by cause, and the number of bays."""
     d = pd.read_csv("outputs/loop/local/bays.csv", keep_default_na=False)
     wrong = d[d["status"] != d["true_status"]]
 
@@ -71,6 +74,7 @@ def photos() -> tuple[pd.DataFrame, int]:
 
 
 def plates() -> pd.DataFrame:
+    """Model B's outcomes on the public plate test."""
     d = plate_rows("test")
     cause = d.apply(
         lambda r: (
@@ -88,6 +92,7 @@ def plates() -> pd.DataFrame:
 
 
 def commands() -> pd.DataFrame:
+    """Model C's frozen-test errors by cause, counted from `tiered_test.md`."""
     text = Path("outputs/commands/tiered_test.md").read_text()
     rows = {
         m.group(1): (
@@ -145,15 +150,15 @@ FIXES = [
         "outputs/occupancy/local_night_1/findings.md",
     ),
     (
-        "Empty bays at night called occupied (78 of 243 on the test night)",
+        "Empty bays at night called occupied (78 of 243 on night 1)",
         "adapt Model A on the owner's camera (night video 2)",
         "outputs/occupancy/adaptation_test.md: 78 -> 2",
     ),
     (
         "One-frame alerts while a car moves; 78 notifications in 10 min",
         "one decision per stay (10 s to confirm, majority plate)",
-        "outputs/loop/video_night_1_stays.md: false alerts 4 -> 0, notifications 78 -> 29 "
-        "(public model)",
+        "outputs/loop/video_night_1_stays.md (night 1): false alerts 4 -> 0, notifications "
+        "78 -> 28 (public model frame by frame -> adapted model per stay)",
     ),
     (
         "Model C dropped 'tomorrow' from a time",
@@ -174,35 +179,37 @@ FIXES = [
     (
         "A plate gate tuned on public photos sent 30% of the owner's bays to a person",
         "re-choose the gate on the owner's camera (block 4)",
-        "outputs/trust/costs.md; full system right answers 67% -> 84% on the test night",
+        "outputs/trust/costs.md; full system right answers 67% -> 84% on night 1",
     ),
     (
-        "Platt scaling fitted on block 4 made Model A's confidence worse on another night",
-        "keep Model A's raw probability",
-        "outputs/trust/calibration.md: ECE 0.065 vs 0.112",
+        "Platt scaling made Model A's confidence worse on held-out data",
+        "keep Model A's raw probability (chosen on block 4 alone)",
+        "outputs/trust/validation_choices.md: held-out ECE 0.011 raw vs 0.023 Platt",
     ),
 ]
 REMAINING = [
-    "A car standing across both bays: the bay holding half of it is called empty (the car is still "
-    "found in the other bay, so it is never missed as a car).",
+    "A car standing across both bays: the bay holding half of it is called empty, and on the "
+    "test night a car centred on the middle line was called EMPTY in both bays, so a car "
+    "without a valid permit was missed (outputs/final_test/night_3.md).",
     "Model A is a specialist: worse on other car parks and on the unseen public site than the "
     "public-only model; a new camera needs a new set-up and new adaptation.",
     "Over-exposure and strong glare: the camera check catches only part of it (23-36%).",
     "Model C asks again about most commands in new wording (the action-word check), and one "
     "negation ('don't allow ... anymore') was read as a change.",
     "The plate reader cannot read about 8% of public test plates and misreads some codes at night.",
-    "Evidence is small: one test night of 10 minutes with two cars; no daytime test on the "
-    "owner's camera.",
+    "Evidence is small: one sealed test night of 24 minutes with two cars (and one seen night "
+    "of 10 minutes); no daytime test on the owner's camera.",
 ]
 
 
 def run() -> None:
+    """Write the failure analysis to `failures.md`."""
     cam, n_cam = camera()
     pho, n_pho = photos()
     (OUT / "failures.md").write_text(
         "# Failure analysis\n\n"
-        + __doc__.split("\n\n", 1)[1].split("`just")[0].strip()
-        + f"\n\n## 1. Owner's camera, the other night ({n_cam} scored bay checks; errors: "
+        + __doc__.split("\n\n", 1)[1].rsplit("`just failures`", 1)[0].strip()
+        + f"\n\n## 1. Owner's camera, the sealed test night 3 ({n_cam} scored bay checks; errors: "
         f"{int(cam['bay checks'].sum())})\n\n"
         + md(cam)
         + f"\n\n## 2. Other car parks' photos ({n_pho} bays; errors: {int(pho['bays'].sum())})\n\n"
@@ -221,6 +228,7 @@ def run() -> None:
 
 
 def main() -> None:
+    """Set up logging and run the failure analysis."""
     setup_logging(load_config().logging)
     run()
 

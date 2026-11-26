@@ -331,6 +331,7 @@ def outcome(status: str, reason: str | None = None, proposal: dict | None = None
 
 
 def proposal(action: str, number: str, until: datetime | None = None) -> dict:
+    """An expected proposal as a dict, with the end time in ISO form."""
     return {"action": action, "number": number, "until": until.isoformat() if until else None}
 
 
@@ -491,6 +492,10 @@ def _review(rows: list[dict]) -> str:
 
 
 def main(cfg: CommandsConfig | None = None) -> None:
+    """Run the documented entry point with contextual, rotating application logs."""
+    from smart_parking.common.log import setup_logging
+
+    setup_logging(load_config().logging)
     cfg = cfg or load_config().commands
     cfg.data_dir.mkdir(parents=True, exist_ok=True)
     used: set[str] = set()  # plate numbers never repeat across the sets

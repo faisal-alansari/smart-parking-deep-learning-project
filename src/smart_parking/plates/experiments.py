@@ -29,7 +29,8 @@ def _name(cfg: PlateTrainConfig, pretrained: bool = True) -> str:
     return f"exp_img{cfg.imgsz}_{freeze}_n{cfg.train_size}{init}"
 
 
-def run_experiments(base: PlateTrainConfig, seed: int) -> dict:
+def run_experiments(base: PlateTrainConfig, seed: int, report_only: bool = False) -> dict:
+    """Run (or, with `report_only`, read back) every option and the from-scratch baseline."""
     current = base.model_copy()
     rows, done = [], {}
 
@@ -40,6 +41,8 @@ def run_experiments(base: PlateTrainConfig, seed: int) -> dict:
             summary = json.loads(saved.read_text())
             if "val_detection" in summary:
                 done[name] = summary
+        if name not in done and report_only:
+            raise SystemExit(f"{saved} is missing: run `just plate-experiments` to train it.")
         if name not in done:
             summary = train_run(cfg, name, seed, pretrained)
             summary["val_detection"] = val_detection_metrics(cfg.checkpoint_dir / f"{name}.pt", cfg)
@@ -77,6 +80,7 @@ def run_experiments(base: PlateTrainConfig, seed: int) -> dict:
 
 
 def write_report(result: dict, cfg: PlateTrainConfig) -> None:
+    """Write the validation experiment results as JSON and a Markdown table."""
     cfg.results_dir.mkdir(parents=True, exist_ok=True)
     (cfg.results_dir / "experiments_val.json").write_text(json.dumps(result, indent=2))
     lines = [
@@ -103,9 +107,15 @@ def write_report(result: dict, cfg: PlateTrainConfig) -> None:
 
 
 def main() -> None:
+    """Train missing options (default) or rebuild the table from logged runs (`--report`)."""
+    import argparse
+
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--report", action="store_true", help="read logged runs; never train")
+    args = ap.parse_args()
     cfg = load_config()
     setup_logging(cfg.logging)
-    result = run_experiments(cfg.plates, cfg.seed)
+    result = run_experiments(cfg.plates, cfg.seed, report_only=args.report)
     write_report(result, cfg.plates)
     logger.info("Plate experiments finished. Selected: {}", result["selected"])
 

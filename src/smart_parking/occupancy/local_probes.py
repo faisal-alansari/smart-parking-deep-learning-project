@@ -198,6 +198,7 @@ def _in(child, parent) -> bool:
 
 
 def main() -> None:
+    """Write the occupancy and plate probe tables for a photo set to `probes.md`."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=Path("configs/local_night_1.yaml"))
     args = parser.parse_args()

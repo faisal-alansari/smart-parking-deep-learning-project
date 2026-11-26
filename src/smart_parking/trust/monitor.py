@@ -64,6 +64,7 @@ class Monitor:
 
     @staticmethod
     def signals(image: Image.Image, guard: ViewGuard, rows: list[dict], ms: float) -> dict:
+        """One frame's signals: brightness, view match, failures, unsure, review share, time."""
         p = [r["occupancy_p"] for r in rows if r["occupancy_p"] is not None]
         return {
             "brightness": float(np.asarray(image.convert("L"), dtype=np.float32).mean()),
@@ -112,8 +113,9 @@ def _stream(config: Path, every: float):  # noqa: ANN202
 
 
 def demo() -> None:
+    """Replay night 1 with a dimming light and a knocked camera; write `monitoring.md`."""
     from smart_parking.commands.schema import Action, ParsedCommand, PermitTable
-    from smart_parking.occupancy.adapt import VIDEO_TEST, VIDEO_TRAIN
+    from smart_parking.occupancy.adapt import VIDEO_SEEN, VIDEO_TRAIN
     from smart_parking.pipeline import Pipeline, video_start
     from smart_parking.trust.robustness import stress
 
@@ -136,9 +138,9 @@ def demo() -> None:
     normal = {"brightness_mean": b.brightness.mean(), "brightness_sd": b.brightness.std(),
               "unsure": b.unsure.mean(), "review": b.review.mean()}  # fmt: skip
     # The stream: the other night with injected problems
-    cfg1 = yaml.safe_load(VIDEO_TEST.read_text())
+    cfg1 = yaml.safe_load(VIDEO_SEEN.read_text())
     start_at = video_start(Path(cfg1["video"]))
-    stream = list(_stream(VIDEO_TEST, 2))
+    stream = list(_stream(VIDEO_SEEN, 2))
     guard = ViewGuard.from_snapshot(next(im for t, im in stream if t >= 340), cfg1["boxes"])
     monitor, rng, log = Monitor(normal), np.random.default_rng(0), []
     for t, im in stream:
@@ -202,15 +204,16 @@ def demo() -> None:
         "this night, normal frames already score 0.75-0.97 on the view check (headlights and "
         "parked cars change the scene), and the knocked view scored about 0.74, just above the "
         "cut-off set on the training night (0.725). It crossed it only when a car drove in.\n"
-        "- Before any problem, the monitor fired twice: while a car stood across both bays for "
-        "minutes (one bay always needs a person) and while cars were manoeuvring (Model A "
-        "unsure). The first is useful news for the owner; the second is a false alarm that a "
-        "longer window would reduce.\n\n![Monitoring](figures/monitoring.png)\n"
+        "- Before any problem, the monitor fired once (`model_unsure` at 0:58, cleared at 3:04): "
+        "a car stood across both bays and then manoeuvred out, and Model A was unsure about "
+        "those frames. It is a false alarm that a longer window would reduce.\n\n"
+        "![Monitoring](figures/monitoring.png)\n"
     )
     logger.info("Monitoring demo -> {}", OUT / "monitoring.md")
 
 
 def main() -> None:
+    """Set up logging and run the monitoring demonstration."""
     setup_logging(load_config().logging)
     demo()
 

@@ -116,6 +116,7 @@ def validation_evidence(cfg: PlateTrainConfig) -> list[dict]:
 
 
 def write_report(labels: dict, val: list[dict], path: Path) -> None:
+    """Write the label and validation evidence for the plate reader rules as Markdown."""
     over = " | ".join(f"> {c:.0%}: {n}" for c, n in labels["over"].items())
     lines = [
         "# Evidence for the plate reader rules",
@@ -147,6 +148,7 @@ def write_report(labels: dict, val: list[dict], path: Path) -> None:
 
 
 def main() -> None:
+    """Gather the evidence for the plate reader rules and write `rule_evidence.md`."""
     cfg = load_config().plates
     write_report(
         label_evidence(cfg), validation_evidence(cfg), cfg.results_dir / "rule_evidence.md"

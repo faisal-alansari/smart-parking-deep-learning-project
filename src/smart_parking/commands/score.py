@@ -50,6 +50,7 @@ FIELDS = ("action", "number", "until")
 
 
 def load_set(path: Path) -> list[dict]:
+    """Read a JSONL command set, skipping blank lines."""
     return [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
 
 
@@ -71,6 +72,7 @@ def outcome(result: Result) -> dict:
 
 
 def run(parser: Parser, rows: list[dict]) -> pd.DataFrame:
+    """Run a parser on every command; one row per command with its checks and time."""
     out = []
     target = parser.load() if isinstance(parser, adapters.Lazy) else parser  # load not timed
     decide = getattr(target, "decide", None)  # parsers with their own safety checks
@@ -102,6 +104,7 @@ def run(parser: Parser, rows: list[dict]) -> pd.DataFrame:
 
 
 def summarise(d: pd.DataFrame) -> dict:
+    """Share exact, dangerous and needless questions, and field accuracy on wanted changes."""
     cmd = d[d.wanted_change]
     return {
         "n": len(d),
@@ -113,6 +116,7 @@ def summarise(d: pd.DataFrame) -> dict:
 
 
 def report(d: pd.DataFrame) -> str:
+    """Markdown table of the scores for all commands and each tag, plus the errors."""
     groups = {"all": d}
     tags = (("tag_kind", "kind"), ("tag_reason", "reason"), ("tag_wording", "wording"),
             ("tag_has_bay", "bay said"), ("tag_noisy", "slip"))  # fmt: skip
@@ -138,6 +142,10 @@ def report(d: pd.DataFrame) -> str:
 
 
 def main() -> None:
+    """Run the documented entry point with contextual, rotating application logs."""
+    from smart_parking.common.log import setup_logging
+
+    setup_logging(load_config().logging)
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("parser", choices=sorted(PARSERS))
     ap.add_argument(

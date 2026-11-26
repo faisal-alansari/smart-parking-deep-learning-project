@@ -124,6 +124,7 @@ def _write_markdown(results: dict, cfg: OccupancyTrainConfig) -> None:
 
 
 def main() -> None:
+    """Train the final occupancy seeds and/or run the test comparison."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--train", action="store_true", help="train the final seeds")
     parser.add_argument("--evaluate", action="store_true", help="run the test comparison")

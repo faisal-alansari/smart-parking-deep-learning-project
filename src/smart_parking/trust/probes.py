@@ -1,6 +1,6 @@
 """Explainability as an investigation: controlled probes, each with a hypothesis.
 
-Model A (bay crops of the other night, test; the adapted model against the public-only one):
+Model A (bay crops of the sealed test night 3; the adapted model against the public-only one):
 - A1 where it looks: grey out the top, middle or bottom third of crops holding a car;
 - A2 glare: add a headlight-like glow to empty bays;
 - A3 half a car: grey out the left or right half of crops holding a car.
@@ -55,6 +55,7 @@ def _glare(images: np.ndarray, strength: float) -> np.ndarray:
 
 
 def model_a() -> pd.DataFrame:
+    """Share of test crops called occupied with parts greyed or glare added, per model."""
     cfg, d = load_config().occupancy, load_config().decision
     images, meta = occupancy_sets()["test"]
     y = meta["label"].to_numpy()
@@ -119,6 +120,7 @@ def model_a() -> pd.DataFrame:
 
 
 def model_b(n: int = 300) -> pd.DataFrame:
+    """Outcomes on up to n correctly read plates with a part of the plate covered."""
     from ultralytics import YOLO
 
     from smart_parking.decision import gate_plate
@@ -214,6 +216,7 @@ PAIRS = [
 
 
 def model_c() -> pd.DataFrame:
+    """Model C's answer to each probe command."""
     from datetime import datetime
     from zoneinfo import ZoneInfo
 
@@ -237,6 +240,7 @@ def model_c() -> pd.DataFrame:
 
 
 def system() -> pd.DataFrame:
+    """Bay status for one car with one thing changed at a time."""
     from datetime import datetime
     from zoneinfo import ZoneInfo
 
@@ -284,6 +288,7 @@ def system() -> pd.DataFrame:
 
 
 def run() -> None:
+    """Run every probe and write `probes.md`."""
     a, b, c, s = model_a(), model_b(), model_c(), system()
     (OUT / "probes.md").write_text(
         "# Explainability probes\n\n"
@@ -308,6 +313,7 @@ def run() -> None:
 
 
 def main() -> None:
+    """Set up logging and run the probes."""
     setup_logging(load_config().logging)
     run()
 

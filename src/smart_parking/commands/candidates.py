@@ -24,6 +24,8 @@ from smart_parking.common.config import CommandsConfig, load_config
 
 
 class Weights(BaseModel):
+    """A candidate's Hub weights: repository, pinned revision and files to download."""
+
     repo: str
     revision: str  # pinned commit, so a later download gets the same files
     files: list[str]
@@ -76,6 +78,7 @@ CANDIDATES: dict[str, list[str]] = {
 
 
 def download(cfg: CommandsConfig) -> None:
+    """Download each candidate's pinned weights; point GLiNER at the local DeBERTa backbone."""
     from huggingface_hub import snapshot_download
 
     for name, w in WEIGHTS.items():
@@ -91,11 +94,13 @@ def download(cfg: CommandsConfig) -> None:
 
 
 def licence(path: Path) -> str:
+    """The licence named in the model card, or 'unknown'."""
     m = re.search(r"^license:\s*(\S+)", (path / "README.md").read_text(), flags=re.M)
     return m[1] if m else "unknown"
 
 
 def disk_mb(path: Path) -> float:
+    """Total size of the files in a folder, in MB."""
     return sum(f.stat().st_size for f in path.rglob("*") if f.is_file()) / 2**20
 
 
@@ -148,6 +153,7 @@ def probe(name: str, device: str) -> dict:
 
 
 def measure(cfg: CommandsConfig) -> str:
+    """Probe each candidate on CPU and MPS; return a Markdown table of size, memory, speed."""
     rows = []
     for name, folders in CANDIDATES.items():
         got = {}
@@ -189,6 +195,11 @@ def measure(cfg: CommandsConfig) -> str:
 
 
 def main() -> None:
+    """Run the documented entry point with contextual, rotating application logs."""
+    from smart_parking.common.config import load_config
+    from smart_parking.common.log import setup_logging
+
+    setup_logging(load_config().logging)
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--download", action="store_true")
     ap.add_argument("--measure", action="store_true")

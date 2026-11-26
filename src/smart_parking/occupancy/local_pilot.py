@@ -282,6 +282,7 @@ def save_sheet(previews: list[Image.Image], res: pd.DataFrame, path: Path) -> No
 
 
 def main() -> None:
+    """Run Models A and B on a photo set; write predictions, results and a crop sheet."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG, help="photo set YAML")
     args = parser.parse_args()

@@ -34,7 +34,7 @@ from smart_parking.common.config import load_config
 from smart_parking.common.log import setup_logging
 from smart_parking.occupancy.adapt import VIDEO_TEST, VIDEO_TRAIN, build_crops
 from smart_parking.occupancy.train import to_tensor
-from smart_parking.trust.common import OUT, md, occupancy_models
+from smart_parking.trust.common import FITTED_CHANGED, OUT, md, occupancy_models, refit_flag
 
 DETECTOR = Path("checkpoints/occupancy/ood_detector.npz")
 REFERENCE = Path("checkpoints/occupancy/reference_view.npz")  # small grey view: no plates
@@ -178,7 +178,8 @@ def _crops(im: Image.Image, boxes: dict) -> np.ndarray:
     return np.stack(out)
 
 
-def run() -> None:
+def run(refit: bool = False) -> None:
+    """Fit the unfamiliar-input checks on block 4, score in and out frames; write `ood.md`."""
     cfg2, cfg1 = yaml.safe_load(VIDEO_TRAIN.read_text()), yaml.safe_load(VIDEO_TEST.read_text())
     model, mean, std, _ = occupancy_models()[0]
     parts = (model, mean, std)
@@ -186,9 +187,9 @@ def run() -> None:
     lw = LedoitWolf().fit(features(*parts, images[(meta["split"] == "train").to_numpy()]))
     det = {"center": lw.location_, "precision": lw.precision_}
     # Set-up snapshots: an empty-bay frame of each installation (night 2: block 4 at 1:30;
-    # night 1: 5:40, the same frame as the alignment guide)
+    # the test night: the frame named in its config)
     block4 = next(f["video"] for f in cfg2["files"] if f["split"] == "validation")
-    snap2, snap1 = _frame_at(block4, 90), _frame_at(cfg1["video"], 340)
+    snap2, snap1 = _frame_at(block4, 90), _frame_at(cfg1["video"], cfg1["snapshot_s"])
     ref2, ref1 = small_view(snap2, cfg2["boxes"])[0], small_view(snap1, cfg1["boxes"])[0]
     sharp = {id(ref2): sharpness(snap2), id(ref1): sharpness(snap1)}
     val = _frames(VIDEO_TRAIN, "validation", EVERY)
@@ -206,20 +207,28 @@ def run() -> None:
     v = scores(val, ref2, cfg2["boxes"])
     sim_cut, dist_cut = float(np.percentile(v.similarity, 1)), float(np.percentile(v.distance, 99))
     sharp_cut = float(np.percentile(v.sharpness, 1))
-    np.savez(DETECTOR, center=det["center"], precision=det["precision"], distance_cutoff=dist_cut,
-             similarity_cutoff=sim_cut, sharpness_cutoff=sharp_cut)  # fmt: skip
-    np.savez(
-        REFERENCE,
-        view=ref2,
-        sharpness=sharp[id(ref2)],
-        **{f"box_{k}": np.array(b) for k, b in cfg2["boxes"].items()},
-    )
+    fitted = {
+        DETECTOR: {"center": det["center"], "precision": det["precision"],
+                   "distance_cutoff": dist_cut, "similarity_cutoff": sim_cut,
+                   "sharpness_cutoff": sharp_cut},
+        REFERENCE: {"view": ref2, "sharpness": sharp[id(ref2)],
+                    **{f"box_{k}": np.array(b) for k, b in cfg2["boxes"].items()}},
+    }  # fmt: skip
+    for path, arrays in fitted.items():
+        if refit or not path.exists():
+            np.savez(path, **arrays)
+            continue
+        saved = np.load(path)
+        if set(saved.files) != set(arrays) or not all(
+            np.allclose(saved[k], arrays[k], rtol=1e-5, atol=1e-6) for k in arrays
+        ):
+            raise SystemExit(FITTED_CHANGED.format(path.name))
     test = _frames(VIDEO_TEST, None, EVERY)
     rng = np.random.default_rng(0)
     in_test = scores(test, ref1, cfg1["boxes"])
     groups = {
         "in: night 2, block 4 (validation)": v,
-        "in: night 1 (test, its own snapshot)": in_test,
+        "in: night 3 (test, its own snapshot)": in_test,
     }
     photos = []
     for config in ("configs/local_night_1.yaml", "configs/local_pilot.yaml"):
@@ -228,15 +237,15 @@ def run() -> None:
             im = Image.open(Path(pilot["photo_dir"]) / f"{p['name']}.jpg")
             photos.append(ImageOps.exif_transpose(im).convert("RGB"))
     groups["out: other car parks (51 photos)"] = scores(photos, ref2, cfg2["boxes"])
-    groups["out: camera set up again, old snapshot (night 2 vs night 1)"] = scores(
+    groups["out: camera set up again, old snapshot (night 2 frames vs night 3 snapshot)"] = scores(
         val[::3], ref1, cfg1["boxes"]
     )
     for kind in ("camera moved (shifted and zoomed)", "heavy blur", "over-exposed (x3)",
                  "lens almost covered", "pure noise"):  # fmt: skip
-        groups[f"out: night 1, {kind}"] = scores(
+        groups[f"out: night 3, {kind}"] = scores(
             [_corrupt(im, kind, rng) for im in test], ref1, cfg1["boxes"]
         )
-    base = groups["in: night 1 (test, its own snapshot)"]
+    base = groups["in: night 3 (test, its own snapshot)"]
     rows = []
     for name, s in groups.items():
         view, bay = s.similarity < sim_cut, s.distance > dist_cut
@@ -254,13 +263,11 @@ def run() -> None:
     (OUT / "ood.md").write_text(
         "# Unfamiliar inputs (OOD) and abstention\n\n"
         + __doc__.split("\n\n", 1)[1].split("`just")[0].strip()
-        + "\n\nAfter the first run the bay check flagged 13% of normal frames on the other night "
-        "(1% on block 4): its cut-off is tuned to the training night, the same lesson as "
-        "calibration. "
-        "The product therefore uses the blocked, view and sharpness checks; the bay check is "
-        "reported but not used (a choice informed by the test). The sharpness check (frame "
-        "sharpness divided by the snapshot's) was added after the first run showed that heavy "
-        "blur passes the view check."
+        + "\n\nThe product uses the blocked, view and sharpness checks. The feature-distance "
+        "bay check is reported but not used: on block 4 alone its held-out false-alarm rate was "
+        "above the 2% limit (`validation_choices.md`). The sharpness check (frame sharpness "
+        "divided by the snapshot's) was added after an earlier run on night 1 showed that heavy "
+        "blur passes the view check. Night 3 is the sealed test: nothing here was chosen on it."
         + f"\n\nCut-offs: view similarity below {sim_cut:.3f}, sharpness ratio below "
         f"{sharp_cut:.3f}, bay distance above {dist_cut:.2f}; "
         f"blocked: mean pixel value below {DARK} or above {BRIGHT}. One frame every {EVERY} s. "
@@ -271,8 +278,9 @@ def run() -> None:
 
 
 def main() -> None:
+    """Set up logging and run the unfamiliar-input study (`--refit` stores the new fit)."""
     setup_logging(load_config().logging)
-    run()
+    run(refit_flag())
 
 
 if __name__ == "__main__":

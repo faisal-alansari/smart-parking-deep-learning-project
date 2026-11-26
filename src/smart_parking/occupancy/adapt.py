@@ -2,7 +2,9 @@
 
 Data: bay crops cut from the owner's night video 2 exactly as the product cuts them (64 px), one
 frame every 2 s, moving periods left out, labels from the owner-checked truth. Blocks 1-3 train,
-block 4 chooses. The first night video is the final test, used once (`--final`).
+block 4 chooses. Night video 3, recorded for the test only and sealed until the end, is the
+final test (`--reproduce` scores the deployed copies on it); night video 1 was the first final
+test (`--final`, run once) and is now a seen check.
 
 Options (each with seeds 42, 43, 44; deployed as the majority vote of the three):
 - a: no training, a new threshold per seed chosen on block 4;
@@ -48,7 +50,8 @@ from smart_parking.occupancy.train import (
 )
 
 VIDEO_TRAIN = Path("configs/local_video_night_2.yaml")
-VIDEO_TEST = Path("configs/local_video_night_1.yaml")
+VIDEO_TEST = Path("configs/local_video_night_3.yaml")  # sealed: test only, run once
+VIDEO_SEEN = Path("configs/local_video_night_1.yaml")  # the earlier test, now a seen check
 CROPS = Path("data/processed/video_crops")
 RUNS = Path("experiments/occupancy_adapt")
 WIDE = [32, 64, 128, 256]
@@ -69,12 +72,14 @@ def video_files(cfg: dict) -> list[dict]:
     """Both video config formats as a list of files."""
     if "files" in cfg:
         return cfg["files"]
-    slices = {"car across both bays": cfg.get("straddle", [])}
+    slices = {"car across both bays": cfg.get("straddle", []), **(cfg.get("slices") or {})}
+    # a blocked lens shows no bay: left out of crop-level scores, like a moving car
     return [{"video": cfg["video"], "split": "test", "cars": cfg["cars"],
-             "moving": cfg["moving"], "slices": slices}]  # fmt: skip
+             "moving": cfg["moving"] + cfg.get("blocked", []), "slices": slices}]  # fmt: skip
 
 
 def truth(cars: list[dict], bay: str, t: float) -> int:
+    """1 if a car is in this bay at time t (a car across both bays counts for each)."""
     return int(any(c["from"] <= t < c["to"] and c["bay"] in (bay, "both") for c in cars))
 
 
@@ -118,6 +123,7 @@ def balanced(y: np.ndarray, pred: np.ndarray) -> float:
 
 
 def best_balanced_threshold(y: np.ndarray, prob: np.ndarray) -> tuple[float, float]:
+    """The threshold with the best balanced accuracy, and that accuracy."""
     candidates = np.unique(np.concatenate([np.quantile(prob, np.linspace(0, 1, 401)), [0.5]]))
     scores = [balanced(y, prob >= c) for c in candidates]
     i = int(np.argmax(scores))
@@ -125,10 +131,12 @@ def best_balanced_threshold(y: np.ndarray, prob: np.ndarray) -> tuple[float, flo
 
 
 def vote(probs: list[np.ndarray], thresholds: list[float]) -> np.ndarray:
+    """Majority vote of the seeds, each with its own threshold."""
     return np.mean([p >= t for p, t in zip(probs, thresholds, strict=True)], axis=0) > 0.5
 
 
 def summary_row(y: np.ndarray, pred: np.ndarray) -> dict:
+    """Balanced accuracy, missed cars, empty bays called occupied and F1."""
     return {"balanced accuracy": round(balanced(y, pred), 4),
             "parked cars missed": int((y.astype(bool) & ~pred).sum()),
             "empty bays called occupied": int((~y.astype(bool) & pred).sum()),
@@ -215,6 +223,7 @@ def train_option(name: str, seed: int, cfg: OccupancyTrainConfig, data: dict) ->
 
 
 def load_data(cfg: OccupancyTrainConfig, device: torch.device) -> dict:
+    """Local video crops and public train and validation sets as tensors, with public stats."""
     images, meta = build_crops(VIDEO_TRAIN, cfg.input_size)
     tr, va = (meta["split"] == "train").to_numpy(), (meta["split"] == "validation").to_numpy()
     args = (cfg.dataset_csv, cfg.raw_root, cfg.cache_dir)
@@ -249,6 +258,7 @@ def _md(df: pd.DataFrame) -> str:
 
 def ensemble(paths: list[Path], device: torch.device, x: torch.Tensor,
              thresholds: list[float] | None = None) -> tuple[np.ndarray, list[float]]:  # fmt: skip
+    """Majority vote of the checkpoints on x (given or saved thresholds), and the probs."""
     probs, ts = [], []
     for p in paths:
         model, mean, std, s = load_checkpoint(p, device)
@@ -257,7 +267,9 @@ def ensemble(paths: list[Path], device: torch.device, x: torch.Tensor,
     return vote(probs, thresholds or ts), probs
 
 
-def choose(cfg: OccupancyTrainConfig) -> None:
+def choose(cfg: OccupancyTrainConfig, report_only: bool = False) -> None:
+    """Choose the adaptation option on block 4. With `report_only`, the saved runs are read
+    back (never trained) and the choice must equal the stored one."""
     device = pick_device()
     data = load_data(cfg, device)
     yv, ypv = data["val_y"], data["public_val_y"]
@@ -276,6 +288,8 @@ def choose(cfg: OccupancyTrainConfig) -> None:
     _, public_probs = ensemble(current, device, data["public_val_x"])
     RUNS.mkdir(parents=True, exist_ok=True)
     for seed, path, t in zip(cfg.seeds, current, ts, strict=True):
+        if report_only:
+            break
         ckpt = torch.load(path, map_location="cpu", weights_only=False)
         ckpt["summary"] = {**ckpt["summary"], "run": f"a_threshold_s{seed}",
                            "option": "a_threshold", "threshold": t}  # fmt: skip
@@ -284,7 +298,12 @@ def choose(cfg: OccupancyTrainConfig) -> None:
     rows["a_threshold"] = {**summary_row(yv, vote(probs, ts)), "public val F1": round(public_f1, 4)}
     for name in OPTIONS:
         for seed in cfg.seeds:
-            runs.append(train_option(name, seed, cfg, data))
+            if report_only:
+                saved = torch.load(RUNS / f"{name}_s{seed}.pt", map_location="cpu",
+                                   weights_only=False)  # fmt: skip
+                runs.append(saved["summary"])
+            else:
+                runs.append(train_option(name, seed, cfg, data))
         paths = [RUNS / f"{name}_s{s}.pt" for s in cfg.seeds]
         pred, _ = ensemble(paths, device, data["val_x"])
         public_pred, _ = ensemble(paths, device, data["public_val_x"])
@@ -320,7 +339,10 @@ def choose(cfg: OccupancyTrainConfig) -> None:
         + _md(by_seed)
         + "\n"
     )
-    (cfg.results_dir / "adaptation_choice.json").write_text(json.dumps({"option": winner}))
+    choice = cfg.results_dir / "adaptation_choice.json"
+    if report_only and json.loads(choice.read_text())["option"] != winner:
+        raise SystemExit(f"Block 4 now chooses {winner}, not the stored option: check the runs.")
+    choice.write_text(json.dumps({"option": winner}))
     logger.info("Chosen option: {} -> {}", winner, out)
 
 
@@ -328,7 +350,7 @@ def choose(cfg: OccupancyTrainConfig) -> None:
 
 
 def final_test(cfg: OccupancyTrainConfig, reproduce: bool = False) -> None:
-    """Test once: the first night video, the public test sets and the local photos."""
+    """Test once: the sealed night video 3, the public test sets and the local photos."""
     winner = json.loads((cfg.results_dir / "adaptation_choice.json").read_text())["option"]
     if winner == "none":
         raise SystemExit("No option met the rules; the current model stays.")
@@ -343,7 +365,7 @@ def final_test(cfg: OccupancyTrainConfig, reproduce: bool = False) -> None:
     if reproduce:  # the deployed copies (the run folder's checkpoints are not in Git)
         after = [cfg.checkpoint_dir / f"adapted_s{s}.pt" for s in cfg.seeds]
     sections = []
-    # 1. The first night video (a different night)
+    # 1. Night video 3 (sealed; a different night from training)
     images, meta = build_crops(VIDEO_TEST, cfg.input_size)
     x, y = to_tensor(images, device), meta["label"].to_numpy()
     rows = []
@@ -362,7 +384,7 @@ def final_test(cfg: OccupancyTrainConfig, reproduce: bool = False) -> None:
                 }
             )
     sections.append(
-        "## 1. The first night video (the final test; a different night)\n\n"
+        "## 1. Night video 3 (the sealed final test; a different night)\n\n"
         + _md(pd.DataFrame(rows))
     )
     # 2. Public test sets (did adapting break the public data?)
@@ -415,16 +437,20 @@ def final_test(cfg: OccupancyTrainConfig, reproduce: bool = False) -> None:
 
 
 def main() -> None:
+    """Run the final test (or rebuild its tables), else choose the adaptation."""
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--final", action="store_true", help="the one final test")
     ap.add_argument("--reproduce", action="store_true", help="regenerate the final test tables")
+    ap.add_argument(
+        "--report-choice", action="store_true", help="rebuild the block-4 table (no training)"
+    )
     args = ap.parse_args()
     project = load_config()
     setup_logging(project.logging)
     if args.final or args.reproduce:
         final_test(project.occupancy, reproduce=args.reproduce)
     else:
-        choose(project.occupancy)
+        choose(project.occupancy, report_only=args.report_choice)
 
 
 if __name__ == "__main__":

@@ -138,6 +138,11 @@ def demo() -> str:
 
 
 def main() -> None:
+    """Run the documented entry point with contextual, rotating application logs."""
+    from smart_parking.common.config import load_config
+    from smart_parking.common.log import setup_logging
+
+    setup_logging(load_config().logging)
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--demo", action="store_true")
     args = ap.parse_args()

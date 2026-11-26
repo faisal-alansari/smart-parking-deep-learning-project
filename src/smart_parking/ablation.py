@@ -59,11 +59,13 @@ def rules_decide(row: dict, now) -> object:  # noqa: ANN001
 
 
 def owner_effort(tables: Tables) -> str:
+    """Owner effort as 'accepted / fixed by owner / asked' counts from the command log."""
     paths = tables.log["path"].value_counts()
     return " / ".join(f"{int(paths.get(p, 0))}" for p in ("accepted", "fixed by owner", "asked"))
 
 
 def ablate(loop: dict, decide) -> str:  # noqa: ANN001
+    """Key numbers for the full system and each variant with one part removed, as Markdown."""
     sets = loop["sets"]
     res = pd.concat([run_models(s) for s in sets], ignore_index=True)
     res_all = pd.concat([run_models(s, all_occupied=True) for s in sets], ignore_index=True)
@@ -118,6 +120,7 @@ def ablate(loop: dict, decide) -> str:  # noqa: ANN001
 
 
 def main() -> None:
+    """Load Model C, run the ablation on the loop config and write `ablation.md`."""
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     args = ap.parse_args()
