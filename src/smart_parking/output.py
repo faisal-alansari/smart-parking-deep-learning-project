@@ -26,6 +26,9 @@ GUIDANCE = {
     "bad_bays_file": "bays.yaml needs `boxes: {left: [x0, y0, x1, y1], right: [...]}` as "
     "fractions of the frame (0-1, x0 < x1, y0 < y1).",
     "empty_folder": "Put photos, videos or a commands.txt file in the folder.",
+    "bad_option": "Use a positive number of seconds between video frames, for example --every 2.",
+    "camera_not_set_up": "Photos and videos were not judged because the camera set-up failed. "
+    "Fix bays.yaml (and its snapshot) and run the folder again.",
 }
 PLATE_REASONS = {"low_confidence", "missing_code", "invalid_length", "no_emirate",
                  "too_many_letters", "no_digits", "plate_too_small"}  # fmt: skip
@@ -62,6 +65,8 @@ class BayDecision(BaseModel):
 
 
 class CommandResult(BaseModel):
+    """One timestamped owner command and the response returned by the permit workflow."""
+
     model_config = ConfigDict(extra="forbid")
 
     time: datetime
@@ -76,7 +81,7 @@ class InputProblem(BaseModel):
 
     source: str
     reason: Literal["unreadable_file", "unsupported_file", "bad_command_line", "bad_bays_file",
-                    "empty_folder"]  # fmt: skip
+                    "empty_folder", "bad_option", "camera_not_set_up"]  # fmt: skip
     detail: str = ""
     guidance: str
 

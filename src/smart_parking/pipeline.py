@@ -18,6 +18,7 @@ car's stay (`smart_parking.stays`), and the time per stage.
 
 import argparse
 import json
+import math
 import subprocess
 import tempfile
 import time
@@ -47,7 +48,7 @@ from smart_parking.output import (
     guidance,
 )
 from smart_parking.plates.reader import PlateRead, read_plates
-from smart_parking.stays import SETTLE_READS, BayTracker, stay_status
+from smart_parking.stays import SETTLE_READS, BayTracker, stay_status, stay_update
 from smart_parking.trust.ood import ViewGuard
 
 PHOTOS = {".jpg", ".jpeg", ".png", ".heic"}
@@ -191,9 +192,11 @@ class Pipeline:
         return rows
 
     def command(self, text: str, now: datetime, table: PermitTable, review, feedback: Path) -> str:  # noqa: ANN001
+        """Parse a command, request owner confirmation and record the response and latency."""
         return self._timed("C", handle, text, now, self.decide, table, review, feedback)
 
     def timing(self) -> pd.DataFrame:
+        """Return call counts, mean latency and the 95th percentile for each measured stage."""
         rows = [
             {
                 "stage": k,
@@ -210,6 +213,7 @@ class Pipeline:
 
 
 def open_photo(path: Path) -> Image.Image:
+    """Open an oriented RGB photo, converting HEIC with macOS sips when needed."""
     if path.suffix.lower() == ".heic":  # macOS `sips` converts iPhone photos
         with tempfile.TemporaryDirectory() as tmp:
             out = Path(tmp) / "photo.jpg"
@@ -223,6 +227,7 @@ def open_photo(path: Path) -> Image.Image:
 
 
 def photo_taken(path: Path, im: Image.Image) -> datetime:
+    """Read the EXIF timestamp, falling back to file modification time in Dubai time."""
     stamp = im.getexif().get(306)
     if stamp:
         return datetime.strptime(stamp, "%Y:%m:%d %H:%M:%S").replace(tzinfo=TZ)
@@ -279,6 +284,7 @@ def timeline(rows: pd.DataFrame) -> pd.DataFrame:
 
 
 def clock(seconds: float) -> str:
+    """Format elapsed video seconds as minutes and seconds."""
     return f"{int(seconds // 60)}:{int(seconds % 60):02d}"
 
 
@@ -286,19 +292,29 @@ def clock(seconds: float) -> str:
 
 
 def ask_owner(question: str, change: ParsedCommand) -> ParsedCommand | None:
-    answer = input(f"{question} [y/n] ").strip().lower()
+    """Return a confirmed change; absent terminal input never authorizes a permit."""
+    try:
+        answer = input(f"{question} [y/n] ").strip().lower()
+    except EOFError:
+        logger.warning("No confirmation input available; the permit was not changed")
+        return None
     return change if answer.startswith("y") else None
 
 
 def _boxes_ok(boxes: object) -> bool:
+    """Whether bay boxes are a non-empty mapping of valid fractional rectangles."""
     try:
-        return all(0 <= x0 < x1 <= 1 and 0 <= y0 < y1 <= 1 for x0, y0, x1, y1 in boxes.values())
+        return bool(boxes) and all(
+            0 <= x0 < x1 <= 1 and 0 <= y0 < y1 <= 1 for x0, y0, x1, y1 in boxes.values()
+        )
     except AttributeError, TypeError, ValueError:
         return False
 
 
-def _setup(folder: Path, problems: list[InputProblem]) -> tuple[dict, str, str, Path | None]:
+def _setup(folder: Path, problems: list[InputProblem]) -> tuple[dict | None, str, str, Path | None]:
     """(bay boxes, camera description, occupancy model, snapshot file) for this folder.
+    Boxes are None when bays.yaml exists but cannot be used: the camera is then not judged,
+    because the owner's boxes would be wrong for another camera.
 
     No bays.yaml: the owner's camera (its boxes and snapshot, the adapted model). With bays.yaml:
     a camera set up from that file, judged by the public-data model (the adapted one only knows
@@ -309,9 +325,12 @@ def _setup(folder: Path, problems: list[InputProblem]) -> tuple[dict, str, str, 
         return {}, "the owner's camera (default boxes and snapshot)", "adapted", None
     try:
         cfg = yaml.safe_load(path.read_text()) or {}
-        boxes = {k: [float(v) for v in b] for k, b in cfg["boxes"].items()}
+        boxes = {str(k): [float(v) for v in b] for k, b in cfg["boxes"].items()}
         if not _boxes_ok(boxes):
-            raise ValueError("box values out of range")
+            raise ValueError("no boxes, or box values out of range")
+        snap = folder / str(cfg["snapshot"]) if cfg.get("snapshot") else None
+        if snap is not None:
+            open_photo(snap)  # a missing or broken snapshot is a set-up problem
     except Exception as err:  # noqa: BLE001  (any broken file gets the same guidance)
         problems.append(
             InputProblem(
@@ -321,9 +340,8 @@ def _setup(folder: Path, problems: list[InputProblem]) -> tuple[dict, str, str, 
                 guidance=GUIDANCE["bad_bays_file"],
             )
         )
-        return {}, "the owner's camera (bays.yaml could not be used)", "adapted", None
+        return None, "not set up (bays.yaml could not be used)", "final", None
     model = "adapted" if cfg.get("model") == "adapted" else "final"
-    snap = folder / cfg["snapshot"] if cfg.get("snapshot") else None
     return boxes, "set up from bays.yaml", model, snap
 
 
@@ -379,6 +397,16 @@ def run_folder(
     returned as a structured record with guidance. `table` starts from an existing permit table
     (the demo app's); `pipelines` reuses loaded models, keyed by occupancy model."""
     problems: list[InputProblem] = []
+    out = out_root / (folder.name or "folder")
+    if not (math.isfinite(every) and every > 0):
+        problems.append(
+            InputProblem(
+                source="--every",
+                reason="bad_option",
+                detail=f"got {every}",
+                guidance=GUIDANCE["bad_option"],
+            )
+        )
     if not folder.is_dir():
         problems.append(
             InputProblem(
@@ -388,12 +416,28 @@ def run_folder(
                 guidance=GUIDANCE["empty_folder"],
             )
         )
-        return RunResult(folder=str(folder), camera="", occupancy_model="", problems=problems)
+    if problems:  # nothing can be read safely
+        result = RunResult(folder=str(folder), camera="", occupancy_model="", problems=problems)
+        _write_run(result, out, None)
+        return result
     boxes, camera, model, snap_path = _setup(folder, problems)
     events: list[tuple[datetime, str, object]] = []
     commands_file = folder / "commands.txt"
+    lines: list[str] = []
     if commands_file.exists():
-        for n, line in enumerate(commands_file.read_text().splitlines(), 1):
+        try:
+            lines = commands_file.read_text(encoding="utf-8").splitlines()
+        except (OSError, UnicodeDecodeError) as err:
+            problems.append(
+                InputProblem(
+                    source="commands.txt",
+                    reason="unreadable_file",
+                    detail=f"not UTF-8 text ({err.__class__.__name__})",
+                    guidance=GUIDANCE["bad_command_line"],
+                )
+            )
+    if lines:
+        for n, line in enumerate(lines, 1):
             if not line.strip() or line.lstrip().startswith("#"):
                 continue
             try:
@@ -441,7 +485,19 @@ def run_folder(
                     guidance=GUIDANCE["unreadable_file"],
                 )
             )
-    if not events:
+    if boxes is None:  # the camera could not be set up: never judge it with the wrong boxes
+        skipped = [e for e in events if e[1] != "command"]
+        if skipped:
+            problems.append(
+                InputProblem(
+                    source="bays.yaml",
+                    reason="camera_not_set_up",
+                    detail=f"{len(skipped)} photos or videos not judged",
+                    guidance=GUIDANCE["camera_not_set_up"],
+                )
+            )
+        events = [e for e in events if e[1] == "command"]
+    if not events and not any(p.reason == "camera_not_set_up" for p in problems):
         problems.append(
             InputProblem(
                 source=folder.name, reason="empty_folder", guidance=GUIDANCE["empty_folder"]
@@ -450,6 +506,7 @@ def run_folder(
     events.sort(key=lambda e: e[0])
     result = RunResult(folder=str(folder), camera=camera, occupancy_model=model, problems=problems)
     if not events:
+        _write_run(result, out, None)
         return result
     needs_c = any(kind == "command" for _, kind, _ in events)
     if pipelines is not None and model in pipelines:
@@ -475,7 +532,7 @@ def run_folder(
             )
         )
         guard = ViewGuard.from_snapshot(first, boxes) if first is not None else None
-    table, out = table if table is not None else PermitTable(), out_root / folder.name
+    table = table if table is not None else PermitTable()
     out.mkdir(parents=True, exist_ok=True)
     feedback = out / "feedback.jsonl"
     review = (lambda q, c: c) if yes else ask_owner
@@ -505,12 +562,13 @@ def run_folder(
                     if tr.occupied and not tr.needs_read and b in last_read
                 }
                 for r in pipe.frame(im, boxes, when, table, guard, cached):
-                    read = r["read"]
-                    if read is not None and read.decision == "READ":
+                    read, tracker = r["read"], trackers[r["bay"]]
+                    fresh = r["bay"] not in cached  # a cached read is not new evidence
+                    if fresh and read is not None and read.decision == "READ":
                         last_read[r["bay"]] = read
-                    clear = read.text if read and read.decision == "READ" else None
-                    occupied, plate = trackers[r["bay"]].update(r["occupied"] == 1, clear)
-                    stay = stay_status(occupied, plate, when, table)
+                    clear = read.text if fresh and read and read.decision == "READ" else None
+                    occupied, plate, judged = stay_update(tracker, r["occupied"], clear)
+                    stay = stay_status(occupied, plate, when, table, judged)
                     ev = None
                     if stay != last_stay[r["bay"]] and stay != "EMPTY":  # a notification
                         name = f"{item.stem}_{r['bay']}_{clock(t).replace(':', '-')}.jpg"
@@ -522,8 +580,9 @@ def run_folder(
     return result
 
 
-def _write_run(result: RunResult, out: Path, pipe: Pipeline) -> None:
-    """decisions.jsonl (validated records), decisions.csv and a readable summary.md."""
+def _write_run(result: RunResult, out: Path, pipe: Pipeline | None) -> None:
+    """Write result.json (validated records), decisions.csv and a readable summary.md."""
+    out.mkdir(parents=True, exist_ok=True)
     (out / "result.json").write_text(result.model_dump_json(indent=2))
     rows = [d.model_dump(mode="json") for d in result.decisions]
     decisions = pd.DataFrame(rows)
@@ -564,7 +623,8 @@ def _write_run(result: RunResult, out: Path, pipe: Pipeline) -> None:
                 )
                 + "\n",
             ]
-    parts += ["## Time per stage\n", _md(pipe.timing()) + "\n"]
+    if pipe is not None:
+        parts += ["## Time per stage\n", _md(pipe.timing()) + "\n"]
     (out / "summary.md").write_text("\n".join(parts))
 
 
@@ -572,6 +632,7 @@ def _write_run(result: RunResult, out: Path, pipe: Pipeline) -> None:
 
 
 def in_any(t: float, spans: list[list[float]]) -> bool:
+    """Whether time t falls inside any [start, end) span."""
     return any(a <= t < b for a, b in spans)
 
 
@@ -586,39 +647,68 @@ def video_truth(cfg: dict, t: float) -> dict[str, str]:
     return truth
 
 
-def video_eval(cfg: dict) -> None:
+def frame_table(
+    cfg: dict,
+    pipe: Pipeline | None = None,
+    table: PermitTable | None = None,
+    true_table: PermitTable | None = None,
+) -> tuple[pd.DataFrame, Pipeline]:
+    """Every frame of one video config through the product, beside its truth (one row per
+    frame and bay). `cfg` holds video, boxes, cars, moving, straddle, permanent, every_s and
+    optionally snapshot_s (the camera check's set-up frame), blocked (spans with the lens
+    covered: the right answer is NEEDS_REVIEW) and slices. `table` is the permit table the
+    system uses and `true_table` the owner's intended one; both default to the permanent list."""
     path = Path(cfg["video"])
     start = video_start(path)
-    pipe = Pipeline(commands=False)
+    pipe = pipe or Pipeline(commands=False)
     guard = None  # the camera check, set up from the snapshot frame named in the config
     if "snapshot_s" in cfg:
         snap = next(im for t, im in video_frames(path, cfg["snapshot_s"]) if t >= cfg["snapshot_s"])
         guard = ViewGuard.from_snapshot(snap, cfg["boxes"])
     owner = PermitTable()  # the owner's own cars, on the permanent list
-    for n in cfg["permanent"]:
+    for n in cfg.get("permanent", []):
         owner.apply(ParsedCommand(action=Action.ALLOW, number=n), confirm=lambda q: True)
+    table = owner if table is None else table
+    true_table = owner if true_table is None else true_table
+    blocked = cfg.get("blocked", [])
+    slices = {"car across both bays": cfg.get("straddle", []), **(cfg.get("slices") or {})}
     visitors = PermitTable()  # the same video with an empty table: the cars as visitors
     rows = []
     for t, im in video_frames(path, cfg["every_s"]):
         at = start + timedelta(seconds=t)
         truth = video_truth(cfg, t)
-        for r in pipe.frame(im, cfg["boxes"], at, owner, guard):
+        covered = in_any(t, blocked)
+        for r in pipe.frame(im, cfg["boxes"], at, table, guard):
             plate, read = truth[r["bay"]], r.pop("read")
             rows.append(
                 {
                     "t": t,
                     "clock": clock(t),
                     **r,
-                    "status_visitor": bay_status(bool(r["occupied"]), read, at, visitors),
+                    "status_visitor": "NEEDS_REVIEW"
+                    if r["occupied"] == -1 or r["reason"] == "occupancy_unsure"
+                    else bay_status(bool(r["occupied"]), read, at, visitors),
                     "truth_occupied": int(bool(plate)),
                     "true_plate": plate,
-                    "true_status": true_status(bool(plate), plate, at, owner),
-                    "true_status_visitor": true_status(bool(plate), plate, at, visitors),
+                    "true_status": "NEEDS_REVIEW"
+                    if covered
+                    else true_status(bool(plate), plate, at, true_table),
+                    "true_status_visitor": "NEEDS_REVIEW"
+                    if covered
+                    else true_status(bool(plate), plate, at, visitors),
                     "moving": in_any(t, cfg["moving"]),
-                    "slice": "car across both bays" if in_any(t, cfg["straddle"]) else "normal",
+                    "blocked": covered,
+                    "slice": "camera blocked"
+                    if covered
+                    else next((k for k, v in slices.items() if in_any(t, v)), "normal"),
                 }
             )
-    d = pd.DataFrame(rows)
+    return pd.DataFrame(rows), pipe
+
+
+def video_eval(cfg: dict) -> None:
+    """The owner's night video 1 through the product, against its truth (a seen check)."""
+    d, pipe = frame_table(cfg)
     out = Path("outputs/loop")
     (out / "local").mkdir(parents=True, exist_ok=True)
     d.to_csv(out / "local" / "video_night_1.csv", index=False)
@@ -637,6 +727,7 @@ def _alerts(g: pd.DataFrame, col: str) -> int:
 
 
 def video_report(d: pd.DataFrame, scored: pd.DataFrame, pipe: Pipeline, cfg: dict) -> str:
+    """Markdown report on the night video: measures per slice, statuses, changes, timing."""
     pu = "POTENTIALLY_UNAUTHORIZED"
     rows = {}
     for name, g in [("all", scored), *scored.groupby("slice")]:
@@ -646,7 +737,7 @@ def video_report(d: pd.DataFrame, scored: pd.DataFrame, pipe: Pipeline, cfg: dic
         rows[name] = {
             "bay checks (frames x bays)": len(g),
             "occupancy right": f"{(g.occupied == g.truth_occupied).mean():.0%}",
-            "empty bay called occupied": f"{int(empty.occupied.sum())} of {len(empty)}",
+            "empty bay called occupied": f"{int((empty.occupied == 1).sum())} of {len(empty)}",
             "parked car called empty": f"{int((cars.occupied == 0).sum())} of {len(cars)}",
             "plate read right (bays with a car)": f"{int(read.sum())} of {len(cars)}",
             "owner's cars: final answer right": f"{(g.status == g.true_status).mean():.0%}",
@@ -695,6 +786,7 @@ def video_report(d: pd.DataFrame, scored: pd.DataFrame, pipe: Pipeline, cfg: dic
 
 
 def main() -> None:
+    """Run the pipeline on a folder and/or the video evaluation."""
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--folder", type=Path)
     ap.add_argument("--every", type=float, default=2.0, help="seconds between video frames")

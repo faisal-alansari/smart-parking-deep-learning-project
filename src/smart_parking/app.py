@@ -31,6 +31,7 @@ STATUS_COLOUR = {
 
 @st.cache_resource
 def model_c():  # noqa: ANN201
+    """Model C (the tiered command reader), loaded once and cached."""
     from smart_parking.commands.score import PARSERS
     from smart_parking.common.config import load_config
 
@@ -39,10 +40,12 @@ def model_c():  # noqa: ANN201
 
 @st.cache_resource
 def pipelines() -> dict:
+    """A cached, initially empty dict of pipelines, one per occupancy model."""
     return {}  # filled on first use by run_folder, one per occupancy model
 
 
 def state() -> st.session_state:
+    """The session state, with an empty permit table and no pending command by default."""
     s = st.session_state
     s.setdefault("table", PermitTable())
     s.setdefault("pending", None)
@@ -56,6 +59,7 @@ def _save(record, name: str) -> None:  # noqa: ANN001
 
 
 def commands_tab() -> None:
+    """Owner commands tab: Model C proposes a change; the owner accepts, fixes or rejects it."""
     s = state()
     st.subheader("Owner commands")
     st.caption(
@@ -94,14 +98,9 @@ def commands_tab() -> None:
         if left.button("Accept"):
             change = proposal
         if middle.button("Accept with my fixes"):
-            change = proposal.model_copy(
-                update={
-                    "number": number.strip(),
-                    "until": datetime.fromisoformat(until).replace(tzinfo=TZ)
-                    if until.strip()
-                    else None,
-                }
-            )
+            change = corrected(proposal, number, until)
+            if change is None:
+                st.error("That fix is not valid: use digits for the number and YYYY-MM-DD HH:MM.")
         if right.button("Reject"):
             _save(
                 HumanFeedback(at=now, command=text, proposed=proposal, accepted=False),
@@ -137,6 +136,7 @@ def commands_tab() -> None:
 
 
 def camera_tab() -> None:
+    """Camera tab: run Models A and B on a sample folder or uploads and show the decisions."""
     from smart_parking.pipeline import run_folder
 
     s = state()
@@ -219,7 +219,23 @@ def _without_commands(folder: Path) -> Path:
     return out
 
 
+def corrected(proposal: ParsedCommand, number: str, until: str) -> ParsedCommand | None:
+    """The owner's fixed proposal, fully validated; None if a field is not valid."""
+    try:
+        when = datetime.fromisoformat(until.strip()).replace(tzinfo=TZ) if until.strip() else None
+        return ParsedCommand.model_validate(
+            {**proposal.model_dump(), "number": number.strip(), "until": when}
+        )
+    except ValueError:  # pydantic's ValidationError is a ValueError
+        return None
+
+
 def main() -> None:
+    """Run the documented entry point with contextual, rotating application logs."""
+    from smart_parking.common.config import load_config
+    from smart_parking.common.log import setup_logging
+
+    setup_logging(load_config().logging)
     st.set_page_config(page_title="Smart Parking", layout="wide")
     st.title("Smart Parking: two private bays, one camera")
     st.caption(

@@ -7,6 +7,8 @@ Per bay, frame by frame:
   appear at least `MIN_READS` times and in more than half of the clear reads, else the stay
   goes to a person;
 - the permit check is redone at every frame's time;
+- a frame the camera check rejects (occupancy -1, unknown) neither confirms nor ends a stay:
+  the bay keeps its state and its answer is NEEDS_REVIEW until the view is usable again;
 - each change of a bay's answer is one notification to the owner;
 - once the stay's plate has been read the same way `SETTLE_READS` times, Model B stops reading
   that bay until the car leaves (added after the efficiency study).
@@ -36,6 +38,7 @@ MIN_READS = 2
 # read the same way this many times, Model B is not run on that bay until the car leaves.
 SETTLE_READS = 3
 PU = "POTENTIALLY_UNAUTHORIZED"
+UNKNOWN = -1  # per-frame occupancy when the camera check rejects the frame
 
 
 def stay_plate(reads: list[str]) -> str | None:
@@ -81,7 +84,26 @@ class BayTracker:
         return self.occupied, stay_plate(self.reads) if self.occupied else None
 
 
-def stay_status(occupied: bool, plate: str | None, at: datetime, table: PermitTable) -> Status:
+def stay_update(
+    tracker: BayTracker, occupied: int, read: str | None
+) -> tuple[bool, str | None, bool]:
+    """One frame through the shared temporal step used by the CLI, the demo and every replay.
+
+    `occupied` is 1, 0 or `UNKNOWN`; `read` is a new clear plate read (None for no read or a
+    cached one, so a cached read is never counted twice). Returns the smoothed occupancy, the
+    stay's plate and whether the frame could be judged (False: the bay must go to a person)."""
+    if occupied == UNKNOWN:
+        return tracker.occupied, stay_plate(tracker.reads) if tracker.occupied else None, False
+    occ, plate = tracker.update(occupied == 1, read)
+    return occ, plate, True
+
+
+def stay_status(
+    occupied: bool, plate: str | None, at: datetime, table: PermitTable, judged: bool = True
+) -> Status:
+    """The answer for a bay's current stay; an unjudged frame always goes to a person."""
+    if not judged:
+        return "NEEDS_REVIEW"
     if not occupied:
         return "EMPTY"
     if plate is None:
@@ -97,11 +119,11 @@ def apply_stays(frames: pd.DataFrame, start: datetime, owner: PermitTable) -> pd
         for r in g.itertuples():
             clear = isinstance(r.plate, str) and str(r.plate_decision).startswith("READ")
             text = r.plate.rsplit(" ", 1)[-1] if clear and tracker.needs_read else None
-            occ, plate = tracker.update(bool(r.occupied), text)
+            occ, plate, judged = stay_update(tracker, int(r.occupied), text)
             at = start + timedelta(seconds=float(r.t))
-            visitor = stay_status(occ, plate, at, PermitTable())
+            visitor = stay_status(occ, plate, at, PermitTable(), judged)
             out.append({**r._asdict(), "stay_occupied": int(occ), "stay_plate": plate or "",
-                        "stay_status": stay_status(occ, plate, at, owner),
+                        "stay_status": stay_status(occ, plate, at, owner, judged),
                         "stay_status_visitor": visitor})  # fmt: skip
     return pd.DataFrame(out).drop(columns="Index").sort_values(["t", "bay"])
 
@@ -119,10 +141,12 @@ def runs(g: pd.DataFrame, col: str) -> list[tuple[float, float, str]]:
 
 
 def changes(g: pd.DataFrame, col: str) -> int:
+    """How many times a column's value changes over time."""
     return len(runs(g, col)) - 1
 
 
 def report(d: pd.DataFrame, cfg: dict) -> str:
+    """Markdown comparing per-frame and per-stay answers, each true stay, and phantom stays."""
     from smart_parking.pipeline import clock
 
     scored = d[~d["moving"]]
@@ -134,7 +158,7 @@ def report(d: pd.DataFrame, cfg: dict) -> str:
         s, empty = scored, scored[scored.truth_occupied == 0]
         compare[name] = {
             "occupancy right (scored)": f"{(s[occ] == s.truth_occupied).mean():.0%}",
-            "empty bay called occupied (scored)": f"{int(empty[occ].sum())} of {len(empty)}",
+            "empty bay called occupied (scored)": f"{int((empty[occ] == 1).sum())} of {len(empty)}",
             "owner's cars: answer right (scored)": f"{(s[status] == s.true_status).mean():.0%}",
             "as visitors: answer right (scored)":
                 f"{(s[visitor] == s.true_status_visitor).mean():.0%}",
@@ -183,6 +207,7 @@ def report(d: pd.DataFrame, cfg: dict) -> str:
 
 
 def main() -> None:
+    """Apply the per-stay rule to night 1's per-frame results; write the CSV and report."""
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--config", type=Path, default=Path("configs/local_video_night_1.yaml"))
     args = ap.parse_args()
