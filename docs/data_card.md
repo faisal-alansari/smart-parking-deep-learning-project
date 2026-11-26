@@ -65,9 +65,9 @@ Extra sets in dev wording (new numbers and times, `just command-data`, seeds in 
 | Dataset | Items used for fine-tuning |
 |---|---|
 | CNRPark+EXT | 0 (from-scratch model) |
-| AddingUAE | 7,000 (5,000 train, 1,000 val, 1,000 test) |
-| Local videos (bay crops, Model A) | 2,690 if counted (1,604 train, 600 validation, 486 test). Model A is a from-scratch model, whose data is outside the cap; counted here to be safe |
+| AddingUAE | 6,000 counted (5,000 train, 1,000 val); the 1,000 test images are never learned from and are not counted |
+| Local videos (bay crops, Model A) | 2,204 counted to be safe (1,604 train, 600 validation; Model A is a from-scratch model). Test crops (486 night 1, 1,142 night 3) are not counted |
 | Local pilot photos | 0 (check only; no training or tuning) |
 | Night photo set 1 | 0 (check only; no training or tuning) |
 | Owner command sets | 0 (evaluation only; Model C is not fine-tuned) |
-| **Total** | **7,000 of 10,000** (9,690 if the local crops are counted) |
+| **Total** | **8,204 of 10,000** (`outputs/budget.md`) |

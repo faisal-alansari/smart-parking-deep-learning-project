@@ -154,9 +154,10 @@ def run(refit: bool = False) -> None:
     rows_a = [
         {"Model A policy": "public model, majority vote (before adapting)",
          "test cost per bay check": decided_cost(yt, vote_public)},
-        {"Model A policy": "adapted, majority vote (tested product)",
+        {"Model A policy": "adapted, majority vote of the seeds (the adaptation rule's view)",
          "test cost per bay check": decided_cost(yt, vote_t)},
-        {"Model A policy": f"adapted, cost threshold {t_a} and band {band} (chosen on block 4)",
+        {"Model A policy": f"adapted, mean probability at {t_a}, band {band} (chosen on block 4; "
+                           "the product)",
          "test cost per bay check": occupancy_cost(yt, pt, t_a, band, c)},
         {"Model A policy": "always occupied (no Model A)",
          "test cost per bay check": decided_cost(yt, np.ones(len(yt), bool))},
@@ -165,7 +166,8 @@ def run(refit: bool = False) -> None:
     ]  # fmt: skip
     # Car-level view (added after seeing the test): a bay called empty is not a missed car when
     # the same car is seen in the other bay at the same moment (a car across both bays).
-    other = mt.assign(occ=vote_t, occ_public=vote_public).set_index(["t", "bay"])
+    product = pt >= t_a  # the deployed rule (band 0: nothing is left unsure)
+    other = mt.assign(occ=product, occ_public=vote_public).set_index(["t", "bay"])
 
     def car_level(col: str, occ: np.ndarray) -> float:
         seen_other = np.array([bool(other.loc[(r.t, "right" if r.bay == "left" else "left"), col])
@@ -177,14 +179,14 @@ def run(refit: bool = False) -> None:
 
     normal = (mt["slice"] == "normal").to_numpy()
     rows_a += [
-        {"Model A policy": "public model, car-level view",
+        {"Model A policy": "public model (majority vote), car-level view",
          "test cost per bay check": car_level("occ_public", vote_public)},
-        {"Model A policy": "adapted (tested product), car-level view",
-         "test cost per bay check": car_level("occ", vote_t)},
-        {"Model A policy": "public model, normal frames only",
+        {"Model A policy": "adapted (the product), car-level view",
+         "test cost per bay check": car_level("occ", product)},
+        {"Model A policy": "public model (majority vote), normal frames only",
          "test cost per bay check": decided_cost(yt[normal], vote_public[normal])},
-        {"Model A policy": "adapted (tested product), normal frames only",
-         "test cost per bay check": decided_cost(yt[normal], vote_t[normal])},
+        {"Model A policy": "adapted (the product), normal frames only",
+         "test cost per bay check": decided_cost(yt[normal], product[normal])},
     ]  # fmt: skip
     calib = json.loads((OUT / "calibration.json").read_text())["plate"]
     plates = {}

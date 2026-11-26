@@ -98,8 +98,9 @@ informed by night 1 (Model A's raw confidence, no feature-distance check, plate 
 made again on block 4 alone, under rules written down before running, and came out the same
 (`outputs/trust/validation_choices.md`, `efficiency.md`). Night 1 was seen during development,
 so its results are a cross-night check. The final test is night 3, recorded after the design was
-frozen; its truth was checked by the owner before any model saw it, the main measure was written
-down first, and it was run once (§4.4).
+frozen (by code and weight fingerprints in `Memory.md`, not by a commit); its truth was checked
+by the owner before any model saw it, the main measure was written down first, and it was run
+once (§4.4).
 
 ### 4.1 Baselines and training choices
 
@@ -144,7 +145,8 @@ the two bays.*
 
 On the sealed night 3, normal frames improved from 0.961 to **0.999** balanced accuracy and
 empty bays called occupied fell from 84 to 1. Two costs: a car across both bays or over the
-middle line was called empty in 147 of 258 checks (the public model missed none); and general
+middle line was called empty in 147 of 258 checks under the seeds' majority vote used to choose
+the option (the public model missed none; the product's own rule is costed in §5); and general
 skill fell (public test F1 0.994 → 0.988, unseen public site 0.932 → 0.857)
 (`outputs/occupancy/adaptation_test.md`). The product uses the adapted model for
 the owner's camera and the public model for any newly set-up camera.
@@ -184,11 +186,15 @@ Model C's proposals were accepted as proposed, so its mistakes would reach the b
 | Model A misses no parked car | 5 of 475 car checks in normal stays; 95 of 192 for cars across both bays | partly met |
 | Model C: 0 wrong changes | 3 of 3 commands right on the test night (the off-topic line drew a question, not a refusal); 1 of 160 on the frozen test | partly met |
 | few notifications | **20** in 24 minutes with two cars moving | met |
-| near real time on a Mac | 21 ms per frame on average, 70 ms at p95 (camera check 5, A 7, B 61 per plate read); 113 ms per command | met |
+| near real time on a Mac | about 20 ms per frame on average, 67 ms at p95 (camera check 5, A 7, B 57 per plate read); about 114 ms per command | met |
 
 *Table 6. `outputs/final_test/night_3.md`, `outputs/loop/latency.md`. Per stay, 82% of scored bay
 checks are right; normal slices 99%. On night 1 (seen, `video_night_1_stays.md`) the same design
-gave 83% per stay and 28 notifications in 10 minutes.*
+gave 83% per stay and 28 notifications in 10 minutes. Timings vary by a few percent between runs.*
+
+After the test, a review found that the folder command answered a command typed during a video
+only after the whole video; it now applies from the next frame. The test was not affected: its
+runner reads the commands first, and the only command typed during the video was off-topic.
 
 The BMW across both bays went to review in both bays, which is safe. The Tesla centred on the
 middle line was worse: each bay held about half of it, Model A called both empty, and a car whose
@@ -216,8 +222,8 @@ calibrated confidence were chosen on validation by expected cost and stored in
 bays to a person, because correct reads on this camera carry lower confidence; re-chosen on the
 owner's validation block it became 0.15, and on the test night it costs 0.39 per plate against
 0.63 for the public gate. On the test night the adapted Model A costs more than the public model,
-even car by car (0.27 vs 0.07 per bay check), because of the cars across both bays, one of them
-truly missed; on normal frames it costs 0.002 against 0.040. Model A's threshold stayed at 0.86–0.88 under every
+even car by car (0.26 vs 0.07 per bay check), because of the cars across both bays, one of them
+truly missed; on normal frames it costs 0.007 against 0.040. Model A's threshold stayed at 0.86–0.88 under every
 cost assumption tried; the public-data plate gate moved from 0.1 to 0.85, so gates should be
 re-chosen if the owner's costs differ (`outputs/trust/costs.md`).
 
@@ -257,11 +263,11 @@ Each alert names the maintainer's action (`outputs/trust/monitoring.md`).
 
 ## 6. Efficiency and generalization
 
-On the Mac (Apple GPU), with all models loaded once (5 s, 2.6 GB peak memory), a frame takes
-21 ms on average and 70 ms at p95 end to end, and a command 113 ms (p95 363 ms)
+On the Mac (Apple GPU), with all models loaded once (5 s, 2.7 GB peak memory), a frame takes
+about 20 ms on average and 67 ms at p95 end to end, and a command about 114 ms (p95 377 ms)
 (`outputs/loop/latency.md`). **Efficiency study:** the product re-read the same parked car every
 2 s. Chosen on block 4: stopping Model B once a stay's plate has been read the same way three
-times cut model time to **13%** (2,186 → 291 ms per minute of video) with identical answers (4 of 6
+times cut model time to **13%** (about 2,000 → 270 ms per minute of video) with identical answers (4 of 6
 stay ends, 96% per stay, same notifications); sampling every 4 s as well cut it to 7%. On night 1,
 caching cut model time to 33% and per-stay answers went from 79% to 83%
 (`outputs/trust/efficiency.md`).
@@ -291,13 +297,13 @@ eliminate wrong answers.
 **Failures, counted.** On the sealed night 3, 225 of 1,162 scored bay checks were wrong frame by
 frame: 97 (43%) a bay of a car across both bays with no plate in view, 95 (42%) the bay holding
 half of such a car called empty, 13 plates misread, 13 plates too small and sent to review, 5
-parked cars missed in normal stays, and 1 empty bay called occupied. For plate seed 42 on the public test, 187 of 1,000 were misread and 87 sent to
+parked cars missed in normal stays, 1 car with no plate found and 1 empty bay called occupied. For plate seed 42 on the public test, 187 of 1,000 were misread and 87 sent to
 review (Table 3 averages three seeds). Model C's 160 test commands produced 58 needless questions (32 from new wording), 1
 wrong change, 11 wrong reasons and 7 missed "unsupported" requests (`outputs/trust/failures.md`).
 
 **Fixes linked to failures (before → after).** Plate rules: wrong reads 27.5% → 19.2%. Model A
-adaptation: 78 → 2 false "occupied" on night 1 (84 → 1 on night 3). Per-stay decisions on
-night 1: false alerts 4 → 0, notifications 78 → 28. The day-word check for Model C: the one wrong time proposal in the full loop became a
+adaptation: false "occupied" 78 → 3 of 243 on night 1, 84 → 1 on night 3. Per-stay decisions
+(night 1, public model): false alerts 4 → 0, notifications 78 → 29. The day-word check for Model C: the one wrong time proposal in the full loop became a
 question. The contrast-normalised sharpness check flags 2.5% of frames at brightness ×0.6;
 the earlier comparison is not preserved. The plate gate was re-chosen on validation; a matched before/after system comparison is
 not preserved.

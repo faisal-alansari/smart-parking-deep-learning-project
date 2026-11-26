@@ -318,6 +318,12 @@ Concise decisions and lessons for the Smart Parking project. This is **not** a t
 - **What it means:** the known weakness (a car across both bays) is the one that fails, and it can now fail unsafely (a miss), not only by review. Not fixed after the test: fixing it now would tune on the test. Next fix, untested: treat "one car over both bays" as its own event.
 - **Other test-night findings (scored with frozen models, nothing chosen):** Model A on normal frames 0.999 balanced accuracy (public model 0.961), but across the whole night the adapted model costs more than the public one because of the cars across both bays. The camera check caught only 3% of simulated shifted-and-zoomed frames (98% on night 1), so a knocked camera is not reliably caught; blur, a covered lens and noise were all caught. The explainability probes now run on night 3 and partly support the half-car hypothesis (greying the left half of a car crop leaves 48% called occupied).
 
+### 2026-11-27 | Fixes from the final Codex review (after the test)
+
+- **Decision / reason:** A second review found real gaps; all were fixed without changing the test result. The night-3 start time is now pinned in its config, because a copied video can change its file time (a day's shift turned 5/9 into 4/9 on the same predictions). Commands typed during a video now apply from the next frame (before, only after the whole video); the final test was unaffected (its commands come before the video, and the one during it is off-topic). The 13 weight files `just evaluate` needs are now in Git. Evaluation stops if a fitted file is missing instead of creating it. The cost table now scores the real product rule (mean probability at 0.86), not the seeds' vote. Report timings are given as approximate, since they vary between runs.
+- **Outcome:** `just final-test --report` gives the same report; tests pass.
+- **Next:** Host the raw data and add the link; prepare the submission package.
+
 ## Decision log
 
 For each **meaningful** new decision, add one short entry:

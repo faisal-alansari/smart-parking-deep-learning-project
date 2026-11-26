@@ -152,13 +152,14 @@ FIXES = [
     (
         "Empty bays at night called occupied (78 of 243 on night 1)",
         "adapt Model A on the owner's camera (night video 2)",
-        "outputs/occupancy/adaptation_test.md: 78 -> 2",
+        "outputs/loop/video_night_1_public_model.md -> video_night_1.md: 78 -> 3 of 243 "
+        "(night 1); outputs/occupancy/adaptation_test.md: 84 -> 1 (night 3)",
     ),
     (
         "One-frame alerts while a car moves; 78 notifications in 10 min",
         "one decision per stay (10 s to confirm, majority plate)",
-        "outputs/loop/video_night_1_stays.md (night 1): false alerts 4 -> 0, notifications "
-        "78 -> 28 (public model frame by frame -> adapted model per stay)",
+        "outputs/loop/video_night_1_stays_public_model.md (night 1, public model): false "
+        "alerts 4 -> 0, notifications 78 -> 29 (frame by frame -> per stay)",
     ),
     (
         "Model C dropped 'tomorrow' from a time",
@@ -174,12 +175,13 @@ FIXES = [
     (
         "The camera check flagged every frame 40% darker than usual",
         "measure sharpness on a contrast-normalised frame",
-        "outputs/trust/robustness_images.md: 100% -> 2.5% of frames flagged at brightness x0.6",
+        "outputs/trust/robustness_images.md: 2.5% of frames flagged at brightness x0.6 (the "
+        "earlier result is not preserved)",
     ),
     (
         "A plate gate tuned on public photos sent 30% of the owner's bays to a person",
         "re-choose the gate on the owner's camera (block 4)",
-        "outputs/trust/costs.md; full system right answers 67% -> 84% on night 1",
+        "outputs/trust/costs.md (a matched before/after system comparison is not preserved)",
     ),
     (
         "Platt scaling made Model A's confidence worse on held-out data",

@@ -34,14 +34,14 @@ The first gate (0.7) was chosen on the public plate validation split (cost 0.525
 | Model A policy | test cost per bay check |
 |---|---|
 | public model, majority vote (before adapting) | 0.0736 |
-| adapted, majority vote (tested product) | 0.387 |
-| adapted, cost threshold 0.86 and band 0.0 (chosen on block 4) | 0.2636 |
+| adapted, majority vote of the seeds (the adaptation rule's view) | 0.387 |
+| adapted, mean probability at 0.86, band 0.0 (chosen on block 4; the product) | 0.2636 |
 | always occupied (no Model A) | 0.4159 |
 | always ask a person | 1.0 |
-| public model, car-level view | 0.0736 |
-| adapted (tested product), car-level view | 0.2715 |
-| public model, normal frames only | 0.0403 |
-| adapted (tested product), normal frames only | 0.0016 |
+| public model (majority vote), car-level view | 0.0736 |
+| adapted (the product), car-level view | 0.2609 |
+| public model (majority vote), normal frames only | 0.0403 |
+| adapted (the product), normal frames only | 0.0065 |
 
 On the test night the adapted model costs more than the public model, bay by bay and car by car: it calls a bay holding part of a car standing across both bays empty, each such check is charged as a missed car (3), and one car centred on the middle line was called empty in both bays, so it really was missed. The public model's many false 'occupied' calls cost 1 each. On normal frames the adapted model is far cheaper. The car-level view was added after seeing night 1, not this test.
 

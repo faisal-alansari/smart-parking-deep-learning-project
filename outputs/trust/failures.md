@@ -60,12 +60,12 @@ before/after evidence, and the failure modes that remain.
 | Plate reader read one thin '1' as '111' | rule: merge sideways-overlapping boxes | outputs/plates/rule_evidence.md; final_results_before_safety_rules.md -> final_results.md: wrong reads 27.5% -> 19.2% |
 | A Dubai plate read without its code letter | rule: Dubai reads need a code, else ask | same as above |
 | A plate of a car further back read as the parked car's | rule: a plate narrower than 10% of the bay goes to a person | outputs/occupancy/local_night_1/findings.md |
-| Empty bays at night called occupied (78 of 243 on night 1) | adapt Model A on the owner's camera (night video 2) | outputs/occupancy/adaptation_test.md: 78 -> 2 |
-| One-frame alerts while a car moves; 78 notifications in 10 min | one decision per stay (10 s to confirm, majority plate) | outputs/loop/video_night_1_stays.md (night 1): false alerts 4 -> 0, notifications 78 -> 28 (public model frame by frame -> adapted model per stay) |
+| Empty bays at night called occupied (78 of 243 on night 1) | adapt Model A on the owner's camera (night video 2) | outputs/loop/video_night_1_public_model.md -> video_night_1.md: 78 -> 3 of 243 (night 1); outputs/occupancy/adaptation_test.md: 84 -> 1 (night 3) |
+| One-frame alerts while a car moves; 78 notifications in 10 min | one decision per stay (10 s to confirm, majority plate) | outputs/loop/video_night_1_stays_public_model.md (night 1, public model): false alerts 4 -> 0, notifications 78 -> 29 (frame by frame -> per stay) |
 | Model C dropped 'tomorrow' from a time | check: a day said must be in the time read | outputs/commands/final_test.md (change after the test): 0 wrong proposals in the full loop |
 | Model C's two models agreed on wrong changes | a second model must agree; action-word and loose-number checks | outputs/commands/dev_tuning.md, final_test.md: 1 dangerous of 160 |
-| The camera check flagged every frame 40% darker than usual | measure sharpness on a contrast-normalised frame | outputs/trust/robustness_images.md: 100% -> 2.5% of frames flagged at brightness x0.6 |
-| A plate gate tuned on public photos sent 30% of the owner's bays to a person | re-choose the gate on the owner's camera (block 4) | outputs/trust/costs.md; full system right answers 67% -> 84% on night 1 |
+| The camera check flagged every frame 40% darker than usual | measure sharpness on a contrast-normalised frame | outputs/trust/robustness_images.md: 2.5% of frames flagged at brightness x0.6 (the earlier result is not preserved) |
+| A plate gate tuned on public photos sent 30% of the owner's bays to a person | re-choose the gate on the owner's camera (block 4) | outputs/trust/costs.md (a matched before/after system comparison is not preserved) |
 | Platt scaling made Model A's confidence worse on held-out data | keep Model A's raw probability (chosen on block 4 alone) | outputs/trust/validation_choices.md: held-out ECE 0.011 raw vs 0.023 Platt |
 
 ## Failure modes that remain
