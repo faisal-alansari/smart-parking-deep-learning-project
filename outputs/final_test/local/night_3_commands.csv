@@ -1,0 +1,4 @@
+time,command,Model C proposal,reply,meaning right
+00:04,allow car 66705,"{""action"":""ALLOW"",""number"":""66705""}",Done: Allow car 66705 in either bay permanently (no end time).,True
+00:04,allow car 33044 until 00:14,"{""action"":""ALLOW"",""number"":""33044"",""until"":""2026-11-27T00:14:00+04:00""}",Done: Allow car 33044 in either bay until Fri 27 Nov 00:14.,True
+00:11,what's the weather today,no change,Do you want to allow or remove a car?,True

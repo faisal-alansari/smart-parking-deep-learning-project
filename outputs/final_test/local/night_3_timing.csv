@@ -1,0 +1,6 @@
+stage,calls,mean ms,p95 ms
+C command (one command),3,36.2,96.9
+camera check (one frame),719,5.2,5.8
+"A occupancy (one frame, both bays)",709,6.8,8.6
+permit table check (one bay),1418,0.0,0.0
+B plate read (one occupied bay),664,56.9,62.3

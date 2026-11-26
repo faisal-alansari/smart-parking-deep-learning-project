@@ -1,0 +1,57 @@
+# Night video 3: recorded 2026-11-27 from 00:05:38 for the FINAL TEST ONLY (sealed).
+# Never used for training, validation, thresholds or any choice. Fixed camera, same spot as
+# night 2; the owner moved both cars alone (docs/planning/test_video_checklist.md).
+# Truth marked by Claude from frames every 10 s and every 2 s, before any model saw the video.
+# Times in seconds from the start. cars: parked periods (from the end of arriving to the start
+# of leaving). moving: a car driving in, out or close by; not scored. blocked: the lens covered
+# (the right answer is NEEDS_REVIEW).
+title: night video 3 (2026-11-27, sealed final test)
+video: data/raw/video_test/night_3.MOV
+every_s: 2
+snapshot_s: 10  # set-up snapshot for the camera check: both bays empty, at the start
+truth_status: checked by the owner (2026-11-27), no changes
+# Bay boxes drawn once from a frame (20:20) with a car in each bay, like a camera set up once.
+boxes:
+  left: [0.00, 0.42, 0.56, 0.67]
+  right: [0.59, 0.42, 1.00, 0.67]
+# The owner's commands (commands.txt beside the video) and what each one means.
+commands_file: data/raw/video_test/commands.txt
+commands:
+  - {action: allow, number: '66705'}                              # the BMW, always
+  - {action: allow, number: '33044', until: '2026-11-27T00:14'}   # the Tesla, until 8:22
+  - {action: none}                                                # off-topic: no change
+cars:
+  - {bay: left, from: 86, to: 346, plate: AA66705, note: BMW reverses in}
+  - {bay: right, from: 220, to: 466, plate: O33044, note: Tesla nose-in, permit valid}
+  - {bay: both, from: 556, to: 652, plate: AA66705, note: BMW across both bays, headlights on}
+  - {bay: right, from: 726, to: 748, plate: O33044, note: quick in-and-out, permit expired}
+  - {bay: both, from: 790, to: 886, plate: O33044, note: Tesla crooked over the middle line}
+  - {bay: right, from: 906, to: 1014, plate: O33044, note: Tesla crooked, partly over the line}
+  - {bay: right, from: 1032, to: 1268, plate: O33044, note: Tesla parked again}
+  - {bay: left, from: 1085, to: 1318, plate: AA66705, note: BMW nose-in, headlights on at first}
+straddle: [[556, 652], [790, 886]]
+moving:
+  - [56, 86]      # BMW reverses into the left bay (0:56-1:26)
+  - [154, 166]    # Tesla pulls away from beside the right bay (2:34-2:46)
+  - [202, 220]    # Tesla drives into the right bay (3:22-3:40)
+  - [346, 356]    # BMW leaves (5:46-5:56)
+  - [466, 484]    # Tesla leaves (7:46-8:04)
+  - [544, 556]    # BMW drives in across both bays (9:04-9:16)
+  - [652, 662]    # BMW leaves (10:52-11:02)
+  - [716, 726]    # Tesla drives in (11:56-12:06)
+  - [748, 766]    # Tesla leaves (12:28-12:46)
+  - [775, 790]    # Tesla drives in crooked (12:55-13:10)
+  - [886, 906]    # Tesla backs out and parks again (14:46-15:06)
+  - [936, 978]    # BMW turns in the lane close to the left bay (15:36-16:18)
+  - [1014, 1032]  # Tesla backs out and parks again (16:54-17:12)
+  - [1068, 1085]  # BMW drives into the left bay (17:48-18:05)
+  - [1268, 1282]  # Tesla leaves (21:08-21:22)
+  - [1318, 1330]  # BMW leaves (21:58-22:10)
+blocked: [[1148, 1168]]  # the owner stands right in front of the lens (19:08-19:28)
+slices:
+  car just outside the right bay: [[0, 154]]
+  person in front of the plate: [[298, 328]]
+  person in an empty bay: [[404, 438]]
+  short stay (22 s): [[726, 748]]
+  crooked car: [[906, 1014]]
+  headlights on: [[1085, 1140]]
