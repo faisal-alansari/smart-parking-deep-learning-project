@@ -7,6 +7,7 @@ an evidence frame). I manage visitors with plain typed or dictated commands ("al
 until 6 pm"); a permit changes only after I confirm it.
 
 Final report: [`docs/final_report.md`](docs/final_report.md). Data: [`docs/data_card.md`](docs/data_card.md).
+Code with its full Git history: [github.com/faisal-alansari/smart-parking-deep-learning-project](https://github.com/faisal-alansari/smart-parking-deep-learning-project).
 
 ## How it works
 
