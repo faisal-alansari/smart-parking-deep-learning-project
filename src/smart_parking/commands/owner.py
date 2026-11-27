@@ -3,7 +3,7 @@
 `handle` sends a command through Model C. A proposed change is shown to the owner as a
 question; the owner accepts it, rejects it and fixes the fields, or rejects it. Only then does
 the permit table change, and every decision is saved as a `HumanFeedback` record (the
-feedback the rubric asks for, and a measure of Model C on real commands). Unclear commands get
+feedback records, and a measure of Model C on real commands). Unclear commands get
 a question; other requests get the "unsupported" reply. Nothing changes without the owner.
 
 `arrival_decision` joins the three modalities: a plate read by Model B (visual), the permit

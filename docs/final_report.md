@@ -13,7 +13,7 @@ joined decision, a CLI and a demo app. Out of scope: towing or fines, other came
 two side-by-side bays, daytime operation at my site (I could not record it, see §8),
 voice input (commands arrive as speech-to-text).
 
-**Project change.** After the intermediate submission the earlier project could not continue; after our discussion, I replaced it with this one. There is therefore no proposal to measure against: the success criteria in §4.4 were fixed during this project, before the tests they judge.
+**Project change.** After the intermediate submission the earlier project could not continue; after discussing it with you, I replaced it with this one. So there is no proposal for you to measure me against; the targets in §4.4 are my own.
 
 ## 2. System design and parameter budget
 
@@ -175,10 +175,12 @@ new wording, not on accuracy.
 
 I recorded a 24-minute night alone, moving both cars through events I planned beforehand, and
 typed three commands: the BMW always, the Tesla for the first 8 minutes, and one off-topic line.
-Model C's proposals were accepted as proposed, so its mistakes would reach the bays.
+Model C's proposals were accepted as proposed, so its mistakes would reach the bays. Your rubric
+asks for results against the proposal's targets; with no proposal (§1), I wrote the measures
+below down before the run, and the targets are mine.
 
 
-| criterion (fixed before the test)                                   | result                                                                                                                   | status     |
+| criterion                                                           | result                                                                                                                   | status     |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ---------- |
 | **main measure: stays of 30 s or more answered right at their end** | **5 of 9** (all 4 wrong are the two cars across both bays); the 22 s stay also right                                     | partly met |
 | no false alert on an allowed car                                    | 0 of 455 frames; 0 stays seen with no car there                                                                          | met        |
@@ -291,7 +293,7 @@ eliminate wrong answers.
 | A1: Model A looks at the car, not the row behind                            | greying the bottom third drops "occupied" from 100% to 4%; top third: no change                              | it relies on bumper, plate and wheels                                    |
 | A2: glare looks like a car to the public model only                         | empty bays called occupied at glare 0.6: public 65%, adapted 0%; at 0.9: 100% and 98%                        | adaptation removed moderate glare sensitivity, not strong glare          |
 | A3: half a car is called empty                                              | greying the left half: 48% still occupied; the right half: 99%                                               | partly supported: without the left of the crop, half the cars look empty |
-| B1: a hidden last character makes the reader ask                            | 58% silent misreads, 2% ask                                                                                  | a real risk; see below                                                   |
+| B1: a hidden last character makes Model B ask                               | 58% silent misreads, 2% ask                                                                                  | a real risk; see below                                                   |
 | B2: a hidden code side makes it ask                                         | 46% ask, 50% misread                                                                                         | partly true                                                              |
 | C: minimal pairs (verb, negation, spoken digits, bay, AM/PM, a dropped day) | each behaves as designed; one written-digit negation is unsupported; the frozen spoken-digit negation failed | the rules, not the models, decide                                        |
 | S: the same car with one input changed                                      | permit → AUTHORIZED; no permit → alert; one digit misread → alert; unclear plate → review                    | the decision truly uses text and table                                   |
@@ -340,8 +342,8 @@ and a reason. An alert is never an accusation: I check before acting.
 **Limitations.** The final test is one 24-minute night with my two cars, staged by me from a
 known checklist, and night 1 was seen during development; there is no daytime
 test at my site (it is too crowded by day to fix a camera); command tests use generated
-sentences in my style; the instructor's unseen inputs will differ in camera and
-lighting, so the product will often ask rather than answer (by design).
+sentences in my style; your unseen inputs will differ in camera and lighting, so on them the
+product will often ask rather than answer (by design); `just run-folder` takes a folder of them.
 
 **Risks and ethics.** The people harmed by errors are a guest wrongly flagged (mitigated: I
 check the evidence before acting) and me when a stranger is missed
