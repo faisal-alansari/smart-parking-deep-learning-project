@@ -39,10 +39,33 @@ I keep `data/` outside Git. This card explains where each dataset comes from, wh
 I recorded three nights at my two bays with a phone fixed on a stick (portrait, 1080x1920, 30 fps). My two cars arrive, leave, park across both bays and park crookedly; I also stand in front of a bay, while other people and cars pass behind. I could not record during the day because the site is too crowded.
 
 - **Night 1** (16 Nov 2026, `IMG_1503.MOV`, 10 min): a **cross-night check** of the adapted Model A and of the full system. Never used for training. It was seen during development and first informed three choices (Model A's raw confidence, no feature-distance check, plate caching); those were made again on block 4 alone (`outputs/trust/validation_choices.md`), so night 1 is reported as a seen check, not a test. Truth: `configs/local_video_night_1.yaml`.
-- **Night 3** (27 Nov 2026, `data/raw/video_test/night_3.MOV`, 24 min, which I recorded alone using `docs/planning/test_video_checklist.md`): the **final system test**, recorded after I froze the design. Truth (`configs/local_video_night_3.yaml`) was marked before any model saw the video; I checked it and made no changes. My `commands.txt` sits beside the video. I ran the test once (`just final-test`, `outputs/final_test/night_3.md`). I never used it for training, validation or any choice.
+- **Night 3** (27 Nov 2026, `data/raw/video_test/night_3.MOV`, 24 min, which I recorded alone following the plan below): the **final system test**, recorded after I froze the design. Truth (`configs/local_video_night_3.yaml`) was marked before any model saw the video; I checked it and made no changes. My `commands.txt` sits beside the video. I ran the test once (`just final-test`, `outputs/final_test/night_3.md`). I never used it for training, validation or any choice.
 - **Night 2** (24 Nov 2026, five files, about 43 min, recorded to a checklist): blocks 1-3 (about 31 min) **train** Model A's adaptation; block 4 (12 min) **chooses** its settings, thresholds and gates. Truth: `configs/local_video_night_2.yaml`.
 
-Claude marked truth for all three from frames every 10 s and every 2 s; **I checked the labels** and corrected three entries on night 2. I do not score moving periods. I count a car across both bays as parked in both, and a car waiting in a bay as occupied. The camera did not move within a night, but its view differs across nights, so I drew each night's bay boxes once from a single frame. Bay crops: one frame every 2 s, 64 px: night 2 gives 1,604 training crops (913 empty, 691 occupied) and 600 validation crops; night 1 gives 486 check crops and night 3 1,142 test crops (a blocked lens is left out, like moving cars).
+**How I recorded night 3.** I planned the events before recording; the table lists them as they happened (times are in the truth file). The phone was on the stick in the same spot, height and angle as night 2, both bays were empty at the start, and I never touched the phone while it recorded. I drove one car at a time, the BMW (AA 66705) and the Tesla (O 33044), while the other waited out of view. Passing cars and people were kept, because they are realistic. After recording, I copied the video unedited and ran nothing on it until its truth was marked and checked.
+
+| # | what I did | what it tests |
+|---|---|---|
+| 1 | left both bays empty; the Tesla first waited just outside the right bay | empty baseline, the camera snapshot, a car close to a bay |
+| 2 | the BMW reversed into the left bay | normal arrival, rear plate |
+| 3 | the Tesla drove nose-in into the right bay | both bays occupied, front plate |
+| 4 | I stood in front of the Tesla's plate | a plate hidden by a person |
+| 5 | the BMW left; I stood inside the empty left bay | departure, a person in an empty bay |
+| 6 | the Tesla left | both bays empty again |
+| 7 | the BMW parked across both bays | a car across both bays |
+| 8 | the Tesla pulled into the right bay for about 20 s and left | a quick in-and-out |
+| 9 | the Tesla parked crooked over the middle line, then crooked in the right bay, then parked again | a crooked car, an expired permit |
+| 10 | the BMW parked nose-in in the left bay with its headlights on | glare, both bays occupied |
+| 11 | I stood right in front of the lens for about 20 s | a blocked camera, then recovery |
+| 12 | the Tesla left, then the BMW left | departures, empty at the end |
+
+| `commands.txt` line (set by the plan, not chosen after seeing the video) | meaning |
+|---|---|
+| `2026-11-27 00:04 \| allow car 66705` | the BMW is always allowed |
+| `2026-11-27 00:04 \| allow car 33044 until 00:14` | the Tesla is allowed only for its first stay |
+| `2026-11-27 00:11 \| what's the weather today` | off-topic: no permit change |
+
+Claude marked truth for all three nights from frames every 10 s and every 2 s; **I checked the labels** and corrected three entries on night 2. I do not score moving periods. I count a car across both bays as parked in both, and a car waiting in a bay as occupied. The camera did not move within a night, but its view differs across nights, so I drew each night's bay boxes once from a single frame. Bay crops: one frame every 2 s, 64 px: night 2 gives 1,604 training crops (913 empty, 691 occupied) and 600 validation crops; night 1 gives 486 check crops and night 3 1,142 test crops (a blocked lens is left out, like moving cars).
 
 ## 4. My local pilot photos
 

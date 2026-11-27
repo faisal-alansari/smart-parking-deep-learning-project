@@ -1,4 +1,4 @@
-"""Adapt Model A (OccupancyCNN) to the owner's fixed camera at night (plan fixed in Memory.md).
+"""Adapt Model A (OccupancyCNN) to the owner's fixed camera at night (plan: report Appendix A).
 
 Data: bay crops cut from the owner's night video 2 exactly as the product cuts them (64 px), one
 frame every 2 s, moving periods left out, labels from the owner-checked truth. Blocks 1-3 train,
@@ -327,10 +327,11 @@ def choose(cfg: OccupancyTrainConfig, report_only: bool = False) -> None:
     out = cfg.results_dir / "adaptation_val.md"
     out.write_text(
         "# Model A adaptation: choosing on block 4 (validation)\n\n"
-        "Plan fixed before training (`Memory.md`, 2026-11-25). Local crops from the owner's night "
-        "video 2: blocks 1-3 train, block 4 chooses; moving periods left out. Each option is the "
-        "majority vote of seeds 42, 43, 44. Allowed: no more parked cars missed than the current "
-        f"model ({limit_missed}) and public validation F1 at least {limit_f1:.4f}.\n\n"
+        "Plan fixed before training (report Appendix A, 2026-11-25). Local crops from the "
+        "owner's night video 2: blocks 1-3 train, block 4 chooses; moving periods left out. "
+        "Each option is the majority vote of seeds 42, 43, 44. Allowed: no more parked cars "
+        f"missed than the current model ({limit_missed}) and public validation F1 at least "
+        f"{limit_f1:.4f}.\n\n"
         "## Crops\n\n"
         + _md(counts)
         + "\n\n## Options (block 4)\n\n"

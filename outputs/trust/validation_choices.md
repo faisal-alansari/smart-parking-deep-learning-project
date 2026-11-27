@@ -2,7 +2,7 @@
 
 Block 4 of night video 2 is split into two folds of alternating 60-second blocks (time halves
 would leave one fold with parked cars only); each check fits on one fold and is measured on the
-other, both ways. Rules fixed before running (Memory.md, 2026-11-26):
+other, both ways. Rules fixed before running (report Appendix A, 2026-11-26):
 1. **Model A confidence:** Platt scaling only if its mean held-out ECE is lower than the raw
    probability's; otherwise (or a tie) the raw probability.
 2. **Feature-distance bay check:** used only if its held-out false-alarm rate is at most 2% and

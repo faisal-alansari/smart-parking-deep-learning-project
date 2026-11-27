@@ -35,7 +35,7 @@ def main() -> None:
         "within_word_limit": words <= 3000,
         "exclusions": "tables, images, fenced diagrams and Table/Figure captions",
         "page_count": None,
-        "page_note": "Markdown has no intrinsic pages; see the audit's stated print layout.",
+        "page_note": "Markdown has no intrinsic pages; tables, figures and captions do not count.",
     }
     out = Path("outputs/audit/report_length.json")
     out.parent.mkdir(parents=True, exist_ok=True)

@@ -67,7 +67,7 @@ plate-experiments-report:
 adapt-occupancy-choice-report:
     uv run python -m smart_parking.occupancy.adapt --report-choice
 
-# Model A confidence and the bay check, chosen again on block 4 only (rules in Memory.md)
+# Model A confidence and the bay check, chosen again on block 4 only (rules in the report, Appendix A)
 validation-choices:
     uv run python -m smart_parking.trust.validation_choices
 

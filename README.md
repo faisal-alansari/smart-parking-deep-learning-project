@@ -6,8 +6,8 @@ watch the bays at night with one fixed camera. For each car's stay, it says **AU
 an evidence frame). I manage visitors with plain typed or dictated commands ("allow car 12345
 until 6 pm"); a permit changes only after I confirm it.
 
-Final report: [`docs/final_report.md`](docs/final_report.md). Data: [`docs/data_card.md`](docs/data_card.md).
-Decision log: [`Memory.md`](Memory.md).
+Final report: [`docs/final_report.md`](docs/final_report.md) (its appendices hold the decision
+timeline, references and the command behind every table). Data: [`docs/data_card.md`](docs/data_card.md).
 
 ## How it works
 
@@ -118,7 +118,7 @@ excluded) against the 3,000-word limit.
 
 **Submission package.** `just package` clones the repository into `dist/` and zips it
 (`dist/smart-parking-submission.zip`): code, full Git history, configs, trained weights,
-experiment logs, outputs, samples and docs. It leaves out the raw data (data card), the
+experiment logs, outputs, samples, the report and the data card. It leaves out the raw data (data card), the
 downloaded pretrained models (`just download-weights`, `just download-command-models`) and caches.
 
 ## Layout

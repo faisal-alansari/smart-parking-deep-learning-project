@@ -1,6 +1,6 @@
 # Night video: one decision per stay
 
-The rule was fixed before it was run (`Memory.md`, 2026-11-22): a bay changes state only after 5 frames in a row agree (10 s), and the stay's plate must be the most frequent clear read, seen at least 2 times and in more than half of the clear reads. Same per-frame model outputs as `video_night_1.md`. **This video had already been seen, so this is a seen check, not a clean test.** Counts and times only. `(scored)`: frames while a car moves in or out are left out; `(all)`: every frame.
+The rule was fixed before it was run (report Appendix A, 2026-11-22): a bay changes state only after 5 frames in a row agree (10 s), and the stay's plate must be the most frequent clear read, seen at least 2 times and in more than half of the clear reads. Same per-frame model outputs as `video_night_1.md`. **This video had already been seen, so this is a seen check, not a clean test.** Counts and times only. `(scored)`: frames while a car moves in or out are left out; `(all)`: every frame.
 
 | measure | frame by frame | per stay |
 |---|---|---|

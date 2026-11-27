@@ -9,7 +9,7 @@ Quality: the answer at the end of each true stay (as the owner's car and as a vi
 answers right on scored frames, notifications, and how late an arrival is confirmed. Cost: model
 time per minute of video, from the measured time per call (`outputs/loop/latency.md`).
 Caching is kept only if, on block 4, it answers at least as many stay ends right, per-stay
-answers stay within 1 point and Model B runs fewer times (rule fixed first, Memory.md).
+answers stay within 1 point and Model B runs fewer times (rule fixed first; report Appendix A).
 `just efficiency`.
 """
 

@@ -13,7 +13,7 @@ joined decision, a CLI and a demo app. Out of scope: towing or fines, other came
 two side-by-side bays, daytime operation at my site (I could not record it, see §8),
 voice input (commands arrive as speech-to-text).
 
-**Project change.** After the intermediate submission the earlier project could not continue; after our discussion, I replaced it with this one. There is therefore no proposal to measure against: the success criteria in §4.4 were fixed during this project, before the tests they judge (dates in `Memory.md`).
+**Project change.** After the intermediate submission the earlier project could not continue; after our discussion, I replaced it with this one. There is therefore no proposal to measure against: the success criteria in §4.4 were fixed during this project, before the tests they judge (dates in Appendix A).
 
 ## 2. System design and parameter budget
 
@@ -93,7 +93,7 @@ informed by night 1 (Model A's raw confidence, no feature-distance check, plate 
 made again on block 4 alone, under rules written down before running, and came out the same
 (`outputs/trust/validation_choices.md`, `efficiency.md`). Night 1 was seen during development,
 so its results are a cross-night check. The final test is night 3, recorded after the design was
-frozen (by code and weight fingerprints in `Memory.md`, not by a commit); I checked its truth
+frozen (by code and weight fingerprints in Appendix A, not by a commit); I checked its truth
 before any model saw it, wrote down the main measure first, and ran the test
 once (§4.4).
 
@@ -173,7 +173,7 @@ new wording, not on accuracy.
 
 ### 4.4 The final test: the whole system on the sealed night 3
 
-I recorded a 24-minute night alone, moving both cars through a checklist of events, and
+I recorded a 24-minute night alone, moving both cars through events I planned beforehand (data card), and
 typed three commands: the BMW always, the Tesla for the first 8 minutes, and one off-topic line.
 Model C's proposals were accepted as proposed, so its mistakes would reach the bays.
 
@@ -350,3 +350,62 @@ and faces; I consented to publishing my captured data, but a real deployment mus
 briefly, show signage and serve only the permitted bays. Feedback (accepted, rejected and
 corrected commands; decisions I mark wrong) is stored as structured records and would
 be used to re-choose thresholds and, with enough frames, to re-adapt Model A.
+
+## Appendix A. Decision timeline
+
+| date | what I fixed | fixed before | evidence |
+| --- | --- | --- | --- |
+| 2026-11-06 | CNRPark+EXT splits: camera C02 and site A/B held out; the other cameras split by the official day lists | training Model A | `outputs/occupancy/data/data_report.md` |
+| 2026-11-07 | Model A baselines and metrics; every choice on validation; test sets untouched until the final comparison | Model A's test | `experiments/occupancy/` |
+| 2026-11-07 | Plate subset 5,000 / 1,000 / 1,000, re-split by plate identity and image similarity | fine-tuning Model B | `outputs/plates/data/finetune_ledger.md` |
+| 2026-11-21 | Model C selection rule: 0 wrong changes on dev, then the best exact score | Model C's frozen test | `outputs/commands/dev_tuning.md` |
+| 2026-11-22 | I checked the 160 frozen test answers; Model C's test was run once | Model C's frozen test | `outputs/commands/final_test.md` |
+| 2026-11-22 | Per-stay rule: 5 frames (10 s) to change a bay; the stay's plate must be read at least twice and in more than half of the clear reads | running it on video | `outputs/loop/video_night_1_stays.md` |
+| 2026-11-25 | Night 2 split: blocks 1-3 train, block 4 chooses | adapting Model A | `configs/local_video_night_2.yaml` |
+| 2026-11-25 | Model A adaptation: four options and the choice rule (best balanced accuracy on block 4, no more cars missed, public validation F1 within 1 point) | training the options | `outputs/occupancy/adaptation_val.md` |
+| 2026-11-26 | Three choices first informed by night 1, redone on block 4: Platt scaling only if its held-out ECE is lower; the feature-distance check only with at most 2% false alarms and at least 5% extra catches; plate caching only if stay answers do not change | any block-4 result | `outputs/trust/validation_choices.md`, `outputs/trust/efficiency.md` |
+| 2026-11-26 | The folds for these rules changed from time halves to alternating 60 s blocks, because the second half held only parked cars | any block-4 score | same |
+| 2026-11-27 | Final test rules: run once, my truth check first, Model C's proposals accepted as proposed; the main measure (stays of 30 s or more right at their last parked frame) and the secondary measures | the final test | `outputs/final_test/night_3.md` |
+| 2026-11-27 | I checked night 3's truth (no changes) and froze the design: commit 1a48211 plus the working tree; SHA-256 of `src`, `configs`, `Justfile`, `pyproject.toml` and `uv.lock` 6eb99bd16276f47f; deployed weights c028975ff6848ff2 | the final test | this table |
+| 2026-11-27 | After the test: a command typed during a video now applies from the next frame (the test was not affected); the car across both bays was not fixed | — (after the test) | §4.4 |
+
+*Table A1. Each rule was written down on the date shown, before the result it governs. The Git history holds the same steps.*
+
+## Appendix B. References
+
+| what | reference | licence |
+| --- | --- | --- |
+| CNRPark+EXT | G. Amato, F. Carrara, F. Falchi, C. Gennaro, C. Meghini, C. Vairo, "Deep learning for decentralized parking lot occupancy detection", *Expert Systems with Applications*, 2017; G. Amato et al., "Car parking occupancy detection using smart camera networks and deep learning", IEEE ISCC, 2016 | ODbL v1.0 |
+| AddingUAE plates | Roboflow Universe, https://universe.roboflow.com/addinguae/uae-zcfqj | CC BY 4.0 |
+| YOLO11n (Model B) | G. Jocher, J. Qiu, Ultralytics YOLO11, 2024 | AGPL-3.0 |
+| GLiNER small v2.1 (C1) | U. Zaratiana et al., "GLiNER: Generalist model for named entity recognition using bidirectional transformer", NAACL 2024; DeBERTa-v3: P. He et al., 2021; https://huggingface.co/urchade/gliner_small-v2.1 | Apache-2.0 |
+| all-MiniLM-L6-v2 (C2) | W. Wang et al., "MiniLM", NeurIPS 2020; N. Reimers, I. Gurevych, "Sentence-BERT", EMNLP 2019; https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2 | Apache-2.0 |
+| SmolLM2-135M-Instruct (C3) | L. Ben Allal et al., "SmolLM2: When smol goes big", 2025; https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct | Apache-2.0 |
+| FLAN-T5 small (a candidate, not used) | H. W. Chung et al., "Scaling instruction-finetuned language models", 2022 | Apache-2.0 |
+
+*Table B1. Exact model revisions are pinned in `src/smart_parking/commands/candidates.py`; dataset details are in `docs/data_card.md`.*
+
+## Appendix C. Reproducing this report
+
+| step | command | what it gives |
+| --- | --- | --- |
+| install | `just install`, `just download-command-models` | Python 3.14 environment from `uv.lock`; Model C weights at pinned revisions |
+| data | `just prepare-data`, `just audit-plates`, `just prepare-plates` | public data prepared (my videos and photos go in `data/raw/`, see the data card) |
+| train | `just train` | Models A and B and Model A's adaptation (seeds 42, 43, 44) |
+| everything | `just evaluate` | every table and figure below, read-only (no training, no fitted setting changed) |
+| Table 1 | `just budget` | `outputs/budget.md` |
+| Table 3 | `just evaluate-occupancy`, `just evaluate-plates`, `just command-test` | `outputs/occupancy/final_results.md`, `outputs/plates/final_results.md`, `outputs/commands/final_test.md` |
+| training choices | `just occupancy-experiments-report`, `just plate-experiments-report` | the §4.1 comparisons, rebuilt from the logged runs in `experiments/` |
+| Table 4, §4.2 | `just adapt-occupancy-choice-report`, `just adapt-occupancy-report` | `outputs/occupancy/adaptation_val.md`, `outputs/occupancy/adaptation_test.md` |
+| Table 5 | `just full-loop-ablation` | `outputs/loop/ablation.md` |
+| Table 6 | `just final-test --report`, `just latency` | `outputs/final_test/night_3.md`, `outputs/loop/latency.md` |
+| Figure 1 | `just calibration` | `outputs/trust/calibration.md`, `outputs/trust/figures/reliability.png` |
+| Figure 2, costs | `just costs` | `outputs/trust/costs.md`, `outputs/trust/figures/risk_coverage.png` |
+| unfamiliar inputs | `just ood`, `just validation-choices` | `outputs/trust/ood.md`, `outputs/trust/validation_choices.md` |
+| Figure 3 | `just robustness-images`, `just command-robustness` | `outputs/trust/robustness_images.md`, `outputs/trust/figures/robustness_images.png` |
+| Figure 4 | `just monitor-demo` | `outputs/trust/monitoring.md`, `outputs/trust/figures/monitoring.png` |
+| §6 | `just efficiency`, `just latency` | `outputs/trust/efficiency.md`, `outputs/loop/latency.md` |
+| Table 7, failures | `just probes`, `just failures` | `outputs/trust/probes.md`, `outputs/trust/failures.md` |
+| word count | `just report-check` | `outputs/audit/report_length.json` |
+
+*Table C1. Each recipe writes the file named; `just evaluate` runs them all. `just refit` re-fits calibration, cost thresholds and the camera check from validation data only.*

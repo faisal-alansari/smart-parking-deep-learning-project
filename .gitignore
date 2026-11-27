@@ -21,3 +21,11 @@ outputs/runs/app/
 # local leftovers kept out of the submission, and the built submission zip
 _local_archive/
 dist/
+
+# Working notes kept on my Mac, not part of the submission
+docs/planning/
+docs/HANDOVER.md
+Memory.md
+CLAUDE.md
+AGENTS.md
+.claude/
