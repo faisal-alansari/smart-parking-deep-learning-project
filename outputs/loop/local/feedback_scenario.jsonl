@@ -1,5 +1,0 @@
-{"at":"2026-11-22T08:00:00+04:00","command":"allow car 33044","proposed":{"action":"ALLOW","number":"33044","until":null},"accepted":true,"corrected":null}
-{"at":"2026-11-22T08:01:00+04:00","command":"please add 66705","proposed":{"action":"ALLOW","number":"66705","until":null},"accepted":true,"corrected":null}
-{"at":"2026-11-22T09:05:00+04:00","command":"let car 48556 in until 6 pm","proposed":{"action":"ALLOW","number":"48556","until":"2026-11-22T18:00:00+04:00"},"accepted":true,"corrected":null}
-{"at":"2026-11-22T19:00:00+04:00","command":"allow plate number 48837 for 2 hours","proposed":{"action":"ALLOW","number":"48837","until":"2026-11-22T21:00:00+04:00"},"accepted":true,"corrected":null}
-{"at":"2026-11-22T19:45:00+04:00","command":"remove car 48837","proposed":{"action":"REMOVE","number":"48837","until":null},"accepted":true,"corrected":null}

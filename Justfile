@@ -48,6 +48,10 @@ audit-plates:
 prepare-plates:
     uv run python -m smart_parking.plates.data.split
 
+# Download the trained weights (Models A and B, baselines, camera check, adaptation candidates; pinned)
+download-checkpoints:
+    uv run hf download faisal-alansari/smart-parking-models --revision 1f4b88521a4dad4c5a7081c508f0109c4dff46a8 --local-dir . --exclude README.md --exclude .gitattributes
+
 # Download all raw data into data/raw/ (about 11 GB, pinned): my videos and photos, CNRPark+EXT, AddingUAE
 download-data:
     uv run hf download faisal-alansari/smart-parking-data --repo-type dataset --revision 8bac342a4787b50790b48d5e5673a7ebcd708512 --local-dir data/raw --exclude README.md --exclude .gitattributes

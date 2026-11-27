@@ -1,2 +1,0 @@
-{"at":"2026-11-27T00:04:00+04:00","command":"allow car 66705","proposed":{"action":"ALLOW","number":"66705","until":null},"accepted":true,"corrected":null}
-{"at":"2026-11-27T00:04:00+04:00","command":"allow car 33044 until 00:14","proposed":{"action":"ALLOW","number":"33044","until":"2026-11-27T00:14:00+04:00"},"accepted":true,"corrected":null}

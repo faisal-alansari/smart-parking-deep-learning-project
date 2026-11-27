@@ -1,4 +1,0 @@
-{"at":"2026-11-22T09:30:00+04:00","command":"allow car 12345 until 6 pm","proposed":{"action":"ALLOW","number":"12345","until":"2026-11-22T18:00:00+04:00"},"accepted":true,"corrected":null}
-{"at":"2026-11-22T18:36:00+04:00","command":"okay let car 12345 in till 9 pm","proposed":{"action":"ALLOW","number":"12345","until":"2026-11-22T21:00:00+04:00"},"accepted":true,"corrected":null}
-{"at":"2026-11-22T19:30:00+04:00","command":"remove car 12345","proposed":{"action":"REMOVE","number":"12345","until":null},"accepted":true,"corrected":null}
-{"at":"2026-11-22T19:10:00+04:00","command":"add car 1234 till tomorrow","proposed":{"action":"ALLOW","number":"1234","until":"2026-11-23T23:59:00+04:00"},"accepted":false,"corrected":{"action":"ALLOW","number":"12345","until":"2026-11-23T23:59:00+04:00"}}

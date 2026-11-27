@@ -35,14 +35,16 @@ Python 3.14 is installed by `uv`.
 
 ```bash
 just install                  # uv sync --frozen
+just download-checkpoints     # trained weights for Models A and B from Hugging Face (52 MB)
 just download-weights         # YOLO11n pretrained weights (only needed to retrain Model B)
 just download-command-models  # Model C weights from Hugging Face (pinned revisions)
 just download-data            # all raw data into data/raw/ (about 11 GB; only for evaluate and train)
 just test
 ```
 
-Trained checkpoints for Models A and B are in `checkpoints/`. Model C runs from local weights
-only (no runtime model APIs).
+The trained weights are hosted at
+[faisal-alansari/smart-parking-models](https://huggingface.co/faisal-alansari/smart-parking-models)
+(pinned version). Model C runs from local weights only (no runtime model APIs).
 
 ## Demo
 
