@@ -1,9 +1,9 @@
 """The one final test of the whole system on the sealed night video 3.
 
-Night video 3 was recorded for this test only (the plan in docs/data_card.md) and never
+Night video 3 was recorded for this test only and never
 used for training, validation or any choice. Its truth (configs/local_video_night_3.yaml) was
 marked from the frames and checked by the owner before any model saw the video. The rules and
-the primary measure were fixed on 2026-11-27 before the run (report Appendix A).
+the primary measure were fixed on 2026-11-27 before the run.
 
 1. The owner's typed commands (`commands.txt` beside the video) go through Model C as in the
    product. Each proposal is accepted as proposed, so a Model C mistake reaches the bays. The

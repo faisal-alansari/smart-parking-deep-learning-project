@@ -67,7 +67,7 @@ plate-experiments-report:
 adapt-occupancy-choice-report:
     uv run python -m smart_parking.occupancy.adapt --report-choice
 
-# Model A confidence and the bay check, chosen again on block 4 only (rules in the report, Appendix A)
+# Model A confidence and the bay check, chosen again on block 4 only (rules fixed before running)
 validation-choices:
     uv run python -m smart_parking.trust.validation_choices
 
@@ -111,24 +111,10 @@ command-demo:
 test:
     uv run pytest
 
-# Lint and format check
-lint:
-    uv run ruff check .
-    uv run ruff format --check .
-
 # Remove caches and logs
 clean:
     rm -rf .pytest_cache .ruff_cache logs
     find . -type d -name __pycache__ -prune -exec rm -rf {} +
-
-# Build the submission zip from Git: code, full history, weights, logs and outputs (no raw
-# data, downloaded models or caches; uncommitted changes are left out)
-package:
-    rm -rf dist && mkdir -p dist
-    git clone --quiet . dist/smart-parking
-    git -C dist/smart-parking remote set-url origin "$(git remote get-url origin)"
-    cd dist && zip -qr smart-parking-submission.zip smart-parking
-    @du -h dist/smart-parking-submission.zip
 
 # Full loop story on the owner's photos: all three models and the permit table (local only)
 full-loop-scenario:
@@ -162,10 +148,6 @@ video-night-1-stays:
 # Adapt Model A to the owner's camera: train options on video 2 blocks 1-3, choose on block 4
 adapt-occupancy:
     uv run python -m smart_parking.occupancy.adapt
-
-# The one final test of the adapted Model A (first night video, public tests, local photos)
-adapt-occupancy-final:
-    uv run python -m smart_parking.occupancy.adapt --final
 
 # Regenerate the adapted Model A's final test tables (nothing is chosen again)
 adapt-occupancy-report:

@@ -1,6 +1,6 @@
 {
   "report": "docs/final_report.md",
-  "words_including_headings": 2835,
+  "words_including_headings": 2811,
   "limit": 3000,
   "within_word_limit": true,
   "exclusions": "tables, images, fenced diagrams and Table/Figure captions",

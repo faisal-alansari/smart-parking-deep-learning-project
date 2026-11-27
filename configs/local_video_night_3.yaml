@@ -1,6 +1,6 @@
 # Night video 3: recorded 2026-11-27 from 00:05:38 for the FINAL TEST ONLY (sealed).
 # Never used for training, validation, thresholds or any choice. Fixed camera, same spot as
-# night 2; the owner moved both cars alone (the plan in docs/data_card.md).
+# night 2; the owner moved both cars alone.
 # Truth marked by Claude from frames every 10 s and every 2 s, before any model saw the video.
 # Times in seconds from the start. cars: parked periods (from the end of arriving to the start
 # of leaving). moving: a car driving in, out or close by; not scored. blocked: the lens covered

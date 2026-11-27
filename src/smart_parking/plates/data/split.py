@@ -1,6 +1,6 @@
 """Select the plate fine-tuning subset, split it without leakage, and write the ledger.
 
-Rules (agreed 2026-11-07; report Appendix A):
+Rules (agreed 2026-11-07):
 - car photos only; labels must exactly match the file name (verified), except that
   visually checked RAK / UAQ car photos may join train only;
 - the same plate identity or near-identical car photos never cross splits;

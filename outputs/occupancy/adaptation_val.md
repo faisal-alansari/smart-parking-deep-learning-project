@@ -1,6 +1,6 @@
 # Model A adaptation: choosing on block 4 (validation)
 
-Plan fixed before training (report Appendix A, 2026-11-25). Local crops from the owner's night video 2: blocks 1-3 train, block 4 chooses; moving periods left out. Each option is the majority vote of seeds 42, 43, 44. Allowed: no more parked cars missed than the current model (0) and public validation F1 at least 0.9843.
+Plan fixed before training (2026-11-25). Local crops from the owner's night video 2: blocks 1-3 train, block 4 chooses; moving periods left out. Each option is the majority vote of seeds 42, 43, 44. Allowed: no more parked cars missed than the current model (0) and public validation F1 at least 0.9843.
 
 ## Crops
 

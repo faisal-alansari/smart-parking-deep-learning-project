@@ -6,8 +6,7 @@ watch the bays at night with one fixed camera. For each car's stay, it says **AU
 an evidence frame). I manage visitors with plain typed or dictated commands ("allow car 12345
 until 6 pm"); a permit changes only after I confirm it.
 
-Final report: [`docs/final_report.md`](docs/final_report.md) (its appendices hold the decision
-timeline, references and the command behind every table). Data: [`docs/data_card.md`](docs/data_card.md).
+Final report: [`docs/final_report.md`](docs/final_report.md). Data: [`docs/data_card.md`](docs/data_card.md).
 
 ## How it works
 
@@ -101,25 +100,12 @@ photos and videos (about 8 GB) go in `data/raw/` (`local_pilot/`, `local_night_1
 `video_night_1/`, `video_night_2/`, `video_test/`); their truth labels are in `configs/local_*.yaml`. All
 model-training seeds are 42, 43, 44. Command data seeds 1-7 are in
 `configs/default.yaml`; seeded stress and bootstrap routines also use local seeds in source.
-
-**How `just evaluate` stays honest.** It never trains and never writes a fitted setting:
-calibration, cost thresholds and the camera check are re-computed and compared with the saved
-values, and a difference stops the run (only `just refit` stores new ones, from validation data).
-Training-choice tables are rebuilt from the logged runs. `command-test` replays the one frozen
-Model C comparison exactly as tested; nothing is chosen from it. Before evaluating, download
-and prepare the public data (`just prepare-data`, `just audit-plates`, `just prepare-plates`) and
-place my videos and photos in `data/raw/` (download link in the data card).
+Before evaluating, download and prepare the public data (`just prepare-data`, `just audit-plates`,
+`just prepare-plates`) and place my videos and photos in `data/raw/` (download link in the data
+card).
 
 **Privacy.** I consider all captured photos and videos public (plates and faces
 included), so truth labels, plate-level results and samples are in Git.
-
-**Report length.** `just report-check` counts the report's prose (tables, figures and captions
-excluded) against the 3,000-word limit.
-
-**Submission package.** `just package` clones the repository into `dist/` and zips it
-(`dist/smart-parking-submission.zip`): code, full Git history, configs, trained weights,
-experiment logs, outputs, samples, the report and the data card. It leaves out the raw data (data card), the
-downloaded pretrained models (`just download-weights`, `just download-command-models`) and caches.
 
 ## Layout
 

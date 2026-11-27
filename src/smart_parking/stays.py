@@ -1,4 +1,4 @@
-"""One decision per car's stay, for video input (rule fixed before it was run; report Appendix A).
+"""One decision per car's stay, for video input (rule fixed before it was run).
 
 Per bay, frame by frame:
 - the bay changes between empty and occupied only after `CONFIRM_FRAMES` frames in a row
@@ -190,7 +190,7 @@ def report(d: pd.DataFrame, cfg: dict) -> str:
                 phantom.append(f"{bay} {clock(a)}-{clock(b)}")
     return (
         "# Night video: one decision per stay\n\n"
-        "The rule was fixed before it was run (report Appendix A, 2026-11-22): a bay changes state "
+        "The rule was fixed before it was run (2026-11-22): a bay changes state "
         f"only after {CONFIRM_FRAMES} frames in a row agree ({CONFIRM_FRAMES * cfg['every_s']} s), "
         f"and the stay's plate must be the most frequent clear read, seen at least {MIN_READS} "
         "times and in more than half of the clear reads. Same per-frame model outputs as "

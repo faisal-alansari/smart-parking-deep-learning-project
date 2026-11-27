@@ -1,10 +1,9 @@
-"""Adapt Model A (OccupancyCNN) to the owner's fixed camera at night (plan: report Appendix A).
+"""Adapt Model A (OccupancyCNN) to the owner's fixed camera at night (plan fixed before training).
 
 Data: bay crops cut from the owner's night video 2 exactly as the product cuts them (64 px), one
 frame every 2 s, moving periods left out, labels from the owner-checked truth. Blocks 1-3 train,
 block 4 chooses. Night video 3, recorded for the test only and sealed until the end, is the
-final test (`--reproduce` scores the deployed copies on it); night video 1 was the first final
-test (`--final`, run once) and is now a seen check.
+final test (`--reproduce` scores the deployed copies on it); night video 1 is a seen check.
 
 Options (each with seeds 42, 43, 44; deployed as the majority vote of the three):
 - a: no training, a new threshold per seed chosen on block 4;
@@ -16,13 +15,13 @@ b-d mix equal numbers of public and local crops in every epoch.
 Choice: the best majority-vote balanced accuracy on block 4, provided the option misses no more
 parked cars than the current model on block 4 and keeps public validation F1 within 1 point.
 
-`just adapt-occupancy` (choose on block 4) then `just adapt-occupancy-final` (test once).
+`just adapt-occupancy` (choose on block 4); `just adapt-occupancy-report` (score the
+deployed copies).
 Counts only in outputs/occupancy/adaptation_*.md; crops stay in data/ (they show plates).
 """
 
 import argparse
 import json
-import shutil
 import time
 from pathlib import Path
 
@@ -327,7 +326,7 @@ def choose(cfg: OccupancyTrainConfig, report_only: bool = False) -> None:
     out = cfg.results_dir / "adaptation_val.md"
     out.write_text(
         "# Model A adaptation: choosing on block 4 (validation)\n\n"
-        "Plan fixed before training (report Appendix A, 2026-11-25). Local crops from the "
+        "Plan fixed before training (2026-11-25). Local crops from the "
         "owner's night video 2: blocks 1-3 train, block 4 chooses; moving periods left out. "
         "Each option is the majority vote of seeds 42, 43, 44. Allowed: no more parked cars "
         f"missed than the current model ({limit_missed}) and public validation F1 at least "
@@ -350,21 +349,14 @@ def choose(cfg: OccupancyTrainConfig, report_only: bool = False) -> None:
 # --- The one final test --------------------------------------------------------------------
 
 
-def final_test(cfg: OccupancyTrainConfig, reproduce: bool = False) -> None:
+def final_test(cfg: OccupancyTrainConfig) -> None:
     """Test once: the sealed night video 3, the public test sets and the local photos."""
     winner = json.loads((cfg.results_dir / "adaptation_choice.json").read_text())["option"]
     if winner == "none":
         raise SystemExit("No option met the rules; the current model stays.")
-    if (cfg.results_dir / "adaptation_test.md").exists() and not reproduce:
-        raise SystemExit(
-            "The final test has already been run once; use --reproduce to "
-            "regenerate its tables (nothing is chosen again)."
-        )
     device = pick_device()
     before = [cfg.checkpoint_dir / f"final_s{s}.pt" for s in cfg.seeds]
-    after = [RUNS / f"{winner}_s{s}.pt" for s in cfg.seeds]
-    if reproduce:  # the deployed copies (the run folder's checkpoints are not in Git)
-        after = [cfg.checkpoint_dir / f"adapted_s{s}.pt" for s in cfg.seeds]
+    after = [cfg.checkpoint_dir / f"adapted_s{s}.pt" for s in cfg.seeds]  # the deployed copies
     sections = []
     # 1. Night video 3 (sealed; a different night from training)
     images, meta = build_crops(VIDEO_TEST, cfg.input_size)
@@ -423,9 +415,6 @@ def final_test(cfg: OccupancyTrainConfig, reproduce: bool = False) -> None:
     sections.append(
         "## 3. Local photos (other car parks; check only)\n\n" + _md(pd.DataFrame(rows))
     )
-    if not reproduce:
-        for seed, path in zip(cfg.seeds, after, strict=True):  # the deployed Model A
-            shutil.copy(path, cfg.checkpoint_dir / f"adapted_s{seed}.pt")
     out = cfg.results_dir / "adaptation_test.md"
     out.write_text(
         f"# Model A adaptation: the one final test (chosen option: {winner})\n\n"
@@ -440,7 +429,6 @@ def final_test(cfg: OccupancyTrainConfig, reproduce: bool = False) -> None:
 def main() -> None:
     """Run the final test (or rebuild its tables), else choose the adaptation."""
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--final", action="store_true", help="the one final test")
     ap.add_argument("--reproduce", action="store_true", help="regenerate the final test tables")
     ap.add_argument(
         "--report-choice", action="store_true", help="rebuild the block-4 table (no training)"
@@ -448,8 +436,8 @@ def main() -> None:
     args = ap.parse_args()
     project = load_config()
     setup_logging(project.logging)
-    if args.final or args.reproduce:
-        final_test(project.occupancy, reproduce=args.reproduce)
+    if args.reproduce:
+        final_test(project.occupancy)
     else:
         choose(project.occupancy, report_only=args.report_choice)
 
