@@ -37,6 +37,7 @@ Python 3.14 is installed by `uv`.
 just install                  # uv sync --frozen
 just download-weights         # YOLO11n pretrained weights (only needed to retrain Model B)
 just download-command-models  # Model C weights from Hugging Face (pinned revisions)
+just download-data            # all raw data into data/raw/ (about 11 GB; only for evaluate and train)
 just test
 ```
 
@@ -95,14 +96,14 @@ Main recipes, each writing to `outputs/`:
 | `occupancy-experiments-report`, `plate-experiments-report`, `adapt-occupancy-choice-report` | training-choice and adaptation tables rebuilt from the logged runs |
 | `validation-choices`, `latency`, `report-check` | choices redone on block 4 only; time and memory per stage; report word count |
 
-**Data.** Public: CNRPark+EXT and AddingUAE (download links in the data card). My
-photos and videos (about 8 GB) go in `data/raw/` (`local_pilot/`, `local_night_1/`,
+**Data.** `just download-data` fetches everything from
+[Hugging Face](https://huggingface.co/datasets/faisal-alansari/smart-parking-data): my photos and
+videos (about 8 GB) and copies of CNRPark+EXT and AddingUAE (sources in the data card), into `data/raw/` (`local_pilot/`, `local_night_1/`,
 `video_night_1/`, `video_night_2/`, `video_test/`); their truth labels are in `configs/local_*.yaml`. All
 model-training seeds are 42, 43, 44. Command data seeds 1-7 are in
 `configs/default.yaml`; seeded stress and bootstrap routines also use local seeds in source.
-Before evaluating, download and prepare the public data (`just prepare-data`, `just audit-plates`,
-`just prepare-plates`) and place my videos and photos in `data/raw/` (download link in the data
-card).
+Before evaluating, run `just download-data`, then prepare the public data (`just prepare-data`,
+`just audit-plates`, `just prepare-plates`).
 
 **Privacy.** I consider all captured photos and videos public (plates and faces
 included), so truth labels, plate-level results and samples are in Git.

@@ -52,7 +52,7 @@ I took 8 phone photos (4 late afternoon, 4 night) on 19–20 November 2026, cove
 
 I took 43 phone photos on 20 November 2026 at night in several public car parks, each showing one pair of bays from a standing position: 86 bays (46 empty, 40 occupied), 40 readable plates (36 distinct cars). I used one shared pair of bay boxes for every photo (`configs/local_night_1.yaml`), like a fixed camera. I labelled bay states and read plates by eye from the full-size photos. I used them only to check the full loop and probe its errors (`just local-night-1`); failures informed plate safety rules. I did not use them for gradient training. I confirmed the code letter on IMG_1838.
 
-**Privacy (2026-11-25, confirmed 2026-11-26):** I consider all captured photos and videos public, plates and faces included, so truth labels and plate-level results are in Git and short samples are in `samples/`. The raw videos are too large for Git (about 8 GB). **Download:** link pending; I will host the raw photos and videos for placement in `data/raw/` as listed in the README.
+**Privacy (2026-11-25, confirmed 2026-11-26):** I consider all captured photos and videos public, plates and faces included, so truth labels and plate-level results are in Git and short samples are in `samples/`. The raw videos are too large for Git (about 8 GB). **Download:** all raw data, my photos and videos plus copies of the two public datasets, is hosted at https://huggingface.co/datasets/faisal-alansari/smart-parking-data (about 11 GB). `just download-data` downloads a pinned version into `data/raw/` and unpacks it.
 
 ## 6. My command sets (Model C)
 

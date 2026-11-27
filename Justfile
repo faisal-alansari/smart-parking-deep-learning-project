@@ -48,6 +48,11 @@ audit-plates:
 prepare-plates:
     uv run python -m smart_parking.plates.data.split
 
+# Download all raw data into data/raw/ (about 11 GB, pinned): my videos and photos, CNRPark+EXT, AddingUAE
+download-data:
+    uv run hf download faisal-alansari/smart-parking-data --repo-type dataset --revision 8bac342a4787b50790b48d5e5673a7ebcd708512 --local-dir data/raw --exclude README.md --exclude .gitattributes
+    cd data/raw && unzip -q -o cnrpark.zip && unzip -q -o adding_uae.zip && rm cnrpark.zip adding_uae.zip
+
 # Download the pretrained YOLO11n weights (Ultralytics release asset)
 download-weights:
     YOLO_OFFLINE=1 uv run python -c "from ultralytics import YOLO; YOLO('checkpoints/plates/pretrained/yolo11n.pt')"
