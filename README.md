@@ -1,10 +1,10 @@
 # Smart Parking: two private bays, one camera
 
-A homeowner in Dubai has two allocated parking bays that strangers often take. One fixed camera
-watches the bays at night. The product says, for each car's stay, whether it is **AUTHORIZED**,
-**POTENTIALLY_UNAUTHORIZED** (alert the owner) or **NEEDS_REVIEW** (a person must look, with the
-reason and an evidence frame). The owner manages visitors by typing or dictating plain commands
-("allow car 12345 until 6 pm"), which change the permit table only after the owner confirms.
+I have two allocated parking bays in Dubai that strangers sometimes take. I built this project to
+watch the bays at night with one fixed camera. For each car's stay, it says **AUTHORIZED**,
+**POTENTIALLY_UNAUTHORIZED** (alert me) or **NEEDS_REVIEW** (I need to look, with a reason and
+an evidence frame). I manage visitors with plain typed or dictated commands ("allow car 12345
+until 6 pm"); a permit changes only after I confirm it.
 
 Final report: [`docs/final_report.md`](docs/final_report.md). Data: [`docs/data_card.md`](docs/data_card.md).
 Decision log: [`Memory.md`](Memory.md).
@@ -18,8 +18,8 @@ camera frame ──> camera check (blocked / unfamiliar view / blurred?) ──>
      │        │ occupied
      │        └─> Model B  YOLO11n (fine-tuned, 2.6M) + reading rules ──> plate (emirate, code, number)
      │
-owner command ─> Model C (pretrained, not fine-tuned: GLiNER + MiniLM, checked by SmolLM2)
-     │            ──> proposed change ──> owner accepts / fixes / rejects ──> permit table
+my command ─> Model C (pretrained, not fine-tuned: GLiNER + MiniLM, checked by SmolLM2)
+     │            ──> proposed change ──> I accept / fix / reject ──> permit table
      │
      └─> permit table + time ──> one decision per stay (10 s to confirm, majority plate)
                                   AUTHORIZED / POTENTIALLY_UNAUTHORIZED / NEEDS_REVIEW
@@ -47,11 +47,11 @@ only (no runtime model APIs).
 ## Demo
 
 ```bash
-just demo       # web app: owner commands (accept / reject / fix) and camera runs on samples/
+just demo       # web app: my commands (accept / reject / fix) and camera runs on samples/
 just demo-cli   # the same samples on the command line -> outputs/runs/
 ```
 
-`samples/owner_camera/` holds a clip of the owner's camera, photos (including a covered lens and
+`samples/owner_camera/` holds a clip from my camera, photos (including a covered lens and
 another car park, which the product refuses to judge) and `commands.txt`. `samples/new_camera/`
 shows how a new camera is set up with `bays.yaml`.
 
@@ -64,7 +64,7 @@ just run-folder path/to/folder --yes      # --every 2: seconds between video fra
 The folder may hold photos (`.jpg .jpeg .png .heic`), videos (`.mov .mp4 .m4v`), a
 `commands.txt` (`2026-11-22 09:05 | allow car 12345 until 6 pm`, one per line) and an optional
 `bays.yaml` (`boxes: {left: [x0, y0, x1, y1], right: [...]}` as fractions of the frame). Without
-`bays.yaml` the owner's camera is assumed. Results go to `outputs/runs/<folder>/`:
+`bays.yaml` the folder is assumed to use my camera. Results go to `outputs/runs/<folder>/`:
 `result.json` (validated Pydantic records: status, confidence, reason, guidance, evidence frame),
 `decisions.csv`, `summary.md` and `evidence/`. Bad inputs never crash the run: unreadable or
 unsupported files, a broken `bays.yaml` or snapshot (photos and videos are then not judged),
@@ -72,7 +72,7 @@ non-UTF-8 `commands.txt`, an empty or missing folder and an invalid `--every` al
 structured problems with guidance, and `result.json` is always written. A frame the camera check
 refuses keeps the bay at NEEDS_REVIEW until the view is usable again. Without `--yes`, each
 proposed permit change is asked in the terminal; closed input declines it. `--yes` simulates
-the owner's confirmation for a demo.
+my confirmation for a demo.
 
 ## Reproduce
 
@@ -96,7 +96,7 @@ Main recipes, each writing to `outputs/`:
 | `occupancy-experiments-report`, `plate-experiments-report`, `adapt-occupancy-choice-report` | training-choice and adaptation tables rebuilt from the logged runs |
 | `validation-choices`, `latency`, `report-check` | choices redone on block 4 only; time and memory per stage; report word count |
 
-**Data.** Public: CNRPark+EXT and AddingUAE (download links in the data card). The owner's
+**Data.** Public: CNRPark+EXT and AddingUAE (download links in the data card). My
 photos and videos (about 8 GB) go in `data/raw/` (`local_pilot/`, `local_night_1/`,
 `video_night_1/`, `video_night_2/`, `video_test/`); their truth labels are in `configs/local_*.yaml`. All
 model-training seeds are 42, 43, 44. Command data seeds 1-7 are in
@@ -108,9 +108,9 @@ values, and a difference stops the run (only `just refit` stores new ones, from 
 Training-choice tables are rebuilt from the logged runs. `command-test` replays the one frozen
 Model C comparison exactly as tested; nothing is chosen from it. Before evaluating, download
 and prepare the public data (`just prepare-data`, `just audit-plates`, `just prepare-plates`) and
-place the owner's videos and photos in `data/raw/` (download link in the data card).
+place my videos and photos in `data/raw/` (download link in the data card).
 
-**Privacy.** The owner considers all captured photos and videos public (plates and faces
+**Privacy.** I consider all captured photos and videos public (plates and faces
 included), so truth labels, plate-level results and samples are in Git.
 
 **Report length.** `just report-check` counts the report's prose (tables, figures and captions
@@ -127,7 +127,7 @@ downloaded pretrained models (`just download-weights`, `just download-command-mo
 |---|---|
 | `src/smart_parking/occupancy/` | Model A: data, baselines, CNN, training, adaptation |
 | `src/smart_parking/plates/` | Model B: data, YOLO11n fine-tuning, reading rules |
-| `src/smart_parking/commands/` | Model C: command sets, candidates, rules, owner flow |
+| `src/smart_parking/commands/` | Model C: my command sets, candidates, rules, confirmation flow |
 | `src/smart_parking/` (`pipeline`, `loop`, `stays`, `decision`, `output`, `app`) | the joined product, per-stay logic, operating rules, output schema, demo app |
 | `src/smart_parking/trust/` | calibration, costs, OOD, robustness, monitoring, probes, failures |
 | `configs/` | all settings, seeds and truth labels |

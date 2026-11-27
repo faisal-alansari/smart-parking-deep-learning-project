@@ -6,7 +6,7 @@
 
 ## 1. Problem, User, and Scope
 
-The owner has **two adjacent, RTA-allocated parking bays** in Dubai. Unauthorized vehicles sometimes occupy them. The owner needs a convenient way to detect arrivals, read plates, distinguish permitted residents and visitors, and review evidence. A vehicle outside the permanent list is not automatically unauthorized because visitors receive time-limited permission.
+I have **two adjacent, RTA-allocated parking bays** in Dubai. Unauthorized vehicles sometimes occupy them. I need a convenient way to detect arrivals, read plates, distinguish permitted residents and visitors, and review evidence. A vehicle outside the permanent list is not automatically unauthorized because visitors receive time-limited permission.
 
 Build a **local academic prototype**, not a deployed enforcement service. No automatic fines, police/RTA submissions, legal violation claims, cloud inference, production database, or continuous multiweek recording. Start with **3–4 real permanently authorized vehicles** and add visitors through one editable **in-memory permit table**. Do not invent authorized identities to enlarge the project.
 
@@ -45,7 +45,7 @@ Prove integration by showing the **same arrival** change from `POTENTIALLY_UNAUT
 
 Model A predicts occupancy per bay. Smoothing, hysteresis, a validation-selected dwell time, and `UNCERTAIN` state prevent transient triggers. Confirmed arrivals initiate frame selection and Model B inference. Model B must extract the complete normalized `(emirate, code, number)`, not merely locate a plate. Prefer character detection plus geometric assembly; compare small OCR alternatives only if the labels or results justify them. Unsupported/blurred/obscured plates trigger review.
 
-Model C proposes structured `ADD`, `EDIT`, `EXTEND`, `REVOKE`, or `LIST` actions. **Pydantic validation and owner confirmation** precede any table mutation. Missing or ambiguous information prompts clarification; the model never directly executes commands.
+Model C proposes structured `ADD`, `EDIT`, `EXTEND`, `REVOKE`, or `LIST` actions. **Pydantic validation and my confirmation** precede any table mutation. Missing or ambiguous information prompts clarification; the model never directly executes commands.
 
 Constraints: **each model ≤200M parameters**, scratch model **≤50M**, all pretrained/fine-tuned models **≤1B combined**, and **≤10,000 fine-tuning items across the project**. Measure and report actual parameter counts. Inference runs on local weights with **no runtime model APIs**.
 
@@ -59,7 +59,7 @@ Constraints: **each model ≤200M parameters**, scratch model **≤50M**, all pr
 | [NDISPark](https://zenodo.org/records/6560823) (259 images)                        | Small day/night robustness test                         | Vehicle masks, not ready-made per-bay labels.                           |
 | [AddingUAE](https://universe.roboflow.com/addinguae/uae-zcfqj)                     | Candidate plate/character annotation source             | Fable could not verify class map, count, or accessibility. Audit first. |
 | [UAEPlates](https://universe.roboflow.com/uaeplates/uae-car-plates) (~730 images)  | Emirate/code/number region localization                 | Bounding boxes lack actual OCR text transcriptions.                     |
-| Owner commands and permit table                                                    | Frozen NLP evaluation and integrated demo               | Small sample; design held-out commands and edge cases.                  |
+| My commands and permit table                                                    | Frozen NLP evaluation and integrated demo               | Small sample; design held-out commands and edge cases.                  |
 
 
 Use approximately **20k–60k diverse, class-balanced public occupancy crops**, rather than all near-duplicates. Scratch-model data is outside the fine-tuning cap. For Model B, an **illustrative 4,500-item budget** leaves 5,500 headroom. Count distinct fine-tuning inputs conservatively across training, validation, and testing; exported augmented copies and separately trained crops count as inputs. Maintain an exact ledger.
@@ -72,7 +72,7 @@ Split occupancy data by camera/day/session and plates by **full plate identity**
 
 ## 5. Core Workflow and Structured Output
 
-1. Owner types: `Allow Dubai B 12345 in bay 2 on November 12 from 6 PM to 10 PM.`
+1. I type: `Allow Dubai B 12345 in bay 2 on November 12 from 6 PM to 10 PM.`
 2. Model C proposes typed fields. Validate plate, bay, Asia/Dubai timestamps, duplicates, and command intent. Show confirmation, then update **one** permit table.
 3. Camera frames are cropped into two ROIs. Model A and temporal logic confirm arrival in bay 2.
 4. Model B reads the full UAE plate, attaches confidence, and validates its layout.

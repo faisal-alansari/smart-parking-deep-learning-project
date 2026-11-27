@@ -1,4 +1,6 @@
-# Handover for the next chat (written 2026-11-21)
+# Historical handover for the next chat (written 2026-11-21)
+
+This records the project as it stood then. For current rules and results, use `AGENTS.md`, `CLAUDE.md`, and the latest entries in `Memory.md`. The older privacy and frozen-test instructions below are historical.
 
 ## 1. Prompt to paste into the new chat
 
@@ -10,29 +12,29 @@
 
 ## 2. Standing rules (must follow)
 
-- **Language:** always answer in simple English, even when the owner writes in Arabic.
+- **Language:** always answer in simple English, even when I write in Arabic.
 - **Memory:** after any meaningful decision (design, data, model, threshold, evaluation, workflow), add a short plain-language entry to `Memory.md` in the same session: decision/reason, outcome, next. Never invent results; mark untested ideas "pending". Mark reversed decisions "superseded".
-- **Git:** commit or push only when the owner asks. Nothing has been pushed yet (local `main` is ahead of the remote). End commit messages with the co-author line the tool gives.
-- **Never commit** the owner's own edits to `docs/planning/SMART_PARKING_Checklist.md` (it shows as modified; leave it). Tick checklist boxes only after the work is verified, and only if the owner asks.
-- **Privacy, strangers' plates:** these files hold real plates and stay local, never committed or shared: `configs/local_night_1.yaml`, `configs/local_pilot.yaml`, `outputs/occupancy/local_night_1/predictions.csv`, `outputs/occupancy/local_night_1/results.md`, everything in `outputs/occupancy/local_pilot/`, and all photos in `data/`. The owner has not yet decided whether to hide the plates or keep them local only.
-- **Frozen test sets:** never use a test set to tune, choose a model or set a threshold. `just command-score <parser> test` is refused without `--final`; use `--final` only once, for the final comparison, and only after the owner agrees.
+- **Git:** commit or push only when I ask. Nothing has been pushed yet (local `main` is ahead of the remote). End commit messages with the co-author line the tool gives.
+- **Never commit** my own edits to `docs/planning/SMART_PARKING_Checklist.md` (it shows as modified; leave it). Tick checklist boxes only after the work is verified, and only if I ask.
+- **Privacy, strangers' plates:** these files hold real plates and stay local, never committed or shared: `configs/local_night_1.yaml`, `configs/local_pilot.yaml`, `outputs/occupancy/local_night_1/predictions.csv`, `outputs/occupancy/local_night_1/results.md`, everything in `outputs/occupancy/local_pilot/`, and all photos in `data/`. I have not yet decided whether to hide the plates or keep them local only.
+- **Frozen test sets:** never use a test set to tune, choose a model or set a threshold. `just command-score <parser> test` is refused without `--final`; use `--final` only once, for the final comparison, and only after I agree.
 - **Project limits (from the audit plan):** each model ≤200M parameters; the from-scratch model ≤50M; all pretrained models ≤1B combined; ≤10,000 fine-tuning items in the whole project (7,000 used, all by the plate model); local weights only, no online model APIs at run time. Model C is **not fine-tuned**.
 - **Coding style:** Python 3.14, `uv`, `just`, Pydantic v2, Loguru (no `print`), ruff (line length 100). Keep changes small and surgical (see the Karpathy guidelines in the user's `CLAUDE.md`).
 
 ## 3. The project in one paragraph
 
-A local prototype that watches the owner's two parking bays. **Model A** (a small CNN trained from scratch) says whether each bay is empty or occupied. **Model B** (fine-tuned YOLO11n) reads the full UAE plate of a parked car. **Model C** (a pretrained text model, no fine-tuning) turns the owner's short spoken command (already converted to text by the phone) into a permit change, which is applied only after the owner confirms. The three parts meet in one permit check that returns `AUTHORIZED`, `POTENTIALLY_UNAUTHORIZED` or `NEEDS_REVIEW`. Modalities: visual + text + tabular.
+A local prototype that watches my two parking bays. **Model A** (a small CNN trained from scratch) says whether each bay is empty or occupied. **Model B** (fine-tuned YOLO11n) reads the full UAE plate of a parked car. **Model C** (a pretrained text model, no fine-tuning) turns my short spoken command (already converted to text by the phone) into a permit change, which is applied only after I confirm. The three parts meet in one permit check that returns `AUTHORIZED`, `POTENTIALLY_UNAUTHORIZED` or `NEEDS_REVIEW`. Modalities: visual + text + tabular.
 
 ## 4. Where things stand
 
-**Model A (occupancy):** trained and tested on public data (CNRPark+EXT). Checked on the owner's 8 pilot photos (15/16 bays correct) and on 43 night photos from public car parks (60/86 correct: background rows, yellow wheel stops and close-up cars cause false alarms). Not yet adapted to local data.
+**Model A (occupancy):** trained and tested on public data (CNRPark+EXT). Checked on my 8 pilot photos (15/16 bays correct) and on 43 night photos from public car parks (60/86 correct: background rows, yellow wheel stops and close-up cars cause false alarms). Not yet adapted to local data.
 
 **Model B (plates):** fine-tuned YOLO11n, final public test: 71% of plates read exactly right. Three safety rules added after the night test (merge duplicate thin characters, Dubai read without a code letter goes to review, plate narrower than 10% of the bay width goes to review). Every night-set finding has saved evidence (`outputs/occupancy/local_night_1/findings.md`, kept local).
 
 **Model C (commands), Steps 1–3 done and committed (`b1b18fb`):**
-- Final scope (owner-reviewed): ALLOW or REMOVE only. The owner says the plate digits only (2–5 digits), and they are matched to Model B's full plate. Permits cover both bays, and a bay said in a command is ignored. The end time is optional, and no end time means a permanent permit.
+- Final scope (reviewed by me): ALLOW or REMOVE only. I say the plate digits only (2–5 digits), and they are matched to Model B's full plate. Permits cover both bays, and a bay said in a command is ignored. The end time is optional, and no end time means a permanent permit.
 - Anything unclear gives NEEDS_REVIEW plus a question, never a guess:
-  - one-digit number (the command is kept for the owner to check);
+  - one-digit number (the command is kept for me to check);
   - an hour without AM/PM;
   - a time already passed today;
   - "tonight", "next Monday" or other vague phrases;
@@ -45,7 +47,7 @@ A local prototype that watches the owner's two parking bays. **Model A** (a smal
 - **Data:** `just command-data` builds the sets in `outputs/commands/data/`:
   - dev: 60 commands;
   - frozen test: 160 commands (95 clear, 55 to review, 10 unsupported; 44 mention a bay; 33 use wording not seen in dev; 6 slips).
-  The answers are built from each sentence's meaning. `test_review.md` is the human-readable test list. The owner was asked to give the regenerated list a quick final look; check whether they did.
+  The answers are built from each sentence's meaning. `test_review.md` is the human-readable test list. I was asked to give the regenerated list a quick final look; check whether I did.
 - **Scoring:** `just command-score <parser> dev`. Metrics:
   - exact: the main metric;
   - dangerous: a change is proposed and it is wrong;
@@ -72,7 +74,7 @@ For each one, record:
 - licence;
 - disk size;
 - memory use;
-- time per command on the owner's Mac.
+- time per command on my Mac.
 
 Download the weights locally (there is a `just download-weights` recipe for the plate model; follow its pattern). Add the needed packages with `uv add` (for example `transformers`, and `gliner` / `sentence-transformers` if used). Check that this does not break the plate or occupancy code. Write the table to `outputs/commands/candidates.md`.
 
@@ -84,7 +86,7 @@ Download the weights locally (there is a `just download-weights` recipe for the 
 - Keep a short record of what was tried.
 - Add unit tests for each adapter's output shape. The tests must not need a model download, or they must skip cleanly.
 
-**Step 6: choose with a rule fixed in advance.** Before any results are seen, agree the rule with the owner and write it in `Memory.md`. The earlier draft rule was:
+**Step 6: choose with a rule fixed in advance.** Before any results are seen, agree the rule with me and write it in `Memory.md`. The earlier draft rule was:
 1. highest exact score on dev, as long as the dangerous rate is low enough;
 2. on a tie, the smaller and faster model wins.
 
@@ -105,14 +107,14 @@ The "low enough" limit is not yet fixed (see section 6).
 
 **Step 8: connect to the permit table.**
 - Use `PermitTable` in `schema.py`: confirmation text, `apply`, and `find(plate_text, at)`.
-- Demo the same arrival: `POTENTIALLY_UNAUTHORIZED` → a command plus the owner's yes → `AUTHORIZED` → `POTENTIALLY_UNAUTHORIZED` again after the permit expires or is removed.
+- Demo the same arrival: `POTENTIALLY_UNAUTHORIZED` → a command plus my yes → `AUTHORIZED` → `POTENTIALLY_UNAUTHORIZED` again after the permit expires or is removed.
 - Unclear plate reads stay `NEEDS_REVIEW`.
 
-## 6. Decisions waiting for the owner (ask, don't assume)
+## 6. Decisions waiting for me (ask, don't assume)
 
 1. Model C: the limit for the "dangerous" rate in the selection rule (for example, 0 dangerous on dev), and whether a slower model may win if it is clearly more accurate.
-2. Model C: whether the owner has given the regenerated `test_review.md` a final look (the rubric needs human-checked test labels).
-3. Model C (optional): whether the owner will dictate 20–30 real commands on the phone as an extra check of real wording (dev-style use only, or a small separate check set).
+2. Model C: whether I have given the regenerated `test_review.md` a final look (the rubric needs human-checked test labels).
+3. Model C (optional): whether I will dictate 20–30 real commands on the phone as an extra check of real wording (dev-style use only, or a small separate check set).
 4. Privacy: whether to hide plates in the local configs and results so they can be committed, or keep them local only.
 5. Plates: the code letter on photo IMG_1838 is still unconfirmed.
 6. Plates: rerun the public plate test set once, when the plate system is final (the three safety rules were added after the last test).
@@ -148,11 +150,11 @@ just command-score oracle test     # answer-key check (allowed without --final)
 
 - Work is on branch `model-c-candidates` (not merged, not pushed).
 - **Model C = `tiered`:**
-  - the owner's fixed form ("add 5055", "remove 5055 for 2 days") is read by fixed rules;
+  - my fixed form ("add 5055", "remove 5055 for 2 days") is read by fixed rules;
   - anything else goes to GLiNER Small v2.1 + MiniLM-L6;
   - every proposed change must be matched (action + number) by SmolLM2-135M;
   - safety checks: a word close in meaning to an action word, every number explained, and a half-seen end time asked about;
-  - the owner confirms every change.
+  - I confirm every change.
   - About 310M parameters (each model under 200M), not fine-tuned.
 - **Final test (run once, done; never rerun it):** Model C 50% exact, 1 dangerous of 160 (a negation, "don't allow car 28 anymore"); rule parser 64% / 3; GLiNER + MiniLM alone 73% / 15. The price of safety is coverage: new wording is almost always asked about. See `outputs/commands/final_test.md`.
 - **Robustness:** `just command-robustness` → `outputs/commands/robustness.md`.
@@ -162,7 +164,7 @@ just command-score oracle test     # answer-key check (allowed without --final)
 ## 10. Update 2026-11-22: full loop (steps 1–3)
 
 - `model-c-candidates` is merged into `main` (fast-forward, not pushed). New work is on branch `full-loop`.
-- **Owner decisions (section 6):**
+- **My decisions (section 6):**
   - item 4: real plates stay local only (now ignored by Git);
   - item 5: the IMG_1838 code letter is confirmed;
   - item 7: the cap is fine (about 3,000 items spare).
@@ -175,17 +177,17 @@ just command-score oracle test     # answer-key check (allowed without --final)
   - 64% right overall;
   - 0 false alerts, and 0 unauthorized cars let through;
   - the main weakness is night occupancy (21 empty bays called occupied, 6 cars missed).
-- **Model C finding:** in "until tomorrow nine thirty p.m.", both of its models dropped "tomorrow", and the owner's check caught it. With the owner's OK, a day-word check was added (`lost_day_words` in `adapters.py`). It was checked on dev sets only, the test was not run again, and the change is disclosed in `outputs/commands/final_test.md`. The robustness set now rebuilds identically.
+- **Model C finding:** in "until tomorrow nine thirty p.m.", both of its models dropped "tomorrow", and my check caught it. With my OK, a day-word check was added (`lost_day_words` in `adapters.py`). It was checked on dev sets only, the test was not run again, and the change is disclosed in `outputs/commands/final_test.md`. The robustness set now rebuilds identically.
 - **Next:**
   - step 4: remove one model at a time;
   - step 5: time per stage, plus a command that runs a folder of new photos, videos and commands;
-  - the owner's 10-minute night video (not yet in `data/`).
+  - my 10-minute night video (not yet in `data/`).
 
 ## 11. Update 2026-11-22: steps 4–5 and the night video (branch `loop-ablations-video`)
 
 - **Step 4, remove one part at a time:** `just full-loop-ablation` → `outputs/loop/ablation.md`.
   - Every part helps: without A or B, right answers fall from 64% to 33–35%; without the time check, 6 unauthorized cars are let through.
-  - On the owner's own wording, the rule parser beat Model C (see `Memory.md`).
+  - On my own wording, the rule parser beat Model C (see `Memory.md`).
 - **Step 5:**
   - `src/smart_parking/pipeline.py` loads the three models once and times each stage.
   - `just run-folder <dir> [--yes] [--every 2]` runs a folder of photos, videos and `commands.txt`. It needs `bays.yaml`: one folder is one camera.
@@ -193,7 +195,7 @@ just command-score oracle test     # answer-key check (allowed without --final)
 - **Night video:**
   - `data/raw/video_night_1/IMG_1503.MOV` with truth in `configs/local_video_night_1.yaml` (local only).
   - `just video-night-1` → `outputs/loop/video_night_1.md` (counts only), plus a local timeline.
-  - The owner checked the truth (`outputs/loop/local/video_truth_check.md`): accurate, no changes.
+  - I checked the truth (`outputs/loop/local/video_truth_check.md`): accurate, no changes.
 - **Next:**
   1. Optional: alert only if the answer holds for a few seconds. Fix the length before testing.
 - **Per-stay logic** (`src/smart_parking/stays.py`):
@@ -204,7 +206,7 @@ just command-score oracle test     # answer-key check (allowed without --final)
 
 ## 12. Update 2026-11-25: models final (branch `model-a-adapt`)
 
-- **Last recording:** night video 2 (5 files, about 43 min); the truth was checked by the owner and is stored in `configs/local_video_night_2.yaml` (local only). There will be no more recordings.
+- **Last recording:** night video 2 (5 files, about 43 min); the truth was checked by me and is stored in `configs/local_video_night_2.yaml` (local only). There will be no more recordings.
 - **Model A adapted** (`src/smart_parking/occupancy/adapt.py`):
   - the plan was fixed in `Memory.md` before training;
   - `just adapt-occupancy` chooses on block 4 → `outputs/occupancy/adaptation_val.md`;
@@ -230,12 +232,12 @@ just command-score oracle test     # answer-key check (allowed without --final)
   - `just evaluate` regenerates all tables (it needs the raw local data in `data/raw/`);
   - `just train` retrains;
   - `just budget` counts the parameters.
-- **Privacy lifted** by the owner: local configs, truth labels and plate-level results are now in Git. Samples are in `samples/`.
+- **Privacy lifted** by me: local configs, truth labels and plate-level results are now in Git. Samples are in `samples/`.
 - **Report:** `docs/final_report.md`.
 - **Open:**
   1. host the raw local data (about 6.5 GB) and add a download step;
   2. merge `trust-checks` into `main` and push;
-  3. the owner ticks the checklist;
+  3. I tick the checklist;
   4. optional: a plate rule for missing characters (probe B1).
 
 ## 14. Update 2026-11-27: audit fixes and the sealed final test (night 3)

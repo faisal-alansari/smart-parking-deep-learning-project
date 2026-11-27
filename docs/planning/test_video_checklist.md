@@ -40,7 +40,7 @@ written, because the system needs about 10–20 seconds to confirm a change.
 Passing cars, other people or a car turning nearby are fine: keep them, they are realistic. Just
 tell me roughly when they happened.
 
-## Owner commands for this video (`commands.txt`)
+## My commands for this video (`commands.txt`)
 
 Write these **before** you record, using the clock time you pressed record (T). Your own
 wording is fine; keep the meaning.

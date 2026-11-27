@@ -12,6 +12,8 @@ Approved modalities: **Visual + Text + Tabular**. Local prototype for two parkin
 - [ ] Benchmark and select a **pretrained NLP model without fine-tuning**.
 - [ ] Verify model parameter limits, local weights, and actual camera/plate feasibility.
 
+
+
 ## 2. Integrated Product
 
 - [ ] Detect bay occupancy, confirm arrivals, and capture evidence frames.
@@ -19,6 +21,8 @@ Approved modalities: **Visual + Text + Tabular**. Local prototype for two parkin
 - [ ] Match full plate, bay, and time to return `AUTHORIZED`, `POTENTIALLY_UNAUTHORIZED`, or `NEEDS_REVIEW`.
 - [ ] Integrate all **three approved modalities** in one end-to-end workflow.
 - [ ] Build CLI + simple UI, structured outputs, user feedback, and safe error/review handling.
+
+
 
 ## 3. Experimental Evidence
 
@@ -28,6 +32,8 @@ Approved modalities: **Visual + Text + Tabular**. Local prototype for two parkin
 - [ ] Measure uncertainty, unseen-input generalization, latency, memory, and efficiency.
 - [ ] Report test results against targets with reproducible tables and figures.
 
+
+
 ## 4. Trust & Investigation
 
 - [ ] Measure calibration with reliability diagrams and ECE.
@@ -36,6 +42,8 @@ Approved modalities: **Visual + Text + Tabular**. Local prototype for two parkin
 - [ ] Run increasing-severity robustness tests for images and commands.
 - [ ] Demonstrate monitoring alerts on a simulated input shift.
 - [ ] Run controlled explainability probes and counted failure analysis with fixes.
+
+
 
 ## 5. Final Delivery
 

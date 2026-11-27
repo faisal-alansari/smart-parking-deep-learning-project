@@ -10,4 +10,4 @@
 - Never invent results. Label untested ideas as pending and uncertain conclusions as inconclusive.
 - Review `Memory.md` before revisiting a choice, and update checklist boxes only after the work is verified.
 
-The owner may explicitly request a different level of detail for a specific entry.
+For a specific entry, follow my explicit request for a different level of detail.
